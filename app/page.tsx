@@ -1,10 +1,15 @@
-"use client";
-
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import ServiceCard from "@/components/ServiceCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import CTABanner from "@/components/CTABanner";
 import { Bot, Shield, Building2, ShieldCheck, Award, Stethoscope, Scale, Heart, Briefcase } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "IT, AI & Automation for Local Businesses",
+  description:
+    "Red Rose Technologies helps dental practices, law firms, healthcare providers, and local businesses in Lakewood Ranch, Bradenton, Sarasota, Manatee County, and Tampa Bay automate their work and stay secure.",
+};
 
 const industries = [
   { icon: Stethoscope, label: "Dental Practices" },

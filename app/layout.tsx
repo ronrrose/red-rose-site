@@ -16,10 +16,18 @@ export const metadata: Metadata = {
     "IT, automation, and cybersecurity for dental practices, healthcare, legal firms, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
   keywords: [
     "managed IT Lakewood Ranch",
+    "managed IT Bradenton",
+    "managed IT Sarasota",
     "AI automation small business",
+    "AI automation Tampa Bay",
     "dental IT support Sarasota",
+    "dental IT Lakewood Ranch",
     "HIPAA compliance Tampa Bay",
+    "HIPAA compliance Manatee County",
     "cybersecurity Bradenton",
+    "cybersecurity Sarasota",
+    "IT support Manatee County",
+    "IT services Lakewood Ranch",
     "Red Rose Technologies",
   ],
 };

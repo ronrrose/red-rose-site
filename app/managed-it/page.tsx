@@ -1,8 +1,13 @@
-"use client";
-
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import FeatureGrid from "@/components/FeatureGrid";
 import CTABanner from "@/components/CTABanner";
+
+export const metadata: Metadata = {
+  title: "Managed IT & Security",
+  description:
+    "HIPAA-compliant managed IT, cybersecurity, and 24/7 network monitoring for businesses in Lakewood Ranch, Bradenton, Sarasota, Manatee County, and Tampa Bay. Flat-rate pricing, no surprises.",
+};
 import {
   Shield, Server, Cloud, Lock, MonitorSmartphone, FileCheck,
   Zap, Users, HeartHandshake,
