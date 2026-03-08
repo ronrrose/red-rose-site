@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 const serviceLinks = [
@@ -23,8 +24,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block text-2xl font-bold text-ink mb-5">
-              Red Rose <span className="text-accent">Tech</span>
+            <Link href="/" className="flex items-center gap-2 mb-5">
+              <Image src="/logo.png" alt="Red Rose Technologies" width={36} height={36} className="w-9 h-9 object-contain" />
+              <span className="text-2xl font-bold text-ink">Red Rose <span className="text-accent">Tech</span></span>
             </Link>
             <p className="text-faded text-sm leading-relaxed mb-6">
               IT, automation, and security for dental practices, law firms, healthcare, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.

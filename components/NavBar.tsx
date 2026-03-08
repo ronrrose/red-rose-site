@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -27,10 +28,15 @@ export default function NavBar() {
     >
       <div className="container-site flex items-center justify-between h-20">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 shrink-0">
-          <div className="w-9 h-9 rounded-lg bg-brand-700 shadow-lg shadow-brand-700/20 flex items-center justify-center">
-            <span className="text-white text-sm font-black">R</span>
-          </div>
+        <Link href="/" className="flex items-center gap-2 shrink-0">
+          <Image
+            src="/logo.png"
+            alt="Red Rose Technologies"
+            width={40}
+            height={40}
+            className="w-10 h-10 object-contain"
+            priority
+          />
           <span className="text-xl font-bold tracking-tight text-ink">
             Red Rose <span className="text-accent">Tech</span>
           </span>

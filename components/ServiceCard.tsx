@@ -21,7 +21,7 @@ export default function ServiceCard({ icon: Icon, title, description, href }: Se
     >
       <Link
         href={href}
-        className="group glass-card rounded-2xl p-8 flex flex-col gap-5 hover:bg-raised/50 transition-colors block h-full"
+        className="group glass-card rounded-2xl p-8 flex flex-col gap-5 hover:bg-raised/50 transition-colors h-full"
       >
         <div className="w-12 h-12 rounded-xl bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent">
           <Icon className="w-6 h-6" />
