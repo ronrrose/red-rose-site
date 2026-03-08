@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import RoamScheduler from "@/components/RoamScheduler";
+import { MapPin, Phone, Mail, Send } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Contact / Book a Call",
@@ -25,13 +26,7 @@ export default function ContactPage() {
               <div className="glass-card rounded-2xl p-8 mb-8">
                 <h2 className="text-2xl font-bold text-ink mb-4">Pick a Time That Works</h2>
                 <p className="text-faded mb-6 text-sm">No commitment, no hard sell. Just a conversation.</p>
-                <div className="w-full h-[400px] rounded-xl bg-raised border border-line flex items-center justify-center text-faded text-sm">
-                  <div className="text-center">
-                    <Clock className="w-10 h-10 text-accent/40 mx-auto mb-3" />
-                    <p className="font-medium text-secondary">Scheduler Embed</p>
-                    <p className="text-xs text-faded mt-1">Calendly or Cal.com widget goes here</p>
-                  </div>
-                </div>
+                <RoamScheduler />
               </div>
               <div className="glass-card rounded-2xl p-8">
                 <h3 className="text-lg font-bold text-ink mb-6">Or Just Reach Out</h3>
