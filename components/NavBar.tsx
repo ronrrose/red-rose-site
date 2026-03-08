@@ -62,7 +62,7 @@ export default function NavBar() {
         {/* Desktop CTA + Toggle */}
         <div className="hidden lg:flex items-center gap-3">
           <span className="text-sm text-faded font-medium border-r border-line pr-3">
-            (941) 444-0396
+            (954) 857-1100
           </span>
           <ThemeToggle />
           <Link

@@ -33,11 +33,11 @@ export default function ContactPage() {
                 <ul className="space-y-5">
                   <li className="flex items-center gap-4 text-secondary">
                     <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><Phone className="w-5 h-5" /></div>
-                    <div><p className="text-ink font-semibold text-sm">(941) 444-0396</p><p className="text-faded text-xs">Mon through Fri, 8am to 6pm EST</p></div>
+                    <div><p className="text-ink font-semibold text-sm">(954) 857-1100</p><p className="text-faded text-xs">Mon through Fri, 8am to 6pm EST</p></div>
                   </li>
                   <li className="flex items-center gap-4 text-secondary">
                     <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><Mail className="w-5 h-5" /></div>
-                    <div><p className="text-ink font-semibold text-sm">ron@redrosetechnologies.com</p><p className="text-faded text-xs">Usually responds within a couple hours</p></div>
+                    <div><p className="text-ink font-semibold text-sm">rrose@redrosetechnologies.com</p><p className="text-faded text-xs">Usually responds within a couple hours</p></div>
                   </li>
                   <li className="flex items-center gap-4 text-secondary">
                     <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><MapPin className="w-5 h-5" /></div>
@@ -67,7 +67,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-secondary mb-2">Phone (Optional)</label>
-                    <input id="phone" type="tel" placeholder="(941) 555-0123" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
+                    <input id="phone" type="tel" placeholder="(954) 555-0123" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
                   </div>
                   <div>
                     <label htmlFor="businessType" className="block text-sm font-medium text-secondary mb-2">What Kind of Business?</label>

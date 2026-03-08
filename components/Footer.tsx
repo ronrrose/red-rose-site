@@ -70,13 +70,13 @@ export default function Footer() {
             <h4 className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Contact</h4>
             <ul className="space-y-3 mb-6">
               <li>
-                <a href="tel:9414440396" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
-                  <Phone className="w-4 h-4 shrink-0" /> (941) 444-0396
+                <a href="tel:9548571100" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
+                  <Phone className="w-4 h-4 shrink-0" /> (954) 857-1100
                 </a>
               </li>
               <li>
-                <a href="mailto:ron@redrosetechnologies.com" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
-                  <Mail className="w-4 h-4 shrink-0" /> ron@redrosetechnologies.com
+                <a href="mailto:rrose@redrosetechnologies.com" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
+                  <Mail className="w-4 h-4 shrink-0" /> rrose@redrosetechnologies.com
                 </a>
               </li>
             </ul>
