@@ -13,7 +13,6 @@ declare global {
 
 export default function RoamScheduler() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState(500);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const initializedRef = useRef(false);
@@ -27,14 +26,16 @@ export default function RoamScheduler() {
       if (!window.Roam || !containerRef.current) return;
       initializedRef.current = true;
 
+      const el = containerRef.current;
+
       window.Roam.initLobbyEmbed({
         url: "https://ro.am/ronrose/meeting",
         lobbyConfiguration: "booking_only",
         accentColor: "#8B1A1A",
         theme: resolvedTheme === "dark" ? "dark" : "light",
-        parentElement: containerRef.current,
+        parentElement: el,
         onSizeChange: (size: { height: number }) => {
-          setHeight(size.height);
+          el.style.height = `${size.height}px`;
         },
       });
     };
@@ -53,7 +54,6 @@ export default function RoamScheduler() {
     document.body.appendChild(script);
 
     return () => {
-      // Cleanup: remove script if component unmounts before load
       if (!initializedRef.current && script.parentNode) {
         script.parentNode.removeChild(script);
       }
@@ -64,8 +64,8 @@ export default function RoamScheduler() {
     <div
       id="roam-lobby"
       ref={containerRef}
-      style={{ minWidth: 320, height }}
-      className="w-full rounded-xl overflow-hidden transition-all duration-300"
+      style={{ minWidth: 320, minHeight: 600 }}
+      className="w-full rounded-xl"
     />
   );
 }
