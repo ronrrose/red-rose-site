@@ -31,7 +31,7 @@ export default function NavBar() {
         <Link href="/" className="shrink-0">
           <Image
             src="/logo.png"
-            alt="Red Rose Technologiesnologies"
+            alt="Red Rose Technologies"
             width={48}
             height={48}
             className="w-12 h-12 object-contain"

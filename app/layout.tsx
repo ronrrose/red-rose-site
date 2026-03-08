@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Red Rose Technologiesnologies | IT, Automation & Security for Local Businesses",
-    template: "%s | Red Rose Technologiesnologies",
+    default: "Red Rose Technologies | IT, Automation & Security for Local Businesses",
+    template: "%s | Red Rose Technologies",
   },
   description:
     "IT, automation, and cybersecurity for dental practices, healthcare, legal firms, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "dental IT support Sarasota",
     "HIPAA compliance Tampa Bay",
     "cybersecurity Bradenton",
-    "Red Rose Technologiesnologies",
+    "Red Rose Technologies",
   ],
 };
 

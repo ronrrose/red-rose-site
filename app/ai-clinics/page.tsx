@@ -202,7 +202,7 @@ export default function AIClinicsPage() {
                 <p className="text-accent font-semibold text-sm mb-1">Your Instructor</p>
                 <h3 className="text-2xl font-bold text-ink mb-4">Ron Rose</h3>
                 <p className="text-secondary leading-relaxed mb-4">
-                  I&apos;m Ron. I run Red Rose Technologiesnologies and I built these clinics because I got tired of watching local businesses get left behind on AI. I&apos;m Google AI Essentials certified, CompTIA credentialed, and I&apos;ve spent years in HIPAA-compliant IT for dental practices. I know what works for non-technical teams because I&apos;ve sat across the table from them hundreds of times.
+                  I&apos;m Ron. I run Red Rose Technologies and I built these clinics because I got tired of watching local businesses get left behind on AI. I&apos;m Google AI Essentials certified, CompTIA credentialed, and I&apos;ve spent years in HIPAA-compliant IT for dental practices. I know what works for non-technical teams because I&apos;ve sat across the table from them hundreds of times.
                 </p>
                 <p className="text-faded text-sm">
                   Based in Lakewood Ranch, FL. Serving Bradenton, Sarasota, Manatee County, and the greater Tampa Bay area.

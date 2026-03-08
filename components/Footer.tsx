@@ -25,7 +25,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-5">
-              <Image src="/logo.png" alt="Red Rose Technologiesnologies" width={36} height={36} className="w-9 h-9 object-contain" />
+              <Image src="/logo.png" alt="Red Rose Technologies" width={36} height={36} className="w-9 h-9 object-contain" />
               <span className="text-2xl font-bold text-ink">Red Rose <span className="text-accent">Technologies</span></span>
             </Link>
             <p className="text-faded text-sm leading-relaxed mb-6">
@@ -89,7 +89,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-line flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-faded text-sm">
-            © {new Date().getFullYear()} Red Rose Technologiesnologies. All rights reserved.
+            © {new Date().getFullYear()} Red Rose Technologies. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link href="#" className="text-faded hover:text-secondary text-sm transition-colors">Privacy</Link>
