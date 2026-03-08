@@ -9,8 +9,12 @@ declare global {
 
 export default function RoamScheduler() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const initializedRef = useRef(false);
 
   useEffect(() => {
+    if (initializedRef.current) return;
+    initializedRef.current = true;
+
     const script = document.createElement("script");
     script.src = "https://ro.am/lobbylinks/embed.js";
     script.async = true;
@@ -31,7 +35,6 @@ export default function RoamScheduler() {
       }
     };
     document.body.appendChild(script);
-    return () => { script.remove(); };
   }, []);
 
   return <div ref={containerRef} style={{ minWidth: "320px", width: "100%" }} />;
