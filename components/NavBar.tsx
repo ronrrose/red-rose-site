@@ -28,18 +28,15 @@ export default function NavBar() {
     >
       <div className="container-site flex items-center justify-between h-20">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
+        <Link href="/" className="shrink-0">
           <Image
             src="/logo.png"
             alt="Red Rose Technologies"
-            width={40}
-            height={40}
-            className="w-10 h-10 object-contain"
+            width={48}
+            height={48}
+            className="w-12 h-12 object-contain"
             priority
           />
-          <span className="text-xl font-bold tracking-tight text-ink">
-            Red Rose <span className="text-accent">Tech</span>
-          </span>
         </Link>
 
         {/* Desktop Links */}
