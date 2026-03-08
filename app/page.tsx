@@ -1,3 +1,5 @@
+"use client";
+
 import Hero from "@/components/Hero";
 import ServiceCard from "@/components/ServiceCard";
 import TestimonialCard from "@/components/TestimonialCard";
@@ -27,9 +29,9 @@ export default function HomePage() {
             for Local Businesses.
           </>
         }
-        subtitle="Red Rose Technologies helps dental practices, healthcare providers, legal firms, nonprofits, and SMBs across Tampa Bay automate operations, lock down compliance, and stop wasting money on IT that doesn't perform."
-        primaryCta={{ label: "Get a Free Assessment", href: "/contact" }}
-        secondaryCta={{ label: "Explore AI Clinics", href: "/ai-clinics" }}
+        subtitle="You've heard the AI hype. We skip that part. We show dental practices, law firms, nonprofits, and local shops across Tampa Bay how to automate the stuff that's eating their week. And we keep the tech running so they don't have to think about it."
+        primaryCta={{ label: "Let's Look at Your Setup", href: "/contact" }}
+        secondaryCta={{ label: "Check Out AI Clinics", href: "/ai-clinics" }}
         trustItems={[
           "Google AI Certified",
           "CompTIA Certified",
@@ -43,25 +45,25 @@ export default function HomePage() {
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">What We Do</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">Three Ways We Transform Your Business</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white">Three Things We're Really Good At</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             <ServiceCard
               icon={Bot}
               title="AI & Automation Clinics"
-              description="Hands-on workshops that teach your team to use AI tools right now — not theory, real workflows that save hours every week."
+              description="Hands-on workshops where your team builds real automations. Not a lecture. You'll walk out saving hours every week."
               href="/ai-clinics"
             />
             <ServiceCard
               icon={Shield}
               title="Managed IT & Security"
-              description="Proactive, compliance-first IT management. HIPAA, SOC 2, and cybersecurity built in — not bolted on."
+              description="We watch your network, keep you compliant, and fix problems before you notice them. HIPAA, cybersecurity, all of it."
               href="/managed-it"
             />
             <ServiceCard
               icon={Building2}
               title="Industries We Serve"
-              description="Deep expertise in dental, healthcare, legal, nonprofits, and SMBs. We speak your language and know your software."
+              description="Dental offices, law firms, healthcare, nonprofits, and local businesses. We know your software and we speak your language."
               href="/industries"
             />
           </div>
@@ -74,10 +76,10 @@ export default function HomePage() {
           <div className="text-center max-w-3xl mx-auto mb-14">
             <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Who We Help</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Built for Operators Who Can&apos;t Afford to Break Things
+              People Who Can&apos;t Afford IT That Doesn&apos;t Work
             </h2>
             <p className="text-slate-400 text-lg">
-              We work with businesses that need their technology to work — reliably, securely, and without surprises on the invoice.
+              If your business depends on the tech actually working, and you're tired of surprise bills and slow responses, we should talk.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
@@ -119,22 +121,22 @@ export default function HomePage() {
       <section className="section-padding">
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Client Results</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">Trusted by Local Businesses</h2>
+            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">What People Say</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white">Don&apos;t Take Our Word for It</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <TestimonialCard
-              quote="Red Rose Technologies handled our Dentrix migration without a single hour of downtime. Their HIPAA expertise gave us complete peace of mind."
+              quote="They moved us off our old Dentrix server without a single minute of downtime. I didn't even know it happened until they told me it was done."
               name="Dr. Sarah Jenkins, DDS"
               role="Jenkins Family Dentistry, Lakewood Ranch"
             />
             <TestimonialCard
-              quote="The AI clinic changed how we run our back office. We automated our intake forms and scheduling follow-ups — saving us 10+ hours a week."
+              quote="We sat through one AI clinic and automated our intake forms and appointment follow-ups the same week. That's 10 hours a week we got back."
               name="Maria Gonzalez"
               role="Operations Director, Sarasota Nonprofit"
             />
             <TestimonialCard
-              quote="We finally have an IT partner who understands compliance. Their proactive monitoring caught a vulnerability before it became a headline."
+              quote="Our last IT company took three days to return calls. Ron picks up the phone. His team caught a vulnerability on our network before it turned into a nightmare."
               name="James Torres, Esq."
               role="Torres Law Group, Bradenton"
             />

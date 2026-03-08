@@ -6,41 +6,41 @@ import { ShieldCheck, Users, Lightbulb, HeartHandshake, Award } from "lucide-rea
 export const metadata: Metadata = {
   title: "About / Why Red Rose",
   description:
-    "Red Rose Technologies: operator-first AI, automation, and managed IT. Google AI certified, CompTIA credentialed. Founded by Ron Rose in Lakewood Ranch, FL.",
+    "Red Rose Technologies: local IT, AI, and automation run by Ron Rose. Google AI certified, CompTIA credentialed. Lakewood Ranch, FL.",
 };
 
 const differentiators = [
   {
     icon: Lightbulb,
-    title: "Operator-First Thinking",
+    title: "We Think Like Operators",
     description:
-      "We don't sell technology for technology's sake. Every recommendation starts with understanding your workflows, your team, and your bottom line.",
+      "We don't sell tech for the sake of selling tech. Every recommendation starts with understanding how your business actually runs.",
   },
   {
     icon: ShieldCheck,
-    title: "Compliance Is the Foundation",
+    title: "Compliance Is the Starting Point",
     description:
-      "HIPAA, SOC 2, and regulatory requirements aren't add-ons. They're baked into every solution from day one.",
+      "HIPAA, SOC 2, industry regulations. These aren't add-ons. They're built into every setup from day one.",
   },
   {
     icon: Users,
-    title: "We Speak Your Industry",
+    title: "We Already Know Your Tools",
     description:
-      "We know Dentrix, Clio, QuickBooks, and the tools your team relies on. We don't waste your time learning your business on your dime.",
+      "Dentrix, Clio, QuickBooks, and the rest. We don't spend your time learning your software. We already know it.",
   },
   {
     icon: HeartHandshake,
-    title: "Partnership, Not Vendor Lock-In",
+    title: "No Contracts, No Lock-In",
     description:
-      "No long-term contracts. No hidden fees. We earn your business every month by delivering results — not by trapping you in a contract.",
+      "We earn your business every month by doing good work. Not by trapping you in a contract. No hidden fees, ever.",
   },
 ];
 
 const credentials = [
-  { label: "Google AI Essentials", detail: "Certified in practical AI application for business automation and decision-making." },
+  { label: "Google AI Essentials", detail: "Certified in practical AI tools for business automation and decision-making." },
   { label: "CompTIA IT Fundamentals+", detail: "Industry-standard credential covering IT infrastructure, security, and networking." },
-  { label: "HIPAA Security Specialist", detail: "Deep expertise in healthcare data protection, risk assessments, and compliance documentation." },
-  { label: "Microsoft 365 Administration", detail: "Proficiency in deployment, security, and management of Microsoft cloud ecosystems." },
+  { label: "HIPAA Security Specialist", detail: "Deep experience with healthcare data protection, risk assessments, and audit documentation." },
+  { label: "Microsoft 365 Administration", detail: "Deployment, security, and management of Microsoft cloud environments." },
 ];
 
 export default function AboutPage() {
@@ -56,9 +56,9 @@ export default function AboutPage() {
             </span>
           </>
         }
-        subtitle="Red Rose Technologies isn't another faceless IT company. It's a business built by someone who understands what it's like to run one — and what it costs when technology doesn't work."
+        subtitle="We're not another faceless IT company. Red Rose Technologies was built by someone who knows what it's like to run a business, and what it costs when the tech doesn't work."
         primaryCta={{ label: "Work With Us", href: "/contact" }}
-        secondaryCta={{ label: "See Our Services", href: "/managed-it" }}
+        secondaryCta={{ label: "See What We Do", href: "/managed-it" }}
       />
 
       {/* ── Our Story ── */}
@@ -71,13 +71,13 @@ export default function AboutPage() {
             </h2>
             <div className="text-slate-300 text-lg leading-relaxed space-y-6 text-left">
               <p>
-                I started Red Rose Technologies because I saw the same pattern everywhere: local businesses — dental practices, law firms, nonprofits, shops — getting sold technology they didn&apos;t need by vendors who didn&apos;t understand their operations.
+                I started Red Rose Technologies because I kept seeing the same thing. Local businesses, dental practices, law firms, nonprofits, getting sold technology they didn&apos;t need by vendors who didn&apos;t understand their operations.
               </p>
               <p>
-                They were paying for break-fix IT that waited for things to break. They were told AI was &ldquo;the future&rdquo; but given no roadmap to get there. And worse, they were being left exposed on compliance and security because their IT provider treated it as an afterthought.
+                They were paying for break-fix IT that waited for things to break. They kept hearing AI was &ldquo;the future&rdquo; but nobody gave them a roadmap. And the worst part? Their IT provider treated compliance and security like an afterthought.
               </p>
               <p>
-                I built Red Rose Technologies to be different. We lead with security. We build with compliance. And we teach business owners how to use AI and automation tools that actually move the needle — not just the ones that look good in a demo.
+                I built Red Rose Technologies to do it differently. We lead with security. We build with compliance. And we teach business owners how to use AI tools that actually make a difference, not just the ones that look good in a demo.
               </p>
             </div>
           </div>
@@ -88,9 +88,9 @@ export default function AboutPage() {
       <section className="section-padding bg-dark-950/50 border-y border-dark-700/30">
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">What Makes Us Different</p>
+            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">How We Work</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white">
-              Four Principles We Never Compromise
+              Four Things We Don&apos;t Bend On
             </h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -112,7 +112,7 @@ export default function AboutPage() {
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Credentials</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">Certified. Proven. Trusted.</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white">We Did the Homework</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {credentials.map((c) => (
@@ -139,15 +139,15 @@ export default function AboutPage() {
                 <h3 className="text-2xl font-bold text-white mb-4">Ron Rose</h3>
                 <div className="text-slate-300 leading-relaxed space-y-4 text-[15px]">
                   <p>
-                    If you&apos;re reading this, you probably know something isn&apos;t working with your current IT situation. Maybe it&apos;s the vendor who takes three days to respond. Maybe it&apos;s the nagging feeling that your patient data isn&apos;t actually secure. Maybe you keep hearing about AI but have no idea where to start.
+                    If you&apos;re reading this, something isn&apos;t working with your current IT. Maybe it&apos;s the vendor who takes three days to call back. Maybe it&apos;s the nagging feeling that your patient data isn&apos;t really secure. Maybe you keep hearing about AI but have no clue where to start.
                   </p>
                   <p>
-                    I&apos;ve been there. I know what it feels like to run a business where technology is supposed to help but instead it just creates more problems. That&apos;s exactly why I built Red Rose Technologies.
+                    I&apos;ve been there. I know what it feels like to run a business where the technology is supposed to help but mostly just creates more problems. That&apos;s exactly why I built this company.
                   </p>
                   <p>
-                    I&apos;d love to talk. No pitch, no pressure — just a real conversation about what&apos;s going on and whether we can help.
+                    I&apos;d love to talk. No pitch, no pressure. Just a real conversation about what&apos;s going on and whether we can help.
                   </p>
-                  <p className="text-brand-400 font-semibold">— Ron Rose, Founder</p>
+                  <p className="text-brand-400 font-semibold">— Ron</p>
                 </div>
               </div>
             </div>
@@ -156,9 +156,9 @@ export default function AboutPage() {
       </section>
 
       <CTABanner
-        heading="Let's Start a Conversation"
-        subtitle="Reach out for a free, no-obligation assessment. If we're a fit, great. If not, you'll still walk away with actionable insights."
-        primaryLabel="Book a Call with Ron"
+        heading="Want to Have a Real Conversation?"
+        subtitle="Reach out for a free, no-pressure assessment. If we're a fit, great. If not, you'll still walk away with useful info."
+        primaryLabel="Talk to Ron"
       />
     </>
   );

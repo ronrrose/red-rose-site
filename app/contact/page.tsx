@@ -5,7 +5,7 @@ import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 export const metadata: Metadata = {
   title: "Contact / Book a Call",
   description:
-    "Schedule a free IT & AI assessment with Red Rose Technologies. Serving Lakewood Ranch, Bradenton, Sarasota, Manatee County & Tampa Bay.",
+    "Talk to Ron about your IT, AI, or security needs. Free assessment. Serving Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
 };
 
 const serviceAreas = [
@@ -28,11 +28,11 @@ export default function ContactPage() {
           <>
             Book a Call.{" "}
             <span className="text-gradient bg-gradient-to-r from-brand-400 to-cyan-400">
-              Get Answers.
+              Get Real Answers.
             </span>
           </>
         }
-        subtitle="Schedule a free, no-pressure conversation with Ron Rose. We'll discuss your IT challenges, security concerns, and automation opportunities — and if we're a fit, we'll build you a custom plan."
+        subtitle="Pick a time, tell us what's going on, and we'll have an honest conversation about your IT, security, or automation needs. No sales pitch. Just straight talk."
       />
 
       <section className="section-padding border-t border-dark-700/30">
@@ -42,9 +42,9 @@ export default function ContactPage() {
             <div>
               {/* Scheduler Embed Area */}
               <div className="glass-card rounded-2xl p-8 mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">Schedule Your Free Assessment</h2>
+                <h2 className="text-2xl font-bold text-white mb-4">Pick a Time That Works</h2>
                 <p className="text-slate-400 mb-6 text-sm">
-                  Pick a time that works for you. No commitment, no hard sell — just a conversation.
+                  No commitment, no hard sell. Just a conversation.
                 </p>
                 {/* Placeholder for Calendly / Cal.com / etc. embed */}
                 <div className="w-full h-[400px] rounded-xl bg-dark-700/50 border border-dark-700 flex items-center justify-center text-slate-500 text-sm">
@@ -58,7 +58,7 @@ export default function ContactPage() {
 
               {/* Contact Info */}
               <div className="glass-card rounded-2xl p-8">
-                <h3 className="text-lg font-bold text-white mb-6">Or Reach Out Directly</h3>
+                <h3 className="text-lg font-bold text-white mb-6">Or Just Reach Out</h3>
                 <ul className="space-y-5">
                   <li className="flex items-center gap-4 text-slate-300">
                     <div className="w-10 h-10 rounded-lg bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 shrink-0">
@@ -66,7 +66,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="text-white font-semibold text-sm">(941) 444-0396</p>
-                      <p className="text-slate-500 text-xs">Mon–Fri 8am–6pm EST</p>
+                      <p className="text-slate-500 text-xs">Mon through Fri, 8am to 6pm EST</p>
                     </div>
                   </li>
                   <li className="flex items-center gap-4 text-slate-300">
@@ -75,7 +75,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="text-white font-semibold text-sm">ron@redrosetechnologies.com</p>
-                      <p className="text-slate-500 text-xs">Typically responds within 2 hours</p>
+                      <p className="text-slate-500 text-xs">Usually responds within a couple hours</p>
                     </div>
                   </li>
                   <li className="flex items-center gap-4 text-slate-300">
@@ -84,7 +84,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="text-white font-semibold text-sm">Lakewood Ranch, FL</p>
-                      <p className="text-slate-500 text-xs">Serving Manatee &amp; Sarasota Counties</p>
+                      <p className="text-slate-500 text-xs">Serving Manatee & Sarasota Counties</p>
                     </div>
                   </li>
                 </ul>
@@ -95,7 +95,7 @@ export default function ContactPage() {
             <div>
               <div className="glass-card rounded-2xl p-8">
                 <h2 className="text-2xl font-bold text-white mb-2">Send a Message</h2>
-                <p className="text-slate-400 text-sm mb-8">Prefer a form? Fill this out and Ron will get back to you within one business day.</p>
+                <p className="text-slate-400 text-sm mb-8">Rather type it out? Fill this in and Ron will get back to you within one business day.</p>
                 <form className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
@@ -116,26 +116,26 @@ export default function ContactPage() {
                     <input id="phone" type="tel" placeholder="(941) 555-0123" className="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder:text-dark-600 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all text-sm" />
                   </div>
                   <div>
-                    <label htmlFor="businessType" className="block text-sm font-medium text-slate-300 mb-2">Business Type</label>
+                    <label htmlFor="businessType" className="block text-sm font-medium text-slate-300 mb-2">What Kind of Business?</label>
                     <select id="businessType" className="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all text-sm">
-                      <option value="">Select your industry</option>
+                      <option value="">Pick one</option>
                       <option value="dental">Dental Practice</option>
-                      <option value="healthcare">Healthcare Provider</option>
+                      <option value="healthcare">Healthcare</option>
                       <option value="legal">Legal Firm</option>
                       <option value="nonprofit">Nonprofit</option>
                       <option value="smb">Small/Medium Business</option>
-                      <option value="other">Other</option>
+                      <option value="other">Something Else</option>
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">How Can We Help?</label>
-                    <textarea id="message" rows={4} placeholder="Tell us about your biggest IT challenge, or what you'd like to automate..." className="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder:text-dark-600 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all text-sm resize-none" />
+                    <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">What&apos;s Going On?</label>
+                    <textarea id="message" rows={4} placeholder="Tell us about your biggest IT headache, or what you'd like to automate..." className="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder:text-dark-600 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all text-sm resize-none" />
                   </div>
                   <button
                     type="submit"
                     className="w-full px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-600/25 flex items-center justify-center gap-2 group"
                   >
-                    Send Message
+                    Send It Over
                     <Send className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
                   </button>
                 </form>
@@ -151,9 +151,9 @@ export default function ContactPage() {
           <div className="text-center max-w-3xl mx-auto mb-10">
             <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Service Area</p>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Proudly Serving Southwest Florida
+              Local to Southwest Florida
             </h2>
-            <p className="text-slate-400">On-site and remote support across the Tampa Bay metro area.</p>
+            <p className="text-slate-400">On-site and remote support across the Tampa Bay area.</p>
           </div>
           
           {/* Map placeholder */}
@@ -161,7 +161,7 @@ export default function ContactPage() {
             <div className="text-center">
               <MapPin className="w-10 h-10 text-brand-400/40 mx-auto mb-3" />
               <p className="font-medium text-slate-400">Google Maps Embed</p>
-              <p className="text-xs text-slate-500 mt-1">Interactive map would be embedded here</p>
+              <p className="text-xs text-slate-500 mt-1">Interactive map goes here</p>
             </div>
           </div>
 

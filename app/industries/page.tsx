@@ -6,7 +6,7 @@ import { CheckCircle2, Stethoscope, Heart, Scale, Building2, Briefcase } from "l
 export const metadata: Metadata = {
   title: "Industries We Serve",
   description:
-    "Specialized IT, cybersecurity, and AI automation for dental practices, healthcare, legal, nonprofits, and SMBs in Lakewood Ranch, Bradenton, Sarasota & Tampa Bay.",
+    "IT, cybersecurity, and AI automation for dental practices, healthcare, legal, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
 };
 
 const industries = [
@@ -14,105 +14,105 @@ const industries = [
     id: "dental",
     icon: Stethoscope,
     name: "Dental Practices",
-    headline: "HIPAA-Compliant IT Built for Modern Dentistry",
+    headline: "HIPAA IT That Knows Dentistry Inside and Out",
     painPoints: [
-      "Dentrix, Eaglesoft, or Open Dental running slow or crashing",
-      "Imaging servers not backed up or HIPAA-compliant",
-      "Staff wasting hours on manual patient communications",
-      "Fear of failing a HIPAA audit or suffering a data breach",
-      "IT vendor who doesn't understand dental workflows",
+      "Dentrix or Eaglesoft running slow, freezing, or crashing during patients",
+      "Imaging server that hasn't been backed up properly in months",
+      "Staff spending hours on phone reminders and manual patient comms",
+      "Worried about what happens during a HIPAA audit",
+      "IT vendor who doesn't know the difference between Dentrix and Dexis",
     ],
     services: [
-      "Practice management software support & optimization",
-      "HIPAA risk assessments & compliance documentation",
+      "Practice management software support and speed tuning",
+      "HIPAA risk assessments with full documentation",
       "Encrypted backups with tested disaster recovery",
-      "Secure patient communication automation",
-      "Digital imaging server setup & management",
-      "Staff cybersecurity awareness training",
+      "Automated patient communication workflows",
+      "Digital imaging server setup and ongoing management",
+      "Staff cybersecurity training (yes, the phishing kind)",
     ],
   },
   {
     id: "healthcare",
     icon: Heart,
     name: "Healthcare Providers",
-    headline: "Secure, Compliant IT for Patient-Centered Care",
+    headline: "Secure IT for People Who Take Care of People",
     painPoints: [
-      "EHR/EMR systems that are slow, outdated, or poorly integrated",
-      "Ongoing HIPAA compliance requirements eating up admin time",
-      "Telehealth platforms that aren't secure or reliable",
-      "Ransomware threats targeting healthcare organizations",
-      "Lack of 24/7 monitoring for critical systems",
+      "EHR/EMR systems that are slow or constantly need workarounds",
+      "HIPAA paperwork eating up admin hours every month",
+      "Telehealth platform that drops calls or isn't actually secure",
+      "Growing ransomware threats targeting healthcare",
+      "Nobody watching your systems at 2 AM on a Saturday",
     ],
     services: [
-      "EHR/EMR integration & optimization",
-      "HIPAA compliance management & documentation",
-      "Telehealth infrastructure setup & security",
-      "24/7 endpoint monitoring & threat detection",
-      "Secure cloud migrations (Azure, AWS, Google Cloud)",
-      "Medical device network segmentation & security",
+      "EHR/EMR integration and performance tuning",
+      "HIPAA compliance management and audit documentation",
+      "Telehealth infrastructure that's secure and reliable",
+      "24/7 endpoint monitoring and threat detection",
+      "Cloud migrations done carefully (Azure, AWS, Google Cloud)",
+      "Medical device network segmentation and security",
     ],
   },
   {
     id: "legal",
     icon: Scale,
     name: "Legal Firms",
-    headline: "Protect Client Data. Streamline Operations.",
+    headline: "Keep Client Data Safe. Get Work Done Faster.",
     painPoints: [
-      "Client confidentiality concerns with cloud storage",
-      "eDiscovery processes that are slow and manual",
-      "Remote work security gaps for attorneys and staff",
-      "Compliance with bar association data protection rules",
-      "Document management systems that don't sync properly",
+      "Nervous about client confidentiality with cloud storage",
+      "eDiscovery processes that take forever",
+      "Attorneys working remotely without proper security",
+      "Bar association data protection rules that keep changing",
+      "Document management systems that don't sync right",
     ],
     services: [
       "Clio, MyCase, and practice management optimization",
-      "Encrypted file sharing & client portal setup",
-      "eDiscovery readiness & litigation support infrastructure",
-      "Multi-factor authentication & zero-trust access",
+      "Encrypted file sharing and client portal setup",
+      "eDiscovery readiness and litigation support infrastructure",
+      "Multi-factor authentication and zero-trust access",
       "Secure remote access for distributed legal teams",
-      "Compliance documentation & audit preparation",
+      "Compliance documentation and audit prep",
     ],
   },
   {
     id: "nonprofits",
     icon: Building2,
     name: "Nonprofits",
-    headline: "Maximize Impact with Smart, Affordable IT",
+    headline: "Do More Good With Less Budget",
     painPoints: [
-      "Limited IT budget but growing technology needs",
-      "Donor and beneficiary data that isn't properly secured",
-      "Staff using personal devices without security policies",
-      "Outdated systems that slow down program delivery",
-      "No IT strategy aligned with grant and funding requirements",
+      "Small IT budget but growing tech needs",
+      "Donor and beneficiary data that isn't properly locked down",
+      "Staff using personal phones and laptops with no security policies",
+      "Outdated systems slowing down program delivery",
+      "No tech strategy that lines up with grant requirements",
     ],
     services: [
-      "Microsoft 365 Nonprofit licensing & setup",
-      "Grant-eligible technology planning & procurement",
-      "Donor database security & CRM integration",
-      "Cloud-first infrastructure on a nonprofit budget",
-      "Cybersecurity awareness training for staff & volunteers",
-      "Board-ready IT reporting & compliance documentation",
+      "Microsoft 365 Nonprofit licensing and full setup",
+      "Grant-eligible technology planning and procurement",
+      "Donor database security and CRM integration",
+      "Cloud-first infrastructure on a nonprofit-sized budget",
+      "Cybersecurity training for staff and volunteers",
+      "Board-ready IT reporting and compliance docs",
     ],
   },
   {
     id: "smb",
     icon: Briefcase,
     name: "Small & Medium Businesses",
-    headline: "Enterprise-Grade IT, Local Business Pricing",
+    headline: "Big-Company IT. Small-Company Price.",
     painPoints: [
-      "Outgrowing break-fix IT but not ready for a full IT department",
-      "Cybersecurity threats targeting small businesses",
-      "No disaster recovery plan — one crash and you lose everything",
-      "Technology decisions made without a strategic plan",
-      "Paying for IT services you don't actually need",
+      "Outgrowing your break-fix IT guy but not ready for a full IT team",
+      "Cybersecurity threats you hear about but don't know how to stop",
+      "No disaster recovery plan. One crash and everything's gone.",
+      "Making tech decisions without a plan",
+      "Paying for IT services you don't actually use",
     ],
     services: [
       "Flat-rate managed IT with no hidden fees",
-      "QuickBooks, POS, and line-of-business app support",
-      "VoIP phone systems & unified communications",
-      "Cloud productivity suite setup (Microsoft 365, Google Workspace)",
-      "Network design, Wi-Fi optimization, and cabling",
-      "Virtual CTO consulting & technology roadmapping",
+      "QuickBooks, POS, and business app support",
+      "VoIP phone systems and unified communications",
+      "Cloud setup: Microsoft 365, Google Workspace, done right",
+      "Network design, Wi-Fi tuning, and cabling",
+      "Virtual CTO consulting and technology roadmapping",
     ],
   },
 ];
@@ -124,14 +124,14 @@ export default function IndustriesPage() {
         badge="Industry Expertise"
         title={
           <>
-            Deep Expertise in the Industries That{" "}
+            We Know Your Industry.{" "}
             <span className="text-gradient bg-gradient-to-r from-brand-400 to-cyan-400">
-              Matter Most
+              That&apos;s the Point.
             </span>
           </>
         }
-        subtitle="We don't do generic IT. We specialize in regulated, high-stakes industries where compliance, security, and uptime aren't optional — they're everything."
-        primaryCta={{ label: "Get Industry-Specific Help", href: "/contact" }}
+        subtitle="We don't do generic IT. We specialize in industries where compliance, security, and uptime aren't nice-to-haves. They're the whole job."
+        primaryCta={{ label: "Talk to Us About Your Industry", href: "/contact" }}
         trustItems={["Dental", "Healthcare", "Legal", "Nonprofits", "SMBs"]}
       />
 
@@ -157,7 +157,7 @@ export default function IndustriesPage() {
               <div>
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-accent-500" />
-                  Common Pain Points
+                  Sound Familiar?
                 </h3>
                 <ul className="space-y-3">
                   {ind.painPoints.map((p, i) => (
@@ -171,7 +171,7 @@ export default function IndustriesPage() {
               <div>
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-brand-400" />
-                  How We Help
+                  Here's What We Do About It
                 </h3>
                 <ul className="space-y-3">
                   {ind.services.map((s, i) => (
@@ -189,8 +189,8 @@ export default function IndustriesPage() {
 
       <CTABanner
         heading="Let's Talk About Your Industry"
-        subtitle="Every industry has unique IT challenges. Get a free assessment tailored to yours."
-        primaryLabel="Get Your Custom Assessment"
+        subtitle="Every business has its own headaches. Tell us yours and we'll show you exactly how we'd handle it."
+        primaryLabel="Get a Custom Assessment"
       />
     </>
   );

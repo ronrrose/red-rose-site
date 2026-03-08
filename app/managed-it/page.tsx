@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+"use client";
+
 import Hero from "@/components/Hero";
 import FeatureGrid from "@/components/FeatureGrid";
 import CTABanner from "@/components/CTABanner";
@@ -7,26 +8,20 @@ import {
   Zap, Users, HeartHandshake,
 } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Managed IT & Security",
-  description:
-    "Premium, compliance-first managed IT and cybersecurity for dental practices, healthcare, legal firms, nonprofits & SMBs in Lakewood Ranch, Sarasota & Tampa Bay.",
-};
-
 const services = [
-  { icon: Shield,             title: "Compliance-First Security",    description: "HIPAA, SOC 2, and regulatory compliance built into every layer — not an afterthought or add-on." },
-  { icon: Server,             title: "Proactive Network Monitoring",  description: "24/7 SOC monitoring with real-time alerts. We catch threats and resolve issues before they impact your business." },
-  { icon: Lock,               title: "Ransomware & Threat Protection", description: "Advanced endpoint detection, DNS filtering, and AI-driven threat analysis to keep cybercriminals out." },
-  { icon: Cloud,              title: "Cloud Migrations & Management", description: "Seamlessly move legacy systems to secure cloud infrastructure — Microsoft 365, Azure, AWS, and Google Workspace." },
-  { icon: MonitorSmartphone,  title: "Helpdesk & On-Site Support",    description: "Friendly, fast, and local. Real technicians who pick up the phone and fix problems — not a ticket queue in another state." },
-  { icon: FileCheck,          title: "Backup & Disaster Recovery",    description: "Bulletproof backups with tested recovery plans. Your data is safe, encrypted, and restorable in minutes — not days." },
+  { icon: Shield,             title: "Compliance That's Built In",      description: "HIPAA, SOC 2, whatever your industry requires. We build compliance into the foundation, not as an upsell after you sign." },
+  { icon: Server,             title: "24/7 Network Monitoring",         description: "Our team watches your systems around the clock. When something looks off, we fix it before you even know about it." },
+  { icon: Lock,               title: "Ransomware & Threat Protection",  description: "Endpoint detection, DNS filtering, AI-driven threat analysis. We make it very hard for the bad guys to get in." },
+  { icon: Cloud,              title: "Cloud Migrations & Management",   description: "Ready to move off that old server? We'll get you to Microsoft 365, Azure, AWS, or Google Workspace without the headaches." },
+  { icon: MonitorSmartphone,  title: "Helpdesk & On-Site Support",      description: "Real people who pick up the phone. Local techs who show up when you need them. Not a ticket queue in another state." },
+  { icon: FileCheck,          title: "Backup & Disaster Recovery",      description: "Bulletproof backups with tested recovery plans. Your data is encrypted and restorable in minutes, not days." },
 ];
 
 const differentiators = [
-  { icon: Zap,              title: "Compliance First, Not Last",     description: "We build security and compliance into the foundation. Most MSPs bolt it on as an upsell. We don't." },
-  { icon: HeartHandshake,   title: "Operator-First Partnership",     description: "We work alongside you like a fractional CTO — understanding your business, not just your network." },
-  { icon: Users,            title: "Industry-Specialized Teams",     description: "We know Dentrix, Open Dental, Clio, QuickBooks, and the specific software your practice runs on." },
-  { icon: Shield,           title: "No Commodity Pricing Games",     description: "Transparent, flat-rate pricing. No hidden fees, no surprise invoices, no 'that's not included' responses." },
+  { icon: Zap,              title: "Compliance First, Not Last",       description: "Most IT companies treat security as an add-on. We start there. It's the foundation of everything we do." },
+  { icon: HeartHandshake,   title: "We Work Alongside You",            description: "Think of us as your part-time CTO. We learn your business, not just your network." },
+  { icon: Users,            title: "We Know Your Software",             description: "Dentrix, Open Dental, Clio, QuickBooks. We've worked with the specific tools your practice runs on." },
+  { icon: Shield,           title: "Honest, Flat-Rate Pricing",         description: "One price. No hidden fees. No surprise invoices. No 'that's not included' conversations." },
 ];
 
 export default function ManagedITPage() {
@@ -43,23 +38,23 @@ export default function ManagedITPage() {
             , Not Commodity
           </>
         }
-        subtitle="Red Rose Technologies delivers premium managed IT that starts with security and compliance — not a generic break-fix shop reselling the same stack as everyone else."
-        primaryCta={{ label: "Get a Free IT Assessment", href: "/contact" }}
+        subtitle="We're not a generic break-fix shop. We start with security and compliance, then build everything else on top of that. Your patients' data, your clients' files, your business. It all stays protected."
+        primaryCta={{ label: "Get a Free IT Checkup", href: "/contact" }}
         secondaryCta={{ label: "See Our Industries", href: "/industries" }}
-        trustItems={["HIPAA Compliant", "24/7 SOC", "Flat-Rate Pricing", "Local Technicians"]}
+        trustItems={["HIPAA Compliant", "24/7 SOC", "Flat-Rate Pricing", "Local Techs"]}
       />
 
       <FeatureGrid
         label="What's Included"
-        heading="Full-Service IT, Zero Surprises"
-        subtitle="Everything your business needs to stay online, compliant, and secure — under one roof."
+        heading="Full-Service IT. No Surprises."
+        subtitle="Everything you need to stay online, compliant, and secure. All under one roof."
         items={services}
       />
 
       <FeatureGrid
         label="Why We're Different"
-        heading="This Isn't Your Average MSP"
-        subtitle="Most MSPs compete on price. We compete on outcomes. Here's what sets us apart."
+        heading="Not Your Average IT Company"
+        subtitle="Most IT shops compete on price. We compete on results. Here's what makes us different."
         items={differentiators}
         columns={2}
       />
@@ -68,18 +63,18 @@ export default function ManagedITPage() {
       <section className="section-padding bg-dark-950/50 border-y border-dark-700/30">
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Industry Expertise</p>
+            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Industry Know-How</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              IT That Understands Your Business
+              We Already Know Your Business
             </h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { name: "Dental Practices", detail: "Dentrix, Eaglesoft, Open Dental support. HIPAA-compliant imaging servers, backup, and network security." },
-              { name: "Healthcare Providers", detail: "EHR/EMR integration, regulatory compliance, secure patient data handling, and telehealth infrastructure." },
-              { name: "Legal Firms", detail: "Clio, MyCase, and document management. Client confidentiality, eDiscovery readiness, and secure file sharing." },
-              { name: "Nonprofits", detail: "Grant-eligible technology upgrades, Microsoft 365 Nonprofit licensing, and donor data security." },
-              { name: "Local SMBs", detail: "QuickBooks, POS systems, VoIP, and cloud productivity. Reliable IT that scales with your growth." },
+              { name: "Dental Practices", detail: "Dentrix, Eaglesoft, Open Dental. HIPAA-compliant imaging servers, backups, and network security. We've done this hundreds of times." },
+              { name: "Healthcare Providers", detail: "EHR/EMR support, regulatory compliance, secure patient records, and telehealth setups that actually work." },
+              { name: "Legal Firms", detail: "Clio, MyCase, document management. Client confidentiality, eDiscovery readiness, and secure file sharing for distributed teams." },
+              { name: "Nonprofits", detail: "Grant-eligible tech upgrades, Microsoft 365 Nonprofit licensing, and donor data security on a real-world budget." },
+              { name: "Local SMBs", detail: "QuickBooks, POS systems, VoIP, cloud tools. Reliable IT that grows with you without the enterprise price tag." },
             ].map((ind) => (
               <div key={ind.name} className="glass-card p-6 rounded-2xl">
                 <h3 className="text-white font-bold mb-2">{ind.name}</h3>
@@ -91,9 +86,9 @@ export default function ManagedITPage() {
       </section>
 
       <CTABanner
-        heading="See What Proactive IT Looks Like"
-        subtitle="Get a free network assessment and discover vulnerabilities, compliance gaps, and efficiency opportunities."
-        primaryLabel="Start Your Assessment"
+        heading="Want to See What Good IT Looks Like?"
+        subtitle="We'll run a free checkup on your network and show you exactly where the gaps are. No pitch, no pressure."
+        primaryLabel="Let's Take a Look"
       />
     </>
   );

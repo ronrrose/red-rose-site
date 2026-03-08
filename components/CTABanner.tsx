@@ -15,16 +15,16 @@ interface CTABannerProps {
 }
 
 export default function CTABanner({
-  heading = "Ready to Future-Proof Your Business?",
-  subtitle = "Get a free, no-obligation IT and automation assessment. Discover exactly how we can improve your security, efficiency, and bottom line.",
-  primaryLabel = "Start Your Free Assessment",
+  heading = "Let's Fix Your IT",
+  subtitle = "We'll take a look at your setup, tell you what's working and what's not, and give you an honest plan. Free. No strings.",
+  primaryLabel = "Get a Free Checkup",
   primaryHref = "/contact",
-  secondaryLabel = "Speak with Ron",
+  secondaryLabel = "Call Ron",
   secondaryHref = "/contact",
   bullets = [
-    "No Long-Term Contracts",
-    "100% Satisfaction Guarantee",
-    "Free Dark Web Scan Included",
+    "No Contracts",
+    "No Hidden Fees",
+    "Free Dark Web Scan",
   ],
 }: CTABannerProps) {
   return (

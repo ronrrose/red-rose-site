@@ -41,3 +41,8 @@ venv.bak/
 logs/
 data/
 .opencode/
+
+# Node
+node_modules/
+.next/
+package-lock.json

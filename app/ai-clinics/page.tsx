@@ -6,56 +6,56 @@ import { CheckCircle2, Users, Lightbulb, Presentation, Gift, Building2 } from "l
 export const metadata: Metadata = {
   title: "AI & Automation Clinics",
   description:
-    "Hands-on AI workshops for local businesses. 3-session clinic series teaching real automation workflows for dental, healthcare, legal, nonprofits & SMBs in Lakewood Ranch, Sarasota & Tampa Bay.",
+    "Hands-on AI workshops for local businesses in Lakewood Ranch, Sarasota, and Tampa Bay. Three sessions. Real automations. No fluff.",
 };
 
 const sessions = [
   {
     number: "01",
-    title: "AI Foundations — What Actually Works Right Now",
+    title: "AI Basics That Actually Matter",
     bullets: [
-      "Demystify AI buzzwords — separate hype from reality",
-      "Live demos of ChatGPT, Google Gemini, and Microsoft Copilot for business tasks",
-      "Identify your top 3 time-wasting workflows to automate first",
-      "Leave with an AI action plan customized to your role",
+      "We cut through the buzzwords and show you what AI can do right now",
+      "Live demos with ChatGPT, Google Gemini, and Microsoft Copilot on real business tasks",
+      "You'll pick your top 3 time-wasters and we'll figure out how to automate them",
+      "You leave with a custom action plan for your specific role",
     ],
   },
   {
     number: "02",
-    title: "Hands-On Automation — Build Your First Workflows",
+    title: "Build Your First Automations (For Real)",
     bullets: [
-      "Create automated email responses, scheduling, and follow-ups",
-      "Build AI-powered document templates for your industry",
-      "Set up no-code automation with Zapier, Make, or Power Automate",
-      "Practice prompt engineering until it clicks",
+      "Set up automated email replies, scheduling, and follow-ups",
+      "Create AI-powered document templates for your industry",
+      "Connect tools with Zapier, Make, or Power Automate. No coding.",
+      "Practice writing prompts until you actually get good at it",
     ],
   },
   {
     number: "03",
-    title: "Security, Ethics & Scaling — Do It Right",
+    title: "Do It Right, Then Scale It",
     bullets: [
-      "Understand AI risks: data privacy, hallucinations, compliance gaps",
-      "HIPAA / regulatory-safe AI usage patterns for healthcare & legal",
-      "Create an AI governance policy for your organization",
-      "Plan your 90-day automation roadmap",
+      "Learn what can go wrong with AI: privacy, bad outputs, compliance risks",
+      "HIPAA-safe and regulation-safe ways to use AI in healthcare and legal",
+      "Write an AI policy your team can actually follow",
+      "Map out your 90-day plan to roll this out across your org",
     ],
   },
 ];
 
 const whoItsFor = [
-  "Practice managers drowning in admin tasks",
-  "Business owners tired of hearing about AI but not seeing results",
-  "Office managers who want to stop doing the same task 50 times a week",
-  "Nonprofits running lean who need to multiply their impact",
-  "Anyone whose team is still copy-pasting between systems",
+  "Practice managers buried in admin work",
+  "Business owners who keep hearing about AI but haven't seen real results",
+  "Office managers doing the same task 50 times a week",
+  "Nonprofits running lean who need to do more with less",
+  "Anyone whose team still copy-pastes between systems",
 ];
 
 const whatYouGet = [
-  "3 x 90-minute live, interactive sessions",
-  "Hands-on exercises — you leave with working automations",
-  "Custom AI action plan for your business",
-  "Access to private resource library of prompts & templates",
-  "30-day post-clinic email support from Ron Rose",
+  "3 live, interactive sessions (90 minutes each)",
+  "Hands-on exercises. You leave with working automations.",
+  "A custom AI action plan built around your business",
+  "Access to our private prompt and template library",
+  "30 days of email support from Ron after the clinic",
   "Certificate of completion",
 ];
 
@@ -72,8 +72,8 @@ export default function AIClinicsPage() {
             </span>
           </>
         }
-        subtitle="Three hands-on sessions that teach your team to actually use AI — not theory, not slides, real workflows that save hours every week. Built for local businesses that can't afford to fall behind."
-        primaryCta={{ label: "Reserve Your Seat", href: "/contact" }}
+        subtitle="Three sessions that teach your team to actually use AI. Not theory. Not slides. You'll build real automations and leave with tools that save you hours every week."
+        primaryCta={{ label: "Save My Spot", href: "/contact" }}
         secondaryCta={{ label: "Host a Clinic", href: "/contact" }}
       />
 
@@ -114,7 +114,7 @@ export default function AIClinicsPage() {
             <div>
               <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Who This Is For</p>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                If You&apos;re Curious About AI but Tired of the Hype, This Is for You
+                Curious About AI but Tired of the Hype?
               </h2>
               <ul className="space-y-4">
                 {whoItsFor.map((item, i) => (
@@ -129,7 +129,7 @@ export default function AIClinicsPage() {
             <div>
               <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">What You Get</p>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                No Fluff. Walk Away with Working Automations.
+                No Fluff. Working Automations.
               </h2>
               <ul className="space-y-4">
                 {whatYouGet.map((item, i) => (
@@ -149,13 +149,13 @@ export default function AIClinicsPage() {
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">How It Works</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">Simple. Structured. Effective.</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white">Pretty Simple, Actually</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
-              { step: "1", icon: Presentation, title: "Book or Host", desc: "Sign up for a public clinic or host a private session for your team, chamber, or SBDC group." },
-              { step: "2", icon: Lightbulb, title: "Learn & Build", desc: "Attend 3 interactive sessions. Bring your laptop. Leave with real automations running." },
-              { step: "3", icon: CheckCircle2, title: "Implement & Scale", desc: "Use your 90-day roadmap and post-clinic support to roll out AI across your organization." },
+              { step: "1", icon: Presentation, title: "Book or Host", desc: "Sign up for a public clinic, or bring a private one to your team, chamber, or SBDC group." },
+              { step: "2", icon: Lightbulb, title: "Show Up & Build", desc: "Attend 3 sessions. Bring your laptop. You'll leave with real automations actually running." },
+              { step: "3", icon: CheckCircle2, title: "Roll It Out", desc: "Use your 90-day roadmap and post-clinic support to spread it across your team." },
             ].map((s) => (
               <div key={s.step} className="glass-card p-8 rounded-2xl text-center relative">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center shadow-lg shadow-brand-600/30">
@@ -175,19 +175,19 @@ export default function AIClinicsPage() {
         <div className="container-site text-center max-w-3xl mx-auto">
           <Building2 className="w-12 h-12 text-brand-400 mx-auto mb-6" />
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Host a Clinic for Your Community
+            Bring a Clinic to Your Community
           </h2>
           <p className="text-slate-300 text-lg leading-relaxed mb-4">
-            Are you a chamber of commerce, SBDC, SCORE chapter, or business association like the LWRBA? Partner with us to bring AI &amp; automation training to your members — at no cost to your organization.
+            Chambers of commerce, SBDCs, SCORE chapters, the LWRBA, or any business group. We'll bring the whole thing to your members for free.
           </p>
           <p className="text-slate-400 mb-8">
-            We provide everything: curriculum, materials, instructor (Ron Rose), and follow-up resources. You provide the venue and the audience.
+            We handle everything: curriculum, materials, instruction, and follow-up. You bring the room and the people.
           </p>
           <a
             href="/contact"
             className="inline-flex px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-600/25"
           >
-            Partner With Us
+            Let&apos;s Set It Up
           </a>
         </div>
       </section>
@@ -202,10 +202,10 @@ export default function AIClinicsPage() {
                 <p className="text-brand-400 font-semibold text-sm mb-1">Your Instructor</p>
                 <h3 className="text-2xl font-bold text-white mb-4">Ron Rose</h3>
                 <p className="text-slate-300 leading-relaxed mb-4">
-                  Ron Rose is the founder of Red Rose Technologies and a Google AI Essentials certified professional with CompTIA IT Fundamentals+ credentials. With deep experience in HIPAA-compliant IT for dental practices and a passion for making AI accessible to non-technical business owners, Ron built the AI &amp; Automation Clinics to bridge the gap between cutting-edge tools and everyday business operations.
+                  I'm Ron. I run Red Rose Technologies and I built these clinics because I got tired of watching local businesses get left behind on AI. I'm Google AI Essentials certified, CompTIA credentialed, and I've spent years in HIPAA-compliant IT for dental practices. I know what works for non-technical teams because I've sat across the table from them hundreds of times.
                 </p>
                 <p className="text-slate-400 text-sm">
-                  Based in Lakewood Ranch, FL — serving Bradenton, Sarasota, Manatee County, and the greater Tampa Bay area.
+                  Based in Lakewood Ranch, FL. Serving Bradenton, Sarasota, Manatee County, and the greater Tampa Bay area.
                 </p>
               </div>
             </div>
@@ -214,9 +214,9 @@ export default function AIClinicsPage() {
       </section>
 
       <CTABanner
-        heading="Ready to Stop Guessing About AI?"
-        subtitle="Reserve your seat in the next AI & Automation Clinic or bring one to your organization."
-        primaryLabel="Reserve Your Seat"
+        heading="Want to Stop Guessing About AI?"
+        subtitle="Grab a seat in the next clinic or bring one to your group. Either way, you'll leave knowing exactly what to do."
+        primaryLabel="Save My Spot"
         secondaryLabel="Host a Clinic"
       />
     </>

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
         template: "%s | Red Rose Technologies",
     },
     description:
-        "AI-powered automation, managed IT, and security for dental practices, healthcare, legal, nonprofits, and SMBs in Lakewood Ranch, Bradenton, Sarasota & Tampa Bay.",
+        "IT, automation, and cybersecurity for dental practices, healthcare, legal firms, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
     keywords: [
         "managed IT Lakewood Ranch",
         "AI automation small business",

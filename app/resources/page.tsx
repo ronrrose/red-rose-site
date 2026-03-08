@@ -7,7 +7,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Resources",
   description:
-    "Guides, articles, and tools for AI automation, cybersecurity, and HIPAA compliance from Red Rose Technologies.",
+    "Guides, checklists, and plain-English articles on AI, cybersecurity, and HIPAA compliance from Red Rose Technologies.",
 };
 
 const articles = [
@@ -16,7 +16,7 @@ const articles = [
     category: "AI & Automation",
     title: "5 AI Automations Every Dental Office Should Set Up This Week",
     excerpt:
-      "Stop copy-pasting patient reminders, appointment confirmations, and intake forms. These five no-code automations can be set up in under an hour.",
+      "Stop copy-pasting patient reminders, appointment confirmations, and intake forms. These five no-code automations take under an hour to set up.",
     tag: "Guide",
   },
   {
@@ -24,15 +24,15 @@ const articles = [
     category: "Cybersecurity",
     title: "The SMB Cybersecurity Checklist: 12 Things to Do Before You Get Hacked",
     excerpt:
-      "Most small businesses think they're too small to be targeted. They're wrong. Here's a practical, no-jargon checklist to lock things down.",
+      "Most small businesses think they're too small to get targeted. They're not. Here's a plain-English checklist to lock things down.",
     tag: "Checklist",
   },
   {
     icon: BookOpen,
     category: "Compliance",
-    title: "HIPAA Compliance in 2026: What's Changed and What You Need to Know",
+    title: "HIPAA in 2026: What Changed and What You Need to Do Now",
     excerpt:
-      "New enforcement priorities, updated breach notification rules, and telehealth-specific requirements. Here's what practices need to act on now.",
+      "New enforcement priorities, updated breach rules, and telehealth-specific requirements. Here's what your practice needs to act on.",
     tag: "Article",
   },
 ];
@@ -44,13 +44,13 @@ export default function ResourcesPage() {
         badge="Resources"
         title={
           <>
-            Insights &amp; Guides for{" "}
+            Guides & Articles for{" "}
             <span className="text-gradient bg-gradient-to-r from-brand-400 to-cyan-400">
-              Smarter Business
+              Real Business Owners
             </span>
           </>
         }
-        subtitle="Practical articles, checklists, and guides on AI automation, cybersecurity, and compliance — written for business owners, not engineers."
+        subtitle="Practical stuff on AI, cybersecurity, and compliance. Written for people who run businesses, not for engineers."
         primaryCta={{ label: "Get a Free Assessment", href: "/contact" }}
       />
 
@@ -83,7 +83,7 @@ export default function ResourcesPage() {
 
           <div className="text-center mt-16">
             <p className="text-slate-400 text-lg">
-              More resources coming soon. Want early access?{" "}
+              More on the way. Want to know when they drop?{" "}
               <Link href="/contact" className="text-brand-400 hover:text-brand-300 font-semibold transition-colors">
                 Get on the list →
               </Link>
@@ -94,8 +94,8 @@ export default function ResourcesPage() {
 
       <CTABanner
         heading="Don't Wait for a Blog Post"
-        subtitle="Get personalized advice for your business right now. Schedule a free assessment."
-        primaryLabel="Book Your Free Call"
+        subtitle="Get real advice for your business right now. Let's hop on a call."
+        primaryLabel="Book a Free Call"
       />
     </>
   );
