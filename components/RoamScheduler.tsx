@@ -30,7 +30,7 @@ export default function RoamScheduler() {
 
       window.Roam.initLobbyEmbed({
         url: "https://ro.am/ronrose/meeting",
-        lobbyConfiguration: "booking_only",
+        lobbyConfiguration: "full",
         accentColor: "#8B1A1A",
         theme: resolvedTheme === "dark" ? "dark" : "light",
         parentElement: el,
@@ -40,13 +40,11 @@ export default function RoamScheduler() {
       });
     };
 
-    // Check if script already loaded
     if (window.Roam) {
       initRoam();
       return;
     }
 
-    // Load script dynamically
     const script = document.createElement("script");
     script.src = "https://ro.am/lobbylinks/embed.js";
     script.async = true;
@@ -61,11 +59,19 @@ export default function RoamScheduler() {
   }, [mounted, resolvedTheme]);
 
   return (
-    <div
-      id="roam-lobby"
-      ref={containerRef}
-      style={{ minWidth: 320, minHeight: 600 }}
-      className="w-full rounded-xl"
-    />
+    <>
+      <style jsx>{`
+        #roam-lobby iframe {
+          height: auto !important;
+          min-height: 500px;
+        }
+      `}</style>
+      <div
+        id="roam-lobby"
+        ref={containerRef}
+        style={{ minWidth: 320, overflow: "visible", height: "auto" }}
+        className="w-full rounded-xl"
+      />
+    </>
   );
 }
