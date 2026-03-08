@@ -32,7 +32,7 @@ export default function ManagedITPage() {
         title={
           <>
             IT That&apos;s Built for{" "}
-            <span className="text-gradient bg-gradient-to-r from-brand-400 to-cyan-400">
+            <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
               Compliance
             </span>
             , Not Commodity
@@ -60,11 +60,11 @@ export default function ManagedITPage() {
       />
 
       {/* ── Industry Callouts ── */}
-      <section className="section-padding bg-dark-950/50 border-y border-dark-700/30">
+      <section className="section-padding bg-panel border-y border-line">
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Industry Know-How</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+            <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Industry Know-How</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink mb-6">
               We Already Know Your Business
             </h2>
           </div>
@@ -77,8 +77,8 @@ export default function ManagedITPage() {
               { name: "Local SMBs", detail: "QuickBooks, POS systems, VoIP, cloud tools. Reliable IT that grows with you without the enterprise price tag." },
             ].map((ind) => (
               <div key={ind.name} className="glass-card p-6 rounded-2xl">
-                <h3 className="text-white font-bold mb-2">{ind.name}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{ind.detail}</p>
+                <h3 className="text-ink font-bold mb-2">{ind.name}</h3>
+                <p className="text-faded text-sm leading-relaxed">{ind.detail}</p>
               </div>
             ))}
           </div>

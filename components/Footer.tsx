@@ -10,38 +10,38 @@ const serviceLinks = [
   "Cloud Setup & Migration",
 ];
 const companyLinks = [
-  { label: "About",       href: "/about" },
-  { label: "Industries",  href: "/industries" },
-  { label: "Resources",   href: "/resources" },
-  { label: "Contact",     href: "/contact" },
+  { label: "About",      href: "/about" },
+  { label: "Industries", href: "/industries" },
+  { label: "Resources",  href: "/resources" },
+  { label: "Contact",    href: "/contact" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-dark-950 pt-16 pb-8 border-t border-dark-700/50">
+    <footer className="bg-panel pt-16 pb-8 border-t border-line">
       <div className="container-site">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block text-2xl font-bold text-white mb-5">
-              Red Rose <span className="text-brand-400">Tech</span>
+            <Link href="/" className="inline-block text-2xl font-bold text-ink mb-5">
+              Red Rose <span className="text-accent">Tech</span>
             </Link>
-            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+            <p className="text-faded text-sm leading-relaxed mb-6">
               IT, automation, and security for dental practices, law firms, healthcare, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.
             </p>
-            <div className="flex items-start gap-3 text-slate-400 text-sm">
-              <MapPin className="w-4 h-4 text-brand-400 shrink-0 mt-0.5" />
+            <div className="flex items-start gap-3 text-faded text-sm">
+              <MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" />
               <span>Lakewood Ranch, FL<br />Serving Manatee &amp; Sarasota Counties</span>
             </div>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="text-white font-semibold mb-6 uppercase text-xs tracking-widest">Services</h4>
+            <h4 className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Services</h4>
             <ul className="space-y-3">
               {serviceLinks.map((s) => (
                 <li key={s}>
-                  <Link href="/managed-it" className="text-slate-400 text-sm hover:text-brand-400 transition-colors">
+                  <Link href="/managed-it" className="text-faded text-sm hover:text-accent transition-colors">
                     {s}
                   </Link>
                 </li>
@@ -51,11 +51,11 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="text-white font-semibold mb-6 uppercase text-xs tracking-widest">Company</h4>
+            <h4 className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Company</h4>
             <ul className="space-y-3">
               {companyLinks.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-slate-400 text-sm hover:text-brand-400 transition-colors">
+                  <Link href={l.href} className="text-faded text-sm hover:text-accent transition-colors">
                     {l.label}
                   </Link>
                 </li>
@@ -65,33 +65,33 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-white font-semibold mb-6 uppercase text-xs tracking-widest">Contact</h4>
+            <h4 className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Contact</h4>
             <ul className="space-y-3 mb-6">
               <li>
-                <a href="tel:9414440396" className="flex items-center gap-3 text-slate-400 text-sm hover:text-brand-400 transition-colors">
+                <a href="tel:9414440396" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
                   <Phone className="w-4 h-4 shrink-0" /> (941) 444-0396
                 </a>
               </li>
               <li>
-                <a href="mailto:ron@redrosetechnologies.com" className="flex items-center gap-3 text-slate-400 text-sm hover:text-brand-400 transition-colors">
+                <a href="mailto:ron@redrosetechnologies.com" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
                   <Mail className="w-4 h-4 shrink-0" /> ron@redrosetechnologies.com
                 </a>
               </li>
             </ul>
-            <div className="p-4 rounded-xl border border-dark-700 bg-dark-800/50">
-              <p className="text-white font-semibold text-sm mb-1">24/7 Emergency Line</p>
-              <p className="text-brand-400 text-xs">Current clients get a priority number.</p>
+            <div className="p-4 rounded-xl border border-line bg-raised/50">
+              <p className="text-ink font-semibold text-sm mb-1">24/7 Emergency Line</p>
+              <p className="text-accent text-xs">Current clients get a priority number.</p>
             </div>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-dark-700/50 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-slate-500 text-sm">
+        <div className="pt-8 border-t border-line flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-faded text-sm">
             © {new Date().getFullYear()} Red Rose Technologies. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="#" className="text-slate-500 hover:text-slate-300 text-sm transition-colors">Privacy</Link>
-            <Link href="#" className="text-slate-500 hover:text-slate-300 text-sm transition-colors">Terms</Link>
+            <Link href="#" className="text-faded hover:text-secondary text-sm transition-colors">Privacy</Link>
+            <Link href="#" className="text-faded hover:text-secondary text-sm transition-colors">Terms</Link>
           </div>
         </div>
       </div>

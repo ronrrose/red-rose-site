@@ -2,44 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Light Mode (default) ─── */
+:root {
+  --color-page: 255 255 255;
+  --color-panel: 245 245 245;
+  --color-raised: 229 229 229;
+  --color-ink: 26 26 26;
+  --color-secondary: 64 64 64;
+  --color-faded: 115 115 115;
+  --color-line: 229 229 229;
+  --color-accent: 139 26 26;
+  --color-input: 255 255 255;
+  --color-input-border: 212 212 212;
+
+  --card-bg: rgba(245, 245, 245, 0.85);
+  --card-border: rgba(0, 0, 0, 0.06);
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --nav-border: rgba(0, 0, 0, 0.06);
+  --accent-bg: rgba(139, 26, 26, 0.07);
+  --accent-border: rgba(139, 26, 26, 0.14);
+  --selection-bg: 139 26 26;
+  --hero-glow: rgba(139, 26, 26, 0.06);
+}
+
+/* ─── Dark Mode ─── */
+.dark {
+  --color-page: 15 15 15;
+  --color-panel: 26 26 26;
+  --color-raised: 38 38 38;
+  --color-ink: 255 255 255;
+  --color-secondary: 212 212 212;
+  --color-faded: 156 163 175;
+  --color-line: 51 51 51;
+  --color-accent: 239 68 68;
+  --color-input: 26 26 26;
+  --color-input-border: 51 51 51;
+
+  --card-bg: rgba(26, 26, 26, 0.6);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --nav-bg: rgba(15, 15, 15, 0.85);
+  --nav-border: rgba(255, 255, 255, 0.05);
+  --accent-bg: rgba(239, 68, 68, 0.1);
+  --accent-border: rgba(239, 68, 68, 0.2);
+  --selection-bg: 239 68 68;
+  --hero-glow: rgba(239, 68, 68, 0.08);
+}
+
 @layer base {
-    html {
-        scroll-behavior: smooth;
-    }
+  html {
+    scroll-behavior: smooth;
+  }
 
-    body {
-        background-color: #0F172A;
-        color: #F8FAFC;
-        font-feature-settings: "rlig" 1, "calt" 1;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
+  body {
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-    ::selection {
-        background-color: #3490ff;
-        color: #ffffff;
-    }
+  ::selection {
+    background-color: rgb(var(--selection-bg));
+    color: #ffffff;
+  }
 }
 
 @layer utilities {
-    .glass-card {
-        background: rgba(30, 41, 59, 0.6);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-    }
+  .glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+  }
 
-    .text-gradient {
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-    .section-padding {
-        @apply py-20 md:py-28;
-    }
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
 
-    .container-site {
-        @apply max-w-7xl mx-auto px-5 sm:px-8;
-    }
+  .container-site {
+    @apply max-w-7xl mx-auto px-5 sm:px-8;
+  }
 }

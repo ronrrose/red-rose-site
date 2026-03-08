@@ -51,7 +51,7 @@ export default function AboutPage() {
         title={
           <>
             Built by an Operator,{" "}
-            <span className="text-gradient bg-gradient-to-r from-brand-400 to-cyan-400">
+            <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
               for Operators
             </span>
           </>
@@ -62,14 +62,14 @@ export default function AboutPage() {
       />
 
       {/* ── Our Story ── */}
-      <section className="section-padding border-t border-dark-700/30">
+      <section className="section-padding border-t border-line">
         <div className="container-site">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Our Story</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+            <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Our Story</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-ink mb-8">
               Why Red Rose Technologies Exists
             </h2>
-            <div className="text-slate-300 text-lg leading-relaxed space-y-6 text-left">
+            <div className="text-secondary text-lg leading-relaxed space-y-6 text-left">
               <p>
                 I started Red Rose Technologies because I kept seeing the same thing. Local businesses, dental practices, law firms, nonprofits, getting sold technology they didn&apos;t need by vendors who didn&apos;t understand their operations.
               </p>
@@ -85,22 +85,22 @@ export default function AboutPage() {
       </section>
 
       {/* ── 4 Differentiators ── */}
-      <section className="section-padding bg-dark-950/50 border-y border-dark-700/30">
+      <section className="section-padding bg-panel border-y border-line">
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">How We Work</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">
+            <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">How We Work</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink">
               Four Things We Don&apos;t Bend On
             </h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {differentiators.map((d) => (
               <div key={d.title} className="glass-card p-8 rounded-2xl">
-                <div className="w-12 h-12 bg-brand-500/10 border border-brand-500/20 rounded-xl flex items-center justify-center mb-5 text-brand-400">
+                <div className="w-12 h-12 bg-[var(--accent-bg)] border border-[var(--accent-border)] rounded-xl flex items-center justify-center mb-5 text-accent">
                   <d.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{d.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{d.description}</p>
+                <h3 className="text-lg font-bold text-ink mb-2">{d.title}</h3>
+                <p className="text-faded text-sm leading-relaxed">{d.description}</p>
               </div>
             ))}
           </div>
@@ -111,16 +111,16 @@ export default function AboutPage() {
       <section className="section-padding">
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Credentials</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">We Did the Homework</h2>
+            <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Credentials</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink">We Did the Homework</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {credentials.map((c) => (
               <div key={c.label} className="glass-card p-6 rounded-2xl flex items-start gap-4">
-                <Award className="w-8 h-8 text-brand-400 shrink-0 mt-1" />
+                <Award className="w-8 h-8 text-accent shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-white font-bold mb-1">{c.label}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{c.detail}</p>
+                  <h3 className="text-ink font-bold mb-1">{c.label}</h3>
+                  <p className="text-faded text-sm leading-relaxed">{c.detail}</p>
                 </div>
               </div>
             ))}
@@ -129,15 +129,15 @@ export default function AboutPage() {
       </section>
 
       {/* ── Personal Note ── */}
-      <section className="section-padding bg-dark-950/50 border-y border-dark-700/30">
+      <section className="section-padding bg-panel border-y border-line">
         <div className="container-site">
           <div className="max-w-3xl mx-auto glass-card rounded-2xl p-8 md:p-12">
             <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-              <div className="w-24 h-24 rounded-2xl bg-dark-700 shrink-0" />
+              <div className="w-24 h-24 rounded-2xl bg-raised shrink-0" />
               <div>
-                <p className="text-brand-400 font-semibold text-sm mb-1">A Note from the Founder</p>
-                <h3 className="text-2xl font-bold text-white mb-4">Ron Rose</h3>
-                <div className="text-slate-300 leading-relaxed space-y-4 text-[15px]">
+                <p className="text-accent font-semibold text-sm mb-1">A Note from the Founder</p>
+                <h3 className="text-2xl font-bold text-ink mb-4">Ron Rose</h3>
+                <div className="text-secondary leading-relaxed space-y-4 text-[15px]">
                   <p>
                     If you&apos;re reading this, something isn&apos;t working with your current IT. Maybe it&apos;s the vendor who takes three days to call back. Maybe it&apos;s the nagging feeling that your patient data isn&apos;t really secure. Maybe you keep hearing about AI but have no clue where to start.
                   </p>
@@ -147,7 +147,7 @@ export default function AboutPage() {
                   <p>
                     I&apos;d love to talk. No pitch, no pressure. Just a real conversation about what&apos;s going on and whether we can help.
                   </p>
-                  <p className="text-brand-400 font-semibold">— Ron</p>
+                  <p className="text-accent font-semibold">— Ron</p>
                 </div>
               </div>
             </div>

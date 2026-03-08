@@ -17,13 +17,12 @@ const industries = [
 export default function HomePage() {
   return (
     <>
-      {/* ── Hero ── */}
       <Hero
         badge="AI + Automation + Security for Local Businesses"
         title={
           <>
             AI &amp; Automation That <br className="hidden md:block" />
-            <span className="text-gradient bg-gradient-to-r from-brand-400 via-brand-300 to-cyan-400">
+            <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
               Actually Works
             </span>{" "}
             for Local Businesses.
@@ -41,11 +40,11 @@ export default function HomePage() {
       />
 
       {/* ── 3 Service Cards ── */}
-      <section className="section-padding bg-dark-900/50 border-t border-dark-700/30">
+      <section className="section-padding bg-panel border-t border-line">
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">What We Do</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">Three Things We're Really Good At</h2>
+            <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">What We Do</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink">Three Things We're Really Good At</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             <ServiceCard
@@ -74,11 +73,11 @@ export default function HomePage() {
       <section className="section-padding">
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">Who We Help</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+            <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Who We Help</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink mb-6">
               People Who Can&apos;t Afford IT That Doesn&apos;t Work
             </h2>
-            <p className="text-slate-400 text-lg">
+            <p className="text-faded text-lg">
               If your business depends on the tech actually working, and you're tired of surprise bills and slow responses, we should talk.
             </p>
           </div>
@@ -86,12 +85,12 @@ export default function HomePage() {
             {industries.map((ind) => (
               <div
                 key={ind.label}
-                className="glass-card p-6 rounded-2xl flex flex-col items-center text-center gap-4 hover:bg-dark-800/70 transition-colors"
+                className="glass-card p-6 rounded-2xl flex flex-col items-center text-center gap-4 hover:bg-raised/50 transition-colors"
               >
-                <div className="w-14 h-14 rounded-xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400">
+                <div className="w-14 h-14 rounded-xl bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent">
                   <ind.icon className="w-7 h-7" />
                 </div>
-                <span className="text-white font-semibold text-sm">{ind.label}</span>
+                <span className="text-ink font-semibold text-sm">{ind.label}</span>
               </div>
             ))}
           </div>
@@ -99,7 +98,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Trust / Credentials Strip ── */}
-      <section className="py-12 border-y border-dark-700/30 bg-dark-950/50">
+      <section className="py-12 border-y border-line bg-panel">
         <div className="container-site">
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
             {[
@@ -108,8 +107,8 @@ export default function HomePage() {
               { icon: Shield, text: "HIPAA Security Specialist" },
               { icon: ShieldCheck, text: "24/7 SOC Monitoring" },
             ].map((cred) => (
-              <div key={cred.text} className="flex items-center gap-3 text-slate-300">
-                <cred.icon className="w-6 h-6 text-brand-400" />
+              <div key={cred.text} className="flex items-center gap-3 text-secondary">
+                <cred.icon className="w-6 h-6 text-accent" />
                 <span className="text-sm font-medium">{cred.text}</span>
               </div>
             ))}
@@ -121,8 +120,8 @@ export default function HomePage() {
       <section className="section-padding">
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <p className="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-3">What People Say</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">Don&apos;t Take Our Word for It</h2>
+            <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">What People Say</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink">Don&apos;t Take Our Word for It</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <TestimonialCard
@@ -144,7 +143,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
       <CTABanner />
     </>
   );

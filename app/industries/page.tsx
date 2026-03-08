@@ -125,7 +125,7 @@ export default function IndustriesPage() {
         title={
           <>
             We Know Your Industry.{" "}
-            <span className="text-gradient bg-gradient-to-r from-brand-400 to-cyan-400">
+            <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
               That&apos;s the Point.
             </span>
           </>
@@ -140,43 +140,43 @@ export default function IndustriesPage() {
         <section
           key={ind.id}
           id={ind.id}
-          className={`section-padding ${idx % 2 === 0 ? "" : "bg-dark-950/50"} border-t border-dark-700/30`}
+          className={`section-padding ${idx % 2 === 0 ? "" : "bg-panel"} border-t border-line`}
         >
           <div className="container-site">
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-14 h-14 rounded-xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400">
+              <div className="w-14 h-14 rounded-xl bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent">
                 <ind.icon className="w-7 h-7" />
               </div>
               <div>
-                <p className="text-brand-400 font-semibold text-sm">{ind.name}</p>
-                <h2 className="text-2xl md:text-3xl font-bold text-white">{ind.headline}</h2>
+                <p className="text-accent font-semibold text-sm">{ind.name}</p>
+                <h2 className="text-2xl md:text-3xl font-bold text-ink">{ind.headline}</h2>
               </div>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-10">
               <div>
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-accent-500" />
+                <h3 className="text-lg font-bold text-ink mb-4 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-brand-500" />
                   Sound Familiar?
                 </h3>
                 <ul className="space-y-3">
                   {ind.painPoints.map((p, i) => (
-                    <li key={i} className="flex items-start gap-3 text-slate-300 text-[15px]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent-400 shrink-0 mt-2" />
+                    <li key={i} className="flex items-start gap-3 text-secondary text-[15px]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0 mt-2" />
                       {p}
                     </li>
                   ))}
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-brand-400" />
-                  Here's What We Do About It
+                <h3 className="text-lg font-bold text-ink mb-4 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-accent" />
+                  Here&apos;s What We Do About It
                 </h3>
                 <ul className="space-y-3">
                   {ind.services.map((s, i) => (
-                    <li key={i} className="flex items-start gap-3 text-slate-300 text-[15px]">
-                      <CheckCircle2 className="w-5 h-5 text-brand-400 shrink-0 mt-0.5" />
+                    <li key={i} className="flex items-start gap-3 text-secondary text-[15px]">
+                      <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                       {s}
                     </li>
                   ))}
