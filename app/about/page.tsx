@@ -6,7 +6,7 @@ import { ShieldCheck, Users, Lightbulb, HeartHandshake, Award } from "lucide-rea
 export const metadata: Metadata = {
   title: "About / Why Red Rose",
   description:
-    "Red Rose Technologies: local IT, AI, and automation run by Ron Rose. Google AI certified, CompTIA credentialed. Lakewood Ranch, FL.",
+    "Red Rose Technologiesnologies: local IT, AI, and automation run by Ron Rose. Google AI certified, CompTIA credentialed. Lakewood Ranch, FL.",
 };
 
 const differentiators = [
@@ -47,7 +47,7 @@ export default function AboutPage() {
   return (
     <>
       <Hero
-        badge="About Red Rose Technologies"
+        badge="About Red Rose Technologiesnologies"
         title={
           <>
             Built by an Operator,{" "}
@@ -56,7 +56,7 @@ export default function AboutPage() {
             </span>
           </>
         }
-        subtitle="We're not another faceless IT company. Red Rose Technologies was built by someone who knows what it's like to run a business, and what it costs when the tech doesn't work."
+        subtitle="We're not another faceless IT company. Red Rose Technologiesnologies was built by someone who knows what it's like to run a business, and what it costs when the tech doesn't work."
         primaryCta={{ label: "Work With Us", href: "/contact" }}
         secondaryCta={{ label: "See What We Do", href: "/managed-it" }}
       />
@@ -67,17 +67,17 @@ export default function AboutPage() {
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Our Story</p>
             <h2 className="text-3xl md:text-4xl font-bold text-ink mb-8">
-              Why Red Rose Technologies Exists
+              Why Red Rose Technologiesnologies Exists
             </h2>
             <div className="text-secondary text-lg leading-relaxed space-y-6 text-left">
               <p>
-                I started Red Rose Technologies because I kept seeing the same thing. Local businesses, dental practices, law firms, nonprofits, getting sold technology they didn&apos;t need by vendors who didn&apos;t understand their operations.
+                I started Red Rose Technologiesnologies because I kept seeing the same thing. Local businesses, dental practices, law firms, nonprofits, getting sold technology they didn&apos;t need by vendors who didn&apos;t understand their operations.
               </p>
               <p>
                 They were paying for break-fix IT that waited for things to break. They kept hearing AI was &ldquo;the future&rdquo; but nobody gave them a roadmap. And the worst part? Their IT provider treated compliance and security like an afterthought.
               </p>
               <p>
-                I built Red Rose Technologies to do it differently. We lead with security. We build with compliance. And we teach business owners how to use AI tools that actually make a difference, not just the ones that look good in a demo.
+                I built Red Rose Technologiesnologies to do it differently. We lead with security. We build with compliance. And we teach business owners how to use AI tools that actually make a difference, not just the ones that look good in a demo.
               </p>
             </div>
           </div>
