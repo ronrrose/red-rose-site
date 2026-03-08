@@ -37,7 +37,7 @@ export default function ContactPage() {
                   </li>
                   <li className="flex items-center gap-4 text-secondary">
                     <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><Mail className="w-5 h-5" /></div>
-                    <div><p className="text-ink font-semibold text-sm">rrose@redrosetechnologies.com</p><p className="text-faded text-xs">Usually responds within a couple hours</p></div>
+                    <div><p className="text-ink font-semibold text-sm break-all">rrose@redrosetechnologies.com</p><p className="text-faded text-xs">Usually responds within a couple hours</p></div>
                   </li>
                   <li className="flex items-center gap-4 text-secondary">
                     <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><MapPin className="w-5 h-5" /></div>
@@ -102,12 +102,17 @@ export default function ContactPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4">Local to Southwest Florida</h2>
             <p className="text-faded">On-site and remote support across the Tampa Bay area.</p>
           </div>
-          <div className="w-full h-[350px] rounded-2xl bg-raised border border-line flex items-center justify-center text-faded mb-10">
-            <div className="text-center">
-              <MapPin className="w-10 h-10 text-accent/40 mx-auto mb-3" />
-              <p className="font-medium text-secondary">Google Maps Embed</p>
-              <p className="text-xs text-faded mt-1">Interactive map goes here</p>
-            </div>
+          <div className="w-full h-[350px] rounded-2xl overflow-hidden border border-line mb-10">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113892.04864709498!2d-82.4468917!3d27.2689905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c3404e3065e2e3%3A0x9c76b8b4e68e7b04!2sLakewood%20Ranch%2C%20FL!5e0!3m2!1sen!2sus!4v1709924400000"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Red Rose Technologies service area — Lakewood Ranch, FL"
+            />
           </div>
           <div className="flex flex-wrap justify-center gap-3">
             {serviceAreas.map((city) => (
