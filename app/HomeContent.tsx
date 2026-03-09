@@ -125,9 +125,9 @@ export default function HomeContent() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <TestimonialCard
-              quote="They moved us off our old Dentrix server without a single minute of downtime. I didn't even know it happened until they told me it was done."
-              name="Dr. Sarah Jenkins, DDS"
-              role="Jenkins Family Dentistry, Lakewood Ranch"
+              quote="Ron looked at what we were spending and found $75,000 a year in savings. He moved us from Eaglesoft servers to Curve Dental in the cloud, switched our phones from Adit to Mango Voice, and got us off ADP onto Gusto for payroll. The whole transition was smooth, and our monthly costs dropped from day one."
+              name="Dr. Yudancy Gangi, DMD"
+              role="Gangi Dental Care, Bradenton"
             />
             <TestimonialCard
               quote="We sat through one AI clinic and automated our intake forms and appointment follow-ups the same week. That's 10 hours a week we got back."
