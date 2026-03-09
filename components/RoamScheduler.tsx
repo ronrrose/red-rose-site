@@ -37,5 +37,10 @@ export default function RoamScheduler() {
     document.body.appendChild(script);
   }, []);
 
-  return <div ref={containerRef} style={{ minWidth: "320px", width: "100%" }} />;
+  return (
+    <div
+      ref={containerRef}
+      style={{ minWidth: "100%", width: "100%", minHeight: "600px" }}
+    />
+  );
 }
