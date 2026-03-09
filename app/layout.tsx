@@ -4,6 +4,8 @@ import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
+import { I18nProvider } from "@/lib/i18n-context";
+import CookieBanner from "@/components/CookieBanner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -39,9 +41,12 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} scroll-smooth`} suppressHydrationWarning>
       <body className="font-sans min-h-screen bg-page text-ink antialiased transition-colors duration-300">
         <ThemeProvider>
-          <NavBar />
-          <main>{children}</main>
-          <Footer />
+          <I18nProvider>
+            <NavBar />
+            <main>{children}</main>
+            <Footer />
+            <CookieBanner />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

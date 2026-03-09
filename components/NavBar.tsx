@@ -6,20 +6,23 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useI18n } from "@/lib/i18n-context";
 
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/ai-clinics", label: "AI Clinics" },
-  { href: "/managed-it", label: "Managed IT" },
-  { href: "/industries", label: "Industries" },
-  { href: "/about", label: "About" },
-  { href: "/resources", label: "Resources" },
-  { href: "/contact", label: "Contact" },
+const linkKeys = [
+  { href: "/", key: "nav.home" },
+  { href: "/ai-clinics", key: "nav.aiClinics" },
+  { href: "/managed-it", key: "nav.managedIt" },
+  { href: "/industries", key: "nav.industries" },
+  { href: "/about", key: "nav.about" },
+  { href: "/resources", key: "nav.resources" },
+  { href: "/contact", key: "nav.contact" },
 ];
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useI18n();
 
   return (
     <nav
@@ -41,7 +44,7 @@ export default function NavBar() {
 
         {/* Desktop Links */}
         <div className="hidden lg:flex items-center gap-7">
-          {links.map((l) => (
+          {linkKeys.map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -51,27 +54,29 @@ export default function NavBar() {
                   : "text-faded hover:text-ink"
               }`}
             >
-              {l.label}
+              {t(l.key)}
             </Link>
           ))}
         </div>
 
-        {/* Desktop CTA + Toggle */}
+        {/* Desktop CTA + Toggle + Language */}
         <div className="hidden lg:flex items-center gap-3">
           <span className="text-sm text-faded font-medium border-r border-line pr-3">
             (954) 857-1100
           </span>
+          <LanguageSwitcher />
           <ThemeToggle />
           <Link
             href="/contact"
             className="px-5 py-2.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold transition-all shadow-lg shadow-brand-700/20"
           >
-            Get Assessment
+            {t("nav.getAssessment")}
           </Link>
         </div>
 
         {/* Mobile toggle */}
         <div className="flex items-center gap-2 lg:hidden">
+          <LanguageSwitcher />
           <ThemeToggle />
           <button
             onClick={() => setOpen(!open)}
@@ -90,7 +95,7 @@ export default function NavBar() {
           style={{ background: "var(--nav-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
         >
           <div className="container-site flex flex-col gap-1 pt-4">
-            {links.map((l) => (
+            {linkKeys.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -101,7 +106,7 @@ export default function NavBar() {
                     : "text-faded hover:text-ink hover:bg-raised/50"
                 }`}
               >
-                {l.label}
+                {t(l.key)}
               </Link>
             ))}
             <Link
@@ -109,7 +114,7 @@ export default function NavBar() {
               onClick={() => setOpen(false)}
               className="mt-4 px-5 py-3 rounded-lg bg-brand-700 text-center text-white text-sm font-semibold"
             >
-              Get Free Assessment
+              {t("nav.getFreeAssessment")}
             </Link>
           </div>
         </div>
