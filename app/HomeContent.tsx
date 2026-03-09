@@ -130,9 +130,9 @@ export default function HomeContent() {
               role="Gangi Dental Care, Bradenton"
             />
             <TestimonialCard
-              quote="We sat through one AI clinic and automated our intake forms and appointment follow-ups the same week. That's 10 hours a week we got back."
-              name="Maria Gonzalez"
-              role="Operations Director, Sarasota Nonprofit"
+              quote="We've worked with Ron since 2011. He built out our enterprise network for over 115 staff members, and it's still running strong today. He's also our dedicated webmaster. That kind of consistency and reliability is hard to find."
+              name="Jonathan Hill"
+              role="MIS Director, Hollywood Nonprofit"
             />
             <TestimonialCard
               quote="Our last IT company took three days to return calls. Ron picks up the phone. His team caught a vulnerability on our network before it turned into a nightmare."
