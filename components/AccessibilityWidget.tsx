@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { Accessibility, X, RotateCcw } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Eye, X, RotateCcw } from "lucide-react";
 
 interface A11ySettings {
   fontSize: number;
@@ -19,27 +19,42 @@ const defaults: A11ySettings = {
   contentStructure: false,
 };
 
+function applyToDOM(s: A11ySettings) {
+  const root = document.documentElement;
+  root.style.fontSize = `${s.fontSize}%`;
+  root.classList.toggle("a11y-high-contrast", s.highContrast);
+  root.classList.toggle("a11y-reduce-motion", s.reduceMotion);
+  root.classList.toggle("a11y-screen-reader", s.screenReader);
+  root.classList.toggle("a11y-content-structure", s.contentStructure);
+}
+
 export default function AccessibilityWidget() {
   const [open, setOpen] = useState(false);
   const [settings, setSettings] = useState<A11ySettings>(defaults);
+  const [mounted, setMounted] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   // Load saved settings on mount
   useEffect(() => {
+    setMounted(true);
     try {
       const saved = localStorage.getItem("a11y-settings");
       if (saved) {
         const parsed = JSON.parse(saved) as A11ySettings;
         setSettings(parsed);
-        applySettings(parsed);
+        applyToDOM(parsed);
       }
-    } catch {}
+    } catch {
+      // ignore
+    }
   }, []);
 
-  // Persist and apply whenever settings change
+  // Apply and persist whenever settings change (skip initial mount)
   useEffect(() => {
+    if (!mounted) return;
     localStorage.setItem("a11y-settings", JSON.stringify(settings));
-    applySettings(settings);
-  }, [settings]);
+    applyToDOM(settings);
+  }, [settings, mounted]);
 
   // Close on Escape
   useEffect(() => {
@@ -51,34 +66,36 @@ export default function AccessibilityWidget() {
     return () => document.removeEventListener("keydown", handler);
   }, [open]);
 
-  const applySettings = useCallback((s: A11ySettings) => {
-    const root = document.documentElement;
-    root.style.fontSize = `${s.fontSize}%`;
-    root.classList.toggle("a11y-high-contrast", s.highContrast);
-    root.classList.toggle("a11y-reduce-motion", s.reduceMotion);
-    root.classList.toggle("a11y-screen-reader", s.screenReader);
-    root.classList.toggle("a11y-content-structure", s.contentStructure);
-  }, []);
+  // Close on click outside
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
 
   const update = <K extends keyof A11ySettings>(key: K, value: A11ySettings[K]) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
-  const reset = () => {
-    setSettings(defaults);
-  };
+  const reset = () => setSettings(defaults);
+
+  if (!mounted) return null;
 
   return (
-    <>
-      {/* Toggle Button */}
+    <div ref={panelRef}>
+      {/* Toggle Button — small blue circle like the reference */}
       <button
         onClick={() => setOpen(!open)}
-        aria-label="Open accessibility options"
+        aria-label={open ? "Close accessibility options" : "Open accessibility options"}
         aria-expanded={open}
-        className="fixed bottom-6 right-6 z-[9999] flex items-center gap-2 px-4 py-3 rounded-full bg-ink text-page shadow-xl hover:scale-105 transition-transform text-sm font-semibold"
+        className="fixed bottom-5 right-5 z-[9999] w-11 h-11 rounded-full bg-[#4a6cf7] hover:bg-[#3b5de7] text-white shadow-lg shadow-[#4a6cf7]/30 hover:shadow-[#4a6cf7]/50 transition-all flex items-center justify-center"
       >
-        <Accessibility className="w-5 h-5" aria-hidden="true" />
-        <span className="hidden sm:inline">Accessibility</span>
+        <Eye className="w-5 h-5" aria-hidden="true" />
       </button>
 
       {/* Panel */}
@@ -87,7 +104,7 @@ export default function AccessibilityWidget() {
           role="dialog"
           aria-label="Accessibility options"
           aria-modal="false"
-          className="fixed bottom-20 right-6 z-[9999] w-80 max-w-[90vw] bg-raised border border-line rounded-2xl shadow-2xl p-5 font-sans text-sm"
+          className="fixed bottom-[4.5rem] right-5 z-[9999] w-80 max-w-[90vw] bg-raised border border-line rounded-2xl shadow-2xl p-5 font-sans text-sm animate-[fadeIn_150ms_ease-out]"
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
@@ -97,7 +114,7 @@ export default function AccessibilityWidget() {
               aria-label="Close accessibility options"
               className="p-1.5 rounded-lg text-faded hover:text-ink hover:bg-raised/80 transition-colors"
             >
-              <X className="w-5 h-5" aria-hidden="true" />
+              <X className="w-4 h-4" aria-hidden="true" />
             </button>
           </div>
 
@@ -118,7 +135,7 @@ export default function AccessibilityWidget() {
                 step={5}
                 value={settings.fontSize}
                 onChange={(e) => update("fontSize", Number(e.target.value))}
-                className="w-24 accent-brand-700"
+                className="w-24 accent-[#4a6cf7]"
               />
             </div>
           </div>
@@ -130,7 +147,7 @@ export default function AccessibilityWidget() {
                 type="checkbox"
                 checked={settings.highContrast}
                 onChange={(e) => update("highContrast", e.target.checked)}
-                className="w-4 h-4 accent-brand-700 rounded"
+                className="w-4 h-4 accent-[#4a6cf7] rounded"
               />
               <span className="font-medium">High Contrast</span>
             </label>
@@ -139,7 +156,7 @@ export default function AccessibilityWidget() {
                 type="checkbox"
                 checked={settings.reduceMotion}
                 onChange={(e) => update("reduceMotion", e.target.checked)}
-                className="w-4 h-4 accent-brand-700 rounded"
+                className="w-4 h-4 accent-[#4a6cf7] rounded"
               />
               <span className="font-medium">Reduce Motion</span>
             </label>
@@ -148,7 +165,7 @@ export default function AccessibilityWidget() {
                 type="checkbox"
                 checked={settings.screenReader}
                 onChange={(e) => update("screenReader", e.target.checked)}
-                className="w-4 h-4 accent-brand-700 rounded"
+                className="w-4 h-4 accent-[#4a6cf7] rounded"
               />
               <span className="font-medium">Screen Reader Mode</span>
             </label>
@@ -157,7 +174,7 @@ export default function AccessibilityWidget() {
                 type="checkbox"
                 checked={settings.contentStructure}
                 onChange={(e) => update("contentStructure", e.target.checked)}
-                className="w-4 h-4 accent-brand-700 rounded"
+                className="w-4 h-4 accent-[#4a6cf7] rounded"
               />
               <span className="font-medium">Content Structure</span>
             </label>
@@ -173,6 +190,6 @@ export default function AccessibilityWidget() {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }
