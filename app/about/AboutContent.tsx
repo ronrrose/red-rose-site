@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Hero from "@/components/Hero";
 import CTABanner from "@/components/CTABanner";
 import { ShieldCheck, Users, Lightbulb, HeartHandshake, Award } from "lucide-react";
@@ -128,7 +129,13 @@ export default function AboutContent() {
         <div className="container-site">
           <div className="max-w-3xl mx-auto glass-card rounded-2xl p-8 md:p-12">
             <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-              <div className="w-24 h-24 rounded-2xl bg-raised shrink-0" />
+              <Image
+                src="/ron-rose.jpg"
+                alt="Ron Rose, Founder of Red Rose Technologies"
+                width={96}
+                height={96}
+                className="w-24 h-24 rounded-2xl object-cover shrink-0"
+              />
               <div>
                 <p className="text-accent font-semibold text-sm mb-1">A Note from the Founder</p>
                 <h3 className="text-2xl font-bold text-ink mb-4">Ron Rose</h3>
