@@ -170,7 +170,6 @@ export default function ContactContent() {
                     </button>
                     <div aria-live="polite" className="sr-only">
                       {status === "sending" && "Sending your message..."}
-                      {status === "success" && "Message sent successfully!"}
                       {status === "error" && errorMsg}
                     </div>
                   </form>
