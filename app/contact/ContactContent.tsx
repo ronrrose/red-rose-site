@@ -28,21 +28,22 @@ export default function ContactContent() {
                   className="block w-full px-8 py-4 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-700/25 text-center"
                 >
                   Book a 30-Minute Call
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </div>
               <div className="glass-card rounded-2xl p-8">
                 <h3 className="text-lg font-bold text-ink mb-6">Or Just Reach Out</h3>
                 <ul className="space-y-5">
                   <li className="flex items-center gap-4 text-secondary">
-                    <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><Phone className="w-5 h-5" /></div>
+                    <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><Phone className="w-5 h-5" aria-hidden="true" /></div>
                     <div><p className="text-ink font-semibold text-sm">(954) 857-1100</p><p className="text-faded text-xs">Mon through Fri, 8am to 6pm EST</p></div>
                   </li>
                   <li className="flex items-center gap-4 text-secondary">
-                    <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><Mail className="w-5 h-5" /></div>
+                    <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><Mail className="w-5 h-5" aria-hidden="true" /></div>
                     <div><p className="text-ink font-semibold text-sm break-all">rrose@redrosetechnologies.com</p><p className="text-faded text-xs">Usually responds within a couple hours</p></div>
                   </li>
                   <li className="flex items-center gap-4 text-secondary">
-                    <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><MapPin className="w-5 h-5" /></div>
+                    <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><MapPin className="w-5 h-5" aria-hidden="true" /></div>
                     <div><p className="text-ink font-semibold text-sm">Lakewood Ranch, FL</p><p className="text-faded text-xs">Serving Manatee &amp; Sarasota Counties</p></div>
                   </li>
                 </ul>
@@ -52,20 +53,20 @@ export default function ContactContent() {
               <div className="glass-card rounded-2xl p-8">
                 <h2 className="text-2xl font-bold text-ink mb-2">Send a Message</h2>
                 <p className="text-faded text-sm mb-8">Rather type it out? Fill this in and Ron will get back to you within one business day.</p>
-                <form className="space-y-5">
+                <form className="space-y-5" noValidate>
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
-                      <label htmlFor="firstName" className="block text-sm font-medium text-secondary mb-2">First Name</label>
-                      <input id="firstName" type="text" placeholder="Jane" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
+                      <label htmlFor="firstName" className="block text-sm font-medium text-secondary mb-2">First Name <span aria-hidden="true" className="text-accent">*</span></label>
+                      <input id="firstName" type="text" required aria-required="true" placeholder="Jane" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
                     </div>
                     <div>
-                      <label htmlFor="lastName" className="block text-sm font-medium text-secondary mb-2">Last Name</label>
-                      <input id="lastName" type="text" placeholder="Smith" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
+                      <label htmlFor="lastName" className="block text-sm font-medium text-secondary mb-2">Last Name <span aria-hidden="true" className="text-accent">*</span></label>
+                      <input id="lastName" type="text" required aria-required="true" placeholder="Smith" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-secondary mb-2">Email Address</label>
-                    <input id="email" type="email" placeholder="jane@example.com" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
+                    <label htmlFor="email" className="block text-sm font-medium text-secondary mb-2">Email Address <span aria-hidden="true" className="text-accent">*</span></label>
+                    <input id="email" type="email" required aria-required="true" placeholder="jane@example.com" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
                   </div>
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-secondary mb-2">Phone (Optional)</label>
@@ -88,8 +89,9 @@ export default function ContactContent() {
                     <textarea id="message" rows={4} placeholder="Tell us about your biggest IT headache, or what you'd like to automate..." className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm resize-none" />
                   </div>
                   <button type="submit" className="w-full px-8 py-4 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-700/25 flex items-center justify-center gap-2 group">
-                    Send It Over <Send className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+                    Send It Over <Send className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
                   </button>
+                  <div aria-live="polite" className="sr-only" />
                 </form>
               </div>
             </div>

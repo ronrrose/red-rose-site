@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -24,17 +24,29 @@ export default function NavBar() {
   const pathname = usePathname();
   const { t } = useI18n();
 
+  const closeMenu = useCallback(() => setOpen(false), []);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMenu();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, closeMenu]);
+
   return (
     <nav
       className="fixed top-0 w-full z-50 border-b border-line/50"
       style={{ background: "var(--nav-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
+      aria-label="Main navigation"
     >
       <div className="container-site flex items-center justify-between h-20">
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <Image
             src="/logo.png"
-            alt="Red Rose Technologies"
+            alt="Red Rose Technologies — home"
             width={48}
             height={48}
             className="w-12 h-12 object-contain"
@@ -48,6 +60,7 @@ export default function NavBar() {
             <Link
               key={l.href}
               href={l.href}
+              aria-current={pathname === l.href ? "page" : undefined}
               className={`text-sm font-medium transition-colors ${
                 pathname === l.href
                   ? "text-accent"
@@ -81,9 +94,11 @@ export default function NavBar() {
           <button
             onClick={() => setOpen(!open)}
             className="p-2 text-faded hover:text-ink"
-            aria-label="Toggle menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
           >
-            {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {open ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
           </button>
         </div>
       </div>
@@ -91,6 +106,9 @@ export default function NavBar() {
       {/* Mobile menu */}
       {open && (
         <div
+          id="mobile-menu"
+          role="region"
+          aria-label="Mobile navigation"
           className="lg:hidden border-t border-line pb-6"
           style={{ background: "var(--nav-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
         >
@@ -99,7 +117,8 @@ export default function NavBar() {
               <Link
                 key={l.href}
                 href={l.href}
-                onClick={() => setOpen(false)}
+                onClick={closeMenu}
+                aria-current={pathname === l.href ? "page" : undefined}
                 className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                   pathname === l.href
                     ? "text-accent bg-[var(--accent-bg)]"
@@ -111,7 +130,7 @@ export default function NavBar() {
             ))}
             <Link
               href="/contact"
-              onClick={() => setOpen(false)}
+              onClick={closeMenu}
               className="mt-4 px-5 py-3 rounded-lg bg-brand-700 text-center text-white text-sm font-semibold"
             >
               {t("nav.getFreeAssessment")}

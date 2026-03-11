@@ -88,7 +88,7 @@ export default function HomeContent() {
                 className="glass-card p-6 rounded-2xl flex flex-col items-center text-center gap-4 hover:bg-raised/50 transition-colors"
               >
                 <div className="w-14 h-14 rounded-xl bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent">
-                  <ind.icon className="w-7 h-7" />
+                  <ind.icon className="w-7 h-7" aria-hidden="true" />
                 </div>
                 <span className="text-ink font-semibold text-sm">{ind.label}</span>
               </div>
@@ -108,7 +108,7 @@ export default function HomeContent() {
               { icon: ShieldCheck, text: "24/7 SOC Monitoring" },
             ].map((cred) => (
               <div key={cred.text} className="flex items-center gap-3 text-secondary">
-                <cred.icon className="w-6 h-6 text-accent" />
+                <cred.icon className="w-6 h-6 text-accent" aria-hidden="true" />
                 <span className="text-sm font-medium">{cred.text}</span>
               </div>
             ))}
