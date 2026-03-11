@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Eye, X, RotateCcw } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Eye, X, RotateCcw, Volume2, VolumeX } from "lucide-react";
 
 interface A11ySettings {
   fontSize: number;
@@ -28,15 +28,47 @@ function applyToDOM(s: A11ySettings) {
   root.classList.toggle("a11y-content-structure", s.contentStructure);
 }
 
+/** Extract readable text from the main content area */
+function getPageText(): string {
+  const main = document.querySelector("main") || document.body;
+  const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const el = node.parentElement;
+      if (!el) return NodeFilter.FILTER_REJECT;
+      const tag = el.tagName;
+      // Skip script, style, hidden elements, and the a11y widget itself
+      if (["SCRIPT", "STYLE", "NOSCRIPT"].includes(tag)) return NodeFilter.FILTER_REJECT;
+      if (el.closest("#a11y-widget")) return NodeFilter.FILTER_REJECT;
+      if (el.getAttribute("aria-hidden") === "true") return NodeFilter.FILTER_REJECT;
+      const style = window.getComputedStyle(el);
+      if (style.display === "none" || style.visibility === "hidden") return NodeFilter.FILTER_REJECT;
+      const text = node.textContent?.trim();
+      if (!text) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    },
+  });
+
+  const parts: string[] = [];
+  let node: Node | null;
+  while ((node = walker.nextNode())) {
+    const text = node.textContent?.trim();
+    if (text) parts.push(text);
+  }
+  return parts.join(". ").replace(/\.{2,}/g, ".").replace(/\s+/g, " ");
+}
+
 export default function AccessibilityWidget() {
   const [open, setOpen] = useState(false);
   const [settings, setSettings] = useState<A11ySettings>(defaults);
   const [mounted, setMounted] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
+  const synthRef = useRef<SpeechSynthesis | null>(null);
 
   // Load saved settings on mount
   useEffect(() => {
     setMounted(true);
+    synthRef.current = window.speechSynthesis;
     try {
       const saved = localStorage.getItem("a11y-settings");
       if (saved) {
@@ -49,12 +81,27 @@ export default function AccessibilityWidget() {
     }
   }, []);
 
-  // Apply and persist whenever settings change (skip initial mount)
+  // Apply and persist whenever settings change
   useEffect(() => {
     if (!mounted) return;
     localStorage.setItem("a11y-settings", JSON.stringify(settings));
     applyToDOM(settings);
   }, [settings, mounted]);
+
+  // Stop speech when screen reader is toggled off
+  useEffect(() => {
+    if (!settings.screenReader && synthRef.current) {
+      synthRef.current.cancel();
+      setSpeaking(false);
+    }
+  }, [settings.screenReader]);
+
+  // Cleanup speech on unmount
+  useEffect(() => {
+    return () => {
+      synthRef.current?.cancel();
+    };
+  }, []);
 
   // Close on Escape
   useEffect(() => {
@@ -82,13 +129,78 @@ export default function AccessibilityWidget() {
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
-  const reset = () => setSettings(defaults);
+  const startReading = useCallback(() => {
+    const synth = synthRef.current;
+    if (!synth) return;
+
+    synth.cancel();
+    const text = getPageText();
+    if (!text) return;
+
+    // Split into chunks (speechSynthesis has a ~200 char limit on some browsers)
+    const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+    const chunks: string[] = [];
+    let current = "";
+
+    for (const sentence of sentences) {
+      if ((current + sentence).length > 180) {
+        if (current) chunks.push(current.trim());
+        current = sentence;
+      } else {
+        current += sentence;
+      }
+    }
+    if (current.trim()) chunks.push(current.trim());
+
+    let index = 0;
+    setSpeaking(true);
+
+    const speakNext = () => {
+      if (index >= chunks.length) {
+        setSpeaking(false);
+        return;
+      }
+      const utterance = new SpeechSynthesisUtterance(chunks[index]);
+      utterance.rate = 0.95;
+      utterance.pitch = 1;
+      utterance.lang = "en-US";
+      utterance.onend = () => {
+        index++;
+        speakNext();
+      };
+      utterance.onerror = () => {
+        setSpeaking(false);
+      };
+      synth.speak(utterance);
+    };
+
+    speakNext();
+  }, []);
+
+  const stopReading = useCallback(() => {
+    synthRef.current?.cancel();
+    setSpeaking(false);
+  }, []);
+
+  const toggleScreenReader = (checked: boolean) => {
+    update("screenReader", checked);
+    if (checked) {
+      startReading();
+    } else {
+      stopReading();
+    }
+  };
+
+  const reset = () => {
+    stopReading();
+    setSettings(defaults);
+  };
 
   if (!mounted) return null;
 
   return (
-    <div ref={panelRef}>
-      {/* Toggle Button — small blue circle like the reference */}
+    <div ref={panelRef} id="a11y-widget">
+      {/* Toggle Button — small blue circle */}
       <button
         onClick={() => setOpen(!open)}
         aria-label={open ? "Close accessibility options" : "Open accessibility options"}
@@ -104,7 +216,7 @@ export default function AccessibilityWidget() {
           role="dialog"
           aria-label="Accessibility options"
           aria-modal="false"
-          className="fixed bottom-[4.5rem] right-5 z-[9999] w-80 max-w-[90vw] bg-raised border border-line rounded-2xl shadow-2xl p-5 font-sans text-sm animate-[fadeIn_150ms_ease-out]"
+          className="fixed bottom-[4.5rem] right-5 z-[9999] w-80 max-w-[90vw] bg-raised border border-line rounded-2xl shadow-2xl p-5 font-sans text-sm"
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
@@ -160,15 +272,39 @@ export default function AccessibilityWidget() {
               />
               <span className="font-medium">Reduce Motion</span>
             </label>
-            <label className="flex items-center gap-3 text-secondary cursor-pointer">
-              <input
-                type="checkbox"
-                checked={settings.screenReader}
-                onChange={(e) => update("screenReader", e.target.checked)}
-                className="w-4 h-4 accent-[#4a6cf7] rounded"
-              />
-              <span className="font-medium">Screen Reader Mode</span>
-            </label>
+
+            {/* Screen Reader with play/stop */}
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-3 text-secondary cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={settings.screenReader}
+                  onChange={(e) => toggleScreenReader(e.target.checked)}
+                  className="w-4 h-4 accent-[#4a6cf7] rounded"
+                />
+                <span className="font-medium">Screen Reader</span>
+              </label>
+              {settings.screenReader && (
+                <button
+                  onClick={speaking ? stopReading : startReading}
+                  aria-label={speaking ? "Stop reading" : "Start reading page"}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-colors bg-[#4a6cf7]/10 text-[#4a6cf7] hover:bg-[#4a6cf7]/20"
+                >
+                  {speaking ? (
+                    <>
+                      <VolumeX className="w-3.5 h-3.5" aria-hidden="true" />
+                      Stop
+                    </>
+                  ) : (
+                    <>
+                      <Volume2 className="w-3.5 h-3.5" aria-hidden="true" />
+                      Read
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+
             <label className="flex items-center gap-3 text-secondary cursor-pointer">
               <input
                 type="checkbox"
