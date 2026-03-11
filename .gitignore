@@ -47,3 +47,5 @@ node_modules/
 .next/
 package-lock.json
 .vercel
+.env.local
+.env*.local

@@ -1,11 +1,58 @@
 "use client";
 
+import { useState, type FormEvent } from "react";
 import Hero from "@/components/Hero";
-import { MapPin, Phone, Mail, Send } from "lucide-react";
+import { MapPin, Phone, Mail, Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
 const serviceAreas = ["Lakewood Ranch","Bradenton","Sarasota","Manatee County","Tampa Bay","Parrish","Palmetto","North Port"];
 
+type Status = "idle" | "sending" | "success" | "error";
+
 export default function ContactContent() {
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMsg("");
+
+    const form = e.currentTarget;
+    const data = {
+      firstName: (form.elements.namedItem("firstName") as HTMLInputElement).value.trim(),
+      lastName: (form.elements.namedItem("lastName") as HTMLInputElement).value.trim(),
+      email: (form.elements.namedItem("email") as HTMLInputElement).value.trim(),
+      phone: (form.elements.namedItem("phone") as HTMLInputElement).value.trim(),
+      businessType: (form.elements.namedItem("businessType") as HTMLSelectElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim(),
+    };
+
+    if (!data.firstName || !data.lastName || !data.email) {
+      setStatus("error");
+      setErrorMsg("Please fill in all required fields.");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || "Something went wrong.");
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    }
+  }
+
   return (
     <>
       <Hero
@@ -53,46 +100,81 @@ export default function ContactContent() {
               <div className="glass-card rounded-2xl p-8">
                 <h2 className="text-2xl font-bold text-ink mb-2">Send a Message</h2>
                 <p className="text-faded text-sm mb-8">Rather type it out? Fill this in and Ron will get back to you within one business day.</p>
-                <form className="space-y-5" noValidate>
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    <div>
-                      <label htmlFor="firstName" className="block text-sm font-medium text-secondary mb-2">First Name <span aria-hidden="true" className="text-accent">*</span></label>
-                      <input id="firstName" type="text" required aria-required="true" placeholder="Jane" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
+
+                {status === "success" ? (
+                  <div className="text-center py-12">
+                    <CheckCircle className="w-14 h-14 text-green-500 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-ink mb-2">Message Sent!</h3>
+                    <p className="text-faded text-sm mb-6">Check your inbox for a confirmation. Ron will get back to you within one business day.</p>
+                    <button
+                      onClick={() => setStatus("idle")}
+                      className="px-6 py-2.5 rounded-xl border border-line text-secondary font-medium hover:bg-raised/50 transition-colors text-sm"
+                    >
+                      Send Another Message
+                    </button>
+                  </div>
+                ) : (
+                  <form className="space-y-5" noValidate onSubmit={handleSubmit}>
+                    <div className="grid sm:grid-cols-2 gap-5">
+                      <div>
+                        <label htmlFor="firstName" className="block text-sm font-medium text-secondary mb-2">First Name <span aria-hidden="true" className="text-accent">*</span></label>
+                        <input id="firstName" name="firstName" type="text" required aria-required="true" placeholder="Jane" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
+                      </div>
+                      <div>
+                        <label htmlFor="lastName" className="block text-sm font-medium text-secondary mb-2">Last Name <span aria-hidden="true" className="text-accent">*</span></label>
+                        <input id="lastName" name="lastName" type="text" required aria-required="true" placeholder="Smith" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
+                      </div>
                     </div>
                     <div>
-                      <label htmlFor="lastName" className="block text-sm font-medium text-secondary mb-2">Last Name <span aria-hidden="true" className="text-accent">*</span></label>
-                      <input id="lastName" type="text" required aria-required="true" placeholder="Smith" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
+                      <label htmlFor="email" className="block text-sm font-medium text-secondary mb-2">Email Address <span aria-hidden="true" className="text-accent">*</span></label>
+                      <input id="email" name="email" type="email" required aria-required="true" placeholder="jane@example.com" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
                     </div>
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-secondary mb-2">Email Address <span aria-hidden="true" className="text-accent">*</span></label>
-                    <input id="email" type="email" required aria-required="true" placeholder="jane@example.com" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-secondary mb-2">Phone (Optional)</label>
-                    <input id="phone" type="tel" placeholder="(954) 555-0123" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
-                  </div>
-                  <div>
-                    <label htmlFor="businessType" className="block text-sm font-medium text-secondary mb-2">What Kind of Business?</label>
-                    <select id="businessType" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm">
-                      <option value="">Pick one</option>
-                      <option value="dental">Dental Practice</option>
-                      <option value="healthcare">Healthcare</option>
-                      <option value="legal">Legal Firm</option>
-                      <option value="nonprofit">Nonprofit</option>
-                      <option value="smb">Small/Medium Business</option>
-                      <option value="other">Something Else</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-secondary mb-2">What&apos;s Going On?</label>
-                    <textarea id="message" rows={4} placeholder="Tell us about your biggest IT headache, or what you'd like to automate..." className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm resize-none" />
-                  </div>
-                  <button type="submit" className="w-full px-8 py-4 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-700/25 flex items-center justify-center gap-2 group">
-                    Send It Over <Send className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
-                  </button>
-                  <div aria-live="polite" className="sr-only" />
-                </form>
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium text-secondary mb-2">Phone (Optional)</label>
+                      <input id="phone" name="phone" type="tel" placeholder="(954) 555-0123" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
+                    </div>
+                    <div>
+                      <label htmlFor="businessType" className="block text-sm font-medium text-secondary mb-2">What Kind of Business?</label>
+                      <select id="businessType" name="businessType" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm">
+                        <option value="">Pick one</option>
+                        <option value="dental">Dental Practice</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="legal">Legal Firm</option>
+                        <option value="nonprofit">Nonprofit</option>
+                        <option value="smb">Small/Medium Business</option>
+                        <option value="other">Something Else</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-secondary mb-2">What&apos;s Going On?</label>
+                      <textarea id="message" name="message" rows={4} placeholder="Tell us about your biggest IT headache, or what you'd like to automate..." className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm resize-none" />
+                    </div>
+
+                    {status === "error" && (
+                      <div className="flex items-center gap-2 text-red-500 text-sm" role="alert">
+                        <AlertCircle className="w-4 h-4 shrink-0" />
+                        {errorMsg}
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={status === "sending"}
+                      className="w-full px-8 py-4 bg-brand-700 hover:bg-brand-800 disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-700/25 flex items-center justify-center gap-2 group"
+                    >
+                      {status === "sending" ? (
+                        <>Sending... <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" /></>
+                      ) : (
+                        <>Send It Over <Send className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" /></>
+                      )}
+                    </button>
+                    <div aria-live="polite" className="sr-only">
+                      {status === "sending" && "Sending your message..."}
+                      {status === "success" && "Message sent successfully!"}
+                      {status === "error" && errorMsg}
+                    </div>
+                  </form>
+                )}
               </div>
             </div>
           </div>
