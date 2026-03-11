@@ -104,3 +104,54 @@
     @apply max-w-7xl mx-auto px-5 sm:px-8;
   }
 }
+
+/* ─── Accessibility Widget Modes ─── */
+.a11y-high-contrast {
+  --color-ink: 0 0 0;
+  --color-secondary: 0 0 0;
+  --color-faded: 30 30 30;
+  --color-page: 255 255 255;
+  --color-accent: 139 0 0;
+}
+.a11y-high-contrast.dark {
+  --color-ink: 255 255 255;
+  --color-secondary: 255 255 255;
+  --color-faded: 220 220 220;
+  --color-page: 0 0 0;
+  --color-accent: 255 80 80;
+}
+
+.a11y-reduce-motion *,
+.a11y-reduce-motion *::before,
+.a11y-reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.a11y-screen-reader [aria-hidden="true"] {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+}
+
+.a11y-content-structure h1,
+.a11y-content-structure h2,
+.a11y-content-structure h3,
+.a11y-content-structure h4,
+.a11y-content-structure h5,
+.a11y-content-structure h6 {
+  outline: 2px dashed rgb(var(--color-accent)) !important;
+  outline-offset: 4px;
+}
+.a11y-content-structure a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+.a11y-content-structure main {
+  outline: 3px solid rgb(var(--color-accent)) !important;
+  outline-offset: 4px;
+}

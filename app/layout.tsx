@@ -7,6 +7,7 @@ import ThemeProvider from "@/components/ThemeProvider";
 import { I18nProvider } from "@/lib/i18n-context";
 import CookieBanner from "@/components/CookieBanner";
 import JsonLd from "@/components/JsonLd";
+import AccessibilityWidget from "@/components/AccessibilityWidget";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -77,6 +78,7 @@ export default function RootLayout({
             <main id="main-content">{children}</main>
             <Footer />
             <CookieBanner />
+            <AccessibilityWidget />
             <JsonLd />
           </I18nProvider>
         </ThemeProvider>
