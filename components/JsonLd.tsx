@@ -10,7 +10,7 @@ export default function JsonLd() {
           "IT, automation, and cybersecurity for dental practices, healthcare, legal firms, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
         url: "https://redrosetechnologies.com",
         telephone: "+1-954-857-1100",
-        email: "rrose@redrosetechnologies.com",
+        email: "info@redrosetechnologies.com",
         address: {
           "@type": "PostalAddress",
           addressLocality: "Lakewood Ranch",

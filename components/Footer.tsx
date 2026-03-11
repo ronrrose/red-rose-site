@@ -75,8 +75,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:rrose@redrosetechnologies.com" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
-                  <Mail className="w-4 h-4 shrink-0" /> rrose@redrosetechnologies.com
+                <a href="mailto:info@redrosetechnologies.com" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
+                  <Mail className="w-4 h-4 shrink-0" /> info@redrosetechnologies.com
                 </a>
               </li>
             </ul>

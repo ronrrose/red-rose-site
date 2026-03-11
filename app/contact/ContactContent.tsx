@@ -40,7 +40,7 @@ export default function ContactContent() {
                   </li>
                   <li className="flex items-center gap-4 text-secondary">
                     <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><Mail className="w-5 h-5" aria-hidden="true" /></div>
-                    <div><p className="text-ink font-semibold text-sm break-all">rrose@redrosetechnologies.com</p><p className="text-faded text-xs">Usually responds within a couple hours</p></div>
+                    <div><p className="text-ink font-semibold text-sm break-all">info@redrosetechnologies.com</p><p className="text-faded text-xs">Usually responds within a couple hours</p></div>
                   </li>
                   <li className="flex items-center gap-4 text-secondary">
                     <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><MapPin className="w-5 h-5" aria-hidden="true" /></div>
