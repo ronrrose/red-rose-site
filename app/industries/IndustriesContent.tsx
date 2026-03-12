@@ -140,7 +140,7 @@ export default function IndustriesContent() {
           <div className="container-site">
             <div className="flex items-center gap-4 mb-8">
               <div className="w-14 h-14 rounded-xl bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent">
-                <ind.icon className="w-7 h-7" />
+                <ind.icon className="w-7 h-7" aria-hidden="true" />
               </div>
               <div>
                 <p className="text-accent font-semibold text-sm">{ind.name}</p>

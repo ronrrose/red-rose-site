@@ -93,7 +93,7 @@ export default function AboutContent() {
             {differentiators.map((d) => (
               <div key={d.title} className="glass-card p-8 rounded-2xl">
                 <div className="w-12 h-12 bg-[var(--accent-bg)] border border-[var(--accent-border)] rounded-xl flex items-center justify-center mb-5 text-accent">
-                  <d.icon className="w-6 h-6" />
+                  <d.icon className="w-6 h-6" aria-hidden="true" />
                 </div>
                 <h3 className="text-lg font-bold text-ink mb-2">{d.title}</h3>
                 <p className="text-faded text-sm leading-relaxed">{d.description}</p>
@@ -113,7 +113,7 @@ export default function AboutContent() {
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {credentials.map((c) => (
               <div key={c.label} className="glass-card p-6 rounded-2xl flex items-start gap-4">
-                <Award className="w-8 h-8 text-accent shrink-0 mt-1" />
+                <Award className="w-8 h-8 text-accent shrink-0 mt-1" aria-hidden="true" />
                 <div>
                   <h3 className="text-ink font-bold mb-1">{c.label}</h3>
                   <p className="text-faded text-sm leading-relaxed">{c.detail}</p>

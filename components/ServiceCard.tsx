@@ -24,7 +24,7 @@ export default function ServiceCard({ icon: Icon, title, description, href }: Se
         className="group glass-card rounded-2xl p-8 flex flex-col gap-5 hover:bg-raised/50 transition-colors h-full"
       >
         <div className="w-12 h-12 rounded-xl bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent">
-          <Icon className="w-6 h-6" />
+          <Icon className="w-6 h-6" aria-hidden="true" />
         </div>
         <h3 className="text-xl font-bold text-ink">{title}</h3>
         <p className="text-secondary text-[15px] leading-relaxed flex-1">{description}</p>

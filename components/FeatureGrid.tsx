@@ -46,7 +46,7 @@ export default function FeatureGrid({
               className="glass-card p-8 rounded-2xl"
             >
               <div className="w-12 h-12 bg-[var(--accent-bg)] border border-[var(--accent-border)] rounded-xl flex items-center justify-center mb-5 text-accent">
-                <item.icon className="w-6 h-6" />
+                <item.icon className="w-6 h-6" aria-hidden="true" />
               </div>
               <h3 className="text-lg font-bold text-ink mb-2">{item.title}</h3>
               <p className="text-faded text-sm leading-relaxed">{item.description}</p>

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import Hero from "@/components/Hero";
 import CTABanner from "@/components/CTABanner";
 import { CheckCircle2, Users, Lightbulb, Presentation, Gift, Building2 } from "lucide-react";
@@ -157,7 +158,7 @@ export default function AIClinicsContent() {
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-brand-700 text-white text-sm font-bold flex items-center justify-center shadow-lg shadow-brand-700/30">
                   {s.step}
                 </div>
-                <s.icon className="w-8 h-8 text-accent mx-auto mb-4 mt-3" />
+                <s.icon className="w-8 h-8 text-accent mx-auto mb-4 mt-3" aria-hidden="true" />
                 <h3 className="text-lg font-bold text-ink mb-2">{s.title}</h3>
                 <p className="text-faded text-sm leading-relaxed">{s.desc}</p>
               </div>
@@ -169,7 +170,7 @@ export default function AIClinicsContent() {
       {/* ── Host / Partner ── */}
       <section className="section-padding bg-panel border-y border-line">
         <div className="container-site text-center max-w-3xl mx-auto">
-          <Building2 className="w-12 h-12 text-accent mx-auto mb-6" />
+          <Building2 className="w-12 h-12 text-accent mx-auto mb-6" aria-hidden="true" />
           <h2 className="text-3xl md:text-4xl font-bold text-ink mb-6">
             Bring a Clinic to Your Community
           </h2>
@@ -179,12 +180,12 @@ export default function AIClinicsContent() {
           <p className="text-faded mb-8">
             We handle everything: curriculum, materials, instruction, and follow-up. You bring the room and the people.
           </p>
-          <a
+          <Link
             href="/contact"
             className="inline-flex px-8 py-4 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-700/25"
           >
             Let&apos;s Set It Up
-          </a>
+          </Link>
         </div>
       </section>
 
