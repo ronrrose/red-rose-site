@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Hero from "@/components/Hero";
 import CTABanner from "@/components/CTABanner";
 import { CheckCircle2, Users, Lightbulb, Presentation, Gift, Building2 } from "lucide-react";
@@ -192,7 +193,13 @@ export default function AIClinicsContent() {
         <div className="container-site">
           <div className="max-w-4xl mx-auto glass-card rounded-2xl p-8 md:p-12">
             <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-              <div className="w-28 h-28 rounded-2xl bg-raised shrink-0" />
+              <Image
+                src="/ron-rose.jpg"
+                alt="Ron Rose, Instructor"
+                width={112}
+                height={112}
+                className="w-28 h-28 rounded-2xl object-cover shrink-0"
+              />
               <div>
                 <p className="text-accent font-semibold text-sm mb-1">Your Instructor</p>
                 <h3 className="text-2xl font-bold text-ink mb-4">Ron Rose</h3>

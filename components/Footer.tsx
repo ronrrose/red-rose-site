@@ -3,12 +3,12 @@ import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 const serviceLinks = [
-  "AI & Automation Clinics",
-  "Managed IT & Security",
-  "Dental IT Support",
-  "HIPAA Compliance",
-  "Cybersecurity",
-  "Cloud Setup & Migration",
+  { label: "AI & Automation Clinics", href: "/ai-clinics" },
+  { label: "Managed IT & Security",   href: "/managed-it" },
+  { label: "Dental IT Support",       href: "/industries" },
+  { label: "HIPAA Compliance",        href: "/managed-it" },
+  { label: "Cybersecurity",           href: "/managed-it" },
+  { label: "Cloud Setup & Migration", href: "/managed-it" },
 ];
 const companyLinks = [
   { label: "About",      href: "/about" },
@@ -42,9 +42,9 @@ export default function Footer() {
             <h4 className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Services</h4>
             <ul className="space-y-3">
               {serviceLinks.map((s) => (
-                <li key={s}>
-                  <Link href="/managed-it" className="text-faded text-sm hover:text-accent transition-colors">
-                    {s}
+                <li key={s.label}>
+                  <Link href={s.href} className="text-faded text-sm hover:text-accent transition-colors">
+                    {s.label}
                   </Link>
                 </li>
               ))}
@@ -92,8 +92,8 @@ export default function Footer() {
             © {new Date().getFullYear()} Red Rose Technologies. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="#" className="text-faded hover:text-secondary text-sm transition-colors">Privacy</Link>
-            <Link href="#" className="text-faded hover:text-secondary text-sm transition-colors">Terms</Link>
+            <Link href="/privacy" className="text-faded hover:text-secondary text-sm transition-colors">Privacy</Link>
+            <Link href="/terms" className="text-faded hover:text-secondary text-sm transition-colors">Terms</Link>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 import Hero from "@/components/Hero";
 import CTABanner from "@/components/CTABanner";
-import { ArrowRight, BookOpen, Shield, Bot } from "lucide-react";
+import { BookOpen, Shield, Bot } from "lucide-react";
 import Link from "next/link";
 
 const articles = [
@@ -54,9 +54,9 @@ export default function ResourcesContent() {
                   </div>
                   <h3 className="text-lg font-bold text-ink mb-3 leading-snug">{article.title}</h3>
                   <p className="text-faded text-sm leading-relaxed mb-6 flex-1">{article.excerpt}</p>
-                  <Link href="#" className="inline-flex items-center gap-1.5 text-accent text-sm font-semibold group-hover:gap-2.5 transition-all">
-                    Coming Soon <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  <span className="inline-flex items-center gap-1.5 text-faded text-sm font-semibold cursor-default">
+                    Coming Soon
+                  </span>
                 </div>
               </div>
             ))}
