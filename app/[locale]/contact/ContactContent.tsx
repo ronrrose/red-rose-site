@@ -72,7 +72,7 @@ export default function ContactContent() {
                 <p className="text-faded mb-6 text-sm">{t("noCommitment")}</p>
                 <div className="w-full rounded-xl overflow-hidden border border-line bg-white">
                   <iframe
-                    src="https://ro.am/ronrose/meeting"
+                    src="https://ro.am/ronrose/meeting?embed=true&hideShelf=true"
                     width="100%"
                     height="500"
                     style={{ border: 0 }}
