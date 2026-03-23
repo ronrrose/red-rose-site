@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 
+const localeSet = new Set(["en", "es", "pt", "fr"]);
+
 const nameMap: Record<string, string> = {
   "ai-clinics": "AI Clinics",
   "managed-it": "Managed IT",
@@ -18,15 +20,20 @@ const nameMap: Record<string, string> = {
 export default function Breadcrumbs() {
   const pathname = usePathname();
 
-  if (pathname === "/") return null;
+  // Filter out locale segment so it doesn't appear as a breadcrumb label
+  const allSegments = pathname.split("/").filter(Boolean);
+  const segments = allSegments.filter((seg) => !localeSet.has(seg));
 
-  const segments = pathname.split("/").filter(Boolean);
+  if (segments.length === 0) return null;
+
+  // Rebuild hrefs using the full path (including locale prefix)
+  const localePrefix = allSegments[0] && localeSet.has(allSegments[0]) ? `/${allSegments[0]}` : "";
 
   const crumbs = [
-    { label: "Home", href: "/" },
+    { label: "Home", href: `${localePrefix}/` },
     ...segments.map((seg, i) => ({
       label: nameMap[seg] || seg.charAt(0).toUpperCase() + seg.slice(1),
-      href: "/" + segments.slice(0, i + 1).join("/"),
+      href: `${localePrefix}/${segments.slice(0, i + 1).join("/")}`,
     })),
   ];
 

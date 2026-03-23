@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeAlternates } from "@/lib/metadata";
 import AboutContent from "./AboutContent";
 
 export const metadata: Metadata = {
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
     title: "About Red Rose Technologies — Built by an Operator, for Operators",
     description:
       "Meet Ron Rose and learn why Red Rose Technologies was built to serve dental practices, healthcare, legal firms, and local businesses differently.",
-    url: "https://www.redrosetechnologies.com/about",
   },
+  alternates: localeAlternates("/about"),
 };
 
 export default function AboutPage() {

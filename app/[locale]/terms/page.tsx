@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -6,8 +7,8 @@ export const metadata: Metadata = {
     "Red Rose Technologies terms of service. Review the terms governing use of our website and IT services.",
   openGraph: {
     title: "Terms of Service — Red Rose Technologies",
-    url: "https://www.redrosetechnologies.com/terms",
   },
+  alternates: localeAlternates("/terms"),
 };
 
 export default function TermsPage() {

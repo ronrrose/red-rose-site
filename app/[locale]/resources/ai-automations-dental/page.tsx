@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeAlternates } from "@/lib/metadata";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
     title: "5 AI Automations Every Dental Office Should Set Up This Week",
     description:
       "No-code automations for dental practices that save hours every week. Patient reminders, intake forms, reviews, and more.",
-    url: "https://www.redrosetechnologies.com/resources/ai-automations-dental",
   },
+  alternates: localeAlternates("/resources/ai-automations-dental"),
 };
 
 export default function AIDentalArticle() {

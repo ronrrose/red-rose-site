@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeAlternates } from "@/lib/metadata";
 import ResourcesContent from "./ResourcesContent";
 
 export const metadata: Metadata = {
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
     title: "Resources — AI, Cybersecurity & HIPAA Guides for Business Owners",
     description:
       "Practical guides on AI automation, cybersecurity checklists, and HIPAA compliance written for people who run businesses.",
-    url: "https://www.redrosetechnologies.com/resources",
   },
+  alternates: localeAlternates("/resources"),
 };
 
 export default function ResourcesPage() {

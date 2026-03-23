@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeAlternates } from "@/lib/metadata";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
     title: "SMB Cybersecurity Checklist — 12 Steps to Protect Your Business",
     description:
       "A plain-English cybersecurity checklist for small and medium businesses. Practical steps you can take this week.",
-    url: "https://www.redrosetechnologies.com/resources/smb-cybersecurity-checklist",
   },
+  alternates: localeAlternates("/resources/smb-cybersecurity-checklist"),
 };
 
 export default function CybersecurityChecklistArticle() {

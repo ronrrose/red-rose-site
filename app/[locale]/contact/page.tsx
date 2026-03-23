@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeAlternates } from "@/lib/metadata";
 import ContactContent from "./ContactContent";
 
 export const metadata: Metadata = {
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
     title: "Contact Red Rose Technologies — Book a Free IT Assessment",
     description:
       "Schedule a 30-minute call or send a message. Free, no-pressure IT assessment for your business.",
-    url: "https://www.redrosetechnologies.com/contact",
   },
+  alternates: localeAlternates("/contact"),
 };
 
 export default function ContactPage() {

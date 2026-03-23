@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeAlternates } from "@/lib/metadata";
 import ManagedITContent from "./ManagedITContent";
 
 export const metadata: Metadata = {
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
     title: "Managed IT & Security — HIPAA-Compliant IT for Local Businesses",
     description:
       "24/7 network monitoring, HIPAA compliance, cybersecurity, and proactive IT support. Flat-rate pricing, no hidden fees.",
-    url: "https://www.redrosetechnologies.com/managed-it",
   },
+  alternates: localeAlternates("/managed-it"),
 };
 
 export default function ManagedITPage() {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -6,8 +7,8 @@ export const metadata: Metadata = {
     "Red Rose Technologies privacy policy. Learn how we collect, use, and protect your personal information.",
   openGraph: {
     title: "Privacy Policy — Red Rose Technologies",
-    url: "https://www.redrosetechnologies.com/privacy",
   },
+  alternates: localeAlternates("/privacy"),
 };
 
 export default function PrivacyPage() {

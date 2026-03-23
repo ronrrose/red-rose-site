@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeAlternates } from "@/lib/metadata";
 import AIClinicsContent from "./AIClinicsContent";
 
 export const metadata: Metadata = {
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
     title: "AI & Automation Clinics — Hands-On Workshops for Local Businesses",
     description:
       "Three sessions that teach your team to actually use AI. Build real automations and leave with tools that save you hours every week.",
-    url: "https://www.redrosetechnologies.com/ai-clinics",
   },
+  alternates: localeAlternates("/ai-clinics"),
 };
 
 export default function AIClinicsPage() {

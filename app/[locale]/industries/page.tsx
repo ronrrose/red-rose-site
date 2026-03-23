@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeAlternates } from "@/lib/metadata";
 import IndustriesContent from "./IndustriesContent";
 
 export const metadata: Metadata = {
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
     title: "Industries We Serve — Dental, Healthcare, Legal, Nonprofits & SMBs",
     description:
       "Specialized IT support for dental practices, healthcare providers, law firms, nonprofits, and small businesses in Tampa Bay.",
-    url: "https://www.redrosetechnologies.com/industries",
   },
+  alternates: localeAlternates("/industries"),
 };
 
 export default function IndustriesPage() {
