@@ -7,6 +7,20 @@ if (!process.env.RESEND_API_KEY) {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// In-memory rate limiting: 5 submissions per IP per 15 minutes
+const submissionsByIp = new Map<string, number[]>();
+const WINDOW_MS = 15 * 60 * 1000;
+const MAX_SUBMISSIONS = 5;
+
+function rateLimit(ip: string): boolean {
+  const now = Date.now();
+  const windowStart = now - WINDOW_MS;
+  const timestamps = (submissionsByIp.get(ip) || []).filter((t) => t > windowStart);
+  timestamps.push(now);
+  submissionsByIp.set(ip, timestamps);
+  return timestamps.length <= MAX_SUBMISSIONS;
+}
+
 interface ContactBody {
   firstName: string;
   lastName: string;
@@ -18,6 +32,14 @@ interface ContactBody {
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown";
+    if (!rateLimit(ip)) {
+      return NextResponse.json(
+        { error: "Too many submissions. Please try again later." },
+        { status: 429 }
+      );
+    }
+
     const body = (await req.json()) as ContactBody;
 
     // Validate required fields
