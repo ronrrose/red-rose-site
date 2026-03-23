@@ -1,0 +1,45 @@
+{
+  "Nav": {
+    "home": "Accueil",
+    "aiClinics": "Cliniques IA",
+    "managedIt": "TI Gérée",
+    "industries": "Industries",
+    "about": "À Propos",
+    "resources": "Ressources",
+    "contact": "Contact",
+    "getAssessment": "Évaluation",
+    "getFreeAssessment": "Évaluation Gratuite"
+  },
+  "Cookie": {
+    "message": "Nous utilisons des cookies pour améliorer votre expérience et analyser le trafic du site.",
+    "accept": "Tout Accepter",
+    "reject": "Tout Refuser",
+    "manage": "Gérer les Préférences"
+  },
+  "Contact": {
+    "title": "Parlons-en",
+    "subtitle": "Réservez un Appel.\nObtenez des Réponses.",
+    "body": "Choisissez un créneau, dites-nous ce qui se passe, et nous aurons une conversation honnête sur vos besoins en informatique, sécurité ou automatisation. Pas de discours commercial. Juste une discussion franche.",
+    "bookCall": "Choisissez un Créneau",
+    "noCommitment": "Sans engagement, sans pression. Juste une conversation.",
+    "sendMessageTitle": "Envoyez un Message",
+    "sendMessageBody": "Vous préférez écrire ? Remplissez ce formulaire et Ron vous répondra dans un jour ouvrable.",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Adresse Email",
+    "phone": "Téléphone (Facultatif)",
+    "businessType": "Quel Type d'Entreprise ?",
+    "businessTypePlaceholder": "Choisissez",
+    "message": "Que Se Passe-t-il ?",
+    "submit": "Envoyer",
+    "serviceAreaTitle": "Local dans le Sud-Ouest de la Floride",
+    "serviceAreaBody": "Support sur site et à distance dans la région de Tampa Bay."
+  },
+  "LocaleSwitcher": {
+    "label": "Changer de langue",
+    "en": "English",
+    "es": "Español",
+    "pt": "Português",
+    "fr": "Français"
+  }
+}

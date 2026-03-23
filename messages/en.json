@@ -1,0 +1,45 @@
+{
+  "Nav": {
+    "home": "Home",
+    "aiClinics": "AI Clinics",
+    "managedIt": "Managed IT",
+    "industries": "Industries",
+    "about": "About",
+    "resources": "Resources",
+    "contact": "Contact",
+    "getAssessment": "Get Assessment",
+    "getFreeAssessment": "Get Free Assessment"
+  },
+  "Cookie": {
+    "message": "We use cookies to improve your experience and analyze site traffic. You can manage your preferences anytime.",
+    "accept": "Accept All",
+    "reject": "Reject All",
+    "manage": "Manage Preferences"
+  },
+  "Contact": {
+    "title": "Let's Talk",
+    "subtitle": "Book a Call.\nGet Real Answers.",
+    "body": "Pick a time, tell us what's going on, and we'll have an honest conversation about your IT, security, or automation needs. No sales pitch. Just straight talk.",
+    "bookCall": "Pick a Time That Works",
+    "noCommitment": "No commitment, no hard sell. Just a conversation.",
+    "sendMessageTitle": "Send a Message",
+    "sendMessageBody": "Rather type it out? Fill this in and Ron will get back to you within one business day.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "phone": "Phone (Optional)",
+    "businessType": "What Kind of Business?",
+    "businessTypePlaceholder": "Pick one",
+    "message": "What's Going On?",
+    "submit": "Send It Over",
+    "serviceAreaTitle": "Local to Southwest Florida",
+    "serviceAreaBody": "On-site and remote support across the Tampa Bay area."
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "en": "English",
+    "es": "Español",
+    "pt": "Português",
+    "fr": "Français"
+  }
+}

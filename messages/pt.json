@@ -1,0 +1,45 @@
+{
+  "Nav": {
+    "home": "Início",
+    "aiClinics": "Clínicas de IA",
+    "managedIt": "TI Gerenciada",
+    "industries": "Indústrias",
+    "about": "Sobre Nós",
+    "resources": "Recursos",
+    "contact": "Contato",
+    "getAssessment": "Avaliação",
+    "getFreeAssessment": "Avaliação Gratuita"
+  },
+  "Cookie": {
+    "message": "Usamos cookies para melhorar sua experiência e analisar o tráfego do site.",
+    "accept": "Aceitar Tudo",
+    "reject": "Rejeitar Tudo",
+    "manage": "Gerenciar Preferências"
+  },
+  "Contact": {
+    "title": "Vamos Conversar",
+    "subtitle": "Agende uma Chamada.\nObtenha Respostas Reais.",
+    "body": "Escolha um horário, nos conte o que está acontecendo, e teremos uma conversa honesta sobre suas necessidades de TI, segurança ou automação. Sem discurso de vendas. Apenas conversa direta.",
+    "bookCall": "Escolha um Horário",
+    "noCommitment": "Sem compromisso, sem pressão. Apenas uma conversa.",
+    "sendMessageTitle": "Envie uma Mensagem",
+    "sendMessageBody": "Prefere escrever? Preencha isso e Ron responderá em um dia útil.",
+    "firstName": "Nome",
+    "lastName": "Sobrenome",
+    "email": "Endereço de Email",
+    "phone": "Telefone (Opcional)",
+    "businessType": "Que Tipo de Negócio?",
+    "businessTypePlaceholder": "Escolha um",
+    "message": "O Que Está Acontecendo?",
+    "submit": "Enviar",
+    "serviceAreaTitle": "Local no Sudoeste da Flórida",
+    "serviceAreaBody": "Suporte presencial e remoto na área de Tampa Bay."
+  },
+  "LocaleSwitcher": {
+    "label": "Mudar idioma",
+    "en": "English",
+    "es": "Español",
+    "pt": "Português",
+    "fr": "Français"
+  }
+}
