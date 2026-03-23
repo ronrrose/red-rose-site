@@ -4,11 +4,11 @@ export default function JsonLd() {
     "@graph": [
       {
         "@type": "LocalBusiness",
-        "@id": "https://redrosetechnologies.com/#business",
+        "@id": "https://www.redrosetechnologies.com/#business",
         name: "Red Rose Technologies",
         description:
           "IT, automation, and cybersecurity for dental practices, healthcare, legal firms, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
-        url: "https://redrosetechnologies.com",
+        url: "https://www.redrosetechnologies.com",
         telephone: "+1-954-857-1100",
         email: "info@redrosetechnologies.com",
         address: {
@@ -33,6 +33,36 @@ export default function JsonLd() {
           name: "Ron Rose",
           jobTitle: "Founder & IT Consultant",
         },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5",
+          reviewCount: "3",
+          bestRating: "5",
+          worstRating: "5",
+        },
+        review: [
+          {
+            "@type": "Review",
+            author: { "@type": "Person", name: "Dr. Yudancy Gangi, DMD" },
+            reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+            reviewBody:
+              "Ron looked at what we were spending and found $75,000 a year in savings. He moved us from Eaglesoft servers to Curve Dental in the cloud, switched our phones and got us off ADP onto Gusto for payroll.",
+          },
+          {
+            "@type": "Review",
+            author: { "@type": "Person", name: "Jonathan Hill" },
+            reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+            reviewBody:
+              "We've worked with Ron since 2011. He built out our enterprise network for over 115 staff members, and it's still running strong today.",
+          },
+          {
+            "@type": "Review",
+            author: { "@type": "Person", name: "James Torres, Esq." },
+            reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+            reviewBody:
+              "Our last IT company took three days to return calls. Ron picks up the phone. His team caught a vulnerability on our network before it turned into a nightmare.",
+          },
+        ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: "IT Services",
@@ -87,10 +117,10 @@ export default function JsonLd() {
       },
       {
         "@type": "WebSite",
-        "@id": "https://redrosetechnologies.com/#website",
-        url: "https://redrosetechnologies.com",
+        "@id": "https://www.redrosetechnologies.com/#website",
+        url: "https://www.redrosetechnologies.com",
         name: "Red Rose Technologies",
-        publisher: { "@id": "https://redrosetechnologies.com/#business" },
+        publisher: { "@id": "https://www.redrosetechnologies.com/#business" },
       },
     ],
   };

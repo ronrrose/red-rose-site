@@ -68,15 +68,16 @@ export default function ContactContent() {
               <div className="glass-card rounded-2xl p-8 mb-8">
                 <h2 className="text-2xl font-bold text-ink mb-4">Pick a Time That Works</h2>
                 <p className="text-faded mb-6 text-sm">No commitment, no hard sell. Just a conversation.</p>
-                <a
-                  href="https://ro.am/ronrose/meeting"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full px-8 py-4 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-700/25 text-center"
-                >
-                  Book a 30-Minute Call
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
+                <div className="w-full rounded-xl overflow-hidden border border-line bg-white">
+                  <iframe
+                    src="https://ro.am/ronrose/meeting"
+                    width="100%"
+                    height="500"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    title="Book a 30-minute call with Ron Rose"
+                  />
+                </div>
               </div>
               <div className="glass-card rounded-2xl p-8">
                 <h3 className="text-lg font-bold text-ink mb-6">Or Just Reach Out</h3>

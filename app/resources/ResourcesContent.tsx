@@ -2,7 +2,7 @@
 
 import Hero from "@/components/Hero";
 import CTABanner from "@/components/CTABanner";
-import { BookOpen, Shield, Bot } from "lucide-react";
+import { ArrowRight, BookOpen, Shield, Bot } from "lucide-react";
 import Link from "next/link";
 
 const articles = [
@@ -12,6 +12,7 @@ const articles = [
     title: "5 AI Automations Every Dental Office Should Set Up This Week",
     excerpt: "Stop copy-pasting patient reminders, appointment confirmations, and intake forms. These five no-code automations take under an hour to set up.",
     tag: "Guide",
+    href: "/resources/ai-automations-dental",
   },
   {
     icon: Shield,
@@ -19,6 +20,7 @@ const articles = [
     title: "The SMB Cybersecurity Checklist: 12 Things to Do Before You Get Hacked",
     excerpt: "Most small businesses think they're too small to get targeted. They're not. Here's a plain-English checklist to lock things down.",
     tag: "Checklist",
+    href: "/resources/smb-cybersecurity-checklist",
   },
   {
     icon: BookOpen,
@@ -26,6 +28,7 @@ const articles = [
     title: "HIPAA in 2026: What Changed and What You Need to Do Now",
     excerpt: "New enforcement priorities, updated breach rules, and telehealth-specific requirements. Here's what your practice needs to act on.",
     tag: "Article",
+    href: null,
   },
 ];
 
@@ -42,27 +45,45 @@ export default function ResourcesContent() {
       <section className="section-padding border-t border-line">
         <div className="container-site">
           <div className="grid md:grid-cols-3 gap-8">
-            {articles.map((article) => (
-              <div key={article.title} className="glass-card rounded-2xl overflow-hidden group hover:bg-raised/50 transition-colors flex flex-col">
-                <div className="h-48 bg-raised flex items-center justify-center">
-                  <article.icon className="w-16 h-16 text-accent/30" />
-                </div>
-                <div className="p-8 flex flex-col flex-1">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-xs font-bold text-accent uppercase tracking-wider">{article.category}</span>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-bg)] text-accent border border-[var(--accent-border)]">{article.tag}</span>
+            {articles.map((article) => {
+              const cardClass = "glass-card rounded-2xl overflow-hidden group hover:bg-raised/50 transition-colors flex flex-col";
+              const inner = (
+                <>
+                  <div className="h-48 bg-raised flex items-center justify-center">
+                    <article.icon className="w-16 h-16 text-accent/30" aria-hidden="true" />
                   </div>
-                  <h3 className="text-lg font-bold text-ink mb-3 leading-snug">{article.title}</h3>
-                  <p className="text-faded text-sm leading-relaxed mb-6 flex-1">{article.excerpt}</p>
-                  <span className="inline-flex items-center gap-1.5 text-faded text-sm font-semibold cursor-default">
-                    Coming Soon
-                  </span>
+                  <div className="p-8 flex flex-col flex-1">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-xs font-bold text-accent uppercase tracking-wider">{article.category}</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-bg)] text-accent border border-[var(--accent-border)]">{article.tag}</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-ink mb-3 leading-snug">{article.title}</h3>
+                    <p className="text-faded text-sm leading-relaxed mb-6 flex-1">{article.excerpt}</p>
+                    {article.href ? (
+                      <span className="inline-flex items-center gap-1.5 text-accent text-sm font-semibold group-hover:gap-2.5 transition-all">
+                        Read Article <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 text-faded text-sm font-semibold cursor-default">
+                        Coming Soon
+                      </span>
+                    )}
+                  </div>
+                </>
+              );
+              return article.href ? (
+                <Link key={article.title} href={article.href} className={cardClass}>
+                  {inner}
+                </Link>
+              ) : (
+                <div key={article.title} className={cardClass}>
+                  {inner}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <div className="text-center mt-16">
-            <p className="text-faded text-lg">More on the way. Want to know when they drop?{" "}<Link href="/contact" className="text-accent hover:text-brand-600 font-semibold transition-colors">Get on the list →</Link></p>
+            <p className="text-faded text-lg">More on the way. Want to know when they drop?{" "}<Link href="/contact" className="text-accent hover:text-brand-600 font-semibold transition-colors">Get on the list &rarr;</Link></p>
           </div>
         </div>
       </section>

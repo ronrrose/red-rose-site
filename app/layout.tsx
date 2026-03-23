@@ -8,6 +8,7 @@ import { I18nProvider } from "@/lib/i18n-context";
 import CookieBanner from "@/components/CookieBanner";
 import JsonLd from "@/components/JsonLd";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -38,18 +39,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Red Rose Technologies",
-    title: "Red Rose Technologies | IT, Automation & Security for Local Businesses",
-    description:
-      "IT, automation, and cybersecurity for dental practices, healthcare, legal firms, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
-    url: "https://redrosetechnologies.com",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Red Rose Technologies | IT, Automation & Security",
-    description:
-      "IT, AI automation, and cybersecurity for local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
   },
-  metadataBase: new URL("https://redrosetechnologies.com"),
+  metadataBase: new URL("https://www.redrosetechnologies.com"),
+  alternates: {
+    canonical: "./",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -75,6 +72,7 @@ export default function RootLayout({
               Skip to main content
             </a>
             <NavBar />
+            <Breadcrumbs />
             <main id="main-content">{children}</main>
             <Footer />
             <CookieBanner />

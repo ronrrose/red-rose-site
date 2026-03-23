@@ -1,6 +1,7 @@
 "use client";
 
 import Hero from "@/components/Hero";
+import FAQSection from "@/components/FAQSection";
 import CTABanner from "@/components/CTABanner";
 import { CheckCircle2, Stethoscope, Heart, Scale, Building2, Briefcase } from "lucide-react";
 
@@ -181,6 +182,17 @@ export default function IndustriesContent() {
           </div>
         </section>
       ))}
+
+      <FAQSection
+        heading="Industry-Specific Questions"
+        faqs={[
+          { question: "Do you work with my specific dental software?", answer: "Yes. We have hands-on experience with Dentrix, Eaglesoft, Open Dental, Curve Dental, and Dexis imaging. If you use it in a dental practice, we've probably set it up, migrated it, or fixed it." },
+          { question: "What makes your healthcare IT different from other MSPs?", answer: "We start with HIPAA. Most MSPs add compliance as an afterthought. We build security controls, documentation, and risk assessments into every engagement from day one. We also understand EHR/EMR workflows so we don't slow your staff down." },
+          { question: "Can you help a law firm with eDiscovery and data retention?", answer: "Yes. We set up secure document management, eDiscovery-ready infrastructure, and data retention policies that align with bar association requirements. We work with Clio, MyCase, and custom document workflows." },
+          { question: "Do you offer discounted pricing for nonprofits?", answer: "We help nonprofits access Microsoft 365 Nonprofit licensing (free or deeply discounted) and plan grant-eligible tech upgrades. Our pricing is already competitive, and we work within real-world nonprofit budgets." },
+          { question: "What size businesses do you work with?", answer: "Typically 5 to 200 employees. We're a great fit for businesses that have outgrown their break-fix IT guy but aren't ready (or don't want) to hire a full internal IT team." },
+        ]}
+      />
 
       <CTABanner
         heading="Let's Talk About Your Industry"

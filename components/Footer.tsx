@@ -32,14 +32,14 @@ export default function Footer() {
               IT, automation, and security for dental practices, law firms, healthcare, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.
             </p>
             <div className="flex items-start gap-3 text-faded text-sm">
-              <MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+              <MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
               <span>Lakewood Ranch, FL<br />Serving Manatee &amp; Sarasota Counties</span>
             </div>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Services</h4>
+            <p className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Services</p>
             <ul className="space-y-3">
               {serviceLinks.map((s) => (
                 <li key={s.label}>
@@ -53,7 +53,7 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Company</h4>
+            <p className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Company</p>
             <ul className="space-y-3">
               {companyLinks.map((l) => (
                 <li key={l.href}>
@@ -67,7 +67,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Contact</h4>
+            <p className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Contact</p>
             <ul className="space-y-3 mb-6">
               <li>
                 <a href="tel:9548571100" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
@@ -82,8 +82,18 @@ export default function Footer() {
             </ul>
             <div className="p-4 rounded-xl border border-line bg-raised/50">
               <p className="text-ink font-semibold text-sm mb-1">24/7 Emergency Line</p>
-              <p className="text-accent text-xs">Current clients get a priority number.</p>
+              <p className="text-faded text-xs mb-2">Current clients receive a dedicated priority number during onboarding.</p>
+              <Link href="/contact" className="text-accent text-xs font-semibold hover:text-brand-600 transition-colors">
+                Become a Client &rarr;
+              </Link>
             </div>
+            <Link
+              href="/contact?ref=dark-web-scan"
+              className="block mt-4 p-4 rounded-xl border border-accent/20 bg-[var(--accent-bg)] hover:bg-accent/10 transition-colors"
+            >
+              <p className="text-accent font-semibold text-sm">Free Dark Web Scan</p>
+              <p className="text-faded text-xs mt-1">Check if your business data has been exposed.</p>
+            </Link>
           </div>
         </div>
 

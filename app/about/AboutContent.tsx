@@ -33,10 +33,10 @@ const differentiators = [
 ];
 
 const credentials = [
-  { label: "Google AI Essentials", detail: "Certified in practical AI tools for business automation and decision-making." },
-  { label: "CompTIA IT Fundamentals+", detail: "Industry-standard credential covering IT infrastructure, security, and networking." },
-  { label: "HIPAA Security Specialist", detail: "Deep experience with healthcare data protection, risk assessments, and audit documentation." },
-  { label: "Microsoft 365 Administration", detail: "Deployment, security, and management of Microsoft cloud environments." },
+  { label: "Google AI Essentials", detail: "Certified in practical AI tools for business automation and decision-making.", issuer: "Google", verifyUrl: "https://www.credly.com/org/google" },
+  { label: "CompTIA IT Fundamentals+", detail: "Industry-standard credential covering IT infrastructure, security, and networking.", issuer: "CompTIA", verifyUrl: "https://www.credly.com/org/comptia" },
+  { label: "HIPAA Security Specialist", detail: "Deep experience with healthcare data protection, risk assessments, and audit documentation.", issuer: "HIPAA Training & Certification" },
+  { label: "Microsoft 365 Administration", detail: "Deployment, security, and management of Microsoft cloud environments.", issuer: "Microsoft" },
 ];
 
 export default function AboutContent() {
@@ -116,7 +116,13 @@ export default function AboutContent() {
                 <Award className="w-8 h-8 text-accent shrink-0 mt-1" aria-hidden="true" />
                 <div>
                   <h3 className="text-ink font-bold mb-1">{c.label}</h3>
-                  <p className="text-faded text-sm leading-relaxed">{c.detail}</p>
+                  <p className="text-faded text-sm leading-relaxed mb-1">{c.detail}</p>
+                  <p className="text-faded text-xs">
+                    Issued by {c.issuer}
+                    {c.verifyUrl && (
+                      <> &middot; <a href={c.verifyUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-brand-600 transition-colors">Verify on Credly<span className="sr-only"> (opens in a new tab)</span></a></>
+                    )}
+                  </p>
                 </div>
               </div>
             ))}

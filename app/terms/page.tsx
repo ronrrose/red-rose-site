@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
+  description:
+    "Red Rose Technologies terms of service. Review the terms governing use of our website and IT services.",
+  openGraph: {
+    title: "Terms of Service — Red Rose Technologies",
+    url: "https://www.redrosetechnologies.com/terms",
+  },
 };
 
 export default function TermsPage() {

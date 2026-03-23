@@ -36,7 +36,7 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => setOpen(!open)}
         className="p-2 text-faded hover:text-ink transition-colors rounded-lg"
-        aria-label="Change language"
+        aria-label={`Change language — current: ${localeNames[locale]}`}
         aria-expanded={open}
         aria-haspopup="listbox"
       >
@@ -63,6 +63,9 @@ export default function LanguageSwitcher() {
               {localeNames[l]}
             </button>
           ))}
+          <p className="px-4 py-2 text-xs text-faded border-t border-line mt-1">
+            Translates navigation &amp; UI text
+          </p>
         </div>
       )}
     </div>
