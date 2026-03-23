@@ -1,28 +1,27 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { useI18n } from "@/lib/i18n-context";
 
-const linkKeys = [
-  { href: "/", key: "nav.home" },
-  { href: "/ai-clinics", key: "nav.aiClinics" },
-  { href: "/managed-it", key: "nav.managedIt" },
-  { href: "/industries", key: "nav.industries" },
-  { href: "/about", key: "nav.about" },
-  { href: "/resources", key: "nav.resources" },
-  { href: "/contact", key: "nav.contact" },
-];
+const navLinks = [
+  { href: "/", key: "home" },
+  { href: "/ai-clinics", key: "aiClinics" },
+  { href: "/managed-it", key: "managedIt" },
+  { href: "/industries", key: "industries" },
+  { href: "/about", key: "about" },
+  { href: "/resources", key: "resources" },
+  { href: "/contact", key: "contact" },
+] as const;
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const { t } = useI18n();
+  const t = useTranslations("Nav");
 
   const closeMenu = useCallback(() => setOpen(false), []);
 
@@ -56,7 +55,7 @@ export default function NavBar() {
 
         {/* Desktop Links */}
         <div className="hidden lg:flex items-center gap-7">
-          {linkKeys.map((l) => (
+          {navLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -83,7 +82,7 @@ export default function NavBar() {
             href="/contact"
             className="px-5 py-2.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold transition-all shadow-lg shadow-brand-700/20"
           >
-            {t("nav.getAssessment")}
+            {t("getAssessment")}
           </Link>
         </div>
 
@@ -113,7 +112,7 @@ export default function NavBar() {
           style={{ background: "var(--nav-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
         >
           <div className="container-site flex flex-col gap-1 pt-4">
-            {linkKeys.map((l) => (
+            {navLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -133,7 +132,7 @@ export default function NavBar() {
               onClick={closeMenu}
               className="mt-4 px-5 py-3 rounded-lg bg-brand-700 text-center text-white text-sm font-semibold"
             >
-              {t("nav.getFreeAssessment")}
+              {t("getFreeAssessment")}
             </Link>
           </div>
         </div>
