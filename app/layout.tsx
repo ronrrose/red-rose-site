@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
-import { I18nProvider } from "@/lib/i18n-context";
-import CookieBanner from "@/components/CookieBanner";
-import JsonLd from "@/components/JsonLd";
-import AccessibilityWidget from "@/components/AccessibilityWidget";
-import Breadcrumbs from "@/components/Breadcrumbs";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -64,21 +57,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} scroll-smooth`} suppressHydrationWarning>
       <body className="font-sans min-h-screen bg-page text-ink antialiased transition-colors duration-300">
         <ThemeProvider>
-          <I18nProvider>
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-brand-700 focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold"
-            >
-              Skip to main content
-            </a>
-            <NavBar />
-            <Breadcrumbs />
-            <main id="main-content">{children}</main>
-            <Footer />
-            <CookieBanner />
-            <AccessibilityWidget />
-            <JsonLd />
-          </I18nProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>
