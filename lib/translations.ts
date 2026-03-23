@@ -1,4 +1,5 @@
-export type Locale = "en" | "es" | "pt" | "fr";
+export { type Locale, locales, defaultLocale } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
 
 export const localeNames: Record<Locale, string> = {
   en: "English",

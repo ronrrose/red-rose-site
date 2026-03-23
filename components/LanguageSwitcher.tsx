@@ -3,9 +3,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Globe } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
-import { type Locale, localeNames } from "@/lib/translations";
-
-const locales: Locale[] = ["en", "es", "pt", "fr"];
+import { locales } from "@/i18n/config";
+import { localeNames } from "@/lib/translations";
 
 export default function LanguageSwitcher() {
   const { locale, setLocale } = useI18n();
