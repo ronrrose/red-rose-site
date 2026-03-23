@@ -27,11 +27,16 @@ export default function CookieBanner() {
   const { t } = useI18n();
   const [visible, setVisible] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
+  const [hasConsented, setHasConsented] = useState(false);
   const [prefs, setPrefs] = useState<CookiePreferences>(defaultPreferences);
 
   useEffect(() => {
     const consent = localStorage.getItem("rrt-cookie-consent");
-    if (!consent) setVisible(true);
+    if (!consent) {
+      setVisible(true);
+    } else {
+      setHasConsented(true);
+    }
     const saved = localStorage.getItem("rrt-cookie-prefs");
     if (saved) {
       try { setPrefs(JSON.parse(saved)); } catch { /* use defaults */ }
@@ -43,6 +48,7 @@ export default function CookieBanner() {
     localStorage.setItem("rrt-cookie-prefs", JSON.stringify(preferences));
     setVisible(false);
     setShowPreferences(false);
+    setHasConsented(true);
   }, []);
 
   const handleAcceptAll = () => {
@@ -86,7 +92,27 @@ export default function CookieBanner() {
     setPrefs((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  if (!visible) return null;
+  const openPreferencesWidget = () => {
+    setVisible(true);
+    setShowPreferences(true);
+  };
+
+  if (!visible) {
+    // Show floating cookie widget button after user has consented
+    if (!hasConsented) return null;
+    return (
+      <div className="fixed bottom-4 left-4 z-[60]">
+        <button
+          onClick={openPreferencesWidget}
+          className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-faded hover:text-ink bg-raised border border-line rounded-full shadow-lg hover:shadow-xl transition-all"
+          aria-label="Cookie preferences"
+        >
+          <span className="text-lg leading-none" aria-hidden="true">🍪</span>
+          Cookie preferences
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div
