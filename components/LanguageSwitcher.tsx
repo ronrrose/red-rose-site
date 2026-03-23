@@ -1,72 +1,36 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter, usePathname } from "@/i18n/navigation";
+import { locales, type Locale } from "@/i18n/config";
 import { Globe } from "lucide-react";
-import { useI18n } from "@/lib/i18n-context";
-import { locales } from "@/i18n/config";
-import { localeNames } from "@/lib/translations";
 
 export default function LanguageSwitcher() {
-  const { locale, setLocale } = useI18n();
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const pathname = usePathname();
+  const locale = useLocale() as Locale;
+  const t = useTranslations("LocaleSwitcher");
 
-  const close = useCallback(() => setOpen(false), []);
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) close();
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [close]);
-
-  useEffect(() => {
-    if (!open) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open, close]);
+  function onChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const nextLocale = e.target.value as Locale;
+    router.replace(pathname, { locale: nextLocale });
+  }
 
   return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen(!open)}
-        className="p-2 text-faded hover:text-ink transition-colors rounded-lg"
-        aria-label={`Change language — current: ${localeNames[locale]}`}
-        aria-expanded={open}
-        aria-haspopup="listbox"
+    <label className="inline-flex items-center gap-2 text-sm text-faded hover:text-ink transition-colors cursor-pointer">
+      <Globe className="w-5 h-5 shrink-0" aria-hidden="true" />
+      <span className="sr-only">{t("label")}</span>
+      <select
+        className="rounded-lg border border-line bg-transparent px-2 py-1.5 text-sm font-medium cursor-pointer focus:ring-accent focus:border-accent"
+        value={locale}
+        onChange={onChange}
       >
-        <Globe className="w-5 h-5" aria-hidden="true" />
-      </button>
-      {open && (
-        <div
-          role="listbox"
-          aria-label="Select language"
-          className="absolute right-0 top-full mt-2 bg-raised border border-line rounded-lg shadow-xl py-1 min-w-[140px] z-50"
-        >
-          {locales.map((l) => (
-            <button
-              key={l}
-              role="option"
-              aria-selected={locale === l}
-              onClick={() => { setLocale(l); close(); }}
-              className={`w-full text-left px-4 py-2 text-sm transition-colors ${
-                locale === l
-                  ? "text-accent font-semibold bg-[var(--accent-bg)]"
-                  : "text-faded hover:text-ink hover:bg-raised/80"
-              }`}
-            >
-              {localeNames[l]}
-            </button>
-          ))}
-          <p className="px-4 py-2 text-xs text-faded border-t border-line mt-1">
-            Translates navigation &amp; UI text
-          </p>
-        </div>
-      )}
-    </div>
+        {locales.map((loc) => (
+          <option key={loc} value={loc}>
+            {t(loc)}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }
