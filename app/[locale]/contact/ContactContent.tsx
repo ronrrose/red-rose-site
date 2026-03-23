@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import Hero from "@/components/Hero";
 import { MapPin, Phone, Mail, Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
@@ -13,6 +13,31 @@ export default function ContactContent() {
   const t = useTranslations("Contact");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const roamRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!roamRef.current) return;
+    const el = roamRef.current;
+    const script = document.createElement("script");
+    script.src = "https://ro.am/lobbylinks/embed.js";
+    script.async = true;
+    script.onload = () => {
+      (window as any).Roam.initLobbyEmbed({
+        url: "https://ro.am/ronrose/meeting",
+        parentElement: el,
+        lobbyConfiguration: "booking_only",
+        accentColor: "#D32F2F",
+        theme: "dark",
+        onSizeChange: (_w: number, h: number) => {
+          el.style.height = `${h}px`;
+        },
+      });
+    };
+    document.body.appendChild(script);
+    return () => {
+      script.remove();
+    };
+  }, []);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -70,16 +95,12 @@ export default function ContactContent() {
               <div className="glass-card rounded-2xl p-8 mb-8">
                 <h2 className="text-2xl font-bold text-ink mb-4">{t("bookCall")}</h2>
                 <p className="text-faded mb-6 text-sm">{t("noCommitment")}</p>
-                <div className="w-full rounded-xl overflow-hidden border border-line bg-white">
-                  <iframe
-                    src="https://ro.am/ronrose/meeting?embed=true&hideShelf=true"
-                    width="100%"
-                    height="500"
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    title="Book a 30-minute call with Ron Rose"
-                  />
-                </div>
+                <div
+                  ref={roamRef}
+                  id="roam-lobby"
+                  className="w-full rounded-xl overflow-hidden border border-line bg-white"
+                  style={{ minWidth: 320 }}
+                />
               </div>
               <div className="glass-card rounded-2xl p-8">
                 <h3 className="text-lg font-bold text-ink mb-6">Or Just Reach Out</h3>
