@@ -98,7 +98,7 @@ export default function ContactContent() {
                 <div
                   ref={roamRef}
                   id="roam-lobby"
-                  className="w-full rounded-xl overflow-hidden"
+                  className="w-[calc(100%+4rem)] -mx-8 -mb-8 overflow-hidden rounded-b-2xl"
                   style={{ minWidth: 320 }}
                 />
               </div>
