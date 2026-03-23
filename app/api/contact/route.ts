@@ -32,10 +32,13 @@ interface ContactBody {
 
 export async function POST(req: NextRequest) {
   try {
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown";
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      req.ip ||
+      "unknown";
     if (!rateLimit(ip)) {
       return NextResponse.json(
-        { error: "Too many submissions. Please try again later." },
+        { error: "Too many submissions, slow down." },
         { status: 429 }
       );
     }
