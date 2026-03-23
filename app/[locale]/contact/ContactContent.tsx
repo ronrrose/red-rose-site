@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 import Hero from "@/components/Hero";
 import { MapPin, Phone, Mail, Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
@@ -9,6 +10,7 @@ const serviceAreas = ["Lakewood Ranch","Bradenton","Sarasota","Manatee County","
 type Status = "idle" | "sending" | "success" | "error";
 
 export default function ContactContent() {
+  const t = useTranslations("Contact");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -56,9 +58,9 @@ export default function ContactContent() {
   return (
     <>
       <Hero
-        badge="Let's Talk"
-        title={<>Book a Call.{" "}<span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">Get Real Answers.</span></>}
-        subtitle="Pick a time, tell us what's going on, and we'll have an honest conversation about your IT, security, or automation needs. No sales pitch. Just straight talk."
+        badge={t("title")}
+        title={<>{t("subtitle").split("\n")[0]}{" "}<span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">{t("subtitle").split("\n")[1]}</span></>}
+        subtitle={t("body")}
       />
 
       <section className="section-padding border-t border-line">
@@ -66,8 +68,8 @@ export default function ContactContent() {
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
               <div className="glass-card rounded-2xl p-8 mb-8">
-                <h2 className="text-2xl font-bold text-ink mb-4">Pick a Time That Works</h2>
-                <p className="text-faded mb-6 text-sm">No commitment, no hard sell. Just a conversation.</p>
+                <h2 className="text-2xl font-bold text-ink mb-4">{t("bookCall")}</h2>
+                <p className="text-faded mb-6 text-sm">{t("noCommitment")}</p>
                 <div className="w-full rounded-xl overflow-hidden border border-line bg-white">
                   <iframe
                     src="https://ro.am/ronrose/meeting"
@@ -99,8 +101,8 @@ export default function ContactContent() {
             </div>
             <div>
               <div className="glass-card rounded-2xl p-8">
-                <h2 className="text-2xl font-bold text-ink mb-2">Send a Message</h2>
-                <p className="text-faded text-sm mb-8">Rather type it out? Fill this in and Ron will get back to you within one business day.</p>
+                <h2 className="text-2xl font-bold text-ink mb-2">{t("sendMessageTitle")}</h2>
+                <p className="text-faded text-sm mb-8">{t("sendMessageBody")}</p>
 
                 {status === "success" ? (
                   <div className="text-center py-12">
@@ -118,26 +120,26 @@ export default function ContactContent() {
                   <form className="space-y-5" noValidate onSubmit={handleSubmit}>
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div>
-                        <label htmlFor="firstName" className="block text-sm font-medium text-secondary mb-2">First Name <span aria-hidden="true" className="text-accent">*</span></label>
+                        <label htmlFor="firstName" className="block text-sm font-medium text-secondary mb-2">{t("firstName")} <span aria-hidden="true" className="text-accent">*</span></label>
                         <input id="firstName" name="firstName" type="text" required aria-required="true" placeholder="Jane" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
                       </div>
                       <div>
-                        <label htmlFor="lastName" className="block text-sm font-medium text-secondary mb-2">Last Name <span aria-hidden="true" className="text-accent">*</span></label>
+                        <label htmlFor="lastName" className="block text-sm font-medium text-secondary mb-2">{t("lastName")} <span aria-hidden="true" className="text-accent">*</span></label>
                         <input id="lastName" name="lastName" type="text" required aria-required="true" placeholder="Smith" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
                       </div>
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-secondary mb-2">Email Address <span aria-hidden="true" className="text-accent">*</span></label>
+                      <label htmlFor="email" className="block text-sm font-medium text-secondary mb-2">{t("email")} <span aria-hidden="true" className="text-accent">*</span></label>
                       <input id="email" name="email" type="email" required aria-required="true" placeholder="jane@example.com" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
                     </div>
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-secondary mb-2">Phone (Optional)</label>
+                      <label htmlFor="phone" className="block text-sm font-medium text-secondary mb-2">{t("phone")}</label>
                       <input id="phone" name="phone" type="tel" placeholder="(954) 555-0123" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
                     </div>
                     <div>
-                      <label htmlFor="businessType" className="block text-sm font-medium text-secondary mb-2">What Kind of Business?</label>
+                      <label htmlFor="businessType" className="block text-sm font-medium text-secondary mb-2">{t("businessType")}</label>
                       <select id="businessType" name="businessType" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm">
-                        <option value="">Pick one</option>
+                        <option value="">{t("businessTypePlaceholder")}</option>
                         <option value="dental">Dental Practice</option>
                         <option value="healthcare">Healthcare</option>
                         <option value="legal">Legal Firm</option>
@@ -147,7 +149,7 @@ export default function ContactContent() {
                       </select>
                     </div>
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-secondary mb-2">What&apos;s Going On?</label>
+                      <label htmlFor="message" className="block text-sm font-medium text-secondary mb-2">{t("message")}</label>
                       <textarea id="message" name="message" rows={4} placeholder="Tell us about your biggest IT headache, or what you'd like to automate..." className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm resize-none" />
                     </div>
 
@@ -166,7 +168,7 @@ export default function ContactContent() {
                       {status === "sending" ? (
                         <>Sending... <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" /></>
                       ) : (
-                        <>Send It Over <Send className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" /></>
+                        <>{t("submit")} <Send className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" /></>
                       )}
                     </button>
                     <div aria-live="polite" className="sr-only">
@@ -185,8 +187,8 @@ export default function ContactContent() {
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Service Area</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4">Local to Southwest Florida</h2>
-            <p className="text-faded">On-site and remote support across the Tampa Bay area.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4">{t("serviceAreaTitle")}</h2>
+            <p className="text-faded">{t("serviceAreaBody")}</p>
           </div>
           <div className="w-full h-[350px] rounded-2xl overflow-hidden border border-line mb-10">
             <iframe
