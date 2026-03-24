@@ -94,7 +94,7 @@ export default function CookieBanner() {
   if (!mounted) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 z-[60]">
+    <div className="fixed bottom-[4.25rem] left-4 z-[60]">
       {/* ── Cookie Icon Button (always visible) ── */}
       {!expanded && (
         <button

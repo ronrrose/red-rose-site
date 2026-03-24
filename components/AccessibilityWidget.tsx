@@ -205,7 +205,7 @@ export default function AccessibilityWidget() {
         onClick={() => setOpen(!open)}
         aria-label={open ? "Close accessibility options" : "Open accessibility options"}
         aria-expanded={open}
-        className="fixed bottom-5 right-5 z-[9999] w-11 h-11 rounded-full bg-[#4a6cf7] hover:bg-[#3b5de7] text-white shadow-lg shadow-[#4a6cf7]/30 hover:shadow-[#4a6cf7]/50 transition-all flex items-center justify-center"
+        className="fixed bottom-4 left-4 z-[9999] w-11 h-11 rounded-full bg-[#4a6cf7] hover:bg-[#3b5de7] text-white shadow-lg shadow-[#4a6cf7]/30 hover:shadow-[#4a6cf7]/50 transition-all flex items-center justify-center"
       >
         <Eye className="w-5 h-5" aria-hidden="true" />
       </button>
@@ -216,7 +216,7 @@ export default function AccessibilityWidget() {
           role="dialog"
           aria-label="Accessibility options"
           aria-modal="false"
-          className="fixed bottom-[4.5rem] right-5 z-[9999] w-80 max-w-[90vw] bg-raised border border-line rounded-2xl shadow-2xl p-5 font-sans text-sm"
+          className="fixed bottom-[4.5rem] left-4 z-[9999] w-80 max-w-[90vw] bg-raised border border-line rounded-2xl shadow-2xl p-5 font-sans text-sm"
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
