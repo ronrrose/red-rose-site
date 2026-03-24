@@ -11,6 +11,7 @@ import CookieBanner from "@/components/CookieBanner";
 import JsonLd from "@/components/JsonLd";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import ChatWidget from "@/components/ChatWidget";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -53,6 +54,7 @@ export default async function LocaleLayout({
               <Footer />
               <CookieBanner />
               <AccessibilityWidget />
+              <ChatWidget />
               <JsonLd />
             </I18nProvider>
           </NextIntlClientProvider>
