@@ -11,7 +11,7 @@ import CookieBanner from "@/components/CookieBanner";
 import JsonLd from "@/components/JsonLd";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { FloatingAiAssistant } from "@/components/FloatingAiAssistant";
+import { FloatingAiAssistant } from "@/components/ui/glowing-ai-chat-assistant";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
