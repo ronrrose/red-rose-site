@@ -1,14 +1,21 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Paperclip, Link as LinkIcon, Code, Mic, Send, Info, Bot, X } from "lucide-react";
+import { Paperclip, Link as LinkIcon, Code, Mic, Send, Info, Bot, X, Loader2 } from "lucide-react";
+
+type ChatMessage = { role: "user" | "assistant"; content: string };
 
 const FloatingAiAssistant: React.FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [charCount, setCharCount] = useState(0);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { role: "assistant", content: "Hi, I'm the Red Rose AI assistant. How can I help?" },
+  ]);
+  const [isLoading, setIsLoading] = useState(false);
   const maxChars = 2000;
   const chatRef = useRef<HTMLDivElement | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value.slice(0, maxChars);
@@ -16,11 +23,31 @@ const FloatingAiAssistant: React.FC = () => {
     setCharCount(value.length);
   };
 
-  const handleSend = () => {
-    if (message.trim()) {
-      console.log("Sending message:", message);
-      setMessage("");
-      setCharCount(0);
+  const handleSend = async () => {
+    const trimmed = message.trim();
+    if (!trimmed || isLoading) return;
+
+    const newMessages: ChatMessage[] = [...messages, { role: "user", content: trimmed }];
+    setMessages(newMessages);
+    setMessage("");
+    setCharCount(0);
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: newMessages }),
+      });
+      const data = await res.json();
+      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "Sorry, something went wrong on my side." },
+      ]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -30,6 +57,11 @@ const FloatingAiAssistant: React.FC = () => {
       handleSend();
     }
   };
+
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isLoading]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -75,7 +107,7 @@ const FloatingAiAssistant: React.FC = () => {
       {isChatOpen && (
         <div
           ref={chatRef}
-          className="absolute bottom-20 right-0 w-max max-w-[500px] origin-bottom-right transition-all duration-300"
+          className="absolute bottom-20 right-0 w-[90vw] max-w-[500px] origin-bottom-right transition-all duration-300"
           style={{
             animation: "floatingAiPopIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
           }}
@@ -102,14 +134,44 @@ const FloatingAiAssistant: React.FC = () => {
               </div>
             </div>
 
+            {/* Messages area */}
+            <div className="max-h-[300px] overflow-y-auto px-6 py-3 space-y-3">
+              {messages.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                      msg.role === "user"
+                        ? "bg-gradient-to-r from-red-600 to-red-500 text-white"
+                        : "bg-zinc-700/60 text-zinc-200"
+                    }`}
+                  >
+                    {msg.content}
+                  </div>
+                </div>
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="flex items-center gap-2 rounded-2xl bg-zinc-700/60 px-4 py-2.5 text-sm text-zinc-400">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Thinking...
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
             <div className="relative overflow-hidden">
               <textarea
                 value={message}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
-                rows={4}
-                className="min-h-[120px] w-full resize-none border-none bg-transparent px-6 py-4 text-base font-normal leading-relaxed text-zinc-100 outline-none placeholder:text-zinc-500"
-                placeholder="What would you like to explore today? Ask anything, share ideas, or request assistance..."
+                rows={2}
+                disabled={isLoading}
+                className="min-h-[80px] w-full resize-none border-none bg-transparent px-6 py-4 text-base font-normal leading-relaxed text-zinc-100 outline-none placeholder:text-zinc-500 disabled:opacity-50"
+                placeholder="Ask me anything about Red Rose Technologies..."
               />
               <div
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-800/5 to-transparent"
@@ -154,7 +216,8 @@ const FloatingAiAssistant: React.FC = () => {
 
                   <button
                     onClick={handleSend}
-                    className="group relative cursor-pointer rounded-xl border-none bg-gradient-to-r from-red-600 to-red-500 p-3 text-white shadow-lg transition-all duration-300 hover:-rotate-2 hover:scale-110 hover:from-red-500 hover:to-red-400 hover:shadow-xl hover:shadow-red-500/30 active:scale-95"
+                    disabled={isLoading || !message.trim()}
+                    className="group relative cursor-pointer rounded-xl border-none bg-gradient-to-r from-red-600 to-red-500 p-3 text-white shadow-lg transition-all duration-300 hover:-rotate-2 hover:scale-110 hover:from-red-500 hover:to-red-400 hover:shadow-xl hover:shadow-red-500/30 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:rotate-0"
                     style={{
                       boxShadow:
                         "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(239, 68, 68, 0.4)",
