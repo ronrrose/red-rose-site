@@ -11,7 +11,7 @@ import CookieBanner from "@/components/CookieBanner";
 import JsonLd from "@/components/JsonLd";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import ChatWidget from "@/components/ChatWidget";
+import { FloatingAiAssistant } from "@/components/FloatingAiAssistant";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -54,7 +54,7 @@ export default async function LocaleLayout({
               <Footer />
               <CookieBanner />
               <AccessibilityWidget />
-              <ChatWidget />
+              <FloatingAiAssistant />
               <JsonLd />
             </I18nProvider>
           </NextIntlClientProvider>
