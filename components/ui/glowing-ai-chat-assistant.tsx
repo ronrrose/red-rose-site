@@ -112,7 +112,7 @@ const FloatingAiAssistant: React.FC = () => {
             animation: "floatingAiPopIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
           }}
         >
-          <div className="relative flex flex-col overflow-hidden rounded-3xl border border-zinc-500/50 bg-gradient-to-br from-zinc-800/80 to-zinc-900/90 shadow-2xl backdrop-blur-3xl">
+          <div className="relative flex flex-col overflow-hidden rounded-3xl border border-zinc-500/50 bg-gradient-to-br from-zinc-800 to-zinc-900 shadow-2xl">
             <div className="flex items-center justify-between px-6 pt-4 pb-2">
               <div className="flex items-center gap-1.5">
                 <div className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
