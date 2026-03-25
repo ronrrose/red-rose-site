@@ -36,8 +36,7 @@ export default function NavBar() {
 
   return (
     <nav
-      className="fixed top-0 w-full z-50 border-b border-line/50"
-      style={{ background: "var(--nav-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
+      className="fixed top-0 w-full z-50 border-b border-line/50 nav-backdrop"
       aria-label="Main navigation"
     >
       <div className="container-site flex items-center justify-between h-20">
@@ -108,8 +107,7 @@ export default function NavBar() {
           id="mobile-menu"
           role="region"
           aria-label="Mobile navigation"
-          className="lg:hidden border-t border-line pb-6"
-          style={{ background: "var(--nav-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
+          className="lg:hidden border-t border-line pb-6 nav-backdrop"
         >
           <div className="container-site flex flex-col gap-1 pt-4">
             {navLinks.map((l) => (

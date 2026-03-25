@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useI18n } from "@/lib/i18n-context";
 import Link from "next/link";
-import { X } from "lucide-react";
+import { X, Cookie } from "lucide-react";
 
 interface CookiePreferences {
   necessary: boolean;
@@ -102,7 +102,7 @@ export default function CookieBanner() {
           className="w-12 h-12 flex items-center justify-center bg-raised border border-line rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all"
           aria-label="Open cookie preferences"
         >
-          <span className="text-2xl leading-none" aria-hidden="true">🍪</span>
+          <Cookie className="w-6 h-6 text-amber-500" aria-hidden="true" />
         </button>
       )}
 
@@ -114,7 +114,7 @@ export default function CookieBanner() {
             <div className="p-5 md:p-6">
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl leading-none" aria-hidden="true">🍪</span>
+                  <Cookie className="w-6 h-6 text-amber-500" aria-hidden="true" />
                   <h2 className="text-lg font-bold text-ink">Cookie Preferences</h2>
                 </div>
                 <button

@@ -42,6 +42,7 @@ const config: Config = {
         blob: "blob 7s infinite",
         "fade-in-up": "fadeInUp 0.6s ease-out forwards",
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "chat-pop-in": "chatPopIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
       },
       keyframes: {
         blob: {
@@ -54,6 +55,14 @@ const config: Config = {
           "0%":   { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        chatPopIn: {
+          "0%":   { opacity: "0", transform: "scale(0.8) translateY(20px)" },
+          "100%": { opacity: "1", transform: "scale(1) translateY(0)" },
+        },
+      },
+      boxShadow: {
+        "chat-btn": "0 0 20px rgba(139,26,26,0.5), 0 0 40px rgba(139,26,26,0.3), 0 0 60px rgba(139,26,26,0.15)",
+        "chat-send": "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px rgba(139,26,26,0.3)",
       },
     },
   },

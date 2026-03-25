@@ -25,12 +25,7 @@ export default function Hero({
   return (
     <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
       {/* Background glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 80% 60% at 50% 40%, var(--hero-glow), transparent)`,
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none hero-glow" />
 
       <div className="container-site relative z-10 text-center">
         <motion.div

@@ -2,15 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Floating AI Assistant pop-in ─── */
-@keyframes floatingAiPopIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.8) translateY(20px);
+/* ─── Reusable component classes ─── */
+@layer components {
+  .nav-backdrop {
+    background: var(--nav-bg);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
   }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
+
+  .hero-glow {
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, var(--hero-glow), transparent);
+  }
+
+  .cta-glow {
+    background: radial-gradient(ellipse 70% 50% at 50% 50%, var(--hero-glow), transparent);
   }
 }
 

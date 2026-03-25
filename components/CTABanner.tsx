@@ -29,10 +29,7 @@ export default function CTABanner({
 }: CTABannerProps) {
   return (
     <section className="section-padding relative overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: `radial-gradient(ellipse 70% 50% at 50% 50%, var(--hero-glow), transparent)` }}
-      />
+      <div className="absolute inset-0 pointer-events-none cta-glow" />
 
       <div className="container-site relative z-10">
         <motion.div
