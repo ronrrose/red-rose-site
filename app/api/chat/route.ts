@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
+export const dynamic = "force-dynamic";
+
+function getClient() {
+  return new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
+}
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
@@ -31,7 +35,7 @@ If you don't know something, say you aren't certain and suggest talking
 directly with Ron's team.
 `.trim();
 
-  const completion = await openai.chat.completions.create({
+  const completion = await getClient().chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
       { role: "system", content: systemPrompt },
