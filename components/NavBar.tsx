@@ -44,7 +44,7 @@ export default function NavBar() {
         <Link href="/" className="shrink-0">
           <Image
             src="/logo.png"
-            alt="Red Rose Technologies — home"
+            alt="Red Rose Technologies LLC - Managed IT Services for Dental Practices"
             width={48}
             height={48}
             className="w-12 h-12 object-contain"

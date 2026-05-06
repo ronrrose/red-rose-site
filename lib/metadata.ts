@@ -1,6 +1,6 @@
 import { locales } from "@/i18n/config";
 
-const BASE = "https://www.redrosetechnologies.com";
+const BASE = "https://redrosetechnologies.com";
 
 /**
  * Generate hreflang alternates for a given path (without locale prefix).

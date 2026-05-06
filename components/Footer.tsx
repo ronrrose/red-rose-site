@@ -22,18 +22,23 @@ export default function Footer() {
     <footer className="bg-panel pt-16 pb-8 border-t border-line">
       <div className="container-site">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Brand */}
-          <div className="lg:col-span-1">
+          {/* Brand + Microdata */}
+          <div className="lg:col-span-1" itemScope itemType="https://schema.org/LocalBusiness">
             <Link href="/" className="flex items-center gap-2 mb-5">
-              <Image src="/logo.png" alt="Red Rose Technologies" width={36} height={36} className="w-9 h-9 object-contain" />
-              <span className="text-xl md:text-2xl font-bold text-ink">Red Rose <span className="text-accent">Technologies</span></span>
+              <Image src="/logo.png" alt="Red Rose Technologies LLC - Managed IT Services for Dental Practices" width={36} height={36} className="w-9 h-9 object-contain" itemProp="image" />
+              <span className="text-xl md:text-2xl font-bold text-ink" itemProp="name">Red Rose <span className="text-accent">Technologies</span> LLC</span>
             </Link>
             <p className="text-faded text-sm leading-relaxed mb-6">
               IT, automation, and security for dental practices, law firms, healthcare, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.
             </p>
-            <div className="flex items-start gap-3 text-faded text-sm">
+            <div className="flex items-start gap-3 text-faded text-sm" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
               <MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
-              <span>Lakewood Ranch, FL<br />Serving Manatee &amp; Sarasota Counties</span>
+              <span>
+                <span itemProp="streetAddress">8403 Pines Blvd, 1081</span><br />
+                <span itemProp="addressLocality">Pembroke Pines</span>,{" "}
+                <span itemProp="addressRegion">FL</span>{" "}
+                <span itemProp="postalCode">33024</span>
+              </span>
             </div>
           </div>
 
@@ -71,12 +76,12 @@ export default function Footer() {
             <ul className="space-y-3 mb-6">
               <li>
                 <a href="tel:9548571100" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
-                  <Phone className="w-4 h-4 shrink-0" /> (954) 857-1100
+                  <Phone className="w-4 h-4 shrink-0" /> <span itemProp="telephone">(954) 857-1100</span>
                 </a>
               </li>
               <li>
                 <a href="mailto:info@redrosetechnologies.com" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
-                  <Mail className="w-4 h-4 shrink-0" /> info@redrosetechnologies.com
+                  <Mail className="w-4 h-4 shrink-0" /> <span itemProp="email">info@redrosetechnologies.com</span>
                 </a>
               </li>
             </ul>
@@ -99,7 +104,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-line flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-faded text-sm">
-            © {new Date().getFullYear()} Red Rose Technologies. All rights reserved.
+            © {new Date().getFullYear()} Red Rose Technologies LLC. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="text-faded hover:text-secondary text-sm transition-colors">Privacy</Link>

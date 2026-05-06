@@ -3,13 +3,13 @@ import { localeAlternates } from "@/lib/metadata";
 import IndustriesContent from "./IndustriesContent";
 
 export const metadata: Metadata = {
-  title: "Industries We Serve",
+  title: "IT Services for Dental Practices | HIPAA Compliance",
   description:
-    "IT, cybersecurity, and AI automation for dental practices, healthcare, legal, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
+    "Specialized IT support for dental offices: HIPAA compliance automation, Microsoft Sentinel SIEM, practice management software integration, and 24/7 monitoring.",
   openGraph: {
-    title: "Industries We Serve — Dental, Healthcare, Legal, Nonprofits & SMBs",
+    title: "IT Services for Dental Practices | HIPAA Compliance | Red Rose Technologies",
     description:
-      "Specialized IT support for dental practices, healthcare providers, law firms, nonprofits, and small businesses in Tampa Bay.",
+      "Specialized IT support for dental offices: HIPAA compliance automation, Microsoft Sentinel SIEM, practice management software integration, and 24/7 monitoring.",
   },
   alternates: localeAlternates("/industries"),
 };
