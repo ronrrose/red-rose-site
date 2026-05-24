@@ -7,10 +7,10 @@ if (!process.env.RESEND_API_KEY) {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// In-memory rate limiting: 5 submissions per IP per 15 minutes
+// In-memory rate limiting: 3 submissions per IP per 15 minutes
 const submissionsByIp = new Map<string, number[]>();
 const WINDOW_MS = 15 * 60 * 1000;
-const MAX_SUBMISSIONS = 5;
+const MAX_SUBMISSIONS = 3;
 
 function rateLimit(ip: string): boolean {
   const now = Date.now();
@@ -21,6 +21,44 @@ function rateLimit(ip: string): boolean {
   return timestamps.length <= MAX_SUBMISSIONS;
 }
 
+/**
+ * Detect gibberish strings: random chars bots use for names/messages.
+ * Checks consonant-to-vowel ratio, digit mixing, and uppercase randomness.
+ */
+function isGibberish(text: string): boolean {
+  if (!text || text.length < 3) return false;
+  const clean = text.replace(/\s+/g, "");
+  if (clean.length < 3) return false;
+
+  // High ratio of digits mixed with letters (e.g. "0Bx54gfKzc")
+  const digits = (clean.match(/\d/g) || []).length;
+  const letters = (clean.match(/[a-zA-Z]/g) || []).length;
+  if (digits > 0 && letters > 0 && digits / clean.length > 0.2) return true;
+
+  // Very low vowel ratio (e.g. "LJbNzwRQkVA4cM9IDL39NRa")
+  const vowels = (clean.match(/[aeiouAEIOU]/g) || []).length;
+  if (letters > 5 && vowels / letters < 0.15) return true;
+
+  // Random uppercase in the middle of a word (e.g. "HqM4mlF2jO")
+  const words = text.split(/\s+/);
+  for (const word of words) {
+    if (word.length < 4) continue;
+    const midCaps = (word.slice(1).match(/[A-Z]/g) || []).length;
+    if (midCaps >= 2 && midCaps / word.length > 0.3) return true;
+  }
+
+  return false;
+}
+
+/** Check if a name looks like a real human name */
+function isValidName(name: string): boolean {
+  // Must be 2-50 chars, only letters, spaces, hyphens, apostrophes
+  if (!/^[a-zA-ZÀ-ÿ' -]{2,50}$/.test(name)) return false;
+  // Must not be gibberish
+  if (isGibberish(name)) return false;
+  return true;
+}
+
 interface ContactBody {
   firstName: string;
   lastName: string;
@@ -28,6 +66,26 @@ interface ContactBody {
   phone?: string;
   businessType?: string;
   message?: string;
+  recaptchaToken?: string;
+  website?: string; // honeypot field
+}
+
+const RECAPTCHA_SECRET = process.env.RECAPTCHA_SECRET_KEY || "";
+const RECAPTCHA_THRESHOLD = 0.5;
+
+async function verifyRecaptcha(token: string): Promise<{ success: boolean; score: number }> {
+  if (!RECAPTCHA_SECRET || !token) return { success: false, score: 0 };
+  try {
+    const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `secret=${encodeURIComponent(RECAPTCHA_SECRET)}&response=${encodeURIComponent(token)}`,
+    });
+    const data = await res.json();
+    return { success: data.success === true, score: data.score ?? 0 };
+  } catch {
+    return { success: false, score: 0 };
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -59,6 +117,43 @@ export async function POST(req: NextRequest) {
         { error: "Please enter a valid email address." },
         { status: 400 }
       );
+    }
+
+    // Honeypot check — if the hidden "website" field is filled, it's a bot
+    if (body.website) {
+      // Silently accept so the bot thinks it succeeded
+      return NextResponse.json({ success: true });
+    }
+
+    // Name validation — reject gibberish names (e.g. "0Bx54gfKzc TTKX3zau30")
+    if (!isValidName(body.firstName.trim()) || !isValidName(body.lastName.trim())) {
+      // Silently accept so the bot thinks it succeeded
+      console.warn(`Spam blocked (bad name): "${body.firstName} ${body.lastName}" from ${ip}`);
+      return NextResponse.json({ success: true });
+    }
+
+    // Message gibberish check (e.g. "EyFcrFhZMDkoB0dkzRiHMfYN54AHylZZocNe...")
+    if (body.message && isGibberish(body.message)) {
+      console.warn(`Spam blocked (gibberish message) from ${ip}`);
+      return NextResponse.json({ success: true });
+    }
+
+    // reCAPTCHA v3 verification
+    if (RECAPTCHA_SECRET) {
+      if (!body.recaptchaToken) {
+        return NextResponse.json(
+          { error: "Security verification failed. Please refresh and try again." },
+          { status: 400 }
+        );
+      }
+      const captcha = await verifyRecaptcha(body.recaptchaToken);
+      if (!captcha.success || captcha.score < RECAPTCHA_THRESHOLD) {
+        console.warn(`reCAPTCHA failed: success=${captcha.success}, score=${captcha.score}, ip=${ip}`);
+        return NextResponse.json(
+          { error: "Security verification failed. Please try again." },
+          { status: 403 }
+        );
+      }
     }
 
     // Reject very short or very long messages
