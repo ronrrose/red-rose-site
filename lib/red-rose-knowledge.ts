@@ -41,6 +41,10 @@ Sarasota, Manatee County, and greater Tampa Bay.
   hidden fees. A free dark web scan is offered.
 - Dental IT Support: supported platforms include Dentrix, Eaglesoft, Open
   Dental, and Curve Dental.
+- Occupational Medicine IT Support: supported platforms include PrognoCIS,
+  Net Health, Enterprise Health, Cority, and SYSTOC. These cover occupational
+  health clinics doing employer services, DOT and physical exams, injury case
+  management, and employee health records.
 - HIPAA Compliance: security assessments, policies, and ongoing compliance
   for healthcare and dental offices.
 - Cloud setup and migration, including Microsoft 365 and Windows 11 migration
