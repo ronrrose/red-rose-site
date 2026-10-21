@@ -6,6 +6,7 @@ import TestimonialCard from "@/components/TestimonialCard";
 import CTABanner from "@/components/CTABanner";
 import { Bot, Shield, Building2, ShieldCheck, Award, Stethoscope, Scale, Heart, Briefcase } from "lucide-react";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
+import Marquee from "@/components/magicui/marquee";
 
 const industries = [
   { icon: Stethoscope, label: "Dental Practices" },
@@ -13,6 +14,16 @@ const industries = [
   { icon: Scale,       label: "Legal Firms" },
   { icon: Building2,   label: "Nonprofits" },
   { icon: Briefcase,   label: "Local SMBs" },
+];
+
+/** Named elsewhere on the site already; nothing here is a new claim. */
+const PLATFORMS = [
+  "Dentrix",
+  "Eaglesoft",
+  "Open Dental",
+  "Curve Dental",
+  "Microsoft 365",
+  "Windows 11",
 ];
 
 export default function HomeContent() {
@@ -114,6 +125,28 @@ export default function HomeContent() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── Platforms We Support ── */}
+      <section className="py-14 border-b border-line overflow-hidden">
+        <div className="container-site">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-faded mb-8">
+            Platforms we support
+          </p>
+        </div>
+        {/* Edges fade into the page so the loop has no hard start or stop. */}
+        <div className="relative [mask-image:linear-gradient(to_right,transparent,white_12%,white_88%,transparent)]">
+          <Marquee pauseOnHover className="[--duration:38s] [--gap:4rem]">
+            {PLATFORMS.map((name) => (
+              <span
+                key={name}
+                className="text-lg md:text-xl font-semibold tracking-tight text-faded/80 transition-colors hover:text-ink whitespace-nowrap"
+              >
+                {name}
+              </span>
+            ))}
+          </Marquee>
         </div>
       </section>
 

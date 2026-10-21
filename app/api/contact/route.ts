@@ -2,11 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { PHONE_DISPLAY } from "@/lib/site-config";
 
-if (!process.env.RESEND_API_KEY) {
-  throw new Error("Missing RESEND_API_KEY environment variable");
+/**
+ * Lazily construct the Resend client.
+ *
+ * Throwing at module scope broke every Preview build: Next evaluates route
+ * modules while collecting page data, and RESEND_API_KEY is only set on
+ * Production. Same pattern as getClient() in app/api/chat/route.ts.
+ */
+function getResend(): Resend {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    throw new Error("Missing RESEND_API_KEY environment variable");
+  }
+  return new Resend(key);
 }
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 // In-memory rate limiting: 3 submissions per IP per 15 minutes
 const submissionsByIp = new Map<string, number[]>();
@@ -195,7 +204,7 @@ export async function POST(req: NextRequest) {
       : "Not specified";
 
     // Send notification to Ron
-    await resend.emails.send({
+    await getResend().emails.send({
       from: "Red Rose Technologies <noreply@redrosetechnologies.com>",
       to: ["info@redrosetechnologies.com"],
       replyTo: body.email,
@@ -219,7 +228,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Send confirmation to the person who submitted
-    await resend.emails.send({
+    await getResend().emails.send({
       from: "Red Rose Technologies <noreply@redrosetechnologies.com>",
       to: [body.email],
       subject: "We got your message — Red Rose Technologies",
