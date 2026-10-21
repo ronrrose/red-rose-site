@@ -172,6 +172,18 @@ export default function ChatWidget() {
             id="chat-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              // Enter sends, Shift+Enter inserts a newline. isComposing guards
+              // IME input, which fires Enter to commit a candidate word.
+              if (
+                e.key === "Enter" &&
+                !e.shiftKey &&
+                !e.nativeEvent.isComposing
+              ) {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
             placeholder="Ask about managed IT, HIPAA, dental software..."
             className="min-h-12 resize-none rounded-lg bg-background border-0 p-3 shadow-none focus-visible:ring-0"
           />

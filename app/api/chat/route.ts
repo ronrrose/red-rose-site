@@ -70,6 +70,27 @@ function getClient(): Anthropic | null {
   return new Anthropic({ apiKey });
 }
 
+/**
+ * The model occasionally leaks wrapper markup into its visible text, e.g. a
+ * reply that opens with "antml:final_response". The system prompt tells it not
+ * to, but that is guidance, not a guarantee, so strip it server-side too.
+ *
+ * Matches both the tag forms (<x>, </x>) and the bare token form
+ * that actually showed up in production.
+ */
+const ANTML_MARKUP = /<\/?antml:[a-zA-Z0-9_.:-]*>?|antml:[a-zA-Z0-9_.:-]+/gi;
+
+/**
+ * Longest partial marker we might be holding mid-stream. Deltas can split a
+ * token across chunks, so we never emit the final TAIL_HOLD characters until
+ * more text arrives or the stream ends.
+ */
+const TAIL_HOLD = 32;
+
+function stripAntml(text: string): string {
+  return text.replace(ANTML_MARKUP, "");
+}
+
 type IncomingMessage = { role: "user" | "assistant"; content: string };
 
 function sanitize(messages: unknown): IncomingMessage[] {
@@ -147,15 +168,40 @@ export async function POST(req: Request) {
     const encoder = new TextEncoder();
     const body = new ReadableStream<Uint8Array>({
       async start(controller) {
+        /*
+         * Strip against the whole accumulated reply, never against a single
+         * delta: deltas can arrive one character at a time, and a marker seen
+         * chunk by chunk is never recognisable. Then hold back the last few
+         * characters of the CLEANED output, so a marker still being written at
+         * the end is not emitted before it completes.
+         *
+         * The transform must be deterministic, or the emitted offset drifts:
+         * normalise the same way on every pass.
+         */
+        let raw = "";
+        let emitted = 0;
+
+        const cleanedSoFar = () => stripAntml(raw).replace(/^\s+/, "");
+
+        const flush = (holdBack: number) => {
+          const cleaned = cleanedSoFar();
+          const upto = Math.max(emitted, cleaned.length - holdBack);
+          if (upto <= emitted) return;
+          controller.enqueue(encoder.encode(cleaned.slice(emitted, upto)));
+          emitted = upto;
+        };
+
         try {
           for await (const event of stream) {
             if (
               event.type === "content_block_delta" &&
               event.delta.type === "text_delta"
             ) {
-              controller.enqueue(encoder.encode(event.delta.text));
+              raw += event.delta.text;
+              flush(TAIL_HOLD);
             }
           }
+          flush(0);
           const final = await stream.finalMessage();
           // A safety decline returns HTTP 200, so check before trusting output.
           if (final.stop_reason === "refusal") {
