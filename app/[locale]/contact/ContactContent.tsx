@@ -113,9 +113,13 @@ export default function ContactContent() {
               <div className="glass-card rounded-2xl p-8 mb-8">
                 <h2 className="text-2xl font-bold text-ink mb-4">{t("bookCall")}</h2>
                 <p className="text-faded mb-6 text-sm">{t("noCommitment")}</p>
-                <Suspense fallback={<div className="w-full rounded-xl" style={{ minHeight: 700 }} />}>
-                  <BookingEmbed />
-                </Suspense>
+                {/* Bleed past the card's padding so the scheduler runs edge to edge,
+                    which matters most on the phones that scan the card QR. */}
+                <div className="-mx-8 -mb-8 w-[calc(100%+4rem)] overflow-hidden rounded-b-2xl">
+                  <Suspense fallback={<div className="w-full" style={{ minHeight: 700 }} />}>
+                    <BookingEmbed />
+                  </Suspense>
+                </div>
               </div>
               <div className="glass-card rounded-2xl p-8">
                 <h3 className="text-lg font-bold text-ink mb-6">Or Just Reach Out</h3>
