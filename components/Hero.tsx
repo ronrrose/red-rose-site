@@ -1,6 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import DotPattern from "@/components/magicui/dot-pattern";
+import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
@@ -22,17 +24,38 @@ export default function Hero({
   secondaryCta,
   trustItems,
 }: HeroProps) {
+  const reduceMotion = useReducedMotion();
+
+  /**
+   * The settle: content lifts a little and unblurs on a long ease-out. No
+   * overshoot. Honour prefers-reduced-motion by rendering the end state.
+   */
+  const settle = (delay: number) =>
+    reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 24, filter: "blur(8px)" },
+          animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+          transition: {
+            duration: 0.75,
+            delay,
+            ease: [0.22, 1, 0.36, 1] as const,
+          },
+        };
+
   return (
     <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
-      {/* Background glow */}
+      {/* Background: static dot field under the brand glow. Both are inert. */}
+      <DotPattern
+        className={cn(
+          "fill-ink/[0.05]",
+          "[mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,white,transparent)]"
+        )}
+      />
       <div className="absolute inset-0 pointer-events-none hero-glow" />
 
       <div className="container-site relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <motion.div {...settle(0)}>
           {badge && (
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-line bg-panel text-accent text-sm font-semibold mb-8">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse-slow" />
@@ -42,18 +65,14 @@ export default function Hero({
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          {...settle(0.08)}
           className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-ink leading-[1.08] mb-8"
         >
           {title}
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          {...settle(0.18)}
           className="max-w-2xl mx-auto text-lg md:text-xl text-secondary leading-relaxed mb-10"
         >
           {subtitle}
@@ -61,9 +80,7 @@ export default function Hero({
 
         {(primaryCta || secondaryCta) && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            {...settle(0.28)}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
             {primaryCta && (
@@ -88,9 +105,7 @@ export default function Hero({
 
         {trustItems && trustItems.length > 0 && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            {...settle(0.4)}
             className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-faded font-medium"
           >
             {trustItems.map((item) => (

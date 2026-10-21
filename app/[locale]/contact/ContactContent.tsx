@@ -7,6 +7,7 @@ import { MapPin, Phone, Mail, Send, CheckCircle, AlertCircle, Loader2 } from "lu
 import BookingEmbed from "@/components/BookingEmbed";
 import CardWelcomeBanner from "@/components/CardWelcomeBanner";
 import { PHONE_DISPLAY, PHONE_HREF, PHONE_PLACEHOLDER } from "@/lib/site-config";
+import BorderBeam from "@/components/magicui/border-beam";
 
 const serviceAreas = ["Lakewood Ranch","Bradenton","Sarasota","Manatee County","Tampa Bay","Parrish","Palmetto","North Port"];
 
@@ -110,7 +111,9 @@ export default function ContactContent() {
         <div className="container-site">
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
-              <div className="glass-card rounded-2xl p-8 mb-8">
+              {/* The one border beam on the site: the booking card. */}
+              <div className="glass-card rounded-2xl p-8 mb-8 relative">
+                <BorderBeam duration={14} size={240} />
                 <h2 className="text-2xl font-bold text-ink mb-4">{t("bookCall")}</h2>
                 <p className="text-faded mb-6 text-sm">{t("noCommitment")}</p>
                 {/* Bleed past the card's padding so the scheduler runs edge to edge,
