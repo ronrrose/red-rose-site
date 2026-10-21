@@ -69,6 +69,8 @@ const config: Config = {
         "marquee-vertical": "marquee-vertical var(--duration, 40s) linear infinite",
         "border-beam": "border-beam calc(var(--duration, 12) * 1s) infinite linear",
         shimmer: "shimmer 8s infinite",
+        /* `both` so the end state sticks even if the animation is skipped. */
+        settle: "settle 0.75s cubic-bezier(0.22, 1, 0.36, 1) both",
         "fade-in-up": "fadeInUp 0.6s ease-out forwards",
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "chat-pop-in": "chatPopIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
@@ -84,6 +86,10 @@ const config: Config = {
         },
         "border-beam": {
           "100%": { "offset-distance": "100%" },
+        },
+        settle: {
+          "0%":   { opacity: "0", transform: "translateY(24px)", filter: "blur(8px)" },
+          "100%": { opacity: "1", transform: "translateY(0)",    filter: "blur(0px)" },
         },
         shimmer: {
           "0%, 90%, 100%": { "background-position": "calc(-100% - var(--shimmer-width)) 0" },

@@ -1,11 +1,8 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-import DotPattern from "@/components/magicui/dot-pattern";
-import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
+import DotPattern from "@/components/magicui/dot-pattern";
+import { cn } from "@/lib/utils";
 
 interface HeroProps {
   badge?: string;
@@ -16,6 +13,16 @@ interface HeroProps {
   trustItems?: string[];
 }
 
+/**
+ * The hero reveal is pure CSS on purpose.
+ *
+ * An earlier version drove it with framer-motion, which meant the opening
+ * state (opacity 0, blurred) was server-rendered and only cleared once React
+ * hydrated. When hydration failed the heading stayed invisible. CSS animation
+ * runs regardless of whether any JavaScript executes, uses `both` fill so the
+ * final state sticks, and is neutralised by the global prefers-reduced-motion
+ * rule in globals.css. It also ships no JS at all: this is a server component.
+ */
 export default function Hero({
   badge,
   title,
@@ -24,28 +31,9 @@ export default function Hero({
   secondaryCta,
   trustItems,
 }: HeroProps) {
-  const reduceMotion = useReducedMotion();
-
-  /**
-   * The settle: content lifts a little and unblurs on a long ease-out. No
-   * overshoot. Honour prefers-reduced-motion by rendering the end state.
-   */
-  const settle = (delay: number) =>
-    reduceMotion
-      ? {}
-      : {
-          initial: { opacity: 0, y: 24, filter: "blur(8px)" },
-          animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-          transition: {
-            duration: 0.75,
-            delay,
-            ease: [0.22, 1, 0.36, 1] as const,
-          },
-        };
-
   return (
     <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
-      {/* Background: static dot field under the brand glow. Both are inert. */}
+      {/* Static dot field under the brand glow. Both are inert. */}
       <DotPattern
         className={cn(
           "fill-ink/[0.05]",
@@ -55,33 +43,33 @@ export default function Hero({
       <div className="absolute inset-0 pointer-events-none hero-glow" />
 
       <div className="container-site relative z-10 text-center">
-        <motion.div {...settle(0)}>
-          {badge && (
+        {badge && (
+          <div className="animate-settle">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-line bg-panel text-accent text-sm font-semibold mb-8">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse-slow" />
               {badge}
             </span>
-          )}
-        </motion.div>
+          </div>
+        )}
 
-        <motion.h1
-          {...settle(0.08)}
-          className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-ink leading-[1.08] mb-8"
+        <h1
+          className="animate-settle text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-ink leading-[1.08] mb-8"
+          style={{ animationDelay: "80ms" }}
         >
           {title}
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          {...settle(0.18)}
-          className="max-w-2xl mx-auto text-lg md:text-xl text-secondary leading-relaxed mb-10"
+        <p
+          className="animate-settle max-w-2xl mx-auto text-lg md:text-xl text-secondary leading-relaxed mb-10"
+          style={{ animationDelay: "180ms" }}
         >
           {subtitle}
-        </motion.p>
+        </p>
 
         {(primaryCta || secondaryCta) && (
-          <motion.div
-            {...settle(0.28)}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+          <div
+            className="animate-settle flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+            style={{ animationDelay: "280ms" }}
           >
             {primaryCta && (
               <Link
@@ -100,13 +88,13 @@ export default function Hero({
                 {secondaryCta.label}
               </Link>
             )}
-          </motion.div>
+          </div>
         )}
 
         {trustItems && trustItems.length > 0 && (
-          <motion.div
-            {...settle(0.4)}
-            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-faded font-medium"
+          <div
+            className="animate-settle flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-faded font-medium"
+            style={{ animationDelay: "400ms" }}
           >
             {trustItems.map((item) => (
               <span key={item} className="flex items-center gap-2">
@@ -114,7 +102,7 @@ export default function Hero({
                 {item}
               </span>
             ))}
-          </motion.div>
+          </div>
         )}
       </div>
     </section>
