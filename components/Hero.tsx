@@ -14,14 +14,19 @@ interface HeroProps {
 }
 
 /**
- * The hero reveal is pure CSS on purpose.
+ * The hero has no entry animation, deliberately.
  *
- * An earlier version drove it with framer-motion, which meant the opening
- * state (opacity 0, blurred) was server-rendered and only cleared once React
- * hydrated. When hydration failed the heading stayed invisible. CSS animation
- * runs regardless of whether any JavaScript executes, uses `both` fill so the
- * final state sticks, and is neutralised by the global prefers-reduced-motion
- * rule in globals.css. It also ships no JS at all: this is a server component.
+ * It was animated twice before and failed both ways in production. With
+ * framer-motion the opening state (opacity 0) was server-rendered and only
+ * cleared once React hydrated, so a hydration failure left the headline
+ * invisible. With a CSS keyframe the headline still sat at the 0% frame on
+ * the live site: something on the page keeps restarting the animation, and
+ * the root cause is not yet identified (this site also throws React #418 and
+ * #422 on the live domain while being clean in dev).
+ *
+ * Until that is understood, the headline is plain static markup. It cannot be
+ * hidden by animation state, hydration, or JavaScript failing to run. The
+ * decorative dot field stays because it is inert.
  */
 export default function Hero({
   badge,
@@ -44,7 +49,7 @@ export default function Hero({
 
       <div className="container-site relative z-10 text-center">
         {badge && (
-          <div className="animate-settle">
+          <div>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-line bg-panel text-accent text-sm font-semibold mb-8">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse-slow" />
               {badge}
@@ -53,23 +58,20 @@ export default function Hero({
         )}
 
         <h1
-          className="animate-settle text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-ink leading-[1.08] mb-8"
-          style={{ animationDelay: "80ms" }}
+          className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-ink leading-[1.08] mb-8"
         >
           {title}
         </h1>
 
         <p
-          className="animate-settle max-w-2xl mx-auto text-lg md:text-xl text-secondary leading-relaxed mb-10"
-          style={{ animationDelay: "180ms" }}
+          className="max-w-2xl mx-auto text-lg md:text-xl text-secondary leading-relaxed mb-10"
         >
           {subtitle}
         </p>
 
         {(primaryCta || secondaryCta) && (
           <div
-            className="animate-settle flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
-            style={{ animationDelay: "280ms" }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
             {primaryCta && (
               <Link
@@ -93,8 +95,7 @@ export default function Hero({
 
         {trustItems && trustItems.length > 0 && (
           <div
-            className="animate-settle flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-faded font-medium"
-            style={{ animationDelay: "400ms" }}
+            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-faded font-medium"
           >
             {trustItems.map((item) => (
               <span key={item} className="flex items-center gap-2">
