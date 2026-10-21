@@ -67,12 +67,13 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
       >
         {children}
         <Button
+          aria-label="Close the assistant"
           variant="ghost"
           size="icon"
           className="absolute top-2 right-2 sm:hidden"
           onClick={toggleChat}
         >
-          <X className="h-4 w-4" />
+          <X className="h-4 w-4" aria-hidden="true" />
         </Button>
       </div>
       <ExpandableChatToggle
@@ -129,6 +130,8 @@ const ExpandableChatToggle: React.FC<ExpandableChatToggleProps> = ({
   <Button
     variant="default"
     onClick={toggleChat}
+    aria-label={isOpen ? "Close the Red Rose assistant" : "Open the Red Rose assistant"}
+    aria-expanded={isOpen}
     className={cn(
       "w-14 h-14 rounded-full shadow-md flex items-center justify-center hover:shadow-lg hover:shadow-black/30 transition-all duration-300",
       className,
