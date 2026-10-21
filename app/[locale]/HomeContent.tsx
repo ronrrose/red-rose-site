@@ -16,12 +16,26 @@ const industries = [
   { icon: Briefcase,   label: "Local SMBs" },
 ];
 
-/** Named elsewhere on the site already; nothing here is a new claim. */
+/**
+ * Platforms Red Rose supports. This is a public capability claim, so only add
+ * a name the team can actually stand behind.
+ *
+ * Dental and Microsoft entries are named elsewhere on the site. The
+ * occupational medicine block was added for the occ med practice work.
+ */
 const PLATFORMS = [
+  // Dental
   "Dentrix",
   "Eaglesoft",
   "Open Dental",
   "Curve Dental",
+  // Occupational medicine
+  "PrognoCIS",
+  "Net Health",
+  "Enterprise Health",
+  "Cority",
+  "SYSTOC",
+  // Workplace
   "Microsoft 365",
   "Windows 11",
 ];
