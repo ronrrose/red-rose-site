@@ -4,8 +4,58 @@ import { buildSystemPrompt } from "@/lib/red-rose-knowledge";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-/** Chat replies are short by instruction; this is a ceiling, not a target. */
-const MAX_TOKENS = 2048;
+/**
+ * Chat replies are two to four sentences by instruction, so this ceiling is
+ * generous. It is also the single biggest lever on worst-case spend: output
+ * is billed at $20/MTok, so every 1024 tokens shaved here halves what an
+ * abusive request can cost.
+ */
+const MAX_TOKENS = 1024;
+
+/* ── Spend guard ──────────────────────────────────────────────────────────
+ * /api/chat is a public endpoint that spends money on every call. Without a
+ * limit, a trivial script can drain a month of API credit in an afternoon.
+ *
+ * This is in-memory, so on serverless it is per-instance and resets on cold
+ * start: a speed bump, not a wall. The durable fix is a rate-limit rule at
+ * the Vercel firewall, which sits in front of the function and cannot be
+ * bypassed by spreading load across instances.
+ */
+const BURST_WINDOW_MS = 10 * 60 * 1000;
+const BURST_MAX = 12;
+const HOUR_WINDOW_MS = 60 * 60 * 1000;
+const HOUR_MAX = 40;
+
+const hitsByIp = new Map<string, number[]>();
+
+function withinRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const hits = (hitsByIp.get(ip) || []).filter((t) => t > now - HOUR_WINDOW_MS);
+  hits.push(now);
+  hitsByIp.set(ip, hits);
+
+  // Keep the map from growing without bound on a long-lived instance.
+  // forEach rather than for..of: this project's TS target predates
+  // downlevelIteration for Map.
+  if (hitsByIp.size > 5000) {
+    hitsByIp.forEach((times: number[], key: string) => {
+      if (times.every((t: number) => t <= now - HOUR_WINDOW_MS)) {
+        hitsByIp.delete(key);
+      }
+    });
+  }
+
+  const burst = hits.filter((t) => t > now - BURST_WINDOW_MS).length;
+  return burst <= BURST_MAX && hits.length <= HOUR_MAX;
+}
+
+function clientIp(req: Request): string {
+  return (
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip")?.trim() ||
+    "unknown"
+  );
+}
 
 /**
  * Lazily construct the client.
@@ -40,6 +90,16 @@ function sanitize(messages: unknown): IncomingMessage[] {
 }
 
 export async function POST(req: Request) {
+  if (!withinRateLimit(clientIp(req))) {
+    return Response.json(
+      {
+        error:
+          "That's a lot of questions in a short time. Give it a few minutes, or call us and we'll talk it through.",
+      },
+      { status: 429 }
+    );
+  }
+
   const client = getClient();
   if (!client) {
     return Response.json(
