@@ -4,6 +4,7 @@ import Image from "next/image";
 import Hero from "@/components/Hero";
 import CTABanner from "@/components/CTABanner";
 import { ShieldCheck, Users, Lightbulb, HeartHandshake, Award } from "lucide-react";
+import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
 const differentiators = [
   {
@@ -166,7 +167,7 @@ export default function AboutContent() {
       <CTABanner
         heading="Want to Have a Real Conversation?"
         subtitle="Reach out for a free, no-pressure assessment. If we're a fit, great. If not, you'll still walk away with useful info."
-        primaryLabel="Talk to Ron"
+        primaryLabel={PRIMARY_CTA_LABEL}
       />
     </>
   );

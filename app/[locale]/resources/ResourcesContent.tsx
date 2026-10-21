@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import CTABanner from "@/components/CTABanner";
 import { ArrowRight, BookOpen, Shield, Bot } from "lucide-react";
 import Link from "next/link";
+import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
 const articles = [
   {
@@ -39,7 +40,7 @@ export default function ResourcesContent() {
         badge="Resources"
         title={<>Guides & Articles for{" "}<span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">Real Business Owners</span></>}
         subtitle="Practical stuff on AI, cybersecurity, and compliance. Written for people who run businesses, not for engineers."
-        primaryCta={{ label: "Get a Free Assessment", href: "/contact" }}
+        primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
       />
 
       <section className="section-padding border-t border-line">
@@ -88,7 +89,7 @@ export default function ResourcesContent() {
         </div>
       </section>
 
-      <CTABanner heading="Don't Wait for a Blog Post" subtitle="Get real advice for your business right now. Let's hop on a call." primaryLabel="Book a Free Call" />
+      <CTABanner heading="Don't Wait for a Blog Post" subtitle="Get real advice for your business right now. Let's hop on a call." primaryLabel={PRIMARY_CTA_LABEL} />
     </>
   );
 }

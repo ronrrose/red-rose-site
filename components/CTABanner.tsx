@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
 interface CTABannerProps {
   heading?: string;
@@ -17,7 +18,7 @@ interface CTABannerProps {
 export default function CTABanner({
   heading = "Let's Fix Your IT",
   subtitle = "We'll take a look at your setup, tell you what's working and what's not, and give you an honest plan. Free. No strings.",
-  primaryLabel = "Get a Free Checkup",
+  primaryLabel = PRIMARY_CTA_LABEL,
   primaryHref = "/contact",
   secondaryLabel = "Call Ron",
   secondaryHref = "/contact",

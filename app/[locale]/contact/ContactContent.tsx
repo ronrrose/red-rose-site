@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef, type FormEvent } from "react";
+import { useState, useEffect, Suspense, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import Hero from "@/components/Hero";
 import { MapPin, Phone, Mail, Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import BookingEmbed from "@/components/BookingEmbed";
+import CardWelcomeBanner from "@/components/CardWelcomeBanner";
+import { PHONE_DISPLAY, PHONE_HREF, PHONE_PLACEHOLDER } from "@/lib/site-config";
 
 const serviceAreas = ["Lakewood Ranch","Bradenton","Sarasota","Manatee County","Tampa Bay","Parrish","Palmetto","North Port"];
 
@@ -24,7 +27,6 @@ export default function ContactContent() {
   const t = useTranslations("Contact");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
-  const roamRef = useRef<HTMLDivElement>(null);
 
   /* ── Load reCAPTCHA v3 script ── */
   useEffect(() => {
@@ -34,30 +36,6 @@ export default function ContactContent() {
     script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
     script.async = true;
     document.head.appendChild(script);
-  }, []);
-
-  useEffect(() => {
-    if (!roamRef.current) return;
-    const el = roamRef.current;
-    const script = document.createElement("script");
-    script.src = "https://ro.am/lobbylinks/embed.js";
-    script.async = true;
-    script.onload = () => {
-      (window as any).Roam.initLobbyEmbed({
-        url: "https://ro.am/ronrose/meeting",
-        parentElement: el,
-        lobbyConfiguration: "booking_only",
-        accentColor: "#D32F2F",
-        theme: "dark",
-        onSizeChange: (_w: number, h: number) => {
-          el.style.height = `${h}px`;
-        },
-      });
-    };
-    document.body.appendChild(script);
-    return () => {
-      script.remove();
-    };
   }, []);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -119,6 +97,9 @@ export default function ContactContent() {
 
   return (
     <>
+      <Suspense fallback={null}>
+        <CardWelcomeBanner />
+      </Suspense>
       <Hero
         badge={t("title")}
         title={<>{t("subtitle").split("\n")[0]}{" "}<span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">{t("subtitle").split("\n")[1]}</span></>}
@@ -132,19 +113,16 @@ export default function ContactContent() {
               <div className="glass-card rounded-2xl p-8 mb-8">
                 <h2 className="text-2xl font-bold text-ink mb-4">{t("bookCall")}</h2>
                 <p className="text-faded mb-6 text-sm">{t("noCommitment")}</p>
-                <div
-                  ref={roamRef}
-                  id="roam-lobby"
-                  className="w-[calc(100%+4rem)] -mx-8 -mb-8 overflow-hidden rounded-b-2xl"
-                  style={{ minWidth: 320 }}
-                />
+                <Suspense fallback={<div className="w-full rounded-xl" style={{ minHeight: 700 }} />}>
+                  <BookingEmbed />
+                </Suspense>
               </div>
               <div className="glass-card rounded-2xl p-8">
                 <h3 className="text-lg font-bold text-ink mb-6">Or Just Reach Out</h3>
                 <ul className="space-y-5">
                   <li className="flex items-center gap-4 text-secondary">
                     <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><Phone className="w-5 h-5" aria-hidden="true" /></div>
-                    <div><p className="text-ink font-semibold text-sm">(954) 857-1100</p><p className="text-faded text-xs">Mon through Fri, 8am to 6pm EST</p></div>
+                    <div><a href={PHONE_HREF} className="text-ink font-semibold text-sm hover:text-accent transition-colors">{PHONE_DISPLAY}</a><p className="text-faded text-xs">Mon through Fri, 8am to 6pm EST</p></div>
                   </li>
                   <li className="flex items-center gap-4 text-secondary">
                     <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><Mail className="w-5 h-5" aria-hidden="true" /></div>
@@ -197,7 +175,7 @@ export default function ContactContent() {
                     </div>
                     <div>
                       <label htmlFor="phone" className="block text-sm font-medium text-secondary mb-2">{t("phone")}</label>
-                      <input id="phone" name="phone" type="tel" placeholder="(954) 555-0123" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
+                      <input id="phone" name="phone" type="tel" placeholder={PHONE_PLACEHOLDER} className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm" />
                     </div>
                     <div>
                       <label htmlFor="businessType" className="block text-sm font-medium text-secondary mb-2">{t("businessType")}</label>

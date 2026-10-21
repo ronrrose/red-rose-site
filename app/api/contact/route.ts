@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { PHONE_DISPLAY } from "@/lib/site-config";
 
 if (!process.env.RESEND_API_KEY) {
   throw new Error("Missing RESEND_API_KEY environment variable");
@@ -229,7 +230,7 @@ export async function POST(req: NextRequest) {
             We received your message and Ron will get back to you within one business day.
           </p>
           <p style="font-size:15px;line-height:1.6;color:#333;">
-            If it's urgent, feel free to call us directly at <strong>(954) 857-1100</strong>.
+            If it's urgent, feel free to call us directly at <strong>${PHONE_DISPLAY}</strong>.
           </p>
           <hr style="border:none;border-top:1px solid #e5e5e5;margin:24px 0;" />
           <p style="font-size:12px;color:#999;">

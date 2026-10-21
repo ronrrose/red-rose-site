@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import FAQSection from "@/components/FAQSection";
 import CTABanner from "@/components/CTABanner";
 import { CheckCircle2, Stethoscope, Heart, Scale, Building2, Briefcase } from "lucide-react";
+import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
 const industries = [
   {
@@ -197,7 +198,7 @@ export default function IndustriesContent() {
       <CTABanner
         heading="Let's Talk About Your Industry"
         subtitle="Every business has its own headaches. Tell us yours and we'll show you exactly how we'd handle it."
-        primaryLabel="Get a Custom Assessment"
+        primaryLabel={PRIMARY_CTA_LABEL}
       />
     </>
   );

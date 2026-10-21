@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { ADDRESS_LOCALITY, ADDRESS_REGION, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site-config";
 
 const serviceLinks = [
   { label: "AI & Automation Clinics", href: "/ai-clinics" },
@@ -34,10 +35,9 @@ export default function Footer() {
             <div className="flex items-start gap-3 text-faded text-sm" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
               <MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
               <span>
-                <span itemProp="streetAddress">8403 Pines Blvd, 1081</span><br />
-                <span itemProp="addressLocality">Pembroke Pines</span>,{" "}
-                <span itemProp="addressRegion">FL</span>{" "}
-                <span itemProp="postalCode">33024</span>
+                <span itemProp="addressLocality">{ADDRESS_LOCALITY}</span>,{" "}
+                <span itemProp="addressRegion">{ADDRESS_REGION}</span>
+                {" | Serving Tampa Bay, Manatee & Sarasota"}
               </span>
             </div>
           </div>
@@ -75,8 +75,8 @@ export default function Footer() {
             <p className="text-ink font-semibold mb-6 uppercase text-xs tracking-widest">Contact</p>
             <ul className="space-y-3 mb-6">
               <li>
-                <a href="tel:9548571100" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
-                  <Phone className="w-4 h-4 shrink-0" /> <span itemProp="telephone">(954) 857-1100</span>
+                <a href={PHONE_HREF} className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
+                  <Phone className="w-4 h-4 shrink-0" /> <span itemProp="telephone">{PHONE_DISPLAY}</span>
                 </a>
               </li>
               <li>

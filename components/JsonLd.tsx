@@ -1,3 +1,9 @@
+import {
+  ADDRESS_COUNTRY,
+  ADDRESS_LOCALITY,
+  ADDRESS_REGION,
+  PHONE_SCHEMA,
+} from "@/lib/site-config";
 export default function JsonLd() {
   const schema = {
     "@context": "https://schema.org",
@@ -10,21 +16,14 @@ export default function JsonLd() {
         description:
           "IT, automation, and cybersecurity for dental practices, healthcare, legal firms, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
         url: "https://redrosetechnologies.com",
-        telephone: "+1-954-857-1100",
+        telephone: PHONE_SCHEMA,
         email: "info@redrosetechnologies.com",
         priceRange: "$$",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "8403 Pines Blvd, 1081",
-          addressLocality: "Pembroke Pines",
-          addressRegion: "FL",
-          postalCode: "33024",
-          addressCountry: "US",
-        },
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: 26.0131,
-          longitude: -80.3433,
+          addressLocality: ADDRESS_LOCALITY,
+          addressRegion: ADDRESS_REGION,
+          addressCountry: ADDRESS_COUNTRY,
         },
         areaServed: [
           { "@type": "City", name: "Lakewood Ranch" },
@@ -37,6 +36,7 @@ export default function JsonLd() {
           { "@type": "City", name: "Clearwater" },
           { "@type": "City", name: "St. Petersburg" },
           { "@type": "AdministrativeArea", name: "Manatee County" },
+          { "@type": "AdministrativeArea", name: "Sarasota County" },
           { "@type": "AdministrativeArea", name: "Tampa Bay" },
         ],
         openingHoursSpecification: {

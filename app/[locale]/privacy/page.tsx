@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { localeAlternates } from "@/lib/metadata";
+import { CONTACT_EMAIL, PHONE_DISPLAY } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -38,7 +39,7 @@ export default function PrivacyPage() {
           <p>Our website uses the following third-party services: Vercel (hosting), Resend (email delivery), and Google Maps (embedded map). Each service has its own privacy policy governing their use of data.</p>
 
           <h2 className="text-xl font-bold text-ink mt-8">7. Your Rights</h2>
-          <p>You may request access to, correction of, or deletion of your personal information at any time by contacting us at info@redrosetechnologies.com or (954) 857-1100.</p>
+          <p>You may request access to, correction of, or deletion of your personal information at any time by contacting us at {CONTACT_EMAIL} or {PHONE_DISPLAY}.</p>
 
           <h2 className="text-xl font-bold text-ink mt-8">8. Changes to This Policy</h2>
           <p>We may update this privacy policy from time to time. Changes will be posted on this page with an updated revision date.</p>
@@ -48,8 +49,8 @@ export default function PrivacyPage() {
           <p>
             Red Rose Technologies<br />
             Lakewood Ranch, FL<br />
-            info@redrosetechnologies.com<br />
-            (954) 857-1100
+            {CONTACT_EMAIL}<br />
+            {PHONE_DISPLAY}
           </p>
         </div>
       </div>

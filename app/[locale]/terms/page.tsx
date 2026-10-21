@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { localeAlternates } from "@/lib/metadata";
+import { CONTACT_EMAIL, PHONE_DISPLAY } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -54,8 +55,8 @@ export default function TermsPage() {
           <p>
             Red Rose Technologies<br />
             Lakewood Ranch, FL<br />
-            info@redrosetechnologies.com<br />
-            (954) 857-1100
+            {CONTACT_EMAIL}<br />
+            {PHONE_DISPLAY}
           </p>
         </div>
       </div>
