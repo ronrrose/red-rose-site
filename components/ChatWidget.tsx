@@ -98,7 +98,7 @@ export default function ChatWidget() {
             m.id === replyId
               ? {
                   ...m,
-                  content: `${message} You can reach us on ${PHONE_DISPLAY} and we will help directly.`,
+                  content: `${message} Call ${PHONE_DISPLAY} or book a free IT checkup and you will get a straight answer.`,
                 }
               : m
           )
