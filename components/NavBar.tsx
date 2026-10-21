@@ -75,7 +75,7 @@ export default function NavBar() {
         <div className="hidden lg:flex items-center gap-3">
           <a
             href={PHONE_HREF}
-            className="text-sm text-faded font-medium border-r border-line pr-3 hover:text-accent transition-colors"
+            className="hidden xl:inline text-sm text-faded font-medium border-r border-line pr-3 whitespace-nowrap hover:text-accent transition-colors"
           >
             {PHONE_DISPLAY}
           </a>
@@ -83,7 +83,7 @@ export default function NavBar() {
           <ThemeToggle />
           <Link
             href="/contact"
-            className="px-5 py-2.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold transition-all shadow-lg shadow-brand-700/20"
+            className="px-5 py-2.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold whitespace-nowrap transition-all shadow-lg shadow-brand-700/20"
           >
             {t("getAssessment")}
           </Link>

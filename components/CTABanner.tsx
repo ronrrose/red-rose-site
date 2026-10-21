@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
 interface CTABannerProps {

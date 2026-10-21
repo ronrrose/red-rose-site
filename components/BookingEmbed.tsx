@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTheme } from "next-themes";
-import { Calendar, Phone } from "lucide-react";
+import { Calendar, Loader2, Phone } from "lucide-react";
 import {
   BOOKING_URL,
   PHONE_DISPLAY,
@@ -50,6 +50,7 @@ export default function BookingEmbed() {
 
   const [mounted, setMounted] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [ready, setReady] = useState(false);
 
   const utmSource = searchParams.get("utm_source");
   const bookingUrl = buildBookingUrl(utmSource);
@@ -65,6 +66,9 @@ export default function BookingEmbed() {
 
     let cancelled = false;
     setFailed(false);
+    // Switching theme reloads the iframe, which takes a few seconds. Show a
+    // skeleton rather than a blank 700px hole.
+    setReady(false);
     // Re-initialising (e.g. on theme change) must not stack a second lobby.
     el.innerHTML = "";
 
@@ -86,6 +90,16 @@ export default function BookingEmbed() {
             }
           },
         });
+        const iframe = containerRef.current.querySelector("iframe");
+        if (iframe) {
+          iframe.addEventListener(
+            "load",
+            () => {
+              if (!cancelled) setReady(true);
+            },
+            { once: true }
+          );
+        }
       } catch {
         if (!cancelled) setFailed(true);
       }
@@ -143,14 +157,25 @@ export default function BookingEmbed() {
   return (
     <>
       <div
-        ref={containerRef}
-        id="roam-lobby"
-        className={`w-full overflow-hidden rounded-xl${failed ? " hidden" : ""}`}
+        className={`relative w-full${failed ? " hidden" : ""}`}
         style={failed ? undefined : { minHeight: MIN_EMBED_HEIGHT }}
         aria-hidden={failed || undefined}
-      />
+      >
+        <div
+          ref={containerRef}
+          id="roam-lobby"
+          className="w-full overflow-hidden"
+          style={{ minHeight: MIN_EMBED_HEIGHT }}
+        />
+        {!ready && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-panel">
+            <Loader2 className="h-6 w-6 animate-spin text-accent" aria-hidden="true" />
+            <p className="text-faded text-sm">Loading the scheduler...</p>
+          </div>
+        )}
+      </div>
       {failed && (
-      <div className="space-y-3">
+      <div className="space-y-3 px-8 pb-8">
         <a
           href={bookingUrl}
           target="_blank"
