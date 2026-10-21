@@ -44,8 +44,10 @@ export async function POST(req: Request) {
   if (!client) {
     return Response.json(
       {
+        // Phrased for a visitor, not an operator: never advertise that the
+        // site is half-configured.
         error:
-          "The assistant is not configured yet. Please call us and we will help you directly.",
+          "I'm not available right now, but Ron is.",
       },
       { status: 503 }
     );
