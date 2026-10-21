@@ -48,3 +48,6 @@ package-lock.json
 .vercel
 .env.local
 .env*.local
+
+# TypeScript incremental build cache (regenerated on every compile)
+tsconfig.tsbuildinfo
