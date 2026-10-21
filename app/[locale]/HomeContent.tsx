@@ -5,6 +5,7 @@ import ServiceCard from "@/components/ServiceCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import CTABanner from "@/components/CTABanner";
 import { Bot, Shield, Building2, ShieldCheck, Award, Stethoscope, Scale, Heart, Briefcase } from "lucide-react";
+import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
 const industries = [
   { icon: Stethoscope, label: "Dental Practices" },
@@ -29,7 +30,7 @@ export default function HomeContent() {
           </>
         }
         subtitle="You've heard the AI hype. We skip that part. We show dental practices, law firms, nonprofits, and local shops across Tampa Bay how to automate the stuff that's eating their week. And we keep the tech running so they don't have to think about it."
-        primaryCta={{ label: "Let's Look at Your Setup", href: "/contact" }}
+        primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
         secondaryCta={{ label: "Check Out AI Clinics", href: "/ai-clinics" }}
         trustItems={[
           "Google AI Certified",

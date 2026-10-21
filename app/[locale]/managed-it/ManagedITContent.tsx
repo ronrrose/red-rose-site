@@ -8,6 +8,7 @@ import {
   Shield, Server, Cloud, Lock, MonitorSmartphone, FileCheck,
   Zap, Users, HeartHandshake,
 } from "lucide-react";
+import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
 const services = [
   { icon: Shield,             title: "Compliance That's Built In",      description: "HIPAA, SOC 2, whatever your industry requires. We build compliance into the foundation, not as an upsell after you sign." },
@@ -40,7 +41,7 @@ export default function ManagedITContent() {
           </>
         }
         subtitle="We're not a generic break-fix shop. We start with security and compliance, then build everything else on top of that. Your patients' data, your clients' files, your business. It all stays protected."
-        primaryCta={{ label: "Get a Free IT Checkup", href: "/contact" }}
+        primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
         secondaryCta={{ label: "See Our Industries", href: "/industries" }}
         trustItems={["HIPAA Compliant", "24/7 SOC", "Flat-Rate Pricing", "Local Techs"]}
       />
@@ -158,7 +159,7 @@ export default function ManagedITContent() {
       <CTABanner
         heading="Want to See What Good IT Looks Like?"
         subtitle="We'll run a free checkup on your network and show you exactly where the gaps are. No pitch, no pressure."
-        primaryLabel="Let's Take a Look"
+        primaryLabel={PRIMARY_CTA_LABEL}
       />
     </>
   );

@@ -14,6 +14,7 @@ import {
 import type { CityData } from "@/lib/city-data";
 import FAQSection from "@/components/FAQSection";
 import CTABanner from "@/components/CTABanner";
+import { PHONE_DISPLAY, PHONE_HREF, PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
 /* ── Pricing tiers ────────────────────────────────────────── */
 const tiers = [
@@ -135,14 +136,14 @@ export default function CityLandingContent({ city }: { city: CityData }) {
               href="/contact"
               className="w-full sm:w-auto px-8 py-4 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-semibold text-lg transition-all shadow-lg shadow-brand-700/20 flex items-center justify-center gap-2 group"
             >
-              Schedule a Free IT Assessment
+              {PRIMARY_CTA_LABEL}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <a
-              href="tel:9548571100"
+              href={PHONE_HREF}
               className="w-full sm:w-auto px-8 py-4 bg-transparent hover:bg-raised text-ink rounded-xl font-semibold text-lg transition-all border border-line"
             >
-              Call (954) 857-1100
+              Call {PHONE_DISPLAY}
             </a>
           </motion.div>
 
@@ -378,7 +379,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
       <CTABanner
         heading={`Ready to Fix IT for Your ${city.name} Practice?`}
         subtitle="We'll run a free checkup on your network, show you where the gaps are, and give you an honest plan. No pitch, no pressure."
-        primaryLabel="Schedule a Free IT Assessment"
+        primaryLabel={PRIMARY_CTA_LABEL}
       />
     </>
   );

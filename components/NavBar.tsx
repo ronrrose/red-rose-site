@@ -7,6 +7,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/site-config";
 
 const navLinks = [
   { href: "/", key: "home" },
@@ -72,9 +73,12 @@ export default function NavBar() {
 
         {/* Desktop CTA + Toggle + Language */}
         <div className="hidden lg:flex items-center gap-3">
-          <span className="text-sm text-faded font-medium border-r border-line pr-3">
-            (954) 857-1100
-          </span>
+          <a
+            href={PHONE_HREF}
+            className="text-sm text-faded font-medium border-r border-line pr-3 hover:text-accent transition-colors"
+          >
+            {PHONE_DISPLAY}
+          </a>
           <LanguageSwitcher />
           <ThemeToggle />
           <Link
