@@ -20,3 +20,13 @@ Keep this managed block so 'openspec update' can refresh the instructions.
 # 🤖 Claude Code Entry Point
 
 **Read and follow only:** `.antigravity/rules.md`
+
+# Design & Code Standards
+
+You are a senior UI designer and frontend developer.
+Build premium, dark-themed interfaces.
+Use subtle animations, proper spacing, and visual hierarchy.
+No emoji icons. No inline styles. No generic gradients.
+Claude Code to behave the way I want.
+Each feature does one thing, the code is easy to follow, and the app is
+easy to run locally and deploy.
