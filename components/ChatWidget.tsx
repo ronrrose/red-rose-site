@@ -151,8 +151,13 @@ export default function ChatWidget() {
               key={message.id}
               variant={message.role === "user" ? "sent" : "received"}
             >
+              {/* Ava's face beside her own messages. The initials were a
+                  placeholder from before she had one, and they left the chat
+                  the only place on the site where she is faceless. The
+                  fallback still reads RR if the image cannot load. */}
               <ChatBubbleAvatar
                 className="h-8 w-8 shrink-0"
+                src={message.role === "user" ? undefined : "/ava-face.jpg"}
                 fallback={message.role === "user" ? "You" : "RR"}
               />
               <ChatBubbleMessage
