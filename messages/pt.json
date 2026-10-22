@@ -33,7 +33,12 @@
     "message": "O Que Está Acontecendo?",
     "submit": "Enviar",
     "serviceAreaTitle": "Local no Sudoeste da Flórida",
-    "serviceAreaBody": "Suporte presencial e remoto na área de Tampa Bay."
+    "serviceAreaBody": "Suporte presencial e remoto na área de Tampa Bay.",
+    "greetingTitle": "Conheça o assistente da Red Rose",
+    "greetingBody": "Uma apresentação de 25 segundos sobre o que fazemos.",
+    "greetingPlay": "Reproduzir a apresentação",
+    "greetingDisclosure": "Este é o assistente de IA da Red Rose, não uma pessoa real. Ron está a uma ligação de distância pelo",
+    "greetingUnavailable": "Não foi possível carregar a apresentação. Agende abaixo ou ligue para"
   },
   "LocaleSwitcher": {
     "label": "Mudar idioma",
