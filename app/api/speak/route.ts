@@ -95,12 +95,57 @@ async function resolveVoiceId(apiKey: string): Promise<string | null> {
   }
 }
 
+/**
+ * Accept the spellings this key actually gets saved under.
+ *
+ * The canonical name is ELEVENLABS_API_KEY. The others are the variants that
+ * ElevenLabs' own docs and dashboards use, and the one Vercel suggests. A key
+ * saved under any of them works rather than silently doing nothing, which is
+ * indistinguishable from the key being absent.
+ */
+const KEY_NAMES = [
+  "ELEVENLABS_API_KEY",
+  "ELEVEN_LABS_API_KEY",
+  "ELEVENLABS_KEY",
+  "ELEVEN_API_KEY",
+  "XI_API_KEY",
+] as const;
+
+function readApiKey(): string | undefined {
+  for (const name of KEY_NAMES) {
+    const v = process.env[name];
+    if (v && v.trim()) return v.trim();
+  }
+  return undefined;
+}
+
+/**
+ * GET reports which speech-related variable NAMES the runtime can see, and
+ * never any value or any part of one. It exists because a 503 saying the key
+ * is missing is impossible to act on when the key has demonstrably been set:
+ * the useful question is what it got named, and that cannot be read from
+ * outside the function.
+ *
+ * Names only, matched against a narrow pattern, so nothing unrelated is
+ * listed. Remove this once the key is resolved.
+ */
+export async function GET() {
+  const seen = Object.keys(process.env).filter((k) =>
+    /eleven|xi_api|tts|speech|voice/i.test(k)
+  );
+  return Response.json({
+    looksFor: KEY_NAMES,
+    present: seen,
+    resolved: !!readApiKey(),
+  });
+}
+
 export async function POST(req: Request) {
   if (!withinRateLimit(clientIp(req))) {
     return Response.json({ error: "rate_limited" }, { status: 429 });
   }
 
-  const apiKey = process.env.ELEVENLABS_API_KEY;
+  const apiKey = readApiKey();
   // No key is not an error the visitor should see: the client falls back to
   // the browser voice and the conversation carries on.
   if (!apiKey) return Response.json({ error: "no_key" }, { status: 503 });
