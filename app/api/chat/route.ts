@@ -1,5 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { waitUntil } from "@vercel/functions";
 import { buildSystemPrompt } from "@/lib/red-rose-knowledge";
+import { createStreamCleaner } from "@/lib/chat/sanitize";
+import { extractAndCreateLead } from "@/lib/chat/extract-lead";
+import { PHONE_DISPLAY } from "@/lib/site-config";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -70,27 +74,6 @@ function getClient(): Anthropic | null {
   return new Anthropic({ apiKey });
 }
 
-/**
- * The model occasionally leaks wrapper markup into its visible text, e.g. a
- * reply that opens with "antml:final_response". The system prompt tells it not
- * to, but that is guidance, not a guarantee, so strip it server-side too.
- *
- * Matches both the tag forms (<x>, </x>) and the bare token form
- * that actually showed up in production.
- */
-const ANTML_MARKUP = /<\/?antml:[a-zA-Z0-9_.:-]*>?|antml:[a-zA-Z0-9_.:-]+/gi;
-
-/**
- * Longest partial marker we might be holding mid-stream. Deltas can split a
- * token across chunks, so we never emit the final TAIL_HOLD characters until
- * more text arrives or the stream ends.
- */
-const TAIL_HOLD = 32;
-
-function stripAntml(text: string): string {
-  return text.replace(ANTML_MARKUP, "");
-}
-
 type IncomingMessage = { role: "user" | "assistant"; content: string };
 
 function sanitize(messages: unknown): IncomingMessage[] {
@@ -127,17 +110,19 @@ export async function POST(req: Request) {
       {
         // Phrased for a visitor, not an operator: never advertise that the
         // site is half-configured.
-        error:
-          "I'm not available right now, but Ron is.",
+        error: `I'm not available right now, but our team is. Call us at ${PHONE_DISPLAY}.`,
       },
       { status: 503 }
     );
   }
 
   let messages: IncomingMessage[];
+  let pageUrl: string | null = null;
   try {
     const body = await req.json();
     messages = sanitize(body?.messages);
+    pageUrl =
+      typeof body?.pageUrl === "string" ? body.pageUrl.slice(0, 500) : req.headers.get("referer");
   } catch {
     return Response.json({ error: "Invalid request." }, { status: 400 });
   }
@@ -169,26 +154,21 @@ export async function POST(req: Request) {
     const body = new ReadableStream<Uint8Array>({
       async start(controller) {
         /*
-         * Strip against the whole accumulated reply, never against a single
-         * delta: deltas can arrive one character at a time, and a marker seen
-         * chunk by chunk is never recognisable. Then hold back the last few
-         * characters of the CLEANED output, so a marker still being written at
-         * the end is not emitted before it completes.
-         *
-         * The transform must be deterministic, or the emitted offset drifts:
-         * normalise the same way on every pass.
+         * See lib/chat/sanitize.ts for why the cleaning happens against the
+         * whole accumulated reply with a held-back tail, rather than per
+         * delta. That logic lives in a module so it can be tested directly.
          */
-        let raw = "";
-        let emitted = 0;
+        const cleaner = createStreamCleaner();
 
-        const cleanedSoFar = () => stripAntml(raw).replace(/^\s+/, "");
+        // Accumulated cleaned reply, used only for lead extraction after the
+        // response has been sent.
+        let reply = "";
 
-        const flush = (holdBack: number) => {
-          const cleaned = cleanedSoFar();
-          const upto = Math.max(emitted, cleaned.length - holdBack);
-          if (upto <= emitted) return;
-          controller.enqueue(encoder.encode(cleaned.slice(emitted, upto)));
-          emitted = upto;
+        const emit = (chunk: string) => {
+          if (chunk) {
+            reply += chunk;
+            controller.enqueue(encoder.encode(chunk));
+          }
         };
 
         try {
@@ -197,17 +177,16 @@ export async function POST(req: Request) {
               event.type === "content_block_delta" &&
               event.delta.type === "text_delta"
             ) {
-              raw += event.delta.text;
-              flush(TAIL_HOLD);
+              emit(cleaner.push(event.delta.text));
             }
           }
-          flush(0);
+          emit(cleaner.end());
           const final = await stream.finalMessage();
           // A safety decline returns HTTP 200, so check before trusting output.
           if (final.stop_reason === "refusal") {
             controller.enqueue(
               encoder.encode(
-                "\n\nI am not able to help with that one. Give Ron a call and he will point you the right way."
+                `\n\nI am not able to help with that one. Call us at ${PHONE_DISPLAY} and someone from our team will point you the right way.`
               )
             );
           }
@@ -219,6 +198,18 @@ export async function POST(req: Request) {
           );
         } finally {
           controller.close();
+
+          /*
+           * Lead capture runs after the visitor already has their reply, so it
+           * can never slow or break the stream. Most turns carry no contact
+           * details and are filtered out before any model call.
+           */
+          waitUntil(
+            extractAndCreateLead(
+              [...messages, { role: "assistant" as const, content: reply }],
+              { pageUrl }
+            ).catch(() => null)
+          );
         }
       },
     });
