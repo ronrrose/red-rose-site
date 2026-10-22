@@ -45,7 +45,21 @@ function getRecognitionCtor(): RecognitionCtor | null {
 type Turn = { role: "user" | "assistant"; content: string };
 type Phase = "idle" | "listening" | "thinking" | "speaking";
 
-const VIDEO_SRC = "/assistant-greeting.mp4";
+/**
+ * A short boomerang loop (forward, then the same frames reversed) rather than
+ * the full greeting. Two reasons, both about how it reads rather than how it
+ * is built:
+ *
+ * Looping the 22 second greeting meant a hard cut back to frame zero every
+ * time, which the eye catches immediately. A boomerang has no seam at all,
+ * because the last frame IS the first frame.
+ *
+ * It is also cut from a settled stretch mid-sentence, so the motion stays in
+ * the range a person actually moves in while talking. The wide gestures and
+ * the long neck extensions elsewhere in the greeting look theatrical on a
+ * three second repeat even though they read fine once.
+ */
+const VIDEO_SRC = "/ava-loop.mp4";
 const POSTER_SRC = "/assistant-greeting-poster.jpg";
 
 /**
