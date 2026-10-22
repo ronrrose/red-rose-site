@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useRef, useState, type FormEvent } from "react";
-import { Bot, CornerDownLeft, Phone } from "lucide-react";
+import Image from "next/image";
+import { CornerDownLeft, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   ChatBubble,
@@ -122,7 +123,19 @@ export default function ChatWidget() {
     <ExpandableChat
       size="lg"
       position="bottom-right"
-      icon={<Bot className="h-6 w-6" />}
+      /* Ava's own face rather than a generic robot glyph. The button is the
+         first thing a visitor sees, and the same face greets them on the
+         contact page, so the two should match. It is still labelled as the
+         AI assistant everywhere it speaks. */
+      icon={
+        <Image
+          src="/ava-face.jpg"
+          alt=""
+          width={56}
+          height={56}
+          className="h-full w-full rounded-full object-cover"
+        />
+      }
     >
       <ExpandableChatHeader className="flex-col text-center justify-center">
         <h2 className="text-xl font-semibold">Ask Red Rose</h2>

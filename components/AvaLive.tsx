@@ -45,7 +45,21 @@ function getRecognitionCtor(): RecognitionCtor | null {
 type Turn = { role: "user" | "assistant"; content: string };
 type Phase = "idle" | "listening" | "thinking" | "speaking";
 
-const VIDEO_SRC = "/assistant-greeting.mp4";
+/**
+ * A short boomerang loop (forward, then the same frames reversed) rather than
+ * the full greeting. Two reasons, both about how it reads rather than how it
+ * is built:
+ *
+ * Looping the 22 second greeting meant a hard cut back to frame zero every
+ * time, which the eye catches immediately. A boomerang has no seam at all,
+ * because the last frame IS the first frame.
+ *
+ * It is also cut from a settled stretch mid-sentence, so the motion stays in
+ * the range a person actually moves in while talking. The wide gestures and
+ * the long neck extensions elsewhere in the greeting look theatrical on a
+ * three second repeat even though they read fine once.
+ */
+const VIDEO_SRC = "/ava-loop.mp4";
 const POSTER_SRC = "/assistant-greeting-poster.jpg";
 
 /**
@@ -84,6 +98,7 @@ export default function AvaLive() {
   const [error, setError] = useState("");
 
   const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const recognitionRef = useRef<RecognitionLike | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
 
@@ -109,7 +124,8 @@ export default function AvaLive() {
     }
   }, []);
 
-  const speak = useCallback(
+  /** Browser voice. Only used when her real one cannot be reached. */
+  const speakFallback = useCallback(
     (text: string) =>
       new Promise<void>((resolve) => {
         if (typeof window === "undefined" || !window.speechSynthesis) return resolve();
@@ -117,7 +133,6 @@ export default function AvaLive() {
         const u = new SpeechSynthesisUtterance(text);
         u.lang = "en-US";
         u.rate = 1.02;
-        u.pitch = 1.0;
         const voices = window.speechSynthesis.getVoices();
         const preferred =
           voices.find((v) => /samantha|ava|allison|female/i.test(v.name) && v.lang.startsWith("en")) ||
@@ -129,6 +144,52 @@ export default function AvaLive() {
         window.speechSynthesis.speak(u);
       }),
     []
+  );
+
+  /**
+   * Speak in Ava's own voice, the same one as the recorded greeting.
+   *
+   * Falls back to the browser voice whenever that cannot happen: no key
+   * configured, the service is down, the request is rate limited, or the
+   * browser refuses to start audio. A visitor should never be left watching a
+   * silent face because the nicer path failed, so every failure here is
+   * caught and answered rather than surfaced.
+   */
+  const speak = useCallback(
+    async (text: string) => {
+      try {
+        const res = await fetch("/api/speak", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text }),
+        });
+        if (!res.ok) return speakFallback(text);
+
+        const blob = await res.blob();
+        if (!blob.size) return speakFallback(text);
+
+        const url = URL.createObjectURL(blob);
+        const audio = audioRef.current ?? new Audio();
+        audioRef.current = audio;
+        audio.src = url;
+
+        await new Promise<void>((resolve) => {
+          let settled = false;
+          const done = () => {
+            if (settled) return;
+            settled = true;
+            URL.revokeObjectURL(url);
+            resolve();
+          };
+          audio.onended = done;
+          audio.onerror = done;
+          audio.play().catch(done);
+        });
+      } catch {
+        return speakFallback(text);
+      }
+    },
+    [speakFallback]
   );
 
   const ask = useCallback(
@@ -343,9 +404,9 @@ export default function AvaLive() {
       </div>
 
       <p className="mt-3 text-center text-xs text-faded">
-        Ava is an AI assistant, not a person. Her face is a looping recording,
-        so her mouth does not form these words, and the spoken voice is your
-        browser&apos;s. For anything real, call us at{" "}
+        Ava is an AI assistant, not a person. Her face is a looping recording
+        and her voice is synthetic, so her mouth does not form these words. For
+        anything real, call us at{" "}
         <a href={PHONE_HREF} className="font-medium text-accent hover:underline whitespace-nowrap">
           {PHONE_DISPLAY}
         </a>
