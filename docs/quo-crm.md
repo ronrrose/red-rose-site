@@ -50,12 +50,32 @@ Quo is then one exact request rather than a scan of the workspace.
 
 ### 1. Database
 
-Create a Postgres database (Neon via the Vercel Marketplace, free tier), set
-`DATABASE_URL` in Vercel for Production and Preview, then apply the schema:
+In the Vercel dashboard, go to **Storage > Create Database > Neon** and pick
+the free tier. The integration sets `DATABASE_URL` on the Vercel project for
+you; add it to Preview as well as Production if you want the CRM working on
+preview deployments.
+
+To apply the schema you need that connection string locally. Copy it from the
+Neon or Vercel storage panel and put it in `.env.local`, which is gitignored:
 
 ```
-DATABASE_URL='postgres://...' npm run migrate
+echo 'DATABASE_URL=the-connection-string-you-copied' >> .env.local
 ```
+
+Then:
+
+```
+npm run migrate
+```
+
+That takes no arguments on purpose. A connection string passed on the command
+line ends up in shell history, and a documented command containing a
+placeholder is a command someone eventually runs with the placeholder still in
+it. The script refuses anything placeholder-shaped and tells you what is
+wrong rather than failing inside the database driver.
+
+Expect `applied 0001_init.sql`. Running it again prints `skip 0001_init.sql`,
+since migrations are recorded in a `schema_migrations` table.
 
 ### 2. Register the webhook
 
