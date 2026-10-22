@@ -53,7 +53,7 @@ const whatYouGet = [
   "Hands-on exercises. You leave with working automations.",
   "A custom AI action plan built around your business",
   "Access to our private prompt and template library",
-  "30 days of email support from Ron after the clinic",
+  "30 days of email support from our team after the clinic",
   "Certificate of completion",
 ];
 
@@ -224,7 +224,7 @@ export default function AIClinicsContent() {
           { question: "What tools will we actually use in the sessions?", answer: "ChatGPT, Google Gemini, Microsoft Copilot, Zapier, Make, and Power Automate. You'll get hands-on time with each one and leave with automations actually running." },
           { question: "How much does it cost?", answer: "Public clinics are free for chambers, SBDCs, and business groups. Private clinics for your team are custom-quoted based on group size and scope." },
           { question: "Is the content HIPAA-safe for healthcare businesses?", answer: "Yes. Session 3 specifically covers HIPAA-safe ways to use AI in healthcare and legal settings, including what tools to avoid and how to write an AI policy that meets compliance requirements." },
-          { question: "What do I walk away with?", answer: "Working automations, a custom AI action plan for your business, access to our prompt and template library, 30 days of email support from Ron, and a certificate of completion." },
+          { question: "What do I walk away with?", answer: "Working automations, a custom AI action plan for your business, access to our prompt and template library, 30 days of email support from our team, and a certificate of completion." },
           { question: "Can I bring my whole team?", answer: "Absolutely. Private clinics are built for teams. The more people who attend, the faster your organization adopts AI in a consistent, safe way." },
         ]}
       />

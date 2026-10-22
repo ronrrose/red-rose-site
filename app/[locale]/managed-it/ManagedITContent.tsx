@@ -135,7 +135,7 @@ export default function ManagedITContent() {
                   ))}
                 </ul>
                 <a href="/contact" className={`block text-center px-6 py-3 rounded-xl font-semibold transition-all text-sm ${plan.popular ? "bg-brand-700 hover:bg-brand-800 text-white shadow-lg shadow-brand-700/25" : "border border-line text-ink hover:bg-raised/50"}`}>
-                  {plan.price === "Custom" ? "Talk to Ron" : "Get Started"}
+                  {plan.price === "Custom" ? "Talk to Us" : "Get Started"}
                 </a>
               </div>
             ))}

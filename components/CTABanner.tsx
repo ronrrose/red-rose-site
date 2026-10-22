@@ -20,7 +20,7 @@ export default function CTABanner({
   subtitle = "We'll take a look at your setup, tell you what's working and what's not, and give you an honest plan. Free. No strings.",
   primaryLabel = PRIMARY_CTA_LABEL,
   primaryHref = "/contact",
-  secondaryLabel = "Call Ron",
+  secondaryLabel = "Call Us",
   secondaryHref = "/contact",
   bullets = [
     "No Contracts",
