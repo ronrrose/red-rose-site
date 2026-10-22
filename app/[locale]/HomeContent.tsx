@@ -70,7 +70,7 @@ export default function HomeContent() {
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">What We Do</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-ink">Three Things We're Really Good At</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink">Three Things We&apos;re Really Good At</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             <ServiceCard
@@ -104,7 +104,7 @@ export default function HomeContent() {
               People Who Can&apos;t Afford IT That Doesn&apos;t Work
             </h2>
             <p className="text-faded text-lg">
-              If your business depends on the tech actually working, and you're tired of surprise bills and slow responses, we should talk.
+              If your business depends on the tech actually working, and you&apos;re tired of surprise bills and slow responses, we should talk.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">

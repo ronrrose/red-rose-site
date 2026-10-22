@@ -186,7 +186,7 @@ export default function BookingEmbed() {
           {PRIMARY_CTA_LABEL}
         </a>
         <p className="text-faded text-xs text-center">
-          Opens Ron&apos;s scheduler in a new tab. Prefer the phone?{" "}
+          Opens our scheduler in a new tab. Prefer the phone?{" "}
           <a href={PHONE_HREF} className="text-accent font-semibold hover:underline">
             {PHONE_DISPLAY}
           </a>

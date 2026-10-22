@@ -406,7 +406,7 @@ export default function AvaLive() {
       <p className="mt-3 text-center text-xs text-faded">
         Ava is an AI assistant, not a person. Her face is a looping recording
         and her voice is synthetic, so her mouth does not form these words. For
-        anything real, call Ron at{" "}
+        anything real, call us at{" "}
         <a href={PHONE_HREF} className="font-medium text-accent hover:underline whitespace-nowrap">
           {PHONE_DISPLAY}
         </a>

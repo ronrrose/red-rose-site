@@ -102,7 +102,7 @@ export default function CybersecurityChecklistArticle() {
             This checklist covers the fundamentals. If you&apos;re in healthcare or dental, you also need to layer on HIPAA-specific controls — risk assessments, Business Associate Agreements, audit logging, and more. If you&apos;re a law firm, bar association data protection rules add another layer.
           </p>
           <p>
-            The fastest way to find out where you stand is a free network assessment. We&apos;ll scan your systems, identify vulnerabilities, and give you a prioritized list of what to fix first — no commitment required. <Link href="/contact" className="text-accent hover:text-brand-600 font-semibold transition-colors">Talk to Ron</Link> and let&apos;s get you locked down.
+            The fastest way to find out where you stand is a free network assessment. We&apos;ll scan your systems, identify vulnerabilities, and give you a prioritized list of what to fix first — no commitment required. <Link href="/contact" className="text-accent hover:text-brand-600 font-semibold transition-colors">Talk to us</Link> and let&apos;s get you locked down.
           </p>
         </div>
 

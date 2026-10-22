@@ -54,6 +54,10 @@ export default function ContactContent() {
       businessType: (form.elements.namedItem("businessType") as HTMLSelectElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim(),
       website: (form.elements.namedItem("website") as HTMLInputElement).value, // honeypot
+      // Unchecked by default. Only a deliberate tick sends true.
+      smsConsent: (form.elements.namedItem("smsConsent") as HTMLInputElement).checked,
+      pageUrl: typeof window === "undefined" ? undefined : window.location.href,
+      utm: readUtmParams(),
     };
 
     if (!data.firstName || !data.lastName || !data.email) {
@@ -153,7 +157,7 @@ export default function ContactContent() {
                   <div className="text-center py-12">
                     <CheckCircle className="w-14 h-14 text-green-500 mx-auto mb-4" />
                     <h3 className="text-xl font-bold text-ink mb-2">Message Sent!</h3>
-                    <p className="text-faded text-sm mb-6">Check your inbox for a confirmation. Ron will get back to you within one business day.</p>
+                    <p className="text-faded text-sm mb-6">Check your inbox for a confirmation. Someone from our team will get back to you within one business day.</p>
                     <button
                       onClick={() => setStatus("idle")}
                       className="px-6 py-2.5 rounded-xl border border-line text-secondary font-medium hover:bg-raised/50 transition-colors text-sm"
@@ -201,6 +205,27 @@ export default function ContactContent() {
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium text-secondary mb-2">{t("message")}</label>
                       <textarea id="message" name="message" rows={4} placeholder="Tell us about your biggest IT headache, or what you'd like to automate..." className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink placeholder:text-faded/60 focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm resize-none" />
+                    </div>
+
+                    {/*
+                      SMS consent. Unchecked by default and never pre-ticked:
+                      the stored consent record is only meaningful if the
+                      visitor actively opted in. The wording here must stay in
+                      step with SMS_CONSENT_TEXT in lib/consent.ts, which is
+                      what gets stored against the lead.
+                    */}
+                    <div className="flex items-start gap-3">
+                      <input
+                        id="smsConsent"
+                        name="smsConsent"
+                        type="checkbox"
+                        defaultChecked={false}
+                        className="mt-1 h-4 w-4 shrink-0 rounded border-input-border bg-input-bg text-brand-700 focus:ring-2 focus:ring-brand-700/50"
+                      />
+                      <label htmlFor="smsConsent" className="text-faded text-xs leading-relaxed">
+                        I agree to receive text messages from Red Rose Technologies about my
+                        request. Message and data rates may apply. Reply STOP to opt out.
+                      </label>
                     </div>
 
                     {status === "error" && (
@@ -261,4 +286,22 @@ export default function ContactContent() {
       </section>
     </>
   );
+}
+
+/**
+ * Read campaign parameters off the current URL.
+ *
+ * Attribution is recorded at submit time because the lead is created
+ * server-side: by the time anyone looks at the CRM row, the URL that brought
+ * the visitor in is long gone.
+ */
+function readUtmParams(): Record<string, string> | undefined {
+  if (typeof window === "undefined") return undefined;
+  const params = new URLSearchParams(window.location.search);
+  const out: Record<string, string> = {};
+  for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"]) {
+    const value = params.get(key);
+    if (value) out[key] = value.slice(0, 200);
+  }
+  return Object.keys(out).length > 0 ? out : undefined;
 }

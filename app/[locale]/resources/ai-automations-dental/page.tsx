@@ -96,7 +96,7 @@ export default function AIDentalArticle() {
             None of these automations require coding, a huge budget, or months of implementation. Most can be set up in a single afternoon. The hard part isn&apos;t the technology &mdash; it&apos;s knowing which tools actually work with your specific setup and getting them configured correctly the first time.
           </p>
           <p>
-            That&apos;s exactly what we do in our <Link href="/ai-clinics" className="text-accent hover:text-brand-600 font-semibold transition-colors">AI &amp; Automation Clinics</Link>. If you want hands-on help setting these up for your practice, or if you just want someone to look at your current workflow and tell you where the easy wins are, <Link href="/contact" className="text-accent hover:text-brand-600 font-semibold transition-colors">reach out to Ron</Link>. No pitch, no pressure. Just a real conversation about what&apos;s possible.
+            That&apos;s exactly what we do in our <Link href="/ai-clinics" className="text-accent hover:text-brand-600 font-semibold transition-colors">AI &amp; Automation Clinics</Link>. If you want hands-on help setting these up for your practice, or if you just want someone to look at your current workflow and tell you where the easy wins are, <Link href="/contact" className="text-accent hover:text-brand-600 font-semibold transition-colors">reach out to our team</Link>. No pitch, no pressure. Just a real conversation about what&apos;s possible.
           </p>
         </div>
 
@@ -104,7 +104,7 @@ export default function AIDentalArticle() {
           <h3 className="text-xl font-bold text-ink mb-3">Want Help Setting These Up?</h3>
           <p className="text-faded text-sm mb-6">Book a free 30-minute call and we&apos;ll walk through which automations make sense for your practice.</p>
           <Link href="/contact" className="inline-flex px-8 py-3 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-700/25">
-            Talk to Ron
+            Talk to Us
           </Link>
         </div>
       </div>

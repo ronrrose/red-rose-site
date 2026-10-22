@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { z } from "zod";
 import { PHONE_DISPLAY } from "@/lib/site-config";
+import { createLead } from "@/lib/leads/create-lead";
+import { SMS_CONSENT_TEXT } from "@/lib/consent";
 
 /**
  * Lazily construct the Resend client.
@@ -69,16 +72,29 @@ function isValidName(name: string): boolean {
   return true;
 }
 
-interface ContactBody {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone?: string;
-  businessType?: string;
-  message?: string;
-  recaptchaToken?: string;
-  website?: string; // honeypot field
-}
+/**
+ * Request schema.
+ *
+ * Lengths are capped here so an oversized field is rejected before it reaches
+ * the spam heuristics, the email template, or the database.
+ */
+const contactSchema = z.object({
+  firstName: z.string().min(1).max(100),
+  lastName: z.string().min(1).max(100),
+  email: z.string().min(3).max(254),
+  phone: z.string().max(50).optional(),
+  businessType: z.string().max(60).optional(),
+  message: z.string().max(4000).optional(),
+  recaptchaToken: z.string().max(4000).optional(),
+  /** Hidden honeypot field. A real browser leaves it empty. */
+  website: z.string().max(200).optional(),
+  /** Unchecked by default in the form; true only if the visitor ticked it. */
+  smsConsent: z.boolean().optional(),
+  pageUrl: z.string().max(500).optional(),
+  utm: z.record(z.string(), z.string().max(200)).optional(),
+});
+
+type ContactBody = z.infer<typeof contactSchema>;
 
 const RECAPTCHA_SECRET = process.env.RECAPTCHA_SECRET_KEY || "";
 const RECAPTCHA_THRESHOLD = 0.5;
@@ -111,10 +127,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const body = (await req.json()) as ContactBody;
+    const parsed = contactSchema.safeParse(await req.json());
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "First name, last name, and email are required." },
+        { status: 400 }
+      );
+    }
+    const body: ContactBody = parsed.data;
 
-    // Validate required fields
-    if (!body.firstName?.trim() || !body.lastName?.trim() || !body.email?.trim()) {
+    if (!body.firstName.trim() || !body.lastName.trim() || !body.email.trim()) {
       return NextResponse.json(
         { error: "First name, last name, and email are required." },
         { status: 400 }
@@ -180,6 +202,36 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
+    /*
+     * Store the lead before sending anything.
+     *
+     * createLead writes to our own database first and mirrors to Quo in the
+     * background, so a Quo or Resend outage cannot lose the submission. It is
+     * awaited because the write is fast and we want the lead recorded even if
+     * Resend then throws.
+     */
+    const leadResult = await createLead({
+      source: "website_form",
+      name: `${body.firstName.trim()} ${body.lastName.trim()}`.trim(),
+      phone: body.phone ?? null,
+      email: body.email.trim(),
+      company: null,
+      summary: buildLeadSummary(body),
+      pageUrl: body.pageUrl ?? req.headers.get("referer"),
+      utm: body.utm ?? null,
+      consentSms: body.smsConsent === true,
+      consentText: body.smsConsent === true ? SMS_CONSENT_TEXT : null,
+      consentIp: body.smsConsent === true ? ip : null,
+      activityType: "form",
+      activityDirection: "inbound",
+    });
+
+    if (!leadResult.ok) {
+      // The visitor still gets their confirmation email below; losing the CRM
+      // row is our problem to fix, not a reason to make them submit twice.
+      console.error(`contact form: lead not stored (${leadResult.reason})`);
+    }
+
     // Sanitize inputs for HTML email
     const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     const safe = {
@@ -190,20 +242,11 @@ export async function POST(req: NextRequest) {
       message: body.message ? esc(body.message.trim()) : "",
     };
 
-    const businessLabels: Record<string, string> = {
-      dental: "Dental Practice",
-      healthcare: "Healthcare",
-      legal: "Legal Firm",
-      nonprofit: "Nonprofit",
-      smb: "Small/Medium Business",
-      other: "Something Else",
-    };
-
     const businessDisplay = body.businessType
-      ? businessLabels[body.businessType] || body.businessType
+      ? BUSINESS_LABELS[body.businessType] || body.businessType
       : "Not specified";
 
-    // Send notification to Ron
+    // Send notification to the team inbox
     await getResend().emails.send({
       from: "Red Rose Technologies <noreply@redrosetechnologies.com>",
       to: ["info@redrosetechnologies.com"],
@@ -236,7 +279,7 @@ export async function POST(req: NextRequest) {
         <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;">
           <h2 style="color:#8b1a1a;">Thanks for reaching out, ${safe.firstName}!</h2>
           <p style="font-size:15px;line-height:1.6;color:#333;">
-            We received your message and Ron will get back to you within one business day.
+            We received your message and someone from our team will get back to you within one business day.
           </p>
           <p style="font-size:15px;line-height:1.6;color:#333;">
             If it's urgent, feel free to call us directly at <strong>${PHONE_DISPLAY}</strong>.
@@ -259,3 +302,27 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+/**
+ * One-paragraph description of the need, for the CRM row and the Quo note.
+ *
+ * Business type is spelled out rather than left as a form value, so the note
+ * reads the same way the notification email does.
+ */
+function buildLeadSummary(body: ContactBody): string {
+  const parts: string[] = [];
+  if (body.businessType) {
+    parts.push(`Business type: ${BUSINESS_LABELS[body.businessType] ?? body.businessType}`);
+  }
+  if (body.message?.trim()) parts.push(body.message.trim());
+  return parts.join("\n\n");
+}
+
+const BUSINESS_LABELS: Record<string, string> = {
+  dental: "Dental Practice",
+  healthcare: "Healthcare",
+  legal: "Legal Firm",
+  nonprofit: "Nonprofit",
+  smb: "Small/Medium Business",
+  other: "Something Else",
+};

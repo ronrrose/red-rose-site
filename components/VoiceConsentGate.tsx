@@ -140,7 +140,7 @@ export default function VoiceConsentGate({ open, onDecision, onUseText }: Props)
           <p>
             Please do not say anything about a patient, and do not read out
             passwords or account numbers. If you need to discuss either, call
-            Ron directly at{" "}
+            us directly at{" "}
             <a
               href={PHONE_HREF}
               className="font-semibold text-accent hover:underline whitespace-nowrap"
