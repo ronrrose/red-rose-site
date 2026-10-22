@@ -33,7 +33,12 @@
     "message": "What's Going On?",
     "submit": "Send It Over",
     "serviceAreaTitle": "Local to Southwest Florida",
-    "serviceAreaBody": "On-site and remote support across the Tampa Bay area."
+    "serviceAreaBody": "On-site and remote support across the Tampa Bay area.",
+    "greetingTitle": "Meet the Red Rose assistant",
+    "greetingBody": "A short introduction to what we do.",
+    "greetingPlay": "Play the introduction",
+    "greetingDisclosure": "This is Red Rose's AI assistant, not a real person. Ron is a phone call away at",
+    "greetingUnavailable": "The introduction could not load. Book below, or call"
   },
   "LocaleSwitcher": {
     "label": "Change language",
