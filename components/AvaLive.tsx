@@ -103,7 +103,7 @@ export default function AvaLive() {
   const logRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setMicSupported(!!getRecognitionCtor() && typeof window !== "undefined" && !!window.speechSynthesis);
+    setMicSupported(!!getRecognitionCtor());
   }, []);
 
   useEffect(() => {
@@ -124,36 +124,21 @@ export default function AvaLive() {
     }
   }, []);
 
-  /** Browser voice. Only used when her real one cannot be reached. */
-  const speakFallback = useCallback(
-    (text: string) =>
-      new Promise<void>((resolve) => {
-        if (typeof window === "undefined" || !window.speechSynthesis) return resolve();
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = "en-US";
-        u.rate = 1.02;
-        const voices = window.speechSynthesis.getVoices();
-        const preferred =
-          voices.find((v) => /samantha|ava|allison|female/i.test(v.name) && v.lang.startsWith("en")) ||
-          voices.find((v) => v.lang === "en-US") ||
-          voices[0];
-        if (preferred) u.voice = preferred;
-        u.onend = () => resolve();
-        u.onerror = () => resolve();
-        window.speechSynthesis.speak(u);
-      }),
-    []
-  );
+  /**
+   * When her real voice is unavailable she stays silent and the answer is
+   * read on screen. The browser's built-in speech used to fill this gap, and
+   * it sounded robotic: a voice that obviously is not hers undermines the
+   * whole presenter more than silence does. So there is no spoken fallback.
+   */
+  const speakFallback = useCallback(async (_text: string) => {}, []);
 
   /**
    * Speak in Ava's own voice, the same one as the recorded greeting.
    *
-   * Falls back to the browser voice whenever that cannot happen: no key
-   * configured, the service is down, the request is rate limited, or the
-   * browser refuses to start audio. A visitor should never be left watching a
-   * silent face because the nicer path failed, so every failure here is
-   * caught and answered rather than surfaced.
+   * If that cannot happen (no key configured, the service is down, rate
+   * limited, or the browser refuses to start audio) she answers in text only.
+   * Every failure is caught rather than surfaced; the written answer is
+   * already on screen.
    */
   const speak = useCallback(
     async (text: string) => {
@@ -404,8 +389,8 @@ export default function AvaLive() {
       </div>
 
       <p className="mt-3 text-center text-xs text-faded">
-        Ava is an AI assistant, not a person. Her face is a looping recording
-        and her voice is synthetic, so her mouth does not form these words. For
+        Ava is an AI assistant, not a person. Her face is a looping recording,
+        so her mouth does not form these words. For
         anything real, call us at{" "}
         <a href={PHONE_HREF} className="font-medium text-accent hover:underline whitespace-nowrap">
           {PHONE_DISPLAY}
