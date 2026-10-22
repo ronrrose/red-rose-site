@@ -103,7 +103,7 @@ export async function POST(req: Request) {
   const apiKey = process.env.ELEVENLABS_API_KEY;
   // No key is not an error the visitor should see: the client falls back to
   // the browser voice and the conversation carries on.
-  if (!apiKey) return Response.json({ error: "unavailable" }, { status: 503 });
+  if (!apiKey) return Response.json({ error: "no_key" }, { status: 503 });
 
   let text = "";
   try {
@@ -116,7 +116,7 @@ export async function POST(req: Request) {
   text = text.slice(0, MAX_CHARS);
 
   const voiceId = await resolveVoiceId(apiKey);
-  if (!voiceId) return Response.json({ error: "unavailable" }, { status: 503 });
+  if (!voiceId) return Response.json({ error: "no_voice" }, { status: 503 });
 
   try {
     const res = await fetch(
@@ -137,7 +137,10 @@ export async function POST(req: Request) {
     );
 
     if (!res.ok || !res.body) {
-      return Response.json({ error: "unavailable" }, { status: 503 });
+      return Response.json(
+        { error: "tts_failed", upstream: res.status },
+        { status: 503 }
+      );
     }
 
     return new Response(res.body, {
