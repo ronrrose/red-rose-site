@@ -37,7 +37,7 @@
     "greetingTitle": "Meet the Red Rose assistant",
     "greetingBody": "A short introduction to what we do.",
     "greetingPlay": "Play the introduction",
-    "greetingDisclosure": "This is Red Rose's AI assistant, not a real person. Ron is a phone call away at",
+    "greetingDisclosure": "This is Red Rose's AI assistant, not a real person. Our team is a phone call away at",
     "greetingUnavailable": "The introduction could not load. Book below, or call"
   },
   "LocaleSwitcher": {

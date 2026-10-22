@@ -29,7 +29,7 @@ const GREETING: Message = {
   id: 0,
   role: "assistant",
   content:
-    "Hi, I'm Red Rose's assistant. Ask me about managed IT, dental and medical practice support, HIPAA, or our AI and automation clinics. What's going on in your business?",
+    "Hi, I'm Ava, Red Rose's AI assistant. Ask me about managed IT, dental and medical practice support, HIPAA, or our AI and automation clinics. What's going on in your business?",
 };
 
 export default function ChatWidget() {
