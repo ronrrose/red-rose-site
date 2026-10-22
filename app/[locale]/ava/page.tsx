@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AvaLive from "@/components/AvaLive";
+import AvaStream from "@/components/AvaStream";
 
 /**
  * Ava, answering out loud.
@@ -27,12 +27,11 @@ export default function AvaPage() {
             Talk to Ava
           </h1>
           <p className="text-secondary">
-            Press the microphone and ask her anything, or type it. She is the
-            same assistant that answers in the chat window, with a face and a
-            voice.
+            Talk to her, or type. She is the same assistant that answers in the
+            chat window, with a face and a voice.
           </p>
         </div>
-        <AvaLive />
+        <AvaStream />
       </div>
     </section>
   );
