@@ -49,3 +49,34 @@ export const BOOKING_URL =
  * Must match the printed card: "Book a free IT checkup".
  */
 export const PRIMARY_CTA_LABEL = "Book a free IT checkup";
+
+/* ── Canonical origin ─────────────────────────────────────────────────────
+ * www is canonical: the apex 308-redirects to www at the host level, so every
+ * absolute URL we publish (schema @id, canonical tags, sitemap, OG, hreflang)
+ * has to be the www form or crawlers get a redirect hop on every entry.
+ * Before this existed, sitemap.ts, layout.tsx, metadata.ts and JsonLd.tsx each
+ * hard-coded the apex while robots.txt and Breadcrumbs.tsx used www.
+ */
+export const SITE_URL = "https://www.redrosetechnologies.com";
+
+/* ── Public profiles (schema.org sameAs) ──────────────────────────────────
+ * Only profiles Red Rose actually controls belong here: sameAs is an identity
+ * claim, and pointing it at a directory scrape or a similarly named company
+ * tells answer engines the wrong entity is us. A company called "Red Rose
+ * Technologies Ltd" trades in Swindon, UK, and a cloudtango.net listing under
+ * our name is in fact theirs, so neither is listed.
+ *
+ * Verified 2026-10-25: the LinkedIn company page resolves (HTTP 200). No
+ * Google Business Profile, Facebook page, YouTube channel or X account was
+ * found for the LLC. Add each one here as it is created.
+ */
+export const PROFILE_URLS: string[] = [
+  "https://www.linkedin.com/company/red-rose-technologies",
+];
+
+/* ── IndexNow ─────────────────────────────────────────────────────────────
+ * Submitting a URL to IndexNow pushes it to Bing and Yandex within minutes
+ * instead of waiting on a crawl. The key is not a secret: it is published at
+ * /<key>.txt so the endpoint can verify we own the host.
+ */
+export const INDEXNOW_KEY = "0d855a4472bb486aabe5c6488d6c4937";

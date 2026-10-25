@@ -1,0 +1,29 @@
+# Tell Bing (and Yandex, Seznam, Naver) about the new build the moment a
+# production deploy actually succeeds.
+#
+# This fires on Vercel's deployment_status webhook rather than on push, so we
+# never announce URLs that are not live yet: a push that fails to build sends
+# nothing. Preview deploys are skipped — the script submits the production
+# host, so a preview run would just re-announce production for no reason.
+#
+# Google is not part of IndexNow and picks the change up from sitemap.xml.
+name: IndexNow on deploy
+
+on:
+  deployment_status:
+
+jobs:
+  submit:
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment_status.environment == 'Production'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Submit sitemap URLs to IndexNow
+        run: node scripts/indexnow.mjs
