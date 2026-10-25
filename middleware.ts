@@ -6,7 +6,7 @@ import { SESSION_COOKIE, verifySessionToken } from "./lib/admin/session";
 const intlMiddleware = createMiddleware({
   locales,
   defaultLocale,
-  localePrefix: "always",
+  localePrefix: "as-needed",
 });
 
 export default async function middleware(req: NextRequest) {
@@ -60,6 +60,6 @@ export const config = {
   matcher: [
     "/",
     // All non-asset routes, including /admin, which is handled above.
-    "/((?!_next|api|.*\\..*).*)",
+    "/((?!_next|api|opengraph-image|twitter-image|.*\\..*).*)",
   ],
 };

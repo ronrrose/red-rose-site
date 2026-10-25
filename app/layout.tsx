@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site-config";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,20 +34,20 @@ export const metadata: Metadata = {
       "HIPAA-compliant managed IT services for dental practices. Microsoft Partner specializing in cybersecurity and practice management software.",
     images: [
       {
-        url: "https://redrosetechnologies.com/og-image.jpg",
+        url: `${SITE_URL}/opengraph-image`,
         width: 1200,
         height: 630,
         alt: "Red Rose Technologies - Managed IT for Dental Practices",
       },
     ],
-    url: "https://redrosetechnologies.com",
+    url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
   },
-  metadataBase: new URL("https://redrosetechnologies.com"),
+  metadataBase: new URL(SITE_URL),
   alternates: {
-    canonical: "https://redrosetechnologies.com",
+    canonical: SITE_URL,
   },
   icons: {
     icon: [

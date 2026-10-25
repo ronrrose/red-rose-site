@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { locales, type Locale } from "@/i18n/config";
+import { localeAlternates } from "@/lib/metadata";
 import { cities, getCityBySlug } from "@/lib/city-data";
 import CityLandingContent from "./CityLandingContent";
 
@@ -28,12 +29,7 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
       title: `${title} | Red Rose Technologies`,
       description,
     },
-    alternates: {
-      languages: Object.fromEntries([
-        ["x-default", `https://www.redrosetechnologies.com/en/managed-it/${city.slug}`],
-        ...locales.map((l) => [l, `https://www.redrosetechnologies.com/${l}/managed-it/${city.slug}`]),
-      ]),
-    },
+    alternates: localeAlternates(`/managed-it/${city.slug}`, params.locale),
   };
 }
 

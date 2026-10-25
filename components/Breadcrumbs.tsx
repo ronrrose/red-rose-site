@@ -3,12 +3,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
+import { SITE_URL } from "@/lib/site-config";
+import { defaultLocale } from "@/i18n/config";
 
 const localeSet = new Set(["en", "es", "pt", "fr"]);
 
 const nameMap: Record<string, string> = {
   "ai-clinics": "AI Clinics",
   "managed-it": "Managed IT",
+  "ai-consultant": "AI Consultant",
+  "dental-it": "Dental IT",
+  "lakewood-ranch": "Lakewood Ranch",
   industries: "Industries",
   about: "About",
   resources: "Resources",
@@ -26,8 +31,19 @@ export default function Breadcrumbs() {
 
   if (segments.length === 0) return null;
 
-  // Rebuild hrefs using the full path (including locale prefix)
-  const localePrefix = allSegments[0] && localeSet.has(allSegments[0]) ? `/${allSegments[0]}` : "";
+  /*
+   * Rebuild hrefs using the locale prefix the router actually serves.
+   *
+   * usePathname() reports the rewritten internal path, so English pages arrive
+   * here as /en/dental-it/... even though they are served at /dental-it/...
+   * Under localePrefix "as-needed" the default locale carries no prefix, and
+   * emitting /en/... would point both the visible links and the
+   * BreadcrumbList schema at a 308 redirect.
+   */
+  const routedLocale =
+    allSegments[0] && localeSet.has(allSegments[0]) ? allSegments[0] : null;
+  const localePrefix =
+    routedLocale && routedLocale !== defaultLocale ? `/${routedLocale}` : "";
 
   const crumbs = [
     { label: "Home", href: `${localePrefix}/` },
@@ -44,7 +60,7 @@ export default function Breadcrumbs() {
       "@type": "ListItem",
       position: i + 1,
       name: crumb.label,
-      item: `https://www.redrosetechnologies.com${crumb.href === "/" ? "" : crumb.href}`,
+      item: `${SITE_URL}${crumb.href === "/" ? "" : crumb.href}`,
     })),
   };
 

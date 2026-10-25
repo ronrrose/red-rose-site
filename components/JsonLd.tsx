@@ -3,6 +3,8 @@ import {
   ADDRESS_LOCALITY,
   ADDRESS_REGION,
   PHONE_SCHEMA,
+  PROFILE_URLS,
+  SITE_URL,
 } from "@/lib/site-config";
 export default function JsonLd() {
   const schema = {
@@ -10,12 +12,12 @@ export default function JsonLd() {
     "@graph": [
       {
         "@type": "LocalBusiness",
-        "@id": "https://redrosetechnologies.com",
+        "@id": `${SITE_URL}/#organization`,
         name: "Red Rose Technologies LLC",
-        image: "https://redrosetechnologies.com/logo.png",
+        image: `${SITE_URL}/logo.png`,
         description:
           "IT, automation, and cybersecurity for dental practices, healthcare, legal firms, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
-        url: "https://redrosetechnologies.com",
+        url: SITE_URL,
         telephone: PHONE_SCHEMA,
         email: "info@redrosetechnologies.com",
         priceRange: "$$",
@@ -45,19 +47,11 @@ export default function JsonLd() {
           opens: "08:00",
           closes: "17:00",
         },
-        sameAs: [
-          "https://www.linkedin.com/company/red-rose-technologies",
-        ],
+        sameAs: PROFILE_URLS,
         founder: {
           "@type": "Person",
           name: "Ron Rose",
-          jobTitle: "Founder & IT Consultant",
-        },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "5",
-          reviewCount: "1",
-          bestRating: "5",
+          jobTitle: "Founder & CTO",
         },
         review: [
           {
@@ -136,55 +130,10 @@ export default function JsonLd() {
       },
       {
         "@type": "WebSite",
-        "@id": "https://redrosetechnologies.com/#website",
-        url: "https://redrosetechnologies.com",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
         name: "Red Rose Technologies LLC",
-        publisher: { "@id": "https://redrosetechnologies.com" },
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: "What is HIPAA compliance for dental practices?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "HIPAA compliance requires dental practices to protect patient health information through administrative, physical, and technical safeguards. Red Rose Technologies provides automated compliance monitoring, encryption, access controls, and security risk assessments tailored to dental workflows.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Do I need a Business Associate Agreement (BAA)?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Yes. Any vendor with access to your electronic protected health information (ePHI) must sign a BAA. Red Rose Technologies provides HIPAA-compliant BAAs for all managed service clients.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "What happens if my practice management system goes down?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Our 24/7 monitoring detects outages immediately. Core Shield clients receive response within 4 hours, Advanced Guard within 2 hours, and Total Command clients within 1 hour with priority escalation.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Can you help with Windows 10 end-of-life migration?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Yes. We provide Windows 11 migration planning, hardware compatibility assessments, and phased rollouts to minimize disruption to patient care.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "What dental practice management software do you support?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "We specialize in Dentrix, Eaglesoft, Open Dental, Curve Dental, and other cloud-based and on-premise dental software platforms.",
-            },
-          },
-        ],
+        publisher: { "@id": `${SITE_URL}/#organization` },
       },
     ],
   };

@@ -4,6 +4,8 @@ import Hero from "@/components/Hero";
 import ServiceCard from "@/components/ServiceCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import CTABanner from "@/components/CTABanner";
+import FAQSection from "@/components/FAQSection";
+import { homeFaqs } from "@/lib/faq-data";
 import { Bot, Shield, Building2, ShieldCheck, Award, Stethoscope, Scale, Heart, Briefcase } from "lucide-react";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 import Marquee from "@/components/magicui/marquee";
@@ -190,6 +192,8 @@ export default function HomeContent() {
           </div>
         </div>
       </section>
+
+      <FAQSection heading="Questions we get asked most" faqs={homeFaqs} />
 
       <CTABanner />
     </>
