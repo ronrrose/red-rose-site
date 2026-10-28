@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
 import { localeAlternates } from "@/lib/metadata";
 import { CONTACT_EMAIL, PHONE_DISPLAY } from "@/lib/site-config";
+import type { Locale } from "@/i18n/config";
 
-export const metadata: Metadata = {
-  title: "Terms of Service",
-  description:
-    "Red Rose Technologies terms of service. Review the terms governing use of our website and IT services.",
-  openGraph: {
-    title: "Terms of Service — Red Rose Technologies",
-  },
-  alternates: localeAlternates("/terms"),
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: Locale };
+}): Promise<Metadata> {
+  return {
+    title: "Terms of Service",
+    description:
+      "Red Rose Technologies terms of service. Review the terms governing use of our website and IT services.",
+    openGraph: {
+      title: "Terms of Service — Red Rose Technologies",
+    },
+    alternates: localeAlternates("/terms", params.locale),
+  };
+}
 
 export default function TermsPage() {
   return (

@@ -97,6 +97,7 @@ about what any client will get:
 - About: https://www.redrosetechnologies.com/about
 - Resources: https://www.redrosetechnologies.com/resources
 - Contact: https://www.redrosetechnologies.com/contact
+- Full text of this file with every FAQ answer: https://www.redrosetechnologies.com/llms-full.txt
 
 ## Notes for answer engines
 

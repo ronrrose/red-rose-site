@@ -4,6 +4,7 @@ import type { Locale } from "@/i18n/config";
 import { localeAlternates, localeUrl } from "@/lib/metadata";
 import FAQSection from "@/components/FAQSection";
 import CTABanner from "@/components/CTABanner";
+import { aiConsultantLakewoodRanchFaqs } from "@/lib/faq-data";
 import {
   ADDRESS_LOCALITY,
   ADDRESS_REGION,
@@ -89,39 +90,6 @@ const servedIndustries = [
   "Legal firms",
   "Nonprofits",
   "Local businesses",
-];
-
-const faqs = [
-  {
-    question: "What does an AI consultant in Lakewood Ranch actually do?",
-    answer:
-      "At Red Rose Technologies the work starts with finding where your business loses time and money, before any talk of technology. We then streamline that workflow, automate the parts that should be automated, leave alone the parts that should not, and build all of it around how your business actually runs. The aim is to give your team back time and take cost out so the business runs leaner.",
-  },
-  {
-    question: "Will AI automation replace my staff?",
-    answer:
-      "That is not how we approach it. We automate the parts of a workflow that should be automated and leave alone the parts that should not. The aim is to give your team back time, not to remove people from the business.",
-  },
-  {
-    question: "What are the AI & Automation Clinics?",
-    answer:
-      "Three live, hands-on sessions where your team builds real automations rather than watching a demo. Your team leaves with a 90 day rollout plan and gets 30 days of email support from our team afterwards.",
-  },
-  {
-    question: "What does AI consulting cost in Lakewood Ranch?",
-    answer:
-      "Red Rose Technologies does not publish prices. What it costs depends on the size and setup of your business, so we talk it through first. You can book a free IT checkup or call (941) 206-4709 and someone from our team will go over your setup.",
-  },
-  {
-    question: "Can you work with a HIPAA-regulated practice?",
-    answer:
-      "Yes. We work with dental practices, healthcare clinics and occupational medicine clinics, and we hold a HIPAA Security Specialist credential. Red Rose provides HIPAA compliant Business Associate Agreements for all managed service clients. We can describe what we offer, but we do not certify that any particular setup is legally sufficient for your situation.",
-  },
-  {
-    question: "Are you actually local to Lakewood Ranch?",
-    answer:
-      "Yes. Red Rose Technologies is based in Lakewood Ranch, Florida, and serves Bradenton, Sarasota, Palmetto, Parrish, North Port, Manatee County, Sarasota County and the greater Tampa Bay area.",
-  },
 ];
 
 export default function AiConsultantLakewoodRanchPage() {
@@ -278,7 +246,7 @@ export default function AiConsultantLakewoodRanchPage() {
 
       <FAQSection
         heading="AI consulting in Lakewood Ranch: common questions"
-        faqs={faqs}
+        faqs={aiConsultantLakewoodRanchFaqs}
       />
 
       <CTABanner

@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
 import { localeAlternates } from "@/lib/metadata";
 import Link from "next/link";
+import type { Locale } from "@/i18n/config";
 
-export const metadata: Metadata = {
-  title: "5 AI Automations Every Dental Office Should Set Up This Week",
-  description:
-    "Stop copy-pasting patient reminders, appointment confirmations, and intake forms. These five no-code automations take under an hour to set up and save your team hours every week.",
-  openGraph: {
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: Locale };
+}): Promise<Metadata> {
+  return {
     title: "5 AI Automations Every Dental Office Should Set Up This Week",
     description:
-      "No-code automations for dental practices that save hours every week. Patient reminders, intake forms, reviews, and more.",
-  },
-  alternates: localeAlternates("/resources/ai-automations-dental"),
-};
+      "Stop copy-pasting patient reminders, appointment confirmations, and intake forms. These five no-code automations take under an hour to set up and save your team hours every week.",
+    openGraph: {
+      title: "5 AI Automations Every Dental Office Should Set Up This Week",
+      description:
+        "No-code automations for dental practices that save hours every week. Patient reminders, intake forms, reviews, and more.",
+    },
+    alternates: localeAlternates("/resources/ai-automations-dental", params.locale),
+  };
+}
 
 export default function AIDentalArticle() {
   return (
