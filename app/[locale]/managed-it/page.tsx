@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
 import { localeAlternates } from "@/lib/metadata";
 import ManagedITContent from "./ManagedITContent";
+import type { Locale } from "@/i18n/config";
 
-export const metadata: Metadata = {
-  title: "Managed IT & Security",
-  description:
-    "HIPAA-compliant managed IT, cybersecurity, and 24/7 network monitoring for businesses in Lakewood Ranch, Bradenton, Sarasota, Manatee County, and Tampa Bay. Flat-rate pricing, no surprises.",
-  openGraph: {
-    title: "Managed IT & Security — HIPAA-Compliant IT for Local Businesses",
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: Locale };
+}): Promise<Metadata> {
+  return {
+    title: "Managed IT & Security",
     description:
-      "24/7 network monitoring, HIPAA compliance, cybersecurity, and proactive IT support. Flat-rate pricing, no hidden fees.",
-  },
-  alternates: localeAlternates("/managed-it"),
-};
+      "HIPAA-compliant managed IT, cybersecurity, and 24/7 network monitoring for businesses in Lakewood Ranch, Bradenton, Sarasota, Manatee County, and Tampa Bay. Flat-rate pricing, no surprises.",
+    openGraph: {
+      title: "Managed IT & Security — HIPAA-Compliant IT for Local Businesses",
+      description:
+        "24/7 network monitoring, HIPAA compliance, cybersecurity, and proactive IT support. Flat-rate pricing, no hidden fees.",
+    },
+    alternates: localeAlternates("/managed-it", params.locale),
+  };
+}
 
 export default function ManagedITPage() {
   return <ManagedITContent />;

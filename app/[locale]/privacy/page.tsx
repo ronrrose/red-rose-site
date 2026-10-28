@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
 import { localeAlternates } from "@/lib/metadata";
 import { CONTACT_EMAIL, PHONE_DISPLAY } from "@/lib/site-config";
+import type { Locale } from "@/i18n/config";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description:
-    "Red Rose Technologies privacy policy. Learn how we collect, use, and protect your personal information.",
-  openGraph: {
-    title: "Privacy Policy — Red Rose Technologies",
-  },
-  alternates: localeAlternates("/privacy"),
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: Locale };
+}): Promise<Metadata> {
+  return {
+    title: "Privacy Policy",
+    description:
+      "Red Rose Technologies privacy policy. Learn how we collect, use, and protect your personal information.",
+    openGraph: {
+      title: "Privacy Policy — Red Rose Technologies",
+    },
+    alternates: localeAlternates("/privacy", params.locale),
+  };
+}
 
 export default function PrivacyPage() {
   return (

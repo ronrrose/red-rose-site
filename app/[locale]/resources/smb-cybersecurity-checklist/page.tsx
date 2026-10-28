@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
 import { localeAlternates } from "@/lib/metadata";
 import Link from "next/link";
+import type { Locale } from "@/i18n/config";
 
-export const metadata: Metadata = {
-  title: "The SMB Cybersecurity Checklist: 12 Things to Do Before You Get Hacked",
-  description:
-    "Most small businesses think they're too small to get targeted. They're not. Here's a plain-English checklist to lock things down before it's too late.",
-  openGraph: {
-    title: "SMB Cybersecurity Checklist — 12 Steps to Protect Your Business",
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: Locale };
+}): Promise<Metadata> {
+  return {
+    title: "The SMB Cybersecurity Checklist: 12 Things to Do Before You Get Hacked",
     description:
-      "A plain-English cybersecurity checklist for small and medium businesses. Practical steps you can take this week.",
-  },
-  alternates: localeAlternates("/resources/smb-cybersecurity-checklist"),
-};
+      "Most small businesses think they're too small to get targeted. They're not. Here's a plain-English checklist to lock things down before it's too late.",
+    openGraph: {
+      title: "SMB Cybersecurity Checklist — 12 Steps to Protect Your Business",
+      description:
+        "A plain-English cybersecurity checklist for small and medium businesses. Practical steps you can take this week.",
+    },
+    alternates: localeAlternates("/resources/smb-cybersecurity-checklist", params.locale),
+  };
+}
 
 export default function CybersecurityChecklistArticle() {
   const items = [
