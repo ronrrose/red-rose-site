@@ -4,6 +4,7 @@ import type { Locale } from "@/i18n/config";
 import { localeAlternates, localeUrl } from "@/lib/metadata";
 import FAQSection from "@/components/FAQSection";
 import CTABanner from "@/components/CTABanner";
+import { dentalLakewoodRanchFaqs } from "@/lib/faq-data";
 import {
   ADDRESS_LOCALITY,
   ADDRESS_REGION,
@@ -66,39 +67,6 @@ const tiers = [
   {
     name: "Total Command",
     target: "Response within 1 hour, with priority escalation",
-  },
-];
-
-const faqs = [
-  {
-    question: "What dental practice management software do you support?",
-    answer:
-      "Dentrix, Eaglesoft, Open Dental and Curve Dental. That covers both on-premise servers and cloud-based platforms, so a practice does not have to change software to work with us.",
-  },
-  {
-    question: "Do you sign a Business Associate Agreement?",
-    answer:
-      "Yes. Any vendor with access to your electronic protected health information has to sign a BAA, and Red Rose Technologies provides HIPAA compliant BAAs for all managed service clients.",
-  },
-  {
-    question: "How fast do you respond if our practice management system goes down?",
-    answer:
-      "Our 24/7 monitoring detects outages immediately. From there the target response times are 4 hours on Core Shield, 2 hours on Advanced Guard, and 1 hour with priority escalation on Total Command. These are target response times, not a guarantee and not a contractual service level agreement.",
-  },
-  {
-    question: "Can you move our practice off a server and onto cloud dental software?",
-    answer:
-      "Yes, that is work we do. One dental client reported roughly $75,000 a year in savings after a review of spend, a move from Eaglesoft servers to Curve Dental in the cloud, a phone system change, and a payroll move from ADP to Gusto. That is what that practice reported, not a figure we promise to a new practice.",
-  },
-  {
-    question: "What should we do about Windows 10 end of life?",
-    answer:
-      "We provide Windows 11 migration planning, including hardware compatibility assessment and phased rollouts, so the practice is not taken offline during patient hours.",
-  },
-  {
-    question: "What does dental IT support cost in Lakewood Ranch?",
-    answer:
-      "Red Rose Technologies does not publish prices. What it costs depends on the size and setup of the practice. Call (941) 206-4709 or book a free IT checkup and someone from our team will go through your setup first.",
   },
 ];
 
@@ -267,7 +235,7 @@ export default function DentalItLakewoodRanchPage() {
 
       <FAQSection
         heading="Dental IT in Lakewood Ranch: common questions"
-        faqs={faqs}
+        faqs={dentalLakewoodRanchFaqs}
       />
 
       <CTABanner
