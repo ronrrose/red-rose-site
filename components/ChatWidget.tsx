@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/expandable-chat";
 import { ChatMessageList } from "@/components/ui/chat-message-list";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/site-config";
+import { Link } from "@/i18n/navigation";
 
 type Role = "user" | "assistant";
 interface Message {
@@ -224,6 +225,14 @@ export default function ChatWidget() {
             </Button>
           </div>
         </form>
+        {/* Data notice before anyone types (California chat-wiretap suits): who processes the chat, and that it can be kept. */}
+        <p className="px-3 pb-2 text-[11px] leading-snug text-muted-foreground">
+          Chats are processed by our AI provider (Anthropic) and may be saved so our team can follow up. Please
+          don&apos;t share patient information.{" "}
+          <Link href="/privacy" className="underline hover:text-accent">
+            Privacy
+          </Link>
+        </p>
       </ExpandableChatFooter>
     </ExpandableChat>
   );

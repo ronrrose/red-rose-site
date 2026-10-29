@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense, type FormEvent } from "react";
+import { useState, useRef, Suspense, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import Hero from "@/components/Hero";
 import { MapPin, Phone, Mail, Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
@@ -29,16 +29,29 @@ export default function ContactContent() {
   const t = useTranslations("Contact");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [showMap, setShowMap] = useState(false);
 
-  /* ── Load reCAPTCHA v3 script ── */
-  useEffect(() => {
-    if (!RECAPTCHA_SITE_KEY) return;
-    if (document.querySelector('script[src*="recaptcha"]')) return;
-    const script = document.createElement("script");
-    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    document.head.appendChild(script);
-  }, []);
+  /* ── reCAPTCHA v3 loads on first use of the form, not on page view ──
+     Google's script sends the visitor's IP address to Google and sets Google
+     cookies, so a visitor who only reads the page never loads it. Focusing
+     any field starts the load; submit waits for it, because the server
+     requires a token whenever RECAPTCHA_SECRET_KEY is set. */
+  const recaptchaReady = useRef<Promise<void> | null>(null);
+  function loadRecaptcha(): Promise<void> {
+    if (!RECAPTCHA_SITE_KEY) return Promise.resolve();
+    if (!recaptchaReady.current) {
+      recaptchaReady.current = new Promise<void>((resolve) => {
+        if (window.grecaptcha) return resolve();
+        const script = document.createElement("script");
+        script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+        script.async = true;
+        script.onload = () => resolve();
+        script.onerror = () => resolve();
+        document.head.appendChild(script);
+      });
+    }
+    return recaptchaReady.current;
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -69,6 +82,7 @@ export default function ContactContent() {
     try {
       /* ── Get reCAPTCHA token ── */
       let recaptchaToken = "";
+      await loadRecaptcha();
       if (RECAPTCHA_SITE_KEY && window.grecaptcha) {
         try {
           recaptchaToken = await new Promise<string>((resolve) => {
@@ -166,7 +180,7 @@ export default function ContactContent() {
                     </button>
                   </div>
                 ) : (
-                  <form className="space-y-5" noValidate onSubmit={handleSubmit}>
+                  <form className="space-y-5" noValidate onSubmit={handleSubmit} onFocusCapture={() => void loadRecaptcha()}>
                     {/* Honeypot — hidden from real users, bots will fill it */}
                     <div className="absolute -left-[9999px]" aria-hidden="true">
                       <label htmlFor="website">Website</label>
@@ -266,6 +280,8 @@ export default function ContactContent() {
             <p className="text-faded">{t("serviceAreaBody")}</p>
           </div>
           <div className="w-full h-[350px] rounded-2xl overflow-hidden border border-line mb-10">
+            {/* Google Maps loads only on request: the embed sends the visitor's IP to Google and sets its cookies. */}
+            {showMap ? (
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113892.04864709498!2d-82.4468917!3d27.2689905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c3404e3065e2e3%3A0x9c76b8b4e68e7b04!2sLakewood%20Ranch%2C%20FL!5e0!3m2!1sen!2sus!4v1709924400000"
               width="100%"
@@ -276,6 +292,17 @@ export default function ContactContent() {
               referrerPolicy="no-referrer-when-downgrade"
               title="Red Rose Technologies service area — Lakewood Ranch, FL"
             />
+            ) : (
+              <button
+                type="button"
+                onClick={() => setShowMap(true)}
+                className="flex h-full w-full flex-col items-center justify-center gap-2 bg-raised/40 text-center hover:bg-raised/70 transition-colors"
+              >
+                <span className="text-lg font-semibold text-ink">Lakewood Ranch, FL and the surrounding area</span>
+                <span className="text-sm font-medium text-accent">Show the map</span>
+                <span className="text-xs text-faded">Loads Google Maps, which receives your IP address.</span>
+              </button>
+            )}
           </div>
           <div className="flex flex-wrap justify-center gap-3">
             {serviceAreas.map((city) => (

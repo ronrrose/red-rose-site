@@ -51,6 +51,8 @@ export default function BookingEmbed() {
   const [mounted, setMounted] = useState(false);
   const [failed, setFailed] = useState(false);
   const [ready, setReady] = useState(false);
+  // Roam's scheduler loads from ro.am, which receives the visitor's IP address, so it waits for a click.
+  const [open, setOpen] = useState(false);
 
   const utmSource = searchParams.get("utm_source");
   const bookingUrl = buildBookingUrl(utmSource);
@@ -59,7 +61,7 @@ export default function BookingEmbed() {
 
   useEffect(() => {
     // Wait for mount so resolvedTheme is accurate and we don't mismatch hydration.
-    if (!mounted || !bookingUrl) return;
+    if (!mounted || !open || !bookingUrl) return;
 
     const el = containerRef.current;
     if (!el) return;
@@ -139,7 +141,7 @@ export default function BookingEmbed() {
       script?.removeEventListener("load", render);
       script?.removeEventListener("error", onError);
     };
-  }, [mounted, bookingUrl, resolvedTheme]);
+  }, [mounted, open, bookingUrl, resolvedTheme]);
 
   // Booking disabled by configuration: the form and phone number carry the page.
   if (!bookingUrl) {
@@ -151,6 +153,27 @@ export default function BookingEmbed() {
         <Phone className="w-5 h-5 shrink-0" aria-hidden="true" />
         Call {PHONE_DISPLAY}
       </a>
+    );
+  }
+
+  if (!open) {
+    return (
+      <div className="space-y-3 px-8 py-8">
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="flex items-center justify-center gap-3 w-full px-8 py-5 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-brand-700/25"
+        >
+          <Calendar className="w-5 h-5 shrink-0" aria-hidden="true" />
+          {PRIMARY_CTA_LABEL}
+        </button>
+        <p className="text-faded text-xs text-center">
+          Opens our scheduler, run by Roam. Prefer the phone?{" "}
+          <a href={PHONE_HREF} className="text-accent font-semibold hover:underline">
+            {PHONE_DISPLAY}
+          </a>
+        </p>
+      </div>
     );
   }
 

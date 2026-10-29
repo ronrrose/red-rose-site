@@ -390,7 +390,9 @@ export default function AvaLive() {
 
       <p className="mt-3 text-center text-xs text-faded">
         Ava is an AI assistant, not a person. Her face is a looping recording,
-        so her mouth does not form these words. For
+        so her mouth does not form these words. What you say or type is
+        processed by our AI and voice providers and may be saved so our team
+        can follow up; please don&apos;t share patient information. For
         anything real, call us at{" "}
         <a href={PHONE_HREF} className="font-medium text-accent hover:underline whitespace-nowrap">
           {PHONE_DISPLAY}
