@@ -33,7 +33,7 @@ export default function CybersecurityChecklistArticle() {
     },
     {
       title: "Keep All Software and Systems Updated",
-      body: "Unpatched software is the #1 way attackers get into small business networks. Set Windows, macOS, and all business applications to auto-update. For practice management software (Dentrix, Clio, QuickBooks), check for updates monthly. If you're running Windows 10, note that Microsoft ends support in October 2025 — plan your Windows 11 migration now.",
+      body: "Unpatched software is one of the most common ways attackers get into small business networks. Set Windows, macOS, and all business applications to auto-update. For practice management software (Dentrix, Clio, QuickBooks), check for updates monthly. Microsoft ended Windows 10 support in October 2025. If you're still running it, plan your Windows 11 migration now.",
     },
     {
       title: "Back Up Your Data (and Test the Backups)",
@@ -41,7 +41,7 @@ export default function CybersecurityChecklistArticle() {
     },
     {
       title: "Train Your Staff on Phishing",
-      body: "90% of successful cyberattacks start with a phishing email. Your staff needs to know what to look for: unexpected attachments, urgent requests for payment, emails from addresses that look almost right. Run a phishing simulation quarterly. Services like KnowBe4 make this easy. The goal isn't to catch people — it's to build the reflex to pause and verify.",
+      body: "Phishing email is one of the most common ways attacks start. Your staff needs to know what to look for: unexpected attachments, urgent requests for payment, emails from addresses that look almost right. Run a phishing simulation quarterly. Services like KnowBe4 make this easy. The goal isn't to catch people — it's to build the reflex to pause and verify.",
     },
     {
       title: "Secure Your Wi-Fi Network",
@@ -91,7 +91,7 @@ export default function CybersecurityChecklistArticle() {
             If you run a small or medium business, you might think cybercriminals are going after the big fish — banks, hospitals, Fortune 500 companies. They&apos;re not. 43% of cyberattacks target small businesses, and 60% of those businesses close within six months of an attack. The average cost of a data breach for an SMB is $108,000.
           </p>
           <p>
-            The good news is that most attacks exploit basic security gaps that are straightforward to fix. Here&apos;s your checklist. Work through it this week and you&apos;ll be ahead of 90% of businesses your size.
+            The good news is that most attacks exploit basic security gaps that are straightforward to fix. Here&apos;s your checklist. Work through it this week and you&apos;ll have closed the gaps attackers look for first.
           </p>
 
           {items.map((item, i) => (

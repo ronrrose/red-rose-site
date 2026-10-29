@@ -78,7 +78,7 @@ export default function HomeContent() {
             <ServiceCard
               icon={Bot}
               title="AI & Automation Clinics"
-              description="Hands-on workshops where your team builds real automations. Not a lecture. You'll walk out saving hours every week."
+              description="Hands-on workshops where your team builds real automations. Not a lecture. You'll walk out with automations built to give your team time back."
               href="/ai-clinics"
             />
             <ServiceCard

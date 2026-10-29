@@ -70,7 +70,7 @@ export default function AIClinicsContent() {
             </span>
           </>
         }
-        subtitle="Three sessions that teach your team to actually use AI. Not theory. Not slides. You'll build real automations and leave with tools that save you hours every week."
+        subtitle="Three sessions that teach your team to actually use AI. Not theory. Not slides. You'll build real automations and leave with tools designed to take repetitive work off your team."
         primaryCta={{ label: "Save My Spot", href: "/contact" }}
         secondaryCta={{ label: "Host a Clinic", href: "/contact" }}
       />
