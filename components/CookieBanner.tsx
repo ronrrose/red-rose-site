@@ -14,12 +14,19 @@ interface CookiePreferences {
   doNotSell: boolean;
 }
 
+/*
+ * Oct 29 2026: the site sets no marketing, analytics, performance or social
+ * cookies, so those switches were removed and nothing optional defaults to on
+ * (a pre-ticked consent box is not consent). The fields stay in the stored
+ * shape so preferences saved before this change still parse. If a tracker is
+ * ever added, it gets its own switch here, off by default, and must read it.
+ */
 const defaultPreferences: CookiePreferences = {
   necessary: true,
-  marketing: true,
-  analytics: true,
-  performance: true,
-  social: true,
+  marketing: false,
+  analytics: false,
+  performance: false,
+  social: false,
   doNotSell: false,
 };
 
@@ -150,8 +157,9 @@ export default function CookieBanner() {
               )}
 
               <p className="text-xs text-faded leading-relaxed mb-5">
-                We use cookies to provide, protect, improve, and promote our services.
-                For more information see our{" "}
+                We only store your site preferences, such as theme and accessibility settings. We use no
+                analytics or advertising cookies. Google reCAPTCHA and Google Maps set their own cookies only
+                when you use the contact form or open the map. For more information see our{" "}
                 <Link href="/privacy" className="text-accent hover:text-brand-600 transition-colors">Privacy Policy</Link>.
               </p>
 
@@ -185,65 +193,6 @@ export default function CookieBanner() {
                   </div>
                 </label>
 
-                {/* Marketing */}
-                <label className="flex items-center gap-3 p-3 rounded-xl border border-line bg-panel cursor-pointer hover:bg-raised/50 transition-colors">
-                  <input
-                    type="checkbox"
-                    checked={prefs.marketing}
-                    onChange={() => toggle("marketing")}
-                    className="w-4 h-4 rounded border-line text-accent focus:ring-accent"
-                    aria-label="General Marketing and Advertising toggle"
-                  />
-                  <div>
-                    <span className="text-sm font-semibold text-ink">Marketing &amp; Advertising</span>
-                    <p className="text-xs text-faded mt-0.5">Deliver relevant ads and measure effectiveness.</p>
-                  </div>
-                </label>
-
-                {/* Analytics */}
-                <label className="flex items-center gap-3 p-3 rounded-xl border border-line bg-panel cursor-pointer hover:bg-raised/50 transition-colors">
-                  <input
-                    type="checkbox"
-                    checked={prefs.analytics}
-                    onChange={() => toggle("analytics")}
-                    className="w-4 h-4 rounded border-line text-accent focus:ring-accent"
-                    aria-label="Analytics toggle"
-                  />
-                  <div>
-                    <span className="text-sm font-semibold text-ink">Analytics</span>
-                    <p className="text-xs text-faded mt-0.5">Understand how visitors use the site.</p>
-                  </div>
-                </label>
-
-                {/* Performance */}
-                <label className="flex items-center gap-3 p-3 rounded-xl border border-line bg-panel cursor-pointer hover:bg-raised/50 transition-colors">
-                  <input
-                    type="checkbox"
-                    checked={prefs.performance}
-                    onChange={() => toggle("performance")}
-                    className="w-4 h-4 rounded border-line text-accent focus:ring-accent"
-                    aria-label="Performance and Functionality toggle"
-                  />
-                  <div>
-                    <span className="text-sm font-semibold text-ink">Performance</span>
-                    <p className="text-xs text-faded mt-0.5">Enhance speed and remember preferences.</p>
-                  </div>
-                </label>
-
-                {/* Social Media */}
-                <label className="flex items-center gap-3 p-3 rounded-xl border border-line bg-panel cursor-pointer hover:bg-raised/50 transition-colors">
-                  <input
-                    type="checkbox"
-                    checked={prefs.social}
-                    onChange={() => toggle("social")}
-                    className="w-4 h-4 rounded border-line text-accent focus:ring-accent"
-                    aria-label="Social Media Advertising toggle"
-                  />
-                  <div>
-                    <span className="text-sm font-semibold text-ink">Social Media</span>
-                    <p className="text-xs text-faded mt-0.5">Targeted ads on social platforms.</p>
-                  </div>
-                </label>
               </div>
 
               {/* Action Buttons */}

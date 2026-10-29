@@ -327,7 +327,7 @@ export default function AvaStream() {
       </div>
 
       <p className="mt-3 text-center text-xs text-faded">
-        Ava is an AI assistant, not a person. Her face and voice are generated in real time. For anything real, call
+        Ava is an AI assistant, not a person. Her face and voice are generated in real time. What you say or type is processed by our AI, voice and video providers and may be saved so our team can follow up; please don&apos;t share patient information. For anything real, call
         Ron at{" "}
         <a href={PHONE_HREF} className="whitespace-nowrap font-medium text-accent hover:underline">
           {PHONE_DISPLAY}

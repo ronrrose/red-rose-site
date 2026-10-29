@@ -11,7 +11,7 @@
     "getFreeAssessment": "Réservez un bilan informatique gratuit"
   },
   "Cookie": {
-    "message": "Nous utilisons des cookies pour améliorer votre expérience et analyser le trafic du site.",
+    "message": "Nous enregistrons seulement vos préférences sur le site. Aucun cookie d’analyse ni de publicité.",
     "accept": "Tout Accepter",
     "reject": "Tout Refuser",
     "manage": "Gérer les Préférences"

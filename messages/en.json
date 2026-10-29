@@ -11,7 +11,7 @@
     "getFreeAssessment": "Book a free IT checkup"
   },
   "Cookie": {
-    "message": "We use cookies to improve your experience and analyze site traffic. You can manage your preferences anytime.",
+    "message": "We only store your site preferences. No analytics or advertising cookies. You can manage your preferences anytime.",
     "accept": "Accept All",
     "reject": "Reject All",
     "manage": "Manage Preferences"

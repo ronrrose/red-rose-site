@@ -11,7 +11,7 @@
     "getFreeAssessment": "Reserve un chequeo de TI gratis"
   },
   "Cookie": {
-    "message": "Usamos cookies para mejorar tu experiencia y analizar el tráfico del sitio.",
+    "message": "Solo guardamos tus preferencias del sitio. Sin cookies de análisis ni de publicidad.",
     "accept": "Aceptar Todo",
     "reject": "Rechazar Todo",
     "manage": "Gestionar Preferencias"
