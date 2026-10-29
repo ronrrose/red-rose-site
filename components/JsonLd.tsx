@@ -86,7 +86,7 @@ export default function JsonLd() {
                 "@type": "Service",
                 name: "AI & Automation Clinics",
                 description:
-                  "Hands-on workshops where your team builds real automations to save hours every week.",
+                  "Hands-on workshops where your team builds real automations to take repetitive work off the week.",
               },
             },
             {

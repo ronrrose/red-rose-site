@@ -11,11 +11,11 @@ export async function generateMetadata({
   return {
     title: "5 AI Automations Every Dental Office Should Set Up This Week",
     description:
-      "Stop copy-pasting patient reminders, appointment confirmations, and intake forms. These five no-code automations take under an hour to set up and save your team hours every week.",
+      "Stop copy-pasting patient reminders, appointment confirmations, and intake forms. These five no-code automations take under an hour to set up and are built to take repetitive front-desk work off your team.",
     openGraph: {
       title: "5 AI Automations Every Dental Office Should Set Up This Week",
       description:
-        "No-code automations for dental practices that save hours every week. Patient reminders, intake forms, reviews, and more.",
+        "No-code automations that take repetitive front-desk work off dental teams. Patient reminders, intake forms, reviews, and more.",
     },
     alternates: localeAlternates("/resources/ai-automations-dental", params.locale),
   };
@@ -45,7 +45,7 @@ export default function AIDentalArticle() {
 
           <h2 className="text-2xl font-bold text-ink mt-10">1. Automated Appointment Reminders</h2>
           <p>
-            <strong>The problem:</strong> Your front desk spends 1-2 hours a day calling patients to confirm tomorrow&apos;s appointments. Half don&apos;t pick up. The other half say &ldquo;yeah, I&apos;ll be there&rdquo; and then no-show anyway.
+            <strong>The problem:</strong> Your front desk calls patients to confirm tomorrow&apos;s appointments. Half don&apos;t pick up. The other half say &ldquo;yeah, I&apos;ll be there&rdquo; and then no-show anyway.
           </p>
           <p>
             <strong>The fix:</strong> Set up automated SMS and email reminders that go out 48 hours, 24 hours, and 2 hours before each appointment. Patients can confirm with a single tap. No-shows drop by 30-40% on average.

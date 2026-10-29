@@ -15,7 +15,7 @@ export async function generateMetadata({
     openGraph: {
       title: "AI & Automation Clinics — Hands-On Workshops for Local Businesses",
       description:
-        "Three sessions that teach your team to actually use AI. Build real automations and leave with tools that save you hours every week.",
+        "Three sessions that teach your team to actually use AI. Build real automations and leave with tools designed to take repetitive work off your team.",
     },
     alternates: localeAlternates("/ai-clinics", params.locale),
   };
