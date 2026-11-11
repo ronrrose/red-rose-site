@@ -46,19 +46,19 @@ export default function HomeContent() {
   return (
     <>
       <Hero
-        badge="AI + Automation + Security for Local Businesses"
+        badge="AI + automation + security for local businesses"
         title={
           <>
-            AI &amp; Automation That <br className="hidden md:block" />
+            AI &amp; automation that <br className="hidden md:block" />
             <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
-              Actually Works
+              actually works
             </span>{" "}
-            for Local Businesses.
+            for local businesses.
           </>
         }
         subtitle="You've heard the AI hype. We skip that part. We show dental practices, law firms, nonprofits, and local shops across Tampa Bay how to automate the stuff that's eating their week. And we keep the tech running so they don't have to think about it."
         primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
-        secondaryCta={{ label: "Check Out AI Clinics", href: "/ai-clinics" }}
+        secondaryCta={{ label: "Check out AI Clinics", href: "/ai-clinics" }}
         trustItems={[
           "Google AI Certified",
           "CompTIA Certified",
