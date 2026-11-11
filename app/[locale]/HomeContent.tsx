@@ -66,8 +66,7 @@ export default function HomeContent() {
             </h1>
             <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-secondary [text-wrap:pretty] md:text-xl lg:mx-0">
               We look at how your practice actually runs, cut the work and spend that isn&apos;t paying
-              off, and automate what should run itself. No two practices run the same way, so nothing
-              we do is off the shelf.
+              off, and automate what should run itself. It starts with a free IT checkup.
             </p>
             {/* Auto width, centred on phones: a full-width button ran under the
                 floating Ava and accessibility buttons in the bottom corners. */}
