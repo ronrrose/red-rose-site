@@ -1,12 +1,13 @@
 "use client";
 
-import Hero from "@/components/Hero";
+import { Link } from "@/i18n/navigation";
+import HeroAva from "@/components/HeroAva";
 import ServiceCard from "@/components/ServiceCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import CTABanner from "@/components/CTABanner";
 import FAQSection from "@/components/FAQSection";
 import { homeFaqs } from "@/lib/faq-data";
-import { Bot, Shield, Building2, ShieldCheck, Award, Stethoscope, Scale, Heart, Briefcase } from "lucide-react";
+import { ArrowRight, Bot, Shield, Building2, Stethoscope, Scale, Heart, Briefcase } from "lucide-react";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 import Marquee from "@/components/magicui/marquee";
 
@@ -45,27 +46,76 @@ const PLATFORMS = [
 export default function HomeContent() {
   return (
     <>
-      <Hero
-        badge="AI + automation + security for local businesses"
-        title={
-          <>
-            AI &amp; automation that <br className="hidden md:block" />
-            <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
-              actually works
-            </span>{" "}
-            for local businesses.
-          </>
-        }
-        subtitle="You've heard the AI hype. We skip that part. We show dental practices, law firms, nonprofits, and local shops across Tampa Bay how to automate the stuff that's eating their week. And we keep the tech running so they don't have to think about it."
-        primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
-        secondaryCta={{ label: "Check out AI Clinics", href: "/ai-clinics" }}
-        trustItems={[
-          "Google AI Certified",
-          "CompTIA Certified",
-          "HIPAA Compliant",
-          "24/7 Monitoring",
-        ]}
-      />
+      {/*
+        Homepage hero, static markup on purpose (see components/Hero.tsx for
+        why nothing above the fold animates). One action: book the checkup.
+        Ava is the visual and only plays on a click.
+      */}
+      <section className="relative overflow-hidden pt-28 pb-16 md:pt-40 md:pb-24">
+        <div className="absolute inset-0 pointer-events-none hero-glow" />
+        <div className="container-site relative z-10 grid items-center gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-16">
+          <div className="text-center lg:text-left">
+            <p className="mb-6 text-sm font-semibold text-accent">
+              IT, automation and security for dental, medical and legal practices
+            </p>
+            <h1 className="mb-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-ink [text-wrap:balance] md:text-6xl">
+              Find where your practice is losing{" "}
+              <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
+                time and money.
+              </span>
+            </h1>
+            <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-secondary [text-wrap:pretty] md:text-xl lg:mx-0">
+              We look at how your practice actually runs, cut the work and spend that isn&apos;t paying
+              off, and automate what should run itself. No two practices run the same way, so nothing
+              we do is off the shelf.
+            </p>
+            {/* Auto width, centred on phones: a full-width button ran under the
+                floating Ava and accessibility buttons in the bottom corners. */}
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-brand-700/20 transition-all hover:bg-brand-800 active:scale-[.98]"
+            >
+              {PRIMARY_CTA_LABEL}
+              <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </Link>
+          </div>
+          <HeroAva />
+        </div>
+      </section>
+
+      {/* ── Proof: real results from real clients, attributed ── */}
+      <section className="border-y border-line bg-panel py-16 md:py-20" aria-labelledby="proof-heading">
+        <div className="container-site">
+          <h2 id="proof-heading" className="mb-10 text-center text-2xl font-bold text-ink [text-wrap:balance] md:text-3xl">
+            What that looked like for two clients
+          </h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="glass-card rounded-2xl p-6 md:col-span-1">
+              <p className="mb-2 text-3xl font-bold text-ink">About $75,000 a year</p>
+              <p className="text-sm leading-relaxed text-secondary">
+                Found for one dental practice, Gangi Dental Care in Bradenton, when Ron reviewed what it was
+                spending. He moved it from Eaglesoft servers to Curve Dental in the cloud, switched its phones
+                from Adit to Mango Voice, and moved payroll from ADP to Gusto.
+              </p>
+              <p className="mt-4 text-xs text-secondary">
+                One client&apos;s reported result. What we find depends on how your practice runs.
+              </p>
+            </div>
+            <div className="glass-card rounded-2xl p-6">
+              <p className="mb-2 text-3xl font-bold text-ink">Since 2011</p>
+              <p className="text-sm leading-relaxed text-secondary">
+                How long a Hollywood nonprofit has worked with Ron. He is also its webmaster.
+              </p>
+            </div>
+            <div className="glass-card rounded-2xl p-6">
+              <p className="mb-2 text-3xl font-bold text-ink">115+ staff</p>
+              <p className="text-sm leading-relaxed text-secondary">
+                On the network Ron built for that same nonprofit. It is still running today.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── 3 Service Cards ── */}
       <section className="section-padding bg-panel border-t border-line">
@@ -122,25 +172,6 @@ export default function HomeContent() {
                   <ind.icon className="w-7 h-7" aria-hidden="true" />
                 </div>
                 <span className="text-ink font-semibold text-sm">{ind.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Trust / Credentials Strip ── */}
-      <section className="py-12 border-y border-line bg-panel">
-        <div className="container-site">
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-            {[
-              { icon: Award, text: "Google AI Essentials Certified" },
-              { icon: ShieldCheck, text: "CompTIA IT Fundamentals+" },
-              { icon: Shield, text: "HIPAA Security Specialist" },
-              { icon: ShieldCheck, text: "24/7 SOC Monitoring" },
-            ].map((cred) => (
-              <div key={cred.text} className="flex items-center gap-3 text-secondary">
-                <cred.icon className="w-6 h-6 text-accent" aria-hidden="true" />
-                <span className="text-sm font-medium">{cred.text}</span>
               </div>
             ))}
           </div>
