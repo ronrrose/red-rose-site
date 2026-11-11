@@ -35,9 +35,9 @@ export default function ManagedITContent() {
           <>
             IT That&apos;s Built for{" "}
             <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
-              Compliance
-            </span>
-            , Not Commodity
+              Compliance,
+            </span>{" "}
+            Not Commodity
           </>
         }
         subtitle="We're not a generic break-fix shop. We start with security and compliance, then build everything else on top of that. Your patients' data, your clients' files, your business. It all stays protected."
@@ -148,7 +148,7 @@ export default function ManagedITContent() {
         heading="Common Questions"
         faqs={[
           { question: "Do I need a contract to use your managed IT services?", answer: "No. We work on a month-to-month basis. We earn your business every month by doing good work, not by trapping you in a long-term contract." },
-          { question: "What does 24/7 monitoring actually mean?", answer: "Our Security Operations Center watches your network, endpoints, and cloud services around the clock. If something looks suspicious — unusual login activity, malware signatures, failed backups — we're alerted and start responding right away." },
+          { question: "What does 24/7 monitoring actually mean?", answer: "Our Security Operations Center watches your network, endpoints, and cloud services around the clock. If something looks suspicious (unusual login activity, malware signatures, failed backups), we're alerted and start responding right away." },
           { question: "Do you support HIPAA compliance?", answer: "Yes. We work with dental practices, healthcare clinics and anyone else handling protected health information. We do security risk assessments, write policies, set up security controls and give ongoing compliance support. We hold a HIPAA Security Specialist credential, and we sign a HIPAA compliant Business Associate Agreement with every managed service client. Whether a practice meets HIPAA is decided by how the whole practice operates, so we help you get there rather than certify it." },
           { question: "What industries do you specialize in?", answer: "Dental practices, healthcare providers, legal firms, nonprofits, and small to medium businesses. We know the specific software, compliance requirements, and workflows for each of these industries." },
           { question: "How fast is your response time?", answer: "Our 24/7 monitoring detects outages as they happen. From there, our target response times are 4 hours on Core Shield, 2 hours on Advanced Guard, and 1 hour with priority escalation on Total Command. These are targets, not a guarantee or a contractual service level agreement." },

@@ -86,14 +86,14 @@ export default function AIClinicsContent() {
           <div className="space-y-8 max-w-4xl mx-auto">
             {sessions.map((s) => (
               <div key={s.number} className="glass-card rounded-2xl p-8 md:p-10 relative overflow-hidden">
-                <div className="absolute top-6 right-8 text-6xl font-black text-accent/10 select-none">
+                <div className="absolute top-6 right-8 text-6xl font-extrabold text-accent/10 select-none">
                   {s.number}
                 </div>
                 <p className="text-accent text-sm font-semibold mb-2">Session {s.number}</p>
                 <h3 className="text-2xl font-bold text-ink mb-5">{s.title}</h3>
                 <ul className="space-y-3">
                   {s.bullets.map((b, i) => (
-                    <li key={i} className="flex items-start gap-3 text-secondary text-[15px]">
+                    <li key={i} className="flex items-start gap-3 text-secondary text-sm">
                       <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                       {b}
                     </li>
@@ -220,7 +220,7 @@ export default function AIClinicsContent() {
       <FAQSection
         heading="Questions About the Clinics"
         faqs={[
-          { question: "Do I need any technical background to attend?", answer: "Not at all. These clinics are designed for business owners, office managers, and team leads — not engineers. If you can use email and a web browser, you're ready." },
+          { question: "Do I need any technical background to attend?", answer: "Not at all. These clinics are designed for business owners, office managers, and team leads, not engineers. If you can use email and a web browser, you're ready." },
           { question: "What tools will we actually use in the sessions?", answer: "ChatGPT, Google Gemini, Microsoft Copilot, Zapier, Make, and Power Automate. You'll get hands-on time with each one and leave with automations actually running." },
           { question: "How much does it cost?", answer: "Public clinics are free for chambers, SBDCs, and business groups. Private clinics for your team are custom-quoted based on group size and scope." },
           { question: "Is the content HIPAA-safe for healthcare businesses?", answer: "Yes. Session 3 specifically covers HIPAA-safe ways to use AI in healthcare and legal settings, including what tools to avoid and how to write an AI policy that meets compliance requirements." },

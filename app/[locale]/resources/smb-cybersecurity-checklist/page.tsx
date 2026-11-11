@@ -25,11 +25,11 @@ export default function CybersecurityChecklistArticle() {
   const items = [
     {
       title: "Enable Multi-Factor Authentication (MFA) on Everything",
-      body: "If any of your business accounts — email, banking, cloud storage, practice management — still use just a password, fix that today. MFA (also called 2FA) adds a second step, usually a code from your phone, that makes stolen passwords useless. Start with email and admin accounts. Microsoft 365 and Google Workspace both have MFA built in. Turn it on for every user, no exceptions.",
+      body: "If any of your business accounts (email, banking, cloud storage, practice management) still use just a password, fix that today. MFA (also called 2FA) adds a second step, usually a code from your phone, that makes stolen passwords useless. Start with email and admin accounts. Microsoft 365 and Google Workspace both have MFA built in. Turn it on for every user, no exceptions.",
     },
     {
       title: "Use a Business Password Manager",
-      body: "Your team is reusing passwords across systems. They are. Everyone does it until you give them a better option. A password manager like 1Password Business or Bitwarden generates unique, strong passwords for every account and stores them securely. It also makes onboarding and offboarding employees safer — you can revoke access to everything in one click.",
+      body: "Your team is reusing passwords across systems. They are. Everyone does it until you give them a better option. A password manager like 1Password Business or Bitwarden generates unique, strong passwords for every account and stores them securely. It also makes onboarding and offboarding employees safer: you can revoke access to everything in one click.",
     },
     {
       title: "Keep All Software and Systems Updated",
@@ -41,15 +41,15 @@ export default function CybersecurityChecklistArticle() {
     },
     {
       title: "Train Your Staff on Phishing",
-      body: "Phishing email is one of the most common ways attacks start. Your staff needs to know what to look for: unexpected attachments, urgent requests for payment, emails from addresses that look almost right. Run a phishing simulation quarterly. Services like KnowBe4 make this easy. The goal isn't to catch people — it's to build the reflex to pause and verify.",
+      body: "Phishing email is one of the most common ways attacks start. Your staff needs to know what to look for: unexpected attachments, urgent requests for payment, emails from addresses that look almost right. Run a phishing simulation quarterly. Services like KnowBe4 make this easy. The goal isn't to catch people. It's to build the reflex to pause and verify.",
     },
     {
       title: "Secure Your Wi-Fi Network",
-      body: "Your business Wi-Fi should use WPA3 (or at minimum WPA2) with a strong password. Create a separate guest network for patients, clients, and visitors — never let them on your business network. Change the default admin password on your router. If you can't remember the last time you did that, do it today.",
+      body: "Your business Wi-Fi should use WPA3 (or at minimum WPA2) with a strong password. Create a separate guest network for patients, clients, and visitors, and never let them on your business network. Change the default admin password on your router. If you can't remember the last time you did that, do it today.",
     },
     {
       title: "Install Endpoint Protection on Every Device",
-      body: "Windows Defender is decent, but it's not enough for a business. Install a proper endpoint detection and response (EDR) tool like SentinelOne, CrowdStrike, or Malwarebytes Business. These don't just block known viruses — they detect suspicious behavior in real time and can isolate a compromised device before it spreads.",
+      body: "Windows Defender is decent, but it's not enough for a business. Install a proper endpoint detection and response (EDR) tool like SentinelOne, CrowdStrike, or Malwarebytes Business. These don't just block known viruses. They detect suspicious behavior in real time and can isolate a compromised device before it spreads.",
     },
     {
       title: "Review Who Has Access to What",
@@ -65,11 +65,11 @@ export default function CybersecurityChecklistArticle() {
     },
     {
       title: "Get Cyber Insurance",
-      body: "Cyber insurance won't prevent an attack, but it covers the costs when one happens — forensics, legal fees, client notification, business interruption. Policies are relatively affordable for small businesses ($1,000-$3,000/year). Many insurers now require MFA and backups as conditions for coverage, which is another reason to check those boxes first.",
+      body: "Cyber insurance won't prevent an attack, but it covers the costs when one happens: forensics, legal fees, client notification, business interruption. Policies are relatively affordable for small businesses ($1,000-$3,000/year). Many insurers now require MFA and backups as conditions for coverage, which is another reason to check those boxes first.",
     },
     {
       title: "Run a Vulnerability Scan",
-      body: "You don't know what you don't know. A vulnerability scan checks your network, devices, and public-facing systems for known weaknesses — open ports, outdated software, misconfigured firewalls. We offer a free network assessment that covers this. It takes 30 minutes and gives you a clear picture of where you're exposed.",
+      body: "You don't know what you don't know. A vulnerability scan checks your network, devices, and public-facing systems for known weaknesses: open ports, outdated software, misconfigured firewalls. We offer a free network assessment that covers this. It takes 30 minutes and gives you a clear picture of where you're exposed.",
     },
   ];
 
@@ -88,7 +88,7 @@ export default function CybersecurityChecklistArticle() {
 
         <div className="prose-custom text-secondary leading-relaxed space-y-6">
           <p className="text-lg">
-            If you run a small or medium business, you might think cybercriminals are going after the big fish — banks, hospitals, Fortune 500 companies. They&apos;re not. 43% of cyberattacks target small businesses, and 60% of those businesses close within six months of an attack. The average cost of a data breach for an SMB is $108,000.
+            If you run a small or medium business, you might think cybercriminals are going after the big fish: banks, hospitals, Fortune 500 companies. They&apos;re not. 43% of cyberattacks target small businesses, and 60% of those businesses close within six months of an attack. The average cost of a data breach for an SMB is $108,000.
           </p>
           <p>
             The good news is that most attacks exploit basic security gaps that are straightforward to fix. Here&apos;s your checklist. Work through it this week and you&apos;ll have closed the gaps attackers look for first.
@@ -106,10 +106,10 @@ export default function CybersecurityChecklistArticle() {
 
           <h2 className="text-2xl font-bold text-ink mt-10">What&apos;s Next?</h2>
           <p>
-            This checklist covers the fundamentals. If you&apos;re in healthcare or dental, you also need to layer on HIPAA-specific controls — risk assessments, Business Associate Agreements, audit logging, and more. If you&apos;re a law firm, bar association data protection rules add another layer.
+            This checklist covers the fundamentals. If you&apos;re in healthcare or dental, you also need to layer on HIPAA-specific controls: risk assessments, Business Associate Agreements, audit logging, and more. If you&apos;re a law firm, bar association data protection rules add another layer.
           </p>
           <p>
-            The fastest way to find out where you stand is a free network assessment. We&apos;ll scan your systems, identify vulnerabilities, and give you a prioritized list of what to fix first — no commitment required. <Link href="/contact" className="text-accent hover:text-brand-600 font-semibold transition-colors">Talk to us</Link> and let&apos;s get you locked down.
+            The fastest way to find out where you stand is a free network assessment. We&apos;ll scan your systems, identify vulnerabilities, and give you a prioritized list of what to fix first, with no commitment required. <Link href="/contact" className="text-accent hover:text-brand-600 font-semibold transition-colors">Talk to us</Link> and let&apos;s get you locked down.
           </p>
         </div>
 

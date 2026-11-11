@@ -10,9 +10,11 @@ interface ServiceCardProps {
   title: string;
   description: string;
   href: string;
+  /** Verb plus thing, e.g. "See the AI clinics". Never "Learn more". */
+  cta: string;
 }
 
-export default function ServiceCard({ icon: Icon, title, description, href }: ServiceCardProps) {
+export default function ServiceCard({ icon: Icon, title, description, href, cta }: ServiceCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -29,9 +31,9 @@ export default function ServiceCard({ icon: Icon, title, description, href }: Se
             <Icon className="w-6 h-6" aria-hidden="true" />
           </div>
           <h3 className="text-xl font-bold text-ink">{title}</h3>
-          <p className="text-secondary text-[15px] leading-relaxed flex-1">{description}</p>
+          <p className="text-secondary text-sm leading-relaxed flex-1">{description}</p>
           <span className="inline-flex items-center gap-1.5 text-accent text-sm font-semibold group-hover:gap-2.5 transition-all">
-            Learn more <ArrowRight className="w-4 h-4" />
+            {cta} <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </span>
         </Link>
       </MagicCard>

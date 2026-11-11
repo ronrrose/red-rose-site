@@ -193,7 +193,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
                 icon: Plug,
                 title: "Practice Management Integration",
                 detail:
-                  "Seamless support for Dentrix, Eaglesoft, Open Dental",
+                  "Hands-on support for Dentrix, Eaglesoft and Open Dental",
               },
               {
                 icon: MapPin,
@@ -345,7 +345,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
 
       {/* ── FAQ ──────────────────────────────────────────── */}
       <FAQSection
-        heading={`Dental IT FAQ — ${city.name}`}
+        heading={`Dental IT FAQ for ${city.name}`}
         faqs={[
           {
             question: `What is HIPAA compliance for dental practices in ${city.name}?`,

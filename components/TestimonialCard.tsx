@@ -29,7 +29,7 @@ export default function TestimonialCard({
           <Star key={i} className="w-5 h-5 text-amber-400 fill-amber-400" />
         ))}
       </div>
-      <blockquote className="text-secondary text-[15px] leading-relaxed flex-1 mb-6">
+      <blockquote className="text-secondary text-sm leading-relaxed flex-1 mb-6">
         &ldquo;{quote}&rdquo;
       </blockquote>
       <div>

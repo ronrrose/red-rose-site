@@ -34,30 +34,30 @@ as a promised result.
 
 ## Services
 
-- **AI & Automation Clinics** — three live, hands-on sessions where a team builds
+- **AI & Automation Clinics**: three live, hands-on sessions where a team builds
   real automations, leaves with a 90 day rollout plan, and gets 30 days of email
   support afterwards.
-- **Managed IT & Security** — 24/7 network monitoring, patching, backup, HIPAA
+- **Managed IT & Security**: 24/7 network monitoring, patching, backup, HIPAA
   aware security, cybersecurity and proactive support. No contracts, no hidden
   fees. A free dark web scan is offered.
-- **Dental IT Support** — supported platforms include Dentrix, Eaglesoft, Open
+- **Dental IT Support**: supported platforms include Dentrix, Eaglesoft, Open
   Dental and Curve Dental.
-- **Occupational Medicine IT Support** — supported platforms include PrognoCIS,
+- **Occupational Medicine IT Support**: supported platforms include PrognoCIS,
   Net Health, Enterprise Health, Cority and SYSTOC, covering occupational health
   clinics doing employer services, DOT and physical exams, injury case
   management and employee health records.
-- **HIPAA Compliance** — security assessments, policies and ongoing compliance
+- **HIPAA Compliance**: security assessments, policies and ongoing compliance
   for healthcare and dental offices.
-- **Cloud setup and migration** — including Microsoft 365, and Windows 11
+- **Cloud setup and migration**: including Microsoft 365, and Windows 11
   migration planning with hardware compatibility assessment and phased rollouts.
 
 ## Support tiers
 
 Three managed service tiers, with target response times:
 
-- Core Shield — response within 4 hours
-- Advanced Guard — response within 2 hours
-- Total Command — response within 1 hour, with priority escalation
+- Core Shield: response within 4 hours
+- Advanced Guard: response within 2 hours
+- Total Command: response within 1 hour, with priority escalation
 
 These are target response times. They are not a guarantee and not a contractual
 service level agreement.

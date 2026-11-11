@@ -226,7 +226,7 @@ export default function ChatWidget() {
           </div>
         </form>
         {/* Data notice before anyone types (California chat-wiretap suits): who processes the chat, and that it can be kept. */}
-        <p className="px-3 pb-2 text-[11px] leading-snug text-muted-foreground">
+        <p className="px-3 pb-2 text-xs leading-snug text-muted-foreground">
           Chats are processed by our AI provider (Anthropic) and may be saved so our team can follow up. Please
           don&apos;t share patient information.{" "}
           <Link href="/privacy" className="underline hover:text-accent">
