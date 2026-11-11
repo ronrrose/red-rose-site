@@ -35,3 +35,30 @@ export function localeAlternates(path: string = "", locale?: Locale) {
     ? { canonical: localeUrl(locale, path), languages }
     : { languages };
 }
+
+/** The site-wide share image, served by app/opengraph-image.tsx. */
+export const SHARE_IMAGE = {
+  url: `${SITE_URL}/opengraph-image`,
+  width: 1200,
+  height: 630,
+  alt: "Red Rose Technologies - Managed IT for Dental Practices",
+};
+
+/**
+ * A page's Open Graph block, with the share image attached.
+ *
+ * Next.js does not merge openGraph between layouts and pages: a page that sets
+ * its own openGraph replaces the root one wholesale, images included. That is
+ * how 11 of 13 pages ended up with no og:image. Every page that sets openGraph
+ * goes through here so the image cannot be dropped again. twitter:image is
+ * filled from these images by Next.js, since the root sets the large card.
+ */
+export function pageOpenGraph(og: { title: string; description?: string; url?: string }) {
+  return {
+    type: "website" as const,
+    siteName: "Red Rose Technologies LLC",
+    locale: "en_US",
+    images: [SHARE_IMAGE],
+    ...og,
+  };
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import { ArrowRight, type LucideIcon } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import MagicCard from "@/components/magicui/magic-card";
@@ -14,12 +14,7 @@ interface ServiceCardProps {
 
 export default function ServiceCard({ icon: Icon, title, description, href }: ServiceCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-    >
+    <Reveal>
       <MagicCard className="glass-card h-full">
         <Link
           href={href}
@@ -35,6 +30,6 @@ export default function ServiceCard({ icon: Icon, title, description, href }: Se
           </span>
         </Link>
       </MagicCard>
-    </motion.div>
+    </Reveal>
   );
 }
