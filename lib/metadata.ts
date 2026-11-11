@@ -25,6 +25,10 @@ export function localeUrl(locale: Locale, path: string = ""): string {
  * get alternates only.
  */
 export function localeAlternates(path: string = "", locale?: Locale) {
+  // One language means no hreflang at all: a lone self-reference adds nothing.
+  if (locales.length < 2) {
+    return locale ? { canonical: localeUrl(locale, path) } : {};
+  }
   const languages: Record<string, string> = {
     "x-default": localeUrl(defaultLocale, path),
   };

@@ -1,14 +1,16 @@
 export { type Locale, locales, defaultLocale } from "@/i18n/config";
 import type { Locale } from "@/i18n/config";
 
-export const localeNames: Record<Locale, string> = {
+// Keyed by string, not Locale: the site is English-only for now and these
+// entries are kept for when a translated locale returns.
+export const localeNames: Record<string, string> = {
   en: "English",
   es: "Espa\u00f1ol",
   pt: "Portugu\u00eas",
   fr: "Fran\u00e7ais",
 };
 
-export const translations: Record<Locale, Record<string, string>> = {
+export const translations: Record<string, Record<string, string>> = {
   en: {
     "nav.home": "Home",
     "nav.aiClinics": "AI Clinics",
