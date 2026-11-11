@@ -131,8 +131,9 @@ export default function ContactContent() {
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
               <GreetingVideo />
-              {/* The one border beam on the site: the booking card. */}
-              <div className="glass-card rounded-2xl p-8 mb-8 relative">
+              {/* The one border beam on the site: the booking card. overflow-hidden keeps
+                  the travelling beam from widening the page by ~95px at 375px. */}
+              <div className="glass-card rounded-2xl p-8 mb-8 relative overflow-hidden">
                 <BorderBeam duration={14} size={240} />
                 <h2 className="text-2xl font-bold text-ink mb-4">{t("bookCall")}</h2>
                 <p className="text-faded mb-6 text-sm">{t("noCommitment")}</p>

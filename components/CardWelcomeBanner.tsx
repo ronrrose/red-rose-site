@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Handshake } from "lucide-react";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/site-config";
@@ -9,10 +9,20 @@ import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/site-config";
  * Shown when a visitor arrives from the printed business-card QR code
  * (utm_source=card). Keeps the in-person handoff warm and points straight at
  * the two actions the card promises: book, or call.
+ *
+ * Renders only after mount. The locale layout is force-static, so /contact is
+ * prerendered once with empty search params and the server HTML never has
+ * this banner. Rendering it during hydration made the client tree differ from
+ * that HTML: React #418, then #422 as the Suspense boundary fell back to
+ * client rendering, on every card scan in production. Dev renders per
+ * request, so it never showed there. Waiting for mount keeps the first client
+ * render identical to the static HTML; the banner appears a moment later.
  */
 export default function CardWelcomeBanner() {
   const searchParams = useSearchParams();
-  const isCardVisitor = searchParams.get("utm_source") === "card";
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const isCardVisitor = mounted && searchParams.get("utm_source") === "card";
   const tracked = useRef(false);
 
   useEffect(() => {
