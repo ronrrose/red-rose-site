@@ -7,7 +7,6 @@ import ThemeProvider from "@/components/ThemeProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { I18nProvider } from "@/lib/i18n-context";
-import CookieBanner from "@/components/CookieBanner";
 import JsonLd from "@/components/JsonLd";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -52,7 +51,6 @@ export default async function LocaleLayout({
               <Breadcrumbs />
               <main id="main-content">{children}</main>
               <Footer />
-              <CookieBanner />
               <AccessibilityWidget />
               <ChatWidget />
               <JsonLd />
