@@ -10,7 +10,7 @@ const articles = [
   {
     icon: Bot,
     category: "AI & Automation",
-    title: "5 AI Automations Every Dental Office Should Set Up This Week",
+    title: "5 AI automations every dental office should set up this week",
     excerpt: "Stop copy-pasting patient reminders, appointment confirmations, and intake forms. These five no-code automations take under an hour to set up.",
     tag: "Guide",
     href: "/resources/ai-automations-dental",
@@ -18,7 +18,7 @@ const articles = [
   {
     icon: Shield,
     category: "Cybersecurity",
-    title: "The SMB Cybersecurity Checklist: 12 Things to Do Before You Get Hacked",
+    title: "The SMB cybersecurity checklist: 12 things to do before you get hacked",
     excerpt: "Most small businesses think they're too small to get targeted. They're not. Here's a plain-English checklist to lock things down.",
     tag: "Checklist",
     href: "/resources/smb-cybersecurity-checklist",
@@ -26,7 +26,7 @@ const articles = [
   {
     icon: BookOpen,
     category: "Compliance",
-    title: "HIPAA in 2026: What Changed and What You Need to Do Now",
+    title: "HIPAA in 2026: what changed and what you need to do now",
     excerpt: "New enforcement priorities, updated breach rules, and telehealth-specific requirements. Here's what your practice needs to act on.",
     tag: "Article",
     href: null,
@@ -38,7 +38,7 @@ export default function ResourcesContent() {
     <>
       <Hero
         badge="Resources"
-        title={<>Guides & Articles for{" "}<span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">Real Business Owners</span></>}
+        title={<>Guides & articles for{" "}<span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">real business owners</span></>}
         subtitle="Practical stuff on AI, cybersecurity, and compliance. Written for people who run businesses, not for engineers."
         primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
       />
@@ -66,7 +66,7 @@ export default function ResourcesContent() {
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1.5 text-faded text-sm font-semibold cursor-default">
-                        Coming Soon
+                        Coming soon
                       </span>
                     )}
                   </div>
@@ -89,7 +89,7 @@ export default function ResourcesContent() {
         </div>
       </section>
 
-      <CTABanner heading="Don't Wait for a Blog Post" subtitle="Get real advice for your business right now. Let's hop on a call." primaryLabel={PRIMARY_CTA_LABEL} />
+      <CTABanner heading="Don't wait for a blog post" subtitle="Get real advice for your business right now. Let's hop on a call." primaryLabel={PRIMARY_CTA_LABEL} />
     </>
   );
 }

@@ -126,7 +126,7 @@ export default function AiConsultantLakewoodRanchPage() {
           </span>
 
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-ink leading-[1.08] mb-8 max-w-4xl">
-            AI Consultant in Lakewood Ranch, Florida
+            AI consultant in Lakewood Ranch, Florida
           </h1>
 
           {/* The quotable passage: a complete answer in the first paragraph. */}

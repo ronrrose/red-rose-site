@@ -145,7 +145,7 @@ export default function ContactContent() {
                 </div>
               </div>
               <div className="glass-card rounded-2xl p-8">
-                <h3 className="text-lg font-bold text-ink mb-6">Or Just Reach Out</h3>
+                <h3 className="text-lg font-bold text-ink mb-6">Or just reach out</h3>
                 <ul className="space-y-5">
                   <li className="flex items-center gap-4 text-secondary">
                     <div className="w-10 h-10 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-accent shrink-0"><Phone className="w-5 h-5" aria-hidden="true" /></div>
@@ -170,13 +170,13 @@ export default function ContactContent() {
                 {status === "success" ? (
                   <div className="text-center py-12">
                     <CheckCircle className="w-14 h-14 text-green-500 mx-auto mb-4" />
-                    <h3 className="text-xl font-bold text-ink mb-2">Message Sent!</h3>
+                    <h3 className="text-xl font-bold text-ink mb-2">Message sent</h3>
                     <p className="text-faded text-sm mb-6">Check your inbox for a confirmation. Someone from our team will get back to you within one business day.</p>
                     <button
                       onClick={() => setStatus("idle")}
                       className="px-6 py-2.5 rounded-xl border border-line text-secondary font-medium hover:bg-raised/50 transition-colors text-sm"
                     >
-                      Send Another Message
+                      Send another message
                     </button>
                   </div>
                 ) : (
@@ -208,12 +208,12 @@ export default function ContactContent() {
                       <label htmlFor="businessType" className="block text-sm font-medium text-secondary mb-2">{t("businessType")}</label>
                       <select id="businessType" name="businessType" className="w-full px-4 py-3 bg-input-bg border border-input-border rounded-xl text-ink focus:outline-none focus:ring-2 focus:ring-brand-700/50 focus:border-brand-700 transition-all text-sm">
                         <option value="">{t("businessTypePlaceholder")}</option>
-                        <option value="dental">Dental Practice</option>
+                        <option value="dental">Dental practice</option>
                         <option value="healthcare">Healthcare</option>
-                        <option value="legal">Legal Firm</option>
+                        <option value="legal">Legal firm</option>
                         <option value="nonprofit">Nonprofit</option>
-                        <option value="smb">Small/Medium Business</option>
-                        <option value="other">Something Else</option>
+                        <option value="smb">Small/medium business</option>
+                        <option value="other">Something else</option>
                       </select>
                     </div>
                     <div>

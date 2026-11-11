@@ -31,7 +31,7 @@ export default function AIDentalArticle() {
           <span className="text-xs text-faded">Guide</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold text-ink mb-6 leading-tight">
-          5 AI Automations Every Dental Office Should Set Up This Week
+          5 AI automations every dental office should set up this week
         </h1>
         <p className="text-faded text-sm mb-12">By Ron Rose &middot; Red Rose Technologies &middot; March 2026</p>
 
@@ -43,7 +43,7 @@ export default function AIDentalArticle() {
             Here are five automations we set up in nearly every dental practice we work with. No coding required. No expensive software. Just practical, working automations that free up your staff to focus on patients instead of admin.
           </p>
 
-          <h2 className="text-2xl font-bold text-ink mt-10">1. Automated Appointment Reminders</h2>
+          <h2 className="text-2xl font-bold text-ink mt-10">1. Automated appointment reminders</h2>
           <p>
             <strong>The problem:</strong> Your front desk calls patients to confirm tomorrow&apos;s appointments. Half don&apos;t pick up. The other half say &ldquo;yeah, I&apos;ll be there&rdquo; and then no-show anyway.
           </p>
@@ -54,7 +54,7 @@ export default function AIDentalArticle() {
             <strong>Tools:</strong> Most practice management systems (Dentrix, Eaglesoft, Curve Dental) have built-in reminder features or integrate with services like Weave, RevenueWell, or Lighthouse 360. If you&apos;re on a budget, Zapier + Google Calendar + Twilio can do it for pennies per message.
           </p>
 
-          <h2 className="text-2xl font-bold text-ink mt-10">2. Digital Intake Forms</h2>
+          <h2 className="text-2xl font-bold text-ink mt-10">2. Digital intake forms</h2>
           <p>
             <strong>The problem:</strong> Patients fill out paper forms in the waiting room. Someone on your staff then types all of that into your PMS. It&apos;s slow, error-prone, and patients hate holding a clipboard.
           </p>
@@ -65,7 +65,7 @@ export default function AIDentalArticle() {
             <strong>Tools:</strong> Curve Dental has this built in. For Dentrix or Eaglesoft, look at Yapi, Mango Voice patient forms, or even a simple JotForm integration connected via Zapier.
           </p>
 
-          <h2 className="text-2xl font-bold text-ink mt-10">3. Post-Visit Review Requests</h2>
+          <h2 className="text-2xl font-bold text-ink mt-10">3. Post-visit review requests</h2>
           <p>
             <strong>The problem:</strong> You know your patients love you, but your Google reviews don&apos;t reflect it. Asking in person feels awkward, and nobody remembers to send a follow-up.
           </p>
@@ -76,7 +76,7 @@ export default function AIDentalArticle() {
             <strong>Tools:</strong> Weave, BirdEye, or Podium all do this. Budget option: Zapier + your PMS + Twilio. The key is timing &mdash; send it while the visit is still fresh.
           </p>
 
-          <h2 className="text-2xl font-bold text-ink mt-10">4. AI-Powered Phone Answering</h2>
+          <h2 className="text-2xl font-bold text-ink mt-10">4. AI-powered phone answering</h2>
           <p>
             <strong>The problem:</strong> Calls come in while your front desk is checking someone in, handling insurance, or eating lunch. Missed calls mean missed patients. Studies show 35% of new patient calls go to voicemail &mdash; and most don&apos;t leave a message.
           </p>
@@ -87,7 +87,7 @@ export default function AIDentalArticle() {
             <strong>Tools:</strong> Mango Voice (which we install for many of our clients), Smith.ai, or Ruby. These integrate with your existing phone system and PMS.
           </p>
 
-          <h2 className="text-2xl font-bold text-ink mt-10">5. Automated Insurance Verification</h2>
+          <h2 className="text-2xl font-bold text-ink mt-10">5. Automated insurance verification</h2>
           <p>
             <strong>The problem:</strong> Your team spends hours calling insurance companies, sitting on hold, and manually verifying coverage before each appointment. It&apos;s the single biggest time sink in most dental offices.
           </p>
@@ -98,7 +98,7 @@ export default function AIDentalArticle() {
             <strong>Tools:</strong> Dentrix has Eligibility built in (but most offices don&apos;t use it). Vyne Dental, DentalXChange, and Trojan all automate verification. The ROI is massive &mdash; we&apos;ve seen offices save 8-10 hours per week on this alone.
           </p>
 
-          <h2 className="text-2xl font-bold text-ink mt-10">The Bottom Line</h2>
+          <h2 className="text-2xl font-bold text-ink mt-10">The bottom line</h2>
           <p>
             None of these automations require coding, a huge budget, or months of implementation. Most can be set up in a single afternoon. The hard part isn&apos;t the technology &mdash; it&apos;s knowing which tools actually work with your specific setup and getting them configured correctly the first time.
           </p>
@@ -108,10 +108,10 @@ export default function AIDentalArticle() {
         </div>
 
         <div className="mt-12 p-8 glass-card rounded-2xl text-center">
-          <h3 className="text-xl font-bold text-ink mb-3">Want Help Setting These Up?</h3>
+          <h3 className="text-xl font-bold text-ink mb-3">Want help setting these up?</h3>
           <p className="text-faded text-sm mb-6">Book a free 30-minute call and we&apos;ll walk through which automations make sense for your practice.</p>
           <Link href="/contact" className="inline-flex px-8 py-3 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-700/25">
-            Talk to Us
+            Talk to us
           </Link>
         </div>
       </div>

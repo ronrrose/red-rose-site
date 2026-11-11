@@ -5,21 +5,43 @@ import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { SITE_URL } from "@/lib/site-config";
 import { defaultLocale } from "@/i18n/config";
+import { cities } from "@/lib/city-data";
 
 const localeSet = new Set(["en", "es", "pt", "fr"]);
 
 const nameMap: Record<string, string> = {
   "ai-clinics": "AI Clinics",
   "managed-it": "Managed IT",
-  "ai-consultant": "AI Consultant",
-  "dental-it": "Dental IT",
-  "lakewood-ranch": "Lakewood Ranch",
   industries: "Industries",
   about: "About",
   resources: "Resources",
   contact: "Contact",
-  privacy: "Privacy Policy",
-  terms: "Terms of Service",
+  privacy: "Privacy policy",
+  terms: "Terms of service",
+  "ai-automations-dental": "AI automations for dental offices",
+  "smb-cybersecurity-checklist": "SMB cybersecurity checklist",
+  // City slugs, so "st-petersburg" reads "St. Petersburg", not "St-petersburg"
+  ...Object.fromEntries(cities.map((c) => [c.slug, c.name])),
+};
+
+/*
+ * Some route folders have no page of their own: /ai-consultant and /dental-it
+ * only hold /lakewood-ranch, so a crumb built from the path linked to a 404.
+ * For those segments, the crumb points at the existing page that covers the
+ * topic instead.
+ */
+const parentPage: Record<string, { label: string; path: string }> = {
+  "ai-consultant": { label: "AI Clinics", path: "ai-clinics" },
+  "dental-it": { label: "Industries", path: "industries" },
+};
+
+/*
+ * Under a borrowed parent, "Lakewood Ranch" alone would read as a clinic or an
+ * industry, so these pages name themselves in the last crumb.
+ */
+const pageLabel: Record<string, string> = {
+  "ai-consultant/lakewood-ranch": "AI consultant in Lakewood Ranch",
+  "dental-it/lakewood-ranch": "Dental IT in Lakewood Ranch",
 };
 
 export default function Breadcrumbs() {
@@ -47,10 +69,21 @@ export default function Breadcrumbs() {
 
   const crumbs = [
     { label: "Home", href: `${localePrefix}/` },
-    ...segments.map((seg, i) => ({
-      label: nameMap[seg] || seg.charAt(0).toUpperCase() + seg.slice(1),
-      href: `${localePrefix}/${segments.slice(0, i + 1).join("/")}`,
-    })),
+    ...segments.map((seg, i) => {
+      const isLast = i === segments.length - 1;
+      const parent = !isLast ? parentPage[seg] : undefined;
+      if (parent) {
+        return { label: parent.label, href: `${localePrefix}/${parent.path}` };
+      }
+      const path = segments.slice(0, i + 1).join("/");
+      return {
+        label:
+          (isLast && pageLabel[path]) ||
+          nameMap[seg] ||
+          seg.charAt(0).toUpperCase() + seg.slice(1),
+        href: `${localePrefix}/${path}`,
+      };
+    }),
   ];
 
   const breadcrumbSchema = {
@@ -70,18 +103,18 @@ export default function Breadcrumbs() {
         aria-label="Breadcrumb"
         className="container-site pt-24 pb-0"
       >
-        <ol className="flex items-center gap-1.5 text-sm text-faded">
+        <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-faded">
           {crumbs.map((crumb, i) => {
             const isLast = i === crumbs.length - 1;
             return (
               <li key={crumb.href} className="flex items-center gap-1.5">
-                {i > 0 && <ChevronRight className="w-3.5 h-3.5" aria-hidden="true" />}
+                {i > 0 && <ChevronRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />}
                 {isLast ? (
                   <span className="text-ink font-medium" aria-current="page">
                     {crumb.label}
                   </span>
                 ) : (
-                  <Link href={crumb.href} className="hover:text-accent transition-colors">
+                  <Link href={crumb.href} className="whitespace-nowrap hover:text-accent transition-colors">
                     {crumb.label}
                   </Link>
                 )}
