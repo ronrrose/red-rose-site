@@ -24,6 +24,8 @@ declare global {
 }
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
+/** How long submit waits for a reCAPTCHA token before sending without one. */
+const RECAPTCHA_WAIT_MS = 8000;
 
 export default function ContactContent() {
   const t = useTranslations("Contact");
@@ -35,7 +37,7 @@ export default function ContactContent() {
      Google's script sends the visitor's IP address to Google and sets Google
      cookies, so a visitor who only reads the page never loads it. Focusing
      any field starts the load; submit waits for it, because the server
-     requires a token whenever RECAPTCHA_SECRET_KEY is set. */
+     requires a token whenever both reCAPTCHA keys are configured. */
   const recaptchaReady = useRef<Promise<void> | null>(null);
   function loadRecaptcha(): Promise<void> {
     if (!RECAPTCHA_SITE_KEY) return Promise.resolve();
@@ -51,6 +53,36 @@ export default function ContactContent() {
       });
     }
     return recaptchaReady.current;
+  }
+
+  /*
+   * A token for this submit, or "" if none arrives within RECAPTCHA_WAIT_MS.
+   * The script loads on first focus, so a quick visitor can press send before
+   * it is ready: wait for it rather than racing it. grecaptcha exists a moment
+   * before it is usable, and execute() can reject; both are handled, so a
+   * Google hiccup can never leave the button stuck on "sending". If no token
+   * arrives (for example a blocker stops Google), the form is still sent and
+   * the server decides.
+   */
+  async function getRecaptchaToken(): Promise<string> {
+    if (!RECAPTCHA_SITE_KEY) return "";
+    const attempt = (async () => {
+      await loadRecaptcha();
+      const deadline = Date.now() + RECAPTCHA_WAIT_MS;
+      while (!window.grecaptcha?.ready) {
+        if (Date.now() > deadline) return "";
+        await new Promise((r) => setTimeout(r, 100));
+      }
+      return await new Promise<string>((resolve) => {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha
+            .execute(RECAPTCHA_SITE_KEY, { action: "contact" })
+            .then(resolve, () => resolve(""));
+        });
+      });
+    })();
+    const timeout = new Promise<string>((resolve) => setTimeout(() => resolve(""), RECAPTCHA_WAIT_MS));
+    return Promise.race([attempt, timeout]).catch(() => "");
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -80,21 +112,8 @@ export default function ContactContent() {
     }
 
     try {
-      /* ── Get reCAPTCHA token ── */
-      let recaptchaToken = "";
-      await loadRecaptcha();
-      if (RECAPTCHA_SITE_KEY && window.grecaptcha) {
-        try {
-          recaptchaToken = await new Promise<string>((resolve) => {
-            window.grecaptcha.ready(async () => {
-              const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "contact" });
-              resolve(token);
-            });
-          });
-        } catch {
-          // If reCAPTCHA fails, still allow submission (graceful degradation)
-        }
-      }
+      /* ── Get reCAPTCHA token (waits briefly for the script, see above) ── */
+      const recaptchaToken = await getRecaptchaToken();
 
       const res = await fetch("/api/contact", {
         method: "POST",

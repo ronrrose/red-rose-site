@@ -47,7 +47,7 @@ export default function JsonLd() {
           opens: "08:00",
           closes: "17:00",
         },
-        sameAs: PROFILE_URLS,
+        ...(PROFILE_URLS.length ? { sameAs: PROFILE_URLS } : {}),
         founder: {
           "@type": "Person",
           name: "Ron Rose",
