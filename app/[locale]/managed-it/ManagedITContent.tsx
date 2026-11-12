@@ -11,51 +11,51 @@ import {
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
 const services = [
-  { icon: Shield,             title: "Compliance That's Built In",      description: "HIPAA, SOC 2, whatever your industry requires. We build compliance into the foundation, not as an upsell after you sign." },
-  { icon: Server,             title: "24/7 Network Monitoring",         description: "Our team watches your systems around the clock. When something looks off, we fix it before you even know about it." },
-  { icon: Lock,               title: "Ransomware & Threat Protection",  description: "Endpoint detection, DNS filtering, AI-driven threat analysis. We make it very hard for the bad guys to get in." },
-  { icon: Cloud,              title: "Cloud Migrations & Management",   description: "Ready to move off that old server? We'll get you to Microsoft 365, Azure, AWS, or Google Workspace without the headaches." },
-  { icon: MonitorSmartphone,  title: "Helpdesk & On-Site Support",      description: "Real people who pick up the phone. Local techs who show up when you need them. Not a ticket queue in another state." },
-  { icon: FileCheck,          title: "Backup & Disaster Recovery",      description: "Bulletproof backups with tested recovery plans. Your data is encrypted and restorable in minutes, not days." },
+  { icon: Shield,             title: "Compliance that's built in",      description: "HIPAA, SOC 2, whatever your industry requires. We build compliance into the foundation, not as an upsell after you sign." },
+  { icon: Server,             title: "24/7 network monitoring",         description: "Our team watches your systems around the clock. When something looks off, we fix it before you even know about it." },
+  { icon: Lock,               title: "Ransomware & threat protection",  description: "Endpoint detection, DNS filtering, AI-driven threat analysis. We make it very hard for the bad guys to get in." },
+  { icon: Cloud,              title: "Cloud migrations & management",   description: "Ready to move off that old server? We'll get you to Microsoft 365, Azure, AWS, or Google Workspace without the headaches." },
+  { icon: MonitorSmartphone,  title: "Helpdesk & on-site support",      description: "Real people who pick up the phone. Local techs who show up when you need them. Not a ticket queue in another state." },
+  { icon: FileCheck,          title: "Backup & disaster recovery",      description: "Bulletproof backups with tested recovery plans. Your data is encrypted and restorable in minutes, not days." },
 ];
 
 const differentiators = [
-  { icon: Zap,              title: "Compliance First, Not Last",       description: "Most IT companies treat security as an add-on. We start there. It's the foundation of everything we do." },
-  { icon: HeartHandshake,   title: "We Work Alongside You",            description: "Think of us as your part-time CTO. We learn your business, not just your network." },
-  { icon: Users,            title: "We Know Your Software",             description: "Dentrix, Open Dental, Clio, QuickBooks. We've worked with the specific tools your practice runs on." },
-  { icon: Shield,           title: "Honest, Flat-Rate Pricing",         description: "One price. No hidden fees. No surprise invoices. No 'that's not included' conversations." },
+  { icon: Zap,              title: "Compliance first, not last",       description: "Most IT companies treat security as an add-on. We start there. It's the foundation of everything we do." },
+  { icon: HeartHandshake,   title: "We work alongside you",            description: "Think of us as your part-time CTO. We learn your business, not just your network." },
+  { icon: Users,            title: "We know your software",             description: "Dentrix, Open Dental, Clio, QuickBooks. We've worked with the specific tools your practice runs on." },
+  { icon: Shield,           title: "Honest, flat-rate pricing",         description: "One price. No hidden fees. No surprise invoices. No 'that's not included' conversations." },
 ];
 
 export default function ManagedITContent() {
   return (
     <>
       <Hero
-        badge="Managed IT & Security"
+        badge="Managed IT & security"
         title={
           <>
-            IT That&apos;s Built for{" "}
+            IT that&apos;s built for{" "}
             <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
-              Compliance,
+              compliance,
             </span>{" "}
-            Not Commodity
+            not commodity
           </>
         }
         subtitle="We're not a generic break-fix shop. We start with security and compliance, then build everything else on top of that. Your patients' data, your clients' files, your business. It all stays protected."
         primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
-        secondaryCta={{ label: "See Our Industries", href: "/industries" }}
+        secondaryCta={{ label: "See our industries", href: "/industries" }}
         trustItems={["HIPAA Compliant", "24/7 SOC", "Flat-Rate Pricing", "Local Techs"]}
       />
 
       <FeatureGrid
         label="What's Included"
-        heading="Full-Service IT. No Surprises."
+        heading="Full-service IT. No surprises."
         subtitle="Everything you need to stay online, compliant, and secure. All under one roof."
         items={services}
       />
 
       <FeatureGrid
         label="Why We're Different"
-        heading="Not Your Average IT Company"
+        heading="Not your average IT company"
         subtitle="Most IT shops compete on price. We compete on results. Here's what makes us different."
         items={differentiators}
         columns={2}
@@ -67,14 +67,14 @@ export default function ManagedITContent() {
           <div className="text-center max-w-3xl mx-auto mb-14">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Industry Know-How</p>
             <h2 className="text-3xl md:text-5xl font-bold text-ink mb-6">
-              We Already Know Your Business
+              We already know your business
             </h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { name: "Dental Practices", detail: "Dentrix, Eaglesoft, Open Dental. HIPAA-compliant imaging servers, backups, and network security. We've done this hundreds of times." },
-              { name: "Healthcare Providers", detail: "EHR/EMR support, regulatory compliance, secure patient records, and telehealth setups that actually work." },
-              { name: "Legal Firms", detail: "Clio, MyCase, document management. Client confidentiality, eDiscovery readiness, and secure file sharing for distributed teams." },
+              { name: "Dental practices", detail: "Dentrix, Eaglesoft, Open Dental. HIPAA-compliant imaging servers, backups, and network security. We've done this hundreds of times." },
+              { name: "Healthcare providers", detail: "EHR/EMR support, regulatory compliance, secure patient records, and telehealth setups that actually work." },
+              { name: "Legal firms", detail: "Clio, MyCase, document management. Client confidentiality, eDiscovery readiness, and secure file sharing for distributed teams." },
               { name: "Nonprofits", detail: "Grant-eligible tech upgrades, Microsoft 365 Nonprofit licensing, and donor data security on a real-world budget." },
               { name: "Local SMBs", detail: "QuickBooks, POS systems, VoIP, cloud tools. Reliable IT that grows with you without the enterprise price tag." },
             ].map((ind) => (
@@ -92,7 +92,7 @@ export default function ManagedITContent() {
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Pricing</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-ink mb-4">Flat-Rate. No Surprises.</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink mb-4">Flat-rate. No surprises.</h2>
             <p className="text-secondary text-lg">Every plan includes compliance, monitoring, and support. Pick the level that fits your business.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -119,7 +119,7 @@ export default function ManagedITContent() {
             ].map((plan) => (
               <div key={plan.name} className={`glass-card rounded-2xl p-8 flex flex-col ${plan.popular ? "ring-2 ring-accent relative" : ""}`}>
                 {plan.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-white text-xs font-bold rounded-full">Most Popular</span>
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-white text-xs font-bold rounded-full">Most popular</span>
                 )}
                 <h3 className="text-xl font-bold text-ink mb-2">{plan.name}</h3>
                 <div className="mb-6">
@@ -135,7 +135,7 @@ export default function ManagedITContent() {
                   ))}
                 </ul>
                 <a href="/contact" className={`block text-center px-6 py-3 rounded-xl font-semibold transition-all text-sm ${plan.popular ? "bg-brand-700 hover:bg-brand-800 text-white shadow-lg shadow-brand-700/25" : "border border-line text-ink hover:bg-raised/50"}`}>
-                  {plan.price === "Custom" ? "Talk to Us" : "Get Started"}
+                  {plan.price === "Custom" ? "Talk to us" : "Get started"}
                 </a>
               </div>
             ))}
@@ -145,7 +145,7 @@ export default function ManagedITContent() {
       </section>
 
       <FAQSection
-        heading="Common Questions"
+        heading="Common questions"
         faqs={[
           { question: "Do I need a contract to use your managed IT services?", answer: "No. We work on a month-to-month basis. We earn your business every month by doing good work, not by trapping you in a long-term contract." },
           { question: "What does 24/7 monitoring actually mean?", answer: "Our Security Operations Center watches your network, endpoints, and cloud services around the clock. If something looks suspicious (unusual login activity, malware signatures, failed backups), we're alerted and start responding right away." },
@@ -157,7 +157,7 @@ export default function ManagedITContent() {
       />
 
       <CTABanner
-        heading="Want to See What Good IT Looks Like?"
+        heading="Want to see what good IT looks like?"
         subtitle="We'll run a free checkup on your network and show you exactly where the gaps are. No pitch, no pressure."
         primaryLabel={PRIMARY_CTA_LABEL}
       />

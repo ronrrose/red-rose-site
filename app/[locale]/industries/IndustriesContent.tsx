@@ -10,8 +10,8 @@ const industries = [
   {
     id: "dental",
     icon: Stethoscope,
-    name: "Dental Practices",
-    headline: "HIPAA IT That Knows Dentistry Inside and Out",
+    name: "Dental practices",
+    headline: "HIPAA IT that knows dentistry inside and out",
     painPoints: [
       "Dentrix or Eaglesoft running slow, freezing, or crashing during patients",
       "Imaging server that hasn't been backed up properly in months",
@@ -31,8 +31,8 @@ const industries = [
   {
     id: "healthcare",
     icon: Heart,
-    name: "Healthcare Providers",
-    headline: "Secure IT for People Who Take Care of People",
+    name: "Healthcare providers",
+    headline: "Secure IT for people who take care of people",
     painPoints: [
       "EHR/EMR systems that are slow or constantly need workarounds",
       "HIPAA paperwork eating up admin hours every month",
@@ -52,8 +52,8 @@ const industries = [
   {
     id: "legal",
     icon: Scale,
-    name: "Legal Firms",
-    headline: "Keep Client Data Safe. Get Work Done Faster.",
+    name: "Legal firms",
+    headline: "Keep client data safe. Get work done faster.",
     painPoints: [
       "Nervous about client confidentiality with cloud storage",
       "eDiscovery processes that take forever",
@@ -74,7 +74,7 @@ const industries = [
     id: "nonprofits",
     icon: Building2,
     name: "Nonprofits",
-    headline: "Do More Good With Less Budget",
+    headline: "Do more good with less budget",
     painPoints: [
       "Small IT budget but growing tech needs",
       "Donor and beneficiary data that isn't properly locked down",
@@ -94,8 +94,8 @@ const industries = [
   {
     id: "smb",
     icon: Briefcase,
-    name: "Small & Medium Businesses",
-    headline: "Big-Company IT. Small-Company Price.",
+    name: "Small & medium businesses",
+    headline: "Big-company IT. Small-company price.",
     painPoints: [
       "Outgrowing your break-fix IT guy but not ready for a full IT team",
       "Cybersecurity threats you hear about but don't know how to stop",
@@ -118,17 +118,17 @@ export default function IndustriesContent() {
   return (
     <>
       <Hero
-        badge="Industry Expertise"
+        badge="Industry expertise"
         title={
           <>
-            We Know Your Industry.{" "}
+            We know your industry.{" "}
             <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
-              That&apos;s the Point.
+              That&apos;s the point.
             </span>
           </>
         }
         subtitle="We don't do generic IT. We specialize in industries where compliance, security, and uptime aren't nice-to-haves. They're the whole job."
-        primaryCta={{ label: "Talk to Us About Your Industry", href: "/contact" }}
+        primaryCta={{ label: "Talk to us about your industry", href: "/contact" }}
         trustItems={["Dental", "Healthcare", "Legal", "Nonprofits", "SMBs"]}
       />
 
@@ -154,7 +154,7 @@ export default function IndustriesContent() {
               <div>
                 <h3 className="text-lg font-bold text-ink mb-4 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-brand-500" />
-                  Sound Familiar?
+                  Sound familiar?
                 </h3>
                 <ul className="space-y-3">
                   {ind.painPoints.map((p, i) => (
@@ -168,7 +168,7 @@ export default function IndustriesContent() {
               <div>
                 <h3 className="text-lg font-bold text-ink mb-4 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-accent" />
-                  Here&apos;s What We Do About It
+                  Here&apos;s what we do about it
                 </h3>
                 <ul className="space-y-3">
                   {ind.services.map((s, i) => (
@@ -185,7 +185,7 @@ export default function IndustriesContent() {
       ))}
 
       <FAQSection
-        heading="Industry-Specific Questions"
+        heading="Industry-specific questions"
         faqs={[
           { question: "Do you work with my specific dental software?", answer: "Yes. We have hands-on experience with Dentrix, Eaglesoft, Open Dental, Curve Dental, and Dexis imaging. If you use it in a dental practice, we've probably set it up, migrated it, or fixed it." },
           { question: "What makes your healthcare IT different from other MSPs?", answer: "We start with HIPAA. Most MSPs add compliance as an afterthought. We build security controls, documentation, and risk assessments into every engagement from day one. We also understand EHR/EMR workflows so we don't slow your staff down." },
@@ -196,7 +196,7 @@ export default function IndustriesContent() {
       />
 
       <CTABanner
-        heading="Let's Talk About Your Industry"
+        heading="Let's talk about your industry"
         subtitle="Every business has its own headaches. Tell us yours and we'll show you exactly how we'd handle it."
         primaryLabel={PRIMARY_CTA_LABEL}
       />

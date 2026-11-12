@@ -95,7 +95,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
           <h1
             className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-ink leading-[1.08] mb-8"
           >
-            Managed IT Services for Dental Practices in{" "}
+            Managed IT services for dental practices in{" "}
             <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
               {`${city.name}, FL`}
             </span>
@@ -152,14 +152,14 @@ export default function CityLandingContent({ city }: { city: CityData }) {
               Why Us
             </p>
             <h2 className="text-3xl md:text-5xl font-bold text-ink">
-              Why {city.name} Dental Practices Choose Red Rose Technologies
+              Why {city.name} dental practices choose Red Rose Technologies
             </h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {[
               {
                 icon: Shield,
-                title: "HIPAA Compliance Automation",
+                title: "HIPAA compliance automation",
                 detail:
                   "Continuous monitoring, encryption, and documentation",
               },
@@ -170,13 +170,13 @@ export default function CityLandingContent({ city }: { city: CityData }) {
               },
               {
                 icon: Plug,
-                title: "Practice Management Integration",
+                title: "Practice management integration",
                 detail:
                   "Hands-on support for Dentrix, Eaglesoft and Open Dental",
               },
               {
                 icon: MapPin,
-                title: "Local Support",
+                title: "Local support",
                 detail: `On-site service in ${city.name}, ${city.nearbyCities.join(", ")}, and ${city.county} County`,
               },
             ].map((item, i) => (
@@ -208,7 +208,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
               Pricing
             </p>
             <h2 className="text-3xl md:text-5xl font-bold text-ink mb-4">
-              Services for {city.name} Dental Offices
+              Services for {city.name} dental offices
             </h2>
             <p className="text-secondary text-lg">
               Flat-rate pricing. No hidden fees. HIPAA compliance included in
@@ -225,7 +225,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
               >
                 {tier.popular && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-white text-xs font-bold rounded-full">
-                    Most Popular
+                    Most popular
                   </span>
                 )}
                 <h3 className="text-xl font-bold text-ink mb-2">
@@ -259,7 +259,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
                       : "border border-line text-ink hover:bg-raised/50"
                   }`}
                 >
-                  Get Started
+                  Get started
                 </Link>
               </Reveal>
             ))}
@@ -278,7 +278,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
               Challenges
             </p>
             <h2 className="text-3xl md:text-5xl font-bold text-ink">
-              Common IT Challenges for {city.name} Dental Practices
+              Common IT challenges for {city.name} dental practices
             </h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
@@ -344,7 +344,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
 
       {/* ── CTA ──────────────────────────────────────────── */}
       <CTABanner
-        heading={`Ready to Fix IT for Your ${city.name} Practice?`}
+        heading={`Ready to fix IT for your ${city.name} practice?`}
         subtitle="We'll run a free checkup on your network, show you where the gaps are, and give you an honest plan. No pitch, no pressure."
         primaryLabel={PRIMARY_CTA_LABEL}
       />

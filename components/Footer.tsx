@@ -5,11 +5,11 @@ import { ADDRESS_LOCALITY, ADDRESS_REGION, PHONE_DISPLAY, PHONE_HREF } from "@/l
 
 const serviceLinks = [
   { label: "AI & Automation Clinics", href: "/ai-clinics" },
-  { label: "Managed IT & Security",   href: "/managed-it" },
-  { label: "Dental IT Support",       href: "/industries" },
-  { label: "HIPAA Compliance",        href: "/managed-it" },
+  { label: "Managed IT & security",   href: "/managed-it" },
+  { label: "Dental IT support",       href: "/industries" },
+  { label: "HIPAA compliance",        href: "/managed-it" },
   { label: "Cybersecurity",           href: "/managed-it" },
-  { label: "Cloud Setup & Migration", href: "/managed-it" },
+  { label: "Cloud setup & migration", href: "/managed-it" },
 ];
 const companyLinks = [
   { label: "About",      href: "/about" },
@@ -89,14 +89,14 @@ export default function Footer() {
               <p className="text-ink font-semibold text-sm mb-1">24/7 Emergency Line</p>
               <p className="text-faded text-xs mb-2">Current clients receive a dedicated priority number during onboarding.</p>
               <Link href="/contact" className="text-accent text-xs font-semibold hover:text-brand-600 transition-colors">
-                Become a Client &rarr;
+                Become a client &rarr;
               </Link>
             </div>
             <Link
               href="/contact?ref=dark-web-scan"
               className="block mt-4 p-4 rounded-xl border border-accent/20 bg-[var(--accent-bg)] hover:bg-accent/10 transition-colors"
             >
-              <p className="text-accent font-semibold text-sm">Free Dark Web Scan</p>
+              <p className="text-accent font-semibold text-sm">Free dark web scan</p>
               <p className="text-faded text-xs mt-1">Check if your business data has been exposed.</p>
             </Link>
           </div>

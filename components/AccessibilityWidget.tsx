@@ -261,7 +261,7 @@ export default function AccessibilityWidget() {
                 onChange={(e) => update("highContrast", e.target.checked)}
                 className="w-4 h-4 accent-[#4a6cf7] rounded"
               />
-              <span className="font-medium">High Contrast</span>
+              <span className="font-medium">High contrast</span>
             </label>
             <label className="flex items-center gap-3 text-secondary cursor-pointer">
               <input
@@ -270,7 +270,7 @@ export default function AccessibilityWidget() {
                 onChange={(e) => update("reduceMotion", e.target.checked)}
                 className="w-4 h-4 accent-[#4a6cf7] rounded"
               />
-              <span className="font-medium">Reduce Motion</span>
+              <span className="font-medium">Reduce motion</span>
             </label>
 
             {/* Screen Reader with play/stop */}
@@ -282,7 +282,7 @@ export default function AccessibilityWidget() {
                   onChange={(e) => toggleScreenReader(e.target.checked)}
                   className="w-4 h-4 accent-[#4a6cf7] rounded"
                 />
-                <span className="font-medium">Screen Reader</span>
+                <span className="font-medium">Screen reader</span>
               </label>
               {settings.screenReader && (
                 <button
@@ -312,7 +312,7 @@ export default function AccessibilityWidget() {
                 onChange={(e) => update("contentStructure", e.target.checked)}
                 className="w-4 h-4 accent-[#4a6cf7] rounded"
               />
-              <span className="font-medium">Content Structure</span>
+              <span className="font-medium">Content structure</span>
             </label>
           </div>
 

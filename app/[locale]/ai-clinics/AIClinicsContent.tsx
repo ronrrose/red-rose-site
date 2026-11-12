@@ -10,7 +10,7 @@ import { CheckCircle2, Users, Lightbulb, Presentation, Gift, Building2 } from "l
 const sessions = [
   {
     number: "01",
-    title: "AI Basics That Actually Matter",
+    title: "AI basics that actually matter",
     bullets: [
       "We cut through the buzzwords and show you what AI can do right now",
       "Live demos with ChatGPT, Google Gemini, and Microsoft Copilot on real business tasks",
@@ -20,7 +20,7 @@ const sessions = [
   },
   {
     number: "02",
-    title: "Build Your First Automations (For Real)",
+    title: "Build your first automations (for real)",
     bullets: [
       "Set up automated email replies, scheduling, and follow-ups",
       "Create AI-powered document templates for your industry",
@@ -30,7 +30,7 @@ const sessions = [
   },
   {
     number: "03",
-    title: "Do It Right, Then Scale It",
+    title: "Do it right, then scale it",
     bullets: [
       "Learn what can go wrong with AI: privacy, bad outputs, compliance risks",
       "HIPAA-safe and regulation-safe ways to use AI in healthcare and legal",
@@ -61,7 +61,7 @@ export default function AIClinicsContent() {
   return (
     <>
       <Hero
-        badge="Flagship Program"
+        badge="Flagship program"
         title={
           <>
             AI &amp; Automation{" "}
@@ -71,8 +71,8 @@ export default function AIClinicsContent() {
           </>
         }
         subtitle="Three sessions that teach your team to actually use AI. Not theory. Not slides. You'll build real automations and leave with tools designed to take repetitive work off your team."
-        primaryCta={{ label: "Save My Spot", href: "/contact" }}
-        secondaryCta={{ label: "Host a Clinic", href: "/contact" }}
+        primaryCta={{ label: "Save my spot", href: "/contact" }}
+        secondaryCta={{ label: "Host a clinic", href: "/contact" }}
       />
 
       {/* ── 3-Session Breakdown ── */}
@@ -80,7 +80,7 @@ export default function AIClinicsContent() {
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">The Curriculum</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-ink">Three Sessions. Real Results.</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink">Three sessions. Real results.</h2>
           </div>
 
           <div className="space-y-8 max-w-4xl mx-auto">
@@ -112,7 +112,7 @@ export default function AIClinicsContent() {
             <div>
               <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Who This Is For</p>
               <h2 className="text-3xl md:text-4xl font-bold text-ink mb-6">
-                Curious About AI but Tired of the Hype?
+                Curious about AI but tired of the hype?
               </h2>
               <ul className="space-y-4">
                 {whoItsFor.map((item, i) => (
@@ -127,7 +127,7 @@ export default function AIClinicsContent() {
             <div>
               <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">What You Get</p>
               <h2 className="text-3xl md:text-4xl font-bold text-ink mb-6">
-                No Fluff. Working Automations.
+                No fluff. Working automations.
               </h2>
               <ul className="space-y-4">
                 {whatYouGet.map((item, i) => (
@@ -147,13 +147,13 @@ export default function AIClinicsContent() {
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">How It Works</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-ink">Pretty Simple, Actually</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink">Pretty simple, actually</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
-              { step: "1", icon: Presentation, title: "Book or Host", desc: "Sign up for a public clinic, or bring a private one to your team, chamber, or SBDC group." },
-              { step: "2", icon: Lightbulb, title: "Show Up & Build", desc: "Attend 3 sessions. Bring your laptop. You'll leave with real automations actually running." },
-              { step: "3", icon: CheckCircle2, title: "Roll It Out", desc: "Use your 90-day roadmap and post-clinic support to spread it across your team." },
+              { step: "1", icon: Presentation, title: "Book or host", desc: "Sign up for a public clinic, or bring a private one to your team, chamber, or SBDC group." },
+              { step: "2", icon: Lightbulb, title: "Show up & build", desc: "Attend 3 sessions. Bring your laptop. You'll leave with real automations actually running." },
+              { step: "3", icon: CheckCircle2, title: "Roll it out", desc: "Use your 90-day roadmap and post-clinic support to spread it across your team." },
             ].map((s) => (
               <div key={s.step} className="glass-card p-8 rounded-2xl text-center relative">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-brand-700 text-white text-sm font-bold flex items-center justify-center shadow-lg shadow-brand-700/30">
@@ -173,7 +173,7 @@ export default function AIClinicsContent() {
         <div className="container-site text-center max-w-3xl mx-auto">
           <Building2 className="w-12 h-12 text-accent mx-auto mb-6" aria-hidden="true" />
           <h2 className="text-3xl md:text-4xl font-bold text-ink mb-6">
-            Bring a Clinic to Your Community
+            Bring a clinic to your community
           </h2>
           <p className="text-secondary text-lg leading-relaxed mb-4">
             Chambers of commerce, SBDCs, SCORE chapters, the LWRBA, or any business group. We&apos;ll bring the whole thing to your members for free.
@@ -185,7 +185,7 @@ export default function AIClinicsContent() {
             href="/contact"
             className="inline-flex px-8 py-4 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-semibold transition-all shadow-lg shadow-brand-700/25"
           >
-            Let&apos;s Set It Up
+            Let&apos;s set it up
           </Link>
         </div>
       </section>
@@ -203,7 +203,7 @@ export default function AIClinicsContent() {
                 className="w-28 h-28 rounded-2xl object-cover shrink-0"
               />
               <div>
-                <p className="text-accent font-semibold text-sm mb-1">Your Instructor</p>
+                <p className="text-accent font-semibold text-sm mb-1">Your instructor</p>
                 <h3 className="text-2xl font-bold text-ink mb-4">Ron Rose</h3>
                 <p className="text-secondary leading-relaxed mb-4">
                   I&apos;m Ron. I run Red Rose Technologies and I built these clinics because I got tired of watching local businesses get left behind on AI. I&apos;m Google AI Essentials certified, CompTIA credentialed, and I&apos;ve spent years in HIPAA-compliant IT for dental practices. I know what works for non-technical teams because I&apos;ve sat across the table from them hundreds of times.
@@ -218,7 +218,7 @@ export default function AIClinicsContent() {
       </section>
 
       <FAQSection
-        heading="Questions About the Clinics"
+        heading="Questions about the clinics"
         faqs={[
           { question: "Do I need any technical background to attend?", answer: "Not at all. These clinics are designed for business owners, office managers, and team leads, not engineers. If you can use email and a web browser, you're ready." },
           { question: "What tools will we actually use in the sessions?", answer: "ChatGPT, Google Gemini, Microsoft Copilot, Zapier, Make, and Power Automate. You'll get hands-on time with each one and leave with automations actually running." },
@@ -230,10 +230,10 @@ export default function AIClinicsContent() {
       />
 
       <CTABanner
-        heading="Want to Stop Guessing About AI?"
+        heading="Want to stop guessing about AI?"
         subtitle="Grab a seat in the next clinic or bring one to your group. Either way, you'll leave knowing exactly what to do."
-        primaryLabel="Save My Spot"
-        secondaryLabel="Host a Clinic"
+        primaryLabel="Save my spot"
+        secondaryLabel="Host a clinic"
       />
     </>
   );

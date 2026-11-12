@@ -11,9 +11,9 @@ import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 import Marquee from "@/components/magicui/marquee";
 
 const industries = [
-  { icon: Stethoscope, label: "Dental Practices" },
+  { icon: Stethoscope, label: "Dental practices" },
   { icon: Heart,       label: "Healthcare" },
-  { icon: Scale,       label: "Legal Firms" },
+  { icon: Scale,       label: "Legal firms" },
   { icon: Building2,   label: "Nonprofits" },
   { icon: Briefcase,   label: "Local SMBs" },
 ];
@@ -46,19 +46,19 @@ export default function HomeContent() {
   return (
     <>
       <Hero
-        badge="AI + Automation + Security for Local Businesses"
+        badge="AI + automation + security for local businesses"
         title={
           <>
-            AI &amp; Automation That <br className="hidden md:block" />
+            AI &amp; automation that <br className="hidden md:block" />
             <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
-              Actually Works
+              actually works
             </span>{" "}
-            for Local Businesses.
+            for local businesses.
           </>
         }
         subtitle="You've heard the AI hype. We skip that part. We show dental practices, law firms, nonprofits, and local shops across Tampa Bay how to automate the stuff that's eating their week. And we keep the tech running so they don't have to think about it."
         primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
-        secondaryCta={{ label: "Check Out AI Clinics", href: "/ai-clinics" }}
+        secondaryCta={{ label: "Check out AI Clinics", href: "/ai-clinics" }}
         trustItems={[
           "Google AI Certified",
           "CompTIA Certified",
@@ -72,7 +72,7 @@ export default function HomeContent() {
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">What We Do</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-ink">Three Things We&apos;re Really Good At</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink">Three things we&apos;re really good at</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             <ServiceCard
@@ -84,14 +84,14 @@ export default function HomeContent() {
             />
             <ServiceCard
               icon={Shield}
-              title="Managed IT & Security"
+              title="Managed IT & security"
               description="We watch your network, keep you compliant, and fix problems before you notice them. HIPAA, cybersecurity, all of it."
               href="/managed-it"
               cta="See managed IT and security"
             />
             <ServiceCard
               icon={Building2}
-              title="Industries We Serve"
+              title="Industries we serve"
               description="Dental offices, law firms, healthcare, nonprofits, and local businesses. We know your software and we speak your language."
               href="/industries"
               cta="See the industries we serve"
@@ -106,7 +106,7 @@ export default function HomeContent() {
           <div className="text-center max-w-3xl mx-auto mb-14">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Who We Help</p>
             <h2 className="text-3xl md:text-5xl font-bold text-ink mb-6">
-              People Who Can&apos;t Afford IT That Doesn&apos;t Work
+              People who can&apos;t afford IT that doesn&apos;t work
             </h2>
             <p className="text-faded text-lg">
               If your business depends on the tech actually working, and you&apos;re tired of surprise bills and slow responses, we should talk.
@@ -174,7 +174,7 @@ export default function HomeContent() {
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">What People Say</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-ink">Don&apos;t Take Our Word for It</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink">Don&apos;t take our word for it</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <TestimonialCard

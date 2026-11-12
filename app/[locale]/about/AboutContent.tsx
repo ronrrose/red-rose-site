@@ -9,25 +9,25 @@ import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 const differentiators = [
   {
     icon: Lightbulb,
-    title: "We Think Like Operators",
+    title: "We think like operators",
     description:
       "We don't sell tech for the sake of selling tech. Every recommendation starts with understanding how your business actually runs.",
   },
   {
     icon: ShieldCheck,
-    title: "Compliance Is the Starting Point",
+    title: "Compliance is the starting point",
     description:
       "HIPAA, SOC 2, industry regulations. These aren't add-ons. They're built into every setup from day one.",
   },
   {
     icon: Users,
-    title: "We Already Know Your Tools",
+    title: "We already know your tools",
     description:
       "Dentrix, Clio, QuickBooks, and the rest. We don't spend your time learning your software. We already know it.",
   },
   {
     icon: HeartHandshake,
-    title: "No Contracts, No Lock-In",
+    title: "No contracts, no lock-in",
     description:
       "We earn your business every month by doing good work. Not by trapping you in a contract. No hidden fees, ever.",
   },
@@ -47,15 +47,15 @@ export default function AboutContent() {
         badge="About Red Rose Technologies"
         title={
           <>
-            Built by an Operator,{" "}
+            Built by an operator,{" "}
             <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
-              for Operators
+              for operators
             </span>
           </>
         }
         subtitle="We're not another faceless IT company. Red Rose Technologies was built by someone who knows what it's like to run a business, and what it costs when the tech doesn't work."
-        primaryCta={{ label: "Work With Us", href: "/contact" }}
-        secondaryCta={{ label: "See What We Do", href: "/managed-it" }}
+        primaryCta={{ label: "Work with us", href: "/contact" }}
+        secondaryCta={{ label: "See what we do", href: "/managed-it" }}
       />
 
       {/* ── Our Story ── */}
@@ -64,7 +64,7 @@ export default function AboutContent() {
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Our Story</p>
             <h2 className="text-3xl md:text-4xl font-bold text-ink mb-8">
-              Why Red Rose Technologies Exists
+              Why Red Rose Technologies exists
             </h2>
             <div className="text-secondary text-lg leading-relaxed space-y-6 text-left">
               <p>
@@ -87,7 +87,7 @@ export default function AboutContent() {
           <div className="text-center max-w-3xl mx-auto mb-14">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">How We Work</p>
             <h2 className="text-3xl md:text-5xl font-bold text-ink">
-              Four Things We Don&apos;t Bend On
+              Four things we don&apos;t bend on
             </h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -109,7 +109,7 @@ export default function AboutContent() {
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <p className="text-accent font-semibold tracking-wide uppercase text-sm mb-3">Credentials</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-ink">We Did the Homework</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-ink">We did the homework</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {credentials.map((c) => (
@@ -144,7 +144,7 @@ export default function AboutContent() {
                 className="w-24 h-24 rounded-2xl object-cover shrink-0"
               />
               <div>
-                <p className="text-accent font-semibold text-sm mb-1">A Note from the Founder</p>
+                <p className="text-accent font-semibold text-sm mb-1">A note from the founder</p>
                 <h3 className="text-2xl font-bold text-ink mb-4">Ron Rose</h3>
                 <div className="text-secondary leading-relaxed space-y-4 text-sm">
                   <p>
@@ -165,7 +165,7 @@ export default function AboutContent() {
       </section>
 
       <CTABanner
-        heading="Want to Have a Real Conversation?"
+        heading="Want to have a real conversation?"
         subtitle="Reach out for a free, no-pressure assessment. If we're a fit, great. If not, you'll still walk away with useful info."
         primaryLabel={PRIMARY_CTA_LABEL}
       />
