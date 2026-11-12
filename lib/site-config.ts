@@ -66,13 +66,13 @@ export const SITE_URL = "https://www.redrosetechnologies.com";
  * Technologies Ltd" trades in Swindon, UK, and a cloudtango.net listing under
  * our name is in fact theirs, so neither is listed.
  *
- * Verified 2026-10-25: the LinkedIn company page resolves (HTTP 200). No
- * Google Business Profile, Facebook page, YouTube channel or X account was
- * found for the LLC. Add each one here as it is created.
+ * Removed 2026-11-12: linkedin.com/company/red-rose-technologies resolves,
+ * but it is a different company (software testing with an offshore model),
+ * not the LLC. Add the LLC's own LinkedIn page here once Ron confirms its URL.
+ * No Google Business Profile, Facebook page, YouTube channel or X account was
+ * found for the LLC either. Add each one here as it is created.
  */
-export const PROFILE_URLS: string[] = [
-  "https://www.linkedin.com/company/red-rose-technologies",
-];
+export const PROFILE_URLS: string[] = [];
 
 /* ── IndexNow ─────────────────────────────────────────────────────────────
  * Submitting a URL to IndexNow pushes it to Bing and Yandex within minutes
