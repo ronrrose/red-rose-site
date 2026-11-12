@@ -80,18 +80,21 @@ export default function HomeContent() {
               title="AI & Automation Clinics"
               description="Hands-on workshops where your team builds real automations. Not a lecture. You'll walk out with automations built to give your team time back."
               href="/ai-clinics"
+              cta="See the AI clinics"
             />
             <ServiceCard
               icon={Shield}
               title="Managed IT & Security"
               description="We watch your network, keep you compliant, and fix problems before you notice them. HIPAA, cybersecurity, all of it."
               href="/managed-it"
+              cta="See managed IT and security"
             />
             <ServiceCard
               icon={Building2}
               title="Industries We Serve"
               description="Dental offices, law firms, healthcare, nonprofits, and local businesses. We know your software and we speak your language."
               href="/industries"
+              cta="See the industries we serve"
             />
           </div>
         </div>
@@ -157,7 +160,7 @@ export default function HomeContent() {
             {PLATFORMS.map((name) => (
               <span
                 key={name}
-                className="text-lg md:text-xl font-semibold tracking-tight text-faded/80 transition-colors hover:text-ink whitespace-nowrap"
+                className="text-lg md:text-xl font-semibold tracking-tight text-faded transition-colors hover:text-ink whitespace-nowrap"
               >
                 {name}
               </span>

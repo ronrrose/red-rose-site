@@ -26,7 +26,8 @@
   --color-raised: 229 229 229;
   --color-ink: 26 26 26;
   --color-secondary: 64 64 64;
-  --color-faded: 115 115 115;
+  /* #646464: at least 4.5:1 on every light panel (4.70 on #e5e5e5, 5.92 on white). */
+  --color-faded: 100 100 100;
   --color-line: 229 229 229;
   --color-accent: 139 26 26;
   --color-input: 255 255 255;

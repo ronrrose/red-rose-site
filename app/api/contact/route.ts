@@ -274,7 +274,7 @@ export async function POST(req: NextRequest) {
     await getResend().emails.send({
       from: "Red Rose Technologies <noreply@redrosetechnologies.com>",
       to: [body.email],
-      subject: "We got your message — Red Rose Technologies",
+      subject: "We got your message | Red Rose Technologies",
       html: `
         <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;">
           <h2 style="color:#8b1a1a;">Thanks for reaching out, ${safe.firstName}!</h2>
@@ -286,7 +286,7 @@ export async function POST(req: NextRequest) {
           </p>
           <hr style="border:none;border-top:1px solid #e5e5e5;margin:24px 0;" />
           <p style="font-size:12px;color:#999;">
-            Red Rose Technologies — IT, Automation & Security for Local Businesses<br>
+            Red Rose Technologies: IT, Automation & Security for Local Businesses<br>
             Lakewood Ranch, FL
           </p>
         </div>

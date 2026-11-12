@@ -235,7 +235,7 @@ export default function AvaStream() {
               )}
             </div>
           )}
-          <div className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white">
+          <div className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-xs font-medium text-white">
             {badge}
           </div>
         </div>
