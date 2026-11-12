@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/lib/site-config";
 
 const navLinks = [
@@ -71,7 +70,7 @@ export default function NavBar() {
           ))}
         </div>
 
-        {/* Desktop CTA + Toggle + Language */}
+        {/* Desktop CTA + Toggle */}
         <div className="hidden lg:flex items-center gap-3">
           <a
             href={PHONE_HREF}
@@ -79,7 +78,6 @@ export default function NavBar() {
           >
             {PHONE_DISPLAY}
           </a>
-          <LanguageSwitcher />
           <ThemeToggle />
           <Link
             href="/contact"
@@ -91,7 +89,6 @@ export default function NavBar() {
 
         {/* Mobile toggle */}
         <div className="flex items-center gap-2 lg:hidden">
-          <LanguageSwitcher />
           <ThemeToggle />
           <button
             onClick={() => setOpen(!open)}
