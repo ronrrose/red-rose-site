@@ -10,12 +10,6 @@
     "getAssessment": "Book a free IT checkup",
     "getFreeAssessment": "Book a free IT checkup"
   },
-  "Cookie": {
-    "message": "We only store your site preferences. No analytics or advertising cookies. You can manage your preferences anytime.",
-    "accept": "Accept All",
-    "reject": "Reject All",
-    "manage": "Manage Preferences"
-  },
   "Contact": {
     "title": "Let's Talk",
     "subtitle": "Book a Call.\nGet Real Answers.",

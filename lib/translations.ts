@@ -19,10 +19,6 @@ export const translations: Record<Locale, Record<string, string>> = {
     "nav.contact": "Contact",
     "nav.getAssessment": "Get Assessment",
     "nav.getFreeAssessment": "Get Free Assessment",
-    "cookie.message": "We only store your site preferences. No analytics or advertising cookies. You can manage your preferences anytime.",
-    "cookie.accept": "Accept All",
-    "cookie.reject": "Reject All",
-    "cookie.manage": "Manage Preferences",
   },
   es: {
     "nav.home": "Inicio",
@@ -34,10 +30,6 @@ export const translations: Record<Locale, Record<string, string>> = {
     "nav.contact": "Contacto",
     "nav.getAssessment": "Evaluaci\u00f3n",
     "nav.getFreeAssessment": "Evaluaci\u00f3n Gratuita",
-    "cookie.message": "Solo guardamos tus preferencias del sitio. Sin cookies de an\u00e1lisis ni de publicidad.",
-    "cookie.accept": "Aceptar Todo",
-    "cookie.reject": "Rechazar Todo",
-    "cookie.manage": "Gestionar Preferencias",
   },
   pt: {
     "nav.home": "In\u00edcio",
@@ -49,10 +41,6 @@ export const translations: Record<Locale, Record<string, string>> = {
     "nav.contact": "Contato",
     "nav.getAssessment": "Avalia\u00e7\u00e3o",
     "nav.getFreeAssessment": "Avalia\u00e7\u00e3o Gratuita",
-    "cookie.message": "Guardamos apenas suas prefer\u00eancias do site. Sem cookies de an\u00e1lise ou de publicidade.",
-    "cookie.accept": "Aceitar Tudo",
-    "cookie.reject": "Rejeitar Tudo",
-    "cookie.manage": "Gerenciar Prefer\u00eancias",
   },
   fr: {
     "nav.home": "Accueil",
@@ -64,9 +52,5 @@ export const translations: Record<Locale, Record<string, string>> = {
     "nav.contact": "Contact",
     "nav.getAssessment": "\u00c9valuation",
     "nav.getFreeAssessment": "\u00c9valuation Gratuite",
-    "cookie.message": "Nous enregistrons seulement vos pr\u00e9f\u00e9rences sur le site. Aucun cookie d\u2019analyse ni de publicit\u00e9.",
-    "cookie.accept": "Tout Accepter",
-    "cookie.reject": "Tout Refuser",
-    "cookie.manage": "G\u00e9rer les Pr\u00e9f\u00e9rences",
   },
 };
