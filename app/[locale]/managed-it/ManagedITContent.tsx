@@ -99,21 +99,15 @@ export default function ManagedITContent() {
             {[
               {
                 name: "Essentials",
-                price: "49",
-                unit: "/user/mo",
                 features: ["24/7 network monitoring", "Helpdesk support (business hours)", "Antivirus & endpoint protection", "Patch management", "Monthly health reports"],
               },
               {
                 name: "Professional",
-                price: "89",
-                unit: "/user/mo",
                 popular: true,
                 features: ["Everything in Essentials", "HIPAA/compliance documentation", "Cloud backup & disaster recovery", "Advanced threat detection (SOC)", "On-site support (as needed)", "Quarterly business reviews"],
               },
               {
                 name: "Enterprise",
-                price: "Custom",
-                unit: "",
                 features: ["Everything in Professional", "Dedicated account manager", "Custom integrations & automation", "Virtual CTO consulting", "Priority 24/7 emergency line", "Multi-location support"],
               },
             ].map((plan) => (
@@ -122,10 +116,8 @@ export default function ManagedITContent() {
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-white text-xs font-bold rounded-full">Most popular</span>
                 )}
                 <h3 className="text-xl font-bold text-ink mb-2">{plan.name}</h3>
-                <div className="mb-6">
-                  <span className="text-3xl font-bold text-ink">{plan.price === "Custom" ? "" : "$"}{plan.price}</span>
-                  {plan.unit && <span className="text-faded text-sm">{plan.unit}</span>}
-                </div>
+                {/* No published prices, to match Ava and the FAQ: every plan is priced after the free checkup. */}
+                <p className="mb-6 text-sm font-semibold text-accent">Priced for your business after a free IT checkup</p>
                 <ul className="space-y-3 flex-1 mb-8">
                   {plan.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-secondary text-sm">
@@ -135,7 +127,7 @@ export default function ManagedITContent() {
                   ))}
                 </ul>
                 <a href="/contact" className={`block text-center px-6 py-3 rounded-xl font-semibold transition-all text-sm ${plan.popular ? "bg-brand-700 hover:bg-brand-800 text-white shadow-lg shadow-brand-700/25" : "border border-line text-ink hover:bg-raised/50"}`}>
-                  {plan.price === "Custom" ? "Talk to us" : "Get started"}
+                  {PRIMARY_CTA_LABEL}
                 </a>
               </div>
             ))}
