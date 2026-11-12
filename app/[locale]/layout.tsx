@@ -15,6 +15,10 @@ import ChatWidget from "@/components/ChatWidget";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const dynamic = "force-static";
+// Only the four real locales. Anything else (say /old-page.php, which skips the
+// middleware) falls through to app/not-found.tsx instead of being rendered on
+// demand as a fake locale, which Next 14 answers with an empty error shell.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

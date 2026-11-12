@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { localeAlternates } from "@/lib/metadata";
+import { localeAlternates, pageOpenGraph } from "@/lib/metadata";
 import { CONTACT_EMAIL, PHONE_DISPLAY } from "@/lib/site-config";
 import type { Locale } from "@/i18n/config";
 
@@ -12,9 +12,9 @@ export async function generateMetadata({
     title: "Privacy Policy",
     description:
       "Red Rose Technologies privacy policy. Learn how we collect, use, and protect your personal information.",
-    openGraph: {
-      title: "Privacy Policy — Red Rose Technologies",
-    },
+    openGraph: pageOpenGraph({
+      title: "Privacy Policy: Red Rose Technologies",
+    }),
     alternates: localeAlternates("/privacy", params.locale),
   };
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { localeAlternates } from "@/lib/metadata";
+import { localeAlternates, pageOpenGraph } from "@/lib/metadata";
 import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 
@@ -12,11 +12,11 @@ export async function generateMetadata({
     title: "The SMB Cybersecurity Checklist: 12 Things to Do Before You Get Hacked",
     description:
       "Most small businesses think they're too small to get targeted. They're not. Here's a plain-English checklist to lock things down before it's too late.",
-    openGraph: {
-      title: "SMB Cybersecurity Checklist — 12 Steps to Protect Your Business",
+    openGraph: pageOpenGraph({
+      title: "SMB Cybersecurity Checklist: 12 Steps to Protect Your Business",
       description:
         "A plain-English cybersecurity checklist for small and medium businesses. Practical steps you can take this week.",
-    },
+    }),
     alternates: localeAlternates("/resources/smb-cybersecurity-checklist", params.locale),
   };
 }

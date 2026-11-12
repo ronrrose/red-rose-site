@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { localeAlternates } from "@/lib/metadata";
+import { localeAlternates, pageOpenGraph } from "@/lib/metadata";
 import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 
@@ -12,11 +12,11 @@ export async function generateMetadata({
     title: "5 AI Automations Every Dental Office Should Set Up This Week",
     description:
       "Stop copy-pasting patient reminders, appointment confirmations, and intake forms. These five no-code automations take under an hour to set up and are built to take repetitive front-desk work off your team.",
-    openGraph: {
+    openGraph: pageOpenGraph({
       title: "5 AI Automations Every Dental Office Should Set Up This Week",
       description:
         "No-code automations that take repetitive front-desk work off dental teams. Patient reminders, intake forms, reviews, and more.",
-    },
+    }),
     alternates: localeAlternates("/resources/ai-automations-dental", params.locale),
   };
 }
