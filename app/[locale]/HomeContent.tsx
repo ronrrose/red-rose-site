@@ -7,7 +7,7 @@ import TestimonialCard from "@/components/TestimonialCard";
 import CTABanner from "@/components/CTABanner";
 import FAQSection from "@/components/FAQSection";
 import { homeFaqs } from "@/lib/faq-data";
-import { ArrowRight, Bot, Shield, Building2, Stethoscope, Scale, Heart, Briefcase } from "lucide-react";
+import { ArrowRight, ShieldCheck, Bot, Shield, Building2, Stethoscope, Scale, Heart, Briefcase } from "lucide-react";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 import Marquee from "@/components/magicui/marquee";
 
@@ -65,8 +65,9 @@ export default function HomeContent() {
               </span>
             </h1>
             <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-secondary [text-wrap:pretty] md:text-xl lg:mx-0">
-              We look at how your practice actually runs, cut the work and spend that isn&apos;t paying
-              off, and automate what should run itself. It starts with a free IT checkup.
+              We look at how your practice works day to day, cut the work and spend that isn&apos;t
+              paying off, and automate what should run itself. Every plan is set up around how your
+              practice runs, starting with a free IT checkup.
             </p>
             {/* Auto width, centred on phones: a full-width button ran under the
                 floating Ava and accessibility buttons in the bottom corners. */}
@@ -113,6 +114,17 @@ export default function HomeContent() {
               </p>
             </div>
           </div>
+          {/* A person's credential, which Ron holds (issuer as listed on /about).
+              Not a "HIPAA Compliant" badge: no such certification exists. */}
+          <p className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-sm text-secondary">
+            <ShieldCheck className="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+            <span>
+              Ron Rose holds the HIPAA Security Specialist credential from HIPAA Training &amp; Certification.
+            </span>
+            <Link href="/about" className="font-semibold text-accent hover:underline">
+              See Ron&apos;s credentials
+            </Link>
+          </p>
         </div>
       </section>
 
