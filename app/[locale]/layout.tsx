@@ -7,7 +7,6 @@ import ThemeProvider from "@/components/ThemeProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { I18nProvider } from "@/lib/i18n-context";
-import CookieBanner from "@/components/CookieBanner";
 import JsonLd from "@/components/JsonLd";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -16,6 +15,10 @@ import ChatWidget from "@/components/ChatWidget";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const dynamic = "force-static";
+// Only the four real locales. Anything else (say /old-page.php, which skips the
+// middleware) falls through to app/not-found.tsx instead of being rendered on
+// demand as a fake locale, which Next 14 answers with an empty error shell.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -52,7 +55,6 @@ export default async function LocaleLayout({
               <Breadcrumbs />
               <main id="main-content">{children}</main>
               <Footer />
-              <CookieBanner />
               <AccessibilityWidget />
               <ChatWidget />
               <JsonLd />

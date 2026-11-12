@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import { type LucideIcon } from "lucide-react";
 
 interface Feature {
@@ -37,12 +37,9 @@ export default function FeatureGrid({
 
         <div className={`grid md:grid-cols-${columns} gap-8 ${columns === 2 ? "max-w-4xl mx-auto" : ""}`}>
           {items.map((item, idx) => (
-            <motion.div
+            <Reveal
               key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              delay={idx * 100}
               className="glass-card p-8 rounded-2xl"
             >
               <div className="w-12 h-12 bg-[var(--accent-bg)] border border-[var(--accent-border)] rounded-xl flex items-center justify-center mb-5 text-accent">
@@ -50,7 +47,7 @@ export default function FeatureGrid({
               </div>
               <h3 className="text-lg font-bold text-ink mb-2">{item.title}</h3>
               <p className="text-faded text-sm leading-relaxed">{item.description}</p>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>

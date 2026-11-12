@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
@@ -33,11 +33,7 @@ export default function CTABanner({
       <div className="absolute inset-0 pointer-events-none cta-glow" />
 
       <div className="container-site relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+        <Reveal
           className="max-w-4xl mx-auto rounded-3xl p-10 md:p-16 text-center glass-card"
         >
           <h2 className="text-3xl md:text-5xl font-bold text-ink mb-6">
@@ -73,7 +69,7 @@ export default function CTABanner({
               ))}
             </div>
           )}
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

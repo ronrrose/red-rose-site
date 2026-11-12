@@ -45,7 +45,7 @@ export default function FAQSection({ label = "FAQ", heading, faqs }: FAQSectionP
                 className="w-full flex items-center justify-between p-6 text-left"
                 aria-expanded={openIndex === i}
               >
-                <span className="text-ink font-semibold text-[15px] pr-4">{faq.question}</span>
+                <span className="text-ink font-semibold text-sm pr-4">{faq.question}</span>
                 <ChevronDown
                   className={`w-5 h-5 text-faded shrink-0 transition-transform ${openIndex === i ? "rotate-180" : ""}`}
                   aria-hidden="true"

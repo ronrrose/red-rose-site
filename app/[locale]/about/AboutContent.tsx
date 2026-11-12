@@ -146,7 +146,7 @@ export default function AboutContent() {
               <div>
                 <p className="text-accent font-semibold text-sm mb-1">A note from the founder</p>
                 <h3 className="text-2xl font-bold text-ink mb-4">Ron Rose</h3>
-                <div className="text-secondary leading-relaxed space-y-4 text-[15px]">
+                <div className="text-secondary leading-relaxed space-y-4 text-sm">
                   <p>
                     If you&apos;re reading this, something isn&apos;t working with your current IT. Maybe it&apos;s the vendor who takes three days to call back. Maybe it&apos;s the nagging feeling that your patient data isn&apos;t really secure. Maybe you keep hearing about AI but have no clue where to start.
                   </p>
@@ -156,7 +156,7 @@ export default function AboutContent() {
                   <p>
                     I&apos;d love to talk. No pitch, no pressure. Just a real conversation about what&apos;s going on and whether we can help.
                   </p>
-                  <p className="text-accent font-semibold">— Ron</p>
+                  <p className="text-accent font-semibold">Ron</p>
                 </div>
               </div>
             </div>

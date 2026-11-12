@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { localeAlternates } from "@/lib/metadata";
+import { localeAlternates, pageOpenGraph } from "@/lib/metadata";
 import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 
@@ -12,11 +12,11 @@ export async function generateMetadata({
     title: "5 AI Automations Every Dental Office Should Set Up This Week",
     description:
       "Stop copy-pasting patient reminders, appointment confirmations, and intake forms. These five no-code automations take under an hour to set up and are built to take repetitive front-desk work off your team.",
-    openGraph: {
+    openGraph: pageOpenGraph({
       title: "5 AI Automations Every Dental Office Should Set Up This Week",
       description:
         "No-code automations that take repetitive front-desk work off dental teams. Patient reminders, intake forms, reviews, and more.",
-    },
+    }),
     alternates: localeAlternates("/resources/ai-automations-dental", params.locale),
   };
 }
@@ -73,15 +73,15 @@ export default function AIDentalArticle() {
             <strong>The fix:</strong> Automatically send a friendly text 1-2 hours after each appointment with a direct link to your Google Business review page. Keep it simple: &ldquo;Thanks for visiting! If you had a great experience, we&apos;d love a quick review.&rdquo;
           </p>
           <p>
-            <strong>Tools:</strong> Weave, BirdEye, or Podium all do this. Budget option: Zapier + your PMS + Twilio. The key is timing &mdash; send it while the visit is still fresh.
+            <strong>Tools:</strong> Weave, BirdEye, or Podium all do this. Budget option: Zapier + your PMS + Twilio. The key is timing: send it while the visit is still fresh.
           </p>
 
           <h2 className="text-2xl font-bold text-ink mt-10">4. AI-powered phone answering</h2>
           <p>
-            <strong>The problem:</strong> Calls come in while your front desk is checking someone in, handling insurance, or eating lunch. Missed calls mean missed patients. Studies show 35% of new patient calls go to voicemail &mdash; and most don&apos;t leave a message.
+            <strong>The problem:</strong> Calls come in while your front desk is checking someone in, handling insurance, or eating lunch. Missed calls mean missed patients. Studies show 35% of new patient calls go to voicemail, and most don&apos;t leave a message.
           </p>
           <p>
-            <strong>The fix:</strong> Use an AI receptionist that answers overflow calls, books appointments, and answers common questions (hours, insurance accepted, directions). It doesn&apos;t replace your staff &mdash; it backs them up when they&apos;re busy.
+            <strong>The fix:</strong> Use an AI receptionist that answers overflow calls, books appointments, and answers common questions (hours, insurance accepted, directions). It doesn&apos;t replace your staff. It backs them up when they&apos;re busy.
           </p>
           <p>
             <strong>Tools:</strong> Mango Voice (which we install for many of our clients), Smith.ai, or Ruby. These integrate with your existing phone system and PMS.
@@ -95,12 +95,12 @@ export default function AIDentalArticle() {
             <strong>The fix:</strong> Automated verification tools pull insurance eligibility data the day before each appointment and flag any issues. Your team only handles the exceptions instead of every single patient.
           </p>
           <p>
-            <strong>Tools:</strong> Dentrix has Eligibility built in (but most offices don&apos;t use it). Vyne Dental, DentalXChange, and Trojan all automate verification. The ROI is massive &mdash; we&apos;ve seen offices save 8-10 hours per week on this alone.
+            <strong>Tools:</strong> Dentrix has Eligibility built in (but most offices don&apos;t use it). Vyne Dental, DentalXChange, and Trojan all automate verification. The ROI is massive. We&apos;ve seen offices save 8-10 hours per week on this alone.
           </p>
 
           <h2 className="text-2xl font-bold text-ink mt-10">The bottom line</h2>
           <p>
-            None of these automations require coding, a huge budget, or months of implementation. Most can be set up in a single afternoon. The hard part isn&apos;t the technology &mdash; it&apos;s knowing which tools actually work with your specific setup and getting them configured correctly the first time.
+            None of these automations require coding, a huge budget, or months of implementation. Most can be set up in a single afternoon. The hard part isn&apos;t the technology. It&apos;s knowing which tools actually work with your specific setup and getting them configured correctly the first time.
           </p>
           <p>
             That&apos;s exactly what we do in our <Link href="/ai-clinics" className="text-accent hover:text-brand-600 font-semibold transition-colors">AI &amp; Automation Clinics</Link>. If you want hands-on help setting these up for your practice, or if you just want someone to look at your current workflow and tell you where the easy wins are, <Link href="/contact" className="text-accent hover:text-brand-600 font-semibold transition-colors">reach out to our team</Link>. No pitch, no pressure. Just a real conversation about what&apos;s possible.

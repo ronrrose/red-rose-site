@@ -74,8 +74,9 @@ export default function GreetingVideo() {
           type="button"
           onClick={() => setPlaying(true)}
           className="group flex w-full items-center gap-4 text-left"
-          aria-label={t("greetingPlay")}
         >
+          {/* The name is the visible text plus this, so it passes WCAG 2.5.3 (label in name). */}
+          <span className="sr-only">{t("greetingPlay")}: </span>
           <span className="relative shrink-0">
             <Image
               src={POSTER_SRC}

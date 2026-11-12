@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -14,6 +13,7 @@ import {
 import type { CityData } from "@/lib/city-data";
 import FAQSection from "@/components/FAQSection";
 import CTABanner from "@/components/CTABanner";
+import Reveal from "@/components/Reveal";
 import { PHONE_DISPLAY, PHONE_HREF, PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
 /* ── Pricing tiers ────────────────────────────────────────── */
@@ -71,16 +71,6 @@ const challenges = [
   "Practice management software downtime",
 ];
 
-/* ── Animation variants ───────────────────────────────────── */
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
-  }),
-};
-
 export default function CityLandingContent({ city }: { city: CityData }) {
   const servingLine = [city.name, ...city.nearbyCities].join(", ");
 
@@ -90,33 +80,28 @@ export default function CityLandingContent({ city }: { city: CityData }) {
       <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none hero-glow" />
         <div className="container-site relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          {/*
+            Static markup on purpose, like components/Hero.tsx: framer-motion
+            server-rendered this headline and lead at opacity:0, so on all nine
+            city pages they stayed invisible until JavaScript hydrated.
+          */}
+          <div>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-line bg-panel text-accent text-sm font-semibold mb-8">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse-slow" />
               Dental IT in {city.name}
             </span>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+          <h1
             className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-ink leading-[1.08] mb-8"
           >
             Managed IT services for dental practices in{" "}
             <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
-              {city.name}, FL
+              {`${city.name}, FL`}
             </span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <p
             className="max-w-2xl mx-auto text-lg md:text-xl text-secondary leading-relaxed mb-10"
           >
             Red Rose Technologies provides specialized IT support for dental
@@ -124,12 +109,9 @@ export default function CityLandingContent({ city }: { city: CityData }) {
             with expertise in HIPAA compliance and dental practice management
             software, we help {city.name} dentists secure patient data, prevent
             downtime, and streamline operations.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+          <div
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
             <Link
@@ -145,12 +127,9 @@ export default function CityLandingContent({ city }: { city: CityData }) {
             >
               Call {PHONE_DISPLAY}
             </a>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+          <div
             className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-faded font-medium"
           >
             {["HIPAA Compliant", "Microsoft Partner", "24/7 Monitoring", `Local to ${city.name}`].map(
@@ -161,7 +140,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
                 </span>
               )
             )}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -193,7 +172,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
                 icon: Plug,
                 title: "Practice management integration",
                 detail:
-                  "Seamless support for Dentrix, Eaglesoft, Open Dental",
+                  "Hands-on support for Dentrix, Eaglesoft and Open Dental",
               },
               {
                 icon: MapPin,
@@ -201,13 +180,9 @@ export default function CityLandingContent({ city }: { city: CityData }) {
                 detail: `On-site service in ${city.name}, ${city.nearbyCities.join(", ")}, and ${city.county} County`,
               },
             ].map((item, i) => (
-              <motion.div
+              <Reveal
                 key={item.title}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
+                delay={i * 100}
                 className="glass-card p-6 rounded-2xl flex gap-4"
               >
                 <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
@@ -219,7 +194,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
                     {item.detail}
                   </p>
                 </div>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -242,12 +217,8 @@ export default function CityLandingContent({ city }: { city: CityData }) {
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {tiers.map((tier) => (
-              <motion.div
+              <Reveal
                 key={tier.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
                 className={`glass-card rounded-2xl p-8 flex flex-col ${
                   tier.popular ? "ring-2 ring-accent relative" : ""
                 }`}
@@ -290,7 +261,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
                 >
                   Get started
                 </Link>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
           <p className="text-center text-faded text-sm mt-8">
@@ -312,13 +283,9 @@ export default function CityLandingContent({ city }: { city: CityData }) {
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {challenges.map((c, i) => (
-              <motion.div
+              <Reveal
                 key={c}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
+                delay={i * 100}
                 className="glass-card rounded-2xl p-6 flex items-start gap-4"
               >
                 <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
@@ -327,7 +294,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
                 <p className="text-ink font-medium text-sm leading-relaxed">
                   {c}
                 </p>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -345,7 +312,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
 
       {/* ── FAQ ──────────────────────────────────────────── */}
       <FAQSection
-        heading={`Dental IT FAQ — ${city.name}`}
+        heading={`Dental IT FAQ for ${city.name}`}
         faqs={[
           {
             question: `What is HIPAA compliance for dental practices in ${city.name}?`,

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { localeAlternates } from "@/lib/metadata";
+import { localeAlternates, pageOpenGraph } from "@/lib/metadata";
 import AIClinicsContent from "./AIClinicsContent";
 import type { Locale } from "@/i18n/config";
 
@@ -12,11 +12,11 @@ export async function generateMetadata({
     title: "AI & Automation Clinics",
     description:
       "Hands-on AI workshops for local businesses in Lakewood Ranch, Sarasota, and Tampa Bay. Three sessions. Real automations. No fluff.",
-    openGraph: {
-      title: "AI & Automation Clinics — Hands-On Workshops for Local Businesses",
+    openGraph: pageOpenGraph({
+      title: "AI & Automation Clinics: Hands-On Workshops for Local Businesses",
       description:
         "Three sessions that teach your team to actually use AI. Build real automations and leave with tools designed to take repetitive work off your team.",
-    },
+    }),
     alternates: localeAlternates("/ai-clinics", params.locale),
   };
 }

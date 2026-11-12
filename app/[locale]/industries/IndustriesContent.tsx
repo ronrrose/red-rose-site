@@ -158,7 +158,7 @@ export default function IndustriesContent() {
                 </h3>
                 <ul className="space-y-3">
                   {ind.painPoints.map((p, i) => (
-                    <li key={i} className="flex items-start gap-3 text-secondary text-[15px]">
+                    <li key={i} className="flex items-start gap-3 text-secondary text-sm">
                       <span className="w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0 mt-2" />
                       {p}
                     </li>
@@ -172,7 +172,7 @@ export default function IndustriesContent() {
                 </h3>
                 <ul className="space-y-3">
                   {ind.services.map((s, i) => (
-                    <li key={i} className="flex items-start gap-3 text-secondary text-[15px]">
+                    <li key={i} className="flex items-start gap-3 text-secondary text-sm">
                       <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                       {s}
                     </li>

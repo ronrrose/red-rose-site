@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { locales, type Locale } from "@/i18n/config";
-import { localeAlternates } from "@/lib/metadata";
+import { localeAlternates, pageOpenGraph } from "@/lib/metadata";
 import { cities, getCityBySlug } from "@/lib/city-data";
 import CityLandingContent from "./CityLandingContent";
 
 interface CityPageProps {
   params: { locale: Locale; city: string };
 }
+
+// Unknown city slugs get the branded 404 rather than an on-demand render.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -25,10 +28,10 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
   return {
     title,
     description,
-    openGraph: {
+    openGraph: pageOpenGraph({
       title: `${title} | Red Rose Technologies`,
       description,
-    },
+    }),
     alternates: localeAlternates(`/managed-it/${city.slug}`, params.locale),
   };
 }

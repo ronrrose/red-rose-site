@@ -131,8 +131,9 @@ export default function ContactContent() {
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
               <GreetingVideo />
-              {/* The one border beam on the site: the booking card. */}
-              <div className="glass-card rounded-2xl p-8 mb-8 relative">
+              {/* The one border beam on the site: the booking card. overflow-hidden keeps
+                  the travelling beam from widening the page by ~95px at 375px. */}
+              <div className="glass-card rounded-2xl p-8 mb-8 relative overflow-hidden">
                 <BorderBeam duration={14} size={240} />
                 <h2 className="text-2xl font-bold text-ink mb-4">{t("bookCall")}</h2>
                 <p className="text-faded mb-6 text-sm">{t("noCommitment")}</p>
@@ -180,7 +181,7 @@ export default function ContactContent() {
                     </button>
                   </div>
                 ) : (
-                  <form className="space-y-5" noValidate onSubmit={handleSubmit} onFocusCapture={() => void loadRecaptcha()}>
+                  <form className="space-y-5" noValidate onSubmit={handleSubmit} onFocusCapture={() => void loadRecaptcha()} onInputCapture={() => void loadRecaptcha()}>
                     {/* Honeypot — hidden from real users, bots will fill it */}
                     <div className="absolute -left-[9999px]" aria-hidden="true">
                       <label htmlFor="website">Website</label>
@@ -290,18 +291,22 @@ export default function ContactContent() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Red Rose Technologies service area — Lakewood Ranch, FL"
+              title="Red Rose Technologies service area: Lakewood Ranch, FL"
             />
             ) : (
-              <button
-                type="button"
-                onClick={() => setShowMap(true)}
-                className="flex h-full w-full flex-col items-center justify-center gap-2 bg-raised/40 text-center hover:bg-raised/70 transition-colors"
-              >
-                <span className="text-lg font-semibold text-ink">Lakewood Ranch, FL and the surrounding area</span>
-                <span className="text-sm font-medium text-accent">Show the map</span>
-                <span className="text-xs text-faded">Loads Google Maps, which receives your IP address.</span>
-              </button>
+              /* Static placeholder: nothing from Google loads until the visitor asks for the map. */
+              <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-raised/40 px-4 text-center">
+                <MapPin className="h-8 w-8 text-accent" aria-hidden="true" />
+                <p className="text-lg font-semibold text-ink">Lakewood Ranch, FL and the surrounding area</p>
+                <button
+                  type="button"
+                  onClick={() => setShowMap(true)}
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-line bg-page px-5 py-2 text-sm font-semibold text-ink transition-colors hover:bg-raised active:scale-[.98]"
+                >
+                  Show map
+                </button>
+                <p className="text-xs text-secondary">Showing the map loads Google Maps, which receives your IP address and may set cookies.</p>
+              </div>
             )}
           </div>
           <div className="flex flex-wrap justify-center gap-3">

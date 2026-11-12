@@ -10,12 +10,6 @@
     "getAssessment": "Bilan informatique gratuit",
     "getFreeAssessment": "Réservez un bilan informatique gratuit"
   },
-  "Cookie": {
-    "message": "Nous enregistrons seulement vos préférences sur le site. Aucun cookie d’analyse ni de publicité.",
-    "accept": "Tout Accepter",
-    "reject": "Tout Refuser",
-    "manage": "Gérer les Préférences"
-  },
   "Contact": {
     "title": "Parlons-en",
     "subtitle": "Réservez un Appel.\nObtenez des Réponses.",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { localeAlternates } from "@/lib/metadata";
+import { localeAlternates, pageOpenGraph } from "@/lib/metadata";
 import { CONTACT_EMAIL, PHONE_DISPLAY } from "@/lib/site-config";
 import type { Locale } from "@/i18n/config";
 
@@ -12,9 +12,9 @@ export async function generateMetadata({
     title: "Terms of Service",
     description:
       "Red Rose Technologies terms of service. Review the terms governing use of our website and IT services.",
-    openGraph: {
-      title: "Terms of Service — Red Rose Technologies",
-    },
+    openGraph: pageOpenGraph({
+      title: "Terms of Service: Red Rose Technologies",
+    }),
     alternates: localeAlternates("/terms", params.locale),
   };
 }
