@@ -9,6 +9,7 @@ const serviceLinks = [
   { label: "Dental IT support",       href: "/industries" },
   { label: "HIPAA compliance",        href: "/managed-it" },
   { label: "Cybersecurity",           href: "/managed-it" },
+  { label: "Penetration testing",     href: "/penetration-testing" },
   { label: "Cloud setup & migration", href: "/managed-it" },
 ];
 const companyLinks = [

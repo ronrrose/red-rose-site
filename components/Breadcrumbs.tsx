@@ -12,6 +12,7 @@ const localeSet = new Set(["en", "es", "pt", "fr"]);
 const nameMap: Record<string, string> = {
   "ai-clinics": "AI Clinics",
   "managed-it": "Managed IT",
+  "penetration-testing": "Penetration testing",
   industries: "Industries",
   about: "About",
   resources: "Resources",
