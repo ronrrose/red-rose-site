@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: base, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: `${base}/ai-clinics`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/managed-it`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${base}/penetration-testing`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/ai-consultant/lakewood-ranch`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/dental-it/lakewood-ranch`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/industries`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
