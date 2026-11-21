@@ -46,19 +46,19 @@ export default function HomeContent() {
   return (
     <>
       <Hero
-        badge="AI + automation + security for local businesses"
+        badge="Managed IT + security + HIPAA"
         title={
           <>
-            AI &amp; automation that <br className="hidden md:block" />
+            Managed IT and cybersecurity <br className="hidden md:block" />
+            for{" "}
             <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
-              actually works
-            </span>{" "}
-            for local businesses.
+              medical and dental practices.
+            </span>
           </>
         }
-        subtitle="You've heard the AI hype. We skip that part. We show dental practices, law firms, nonprofits, and local shops across Tampa Bay how to automate the stuff that's eating their week. And we keep the tech running so they don't have to think about it."
+        subtitle="24/7 monitoring, HIPAA compliance, incident response and AI automation for Tampa Bay practices, from one accountable team."
         primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
-        secondaryCta={{ label: "Check out AI Clinics", href: "/ai-clinics" }}
+        secondaryCta={{ label: "See managed IT and security", href: "/managed-it" }}
         trustItems={[
           "Google AI Certified",
           "CompTIA Certified",

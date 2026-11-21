@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Red Rose Technologies: IT, AI & Automation for Local Businesses";
+export const alt = "Red Rose Technologies: Managed IT & Cybersecurity for Medical and Dental Practices";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -64,7 +64,7 @@ export default function OGImage() {
               lineHeight: 1.5,
             }}
           >
-            IT, AI & Automation for Local Businesses
+            Managed IT & Cybersecurity for Medical and Dental Practices
           </div>
           <div
             style={{

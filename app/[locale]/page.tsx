@@ -9,13 +9,13 @@ export async function generateMetadata({
   params: { locale: Locale };
 }): Promise<Metadata> {
   return {
-    title: { absolute: "Red Rose Technologies | IT, AI & Automation for Local Businesses" },
+    title: { absolute: "Red Rose Technologies | Managed IT & Cybersecurity for Medical and Dental Practices" },
     description:
-      "Red Rose Technologies helps dental practices, law firms, healthcare providers, and local businesses in Lakewood Ranch, Bradenton, Sarasota, Manatee County, and Tampa Bay automate their work and stay secure.",
+      "Red Rose Technologies provides managed IT, cybersecurity, HIPAA compliance and incident response for medical and dental practices in Lakewood Ranch, Bradenton, Sarasota, Manatee County, and Tampa Bay.",
     openGraph: pageOpenGraph({
-      title: "Red Rose Technologies | IT, AI & Automation for Local Businesses",
+      title: "Red Rose Technologies | Managed IT & Cybersecurity for Medical and Dental Practices",
       description:
-        "AI automation, managed IT, and cybersecurity for dental practices, healthcare, legal firms, nonprofits, and local businesses in Tampa Bay.",
+        "Managed IT, cybersecurity, HIPAA compliance, 24/7 monitoring and AI automation for medical and dental practices in Tampa Bay.",
     }),
     alternates: localeAlternates("", params.locale),
   };
