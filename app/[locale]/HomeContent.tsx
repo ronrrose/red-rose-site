@@ -6,7 +6,7 @@ import TestimonialCard from "@/components/TestimonialCard";
 import CTABanner from "@/components/CTABanner";
 import FAQSection from "@/components/FAQSection";
 import { homeFaqs } from "@/lib/faq-data";
-import { Bot, Shield, Building2, ShieldCheck, Award, Stethoscope, Scale, Heart, Briefcase } from "lucide-react";
+import { Bot, Shield, Building2, ShieldCheck, Award, Stethoscope, Scale, Heart, Briefcase, Landmark } from "lucide-react";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 import Marquee from "@/components/magicui/marquee";
 
@@ -14,6 +14,7 @@ const industries = [
   { icon: Stethoscope, label: "Dental practices" },
   { icon: Heart,       label: "Healthcare" },
   { icon: Scale,       label: "Legal firms" },
+  { icon: Landmark,    label: "Financial services" },
   { icon: Building2,   label: "Nonprofits" },
   { icon: Briefcase,   label: "Local SMBs" },
 ];
@@ -112,7 +113,7 @@ export default function HomeContent() {
               If your business depends on the tech actually working, and you&apos;re tired of surprise bills and slow responses, we should talk.
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {industries.map((ind) => (
               <div
                 key={ind.label}

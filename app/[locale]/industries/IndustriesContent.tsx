@@ -3,7 +3,7 @@
 import Hero from "@/components/Hero";
 import FAQSection from "@/components/FAQSection";
 import CTABanner from "@/components/CTABanner";
-import { CheckCircle2, Stethoscope, Heart, Scale, Building2, Briefcase } from "lucide-react";
+import { CheckCircle2, Stethoscope, Heart, Scale, Landmark, Building2, Briefcase } from "lucide-react";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
 const industries = [
@@ -71,6 +71,27 @@ const industries = [
     ],
   },
   {
+    id: "financial",
+    icon: Landmark,
+    name: "Financial services",
+    headline: "Protect client financial data. Meet the rules that require it.",
+    painPoints: [
+      "Holding Social Security numbers and bank details with no written security plan",
+      "Not sure whether your firm meets the FTC Safeguards Rule or IRS Publication 4557",
+      "SEC Regulation S-P now requires a written incident response program and 30-day customer notice",
+      "Vendor contracts that don't require them to tell you about a breach within 72 hours",
+      "Staff falling for invoice and wire fraud emails during the busiest season",
+    ],
+    services: [
+      "Written Information Security Plan (WISP) built on IRS Publication 5708",
+      "FTC Safeguards Rule gap assessment with a documented fix list",
+      "Regulation S-P incident response program and vendor oversight support",
+      "Phishing-resistant MFA, encrypted email, and secure client file exchange",
+      "24/7 endpoint monitoring and tested, encrypted backups",
+      "Staff training on wire fraud and business email compromise",
+    ],
+  },
+  {
     id: "nonprofits",
     icon: Building2,
     name: "Nonprofits",
@@ -129,7 +150,7 @@ export default function IndustriesContent() {
         }
         subtitle="We don't do generic IT. We specialize in industries where compliance, security, and uptime aren't nice-to-haves. They're the whole job."
         primaryCta={{ label: "Talk to us about your industry", href: "/contact" }}
-        trustItems={["Dental", "Healthcare", "Legal", "Nonprofits", "SMBs"]}
+        trustItems={["Dental", "Healthcare", "Legal", "Financial", "Nonprofits", "SMBs"]}
       />
 
       {/* ── Industry Sections ── */}
@@ -190,6 +211,8 @@ export default function IndustriesContent() {
           { question: "Do you work with my specific dental software?", answer: "Yes. We have hands-on experience with Dentrix, Eaglesoft, Open Dental, Curve Dental, and Dexis imaging. If you use it in a dental practice, we've probably set it up, migrated it, or fixed it." },
           { question: "What makes your healthcare IT different from other MSPs?", answer: "We start with HIPAA. Most MSPs add compliance as an afterthought. We build security controls, documentation, and risk assessments into every engagement from day one. We also understand EHR/EMR workflows so we don't slow your staff down." },
           { question: "Can you help a law firm with eDiscovery and data retention?", answer: "Yes. We set up secure document management, eDiscovery-ready infrastructure, and data retention policies that align with bar association requirements. We work with Clio, MyCase, and custom document workflows." },
+          { question: "Do tax preparers and accounting firms really need a written security plan?", answer: "Yes. The FTC Safeguards Rule treats tax preparers and many accounting firms as financial institutions, and federal law requires them to keep a Written Information Security Plan. The IRS reminds preparers of this every year, and the PTIN renewal asks you to confirm you have one. We build the plan with you, put the security controls behind it in place, and keep both current." },
+          { question: "Can you help an investment adviser with Regulation S-P?", answer: "Yes. We help smaller advisers put the technical side of the amended Regulation S-P in place: a written incident response program, the logging and monitoring that supports it, and the vendor oversight that includes 72-hour breach notice from service providers. Your compliance counsel signs off on the legal side." },
           { question: "Do you offer discounted pricing for nonprofits?", answer: "We help nonprofits access Microsoft 365 Nonprofit licensing (free or deeply discounted) and plan grant-eligible tech upgrades. Our pricing is already competitive, and we work within real-world nonprofit budgets." },
           { question: "What size businesses do you work with?", answer: "Typically 5 to 200 employees. We're a great fit for businesses that have outgrown their break-fix IT guy but aren't ready (or don't want) to hire a full internal IT team." },
         ]}

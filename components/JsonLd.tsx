@@ -16,7 +16,7 @@ export default function JsonLd() {
         name: "Red Rose Technologies LLC",
         image: `${SITE_URL}/logo.png`,
         description:
-          "IT, automation, and cybersecurity for dental practices, healthcare, legal firms, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
+          "IT, automation, and cybersecurity for dental practices, healthcare, legal firms, financial services, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
         url: SITE_URL,
         telephone: PHONE_SCHEMA,
         email: "info@redrosetechnologies.com",
