@@ -31,7 +31,7 @@ export default function Footer() {
               <span className="text-xl md:text-2xl font-bold text-ink" itemProp="name">Red Rose <span className="text-accent">Technologies</span> LLC</span>
             </Link>
             <p className="text-faded text-sm leading-relaxed mb-6">
-              IT, automation, and security for dental practices, law firms, healthcare, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.
+              IT, automation, and security for dental practices, healthcare, law firms, financial services, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.
             </p>
             <div className="flex items-start gap-3 text-faded text-sm" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
               <MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
