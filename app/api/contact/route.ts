@@ -242,8 +242,9 @@ export async function POST(req: NextRequest) {
       message: body.message ? esc(body.message.trim()) : "",
     };
 
+    // Escaped like every other field: an unknown value is visitor-supplied text.
     const businessDisplay = body.businessType
-      ? BUSINESS_LABELS[body.businessType] || body.businessType
+      ? BUSINESS_LABELS[body.businessType] || esc(body.businessType)
       : "Not specified";
 
     // Send notification to the team inbox

@@ -21,7 +21,11 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "frame-ancestors 'self'; form-action 'self' https://ro.am;"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://ro.am; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; media-src 'self' blob: https:; connect-src 'self' https: wss:; frame-src https://www.google.com https://ro.am; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self' https://ro.am; upgrade-insecure-requests"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains"
         }
       ]
     },
