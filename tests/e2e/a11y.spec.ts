@@ -165,7 +165,7 @@ for (const width of [1024, 1280, 1440]) {
         }
         return false;
       };
-      return [...document.querySelectorAll("body *")]
+      return Array.from(document.querySelectorAll("body *"))
         .filter((e) => e.getBoundingClientRect().right > W + 0.5 && !clippedOrFixed(e))
         .map((e) => `${e.tagName}.${String((e as HTMLElement).className).slice(0, 60)} right=${Math.round(e.getBoundingClientRect().right)} "${((e as HTMLElement).innerText || "").slice(0, 30)}"`)
         .slice(0, 8);
