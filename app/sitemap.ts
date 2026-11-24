@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/resources/smb-cybersecurity-checklist`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${base}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${base}/brand`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const cityPages: MetadataRoute.Sitemap = cities.map((city) => ({
