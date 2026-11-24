@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AvaStream from "@/components/AvaStream";
+import { SITE_URL } from "@/lib/site-config";
 
 /**
  * Ava, answering out loud.
@@ -16,6 +17,8 @@ export const metadata: Metadata = {
   description:
     "Ask Red Rose's AI assistant about IT, automation and security for your practice.",
   robots: { index: false, follow: false },
+  // Its own URL. Without this it inherited the root canonical, the homepage.
+  alternates: { canonical: `${SITE_URL}/ava` },
 };
 
 export default function AvaPage() {

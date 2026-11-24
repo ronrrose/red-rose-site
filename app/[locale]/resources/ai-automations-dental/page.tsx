@@ -48,7 +48,7 @@ export default function AIDentalArticle() {
             <strong>The problem:</strong> Your front desk calls patients to confirm tomorrow&apos;s appointments. Half don&apos;t pick up. The other half say &ldquo;yeah, I&apos;ll be there&rdquo; and then no-show anyway.
           </p>
           <p>
-            <strong>The fix:</strong> Set up automated SMS and email reminders that go out 48 hours, 24 hours, and 2 hours before each appointment. Patients can confirm with a single tap. No-shows drop by 30-40% on average.
+            <strong>The fix:</strong> Set up automated SMS and email reminders that go out 48 hours, 24 hours, and 2 hours before each appointment. Patients can confirm with a single tap.
           </p>
           <p>
             <strong>Tools:</strong> Most practice management systems (Dentrix, Eaglesoft, Curve Dental) have built-in reminder features or integrate with services like Weave, RevenueWell, or Lighthouse 360. If you&apos;re on a budget, Zapier + Google Calendar + Twilio can do it for pennies per message.
@@ -78,7 +78,7 @@ export default function AIDentalArticle() {
 
           <h2 className="text-2xl font-bold text-ink mt-10">4. AI-powered phone answering</h2>
           <p>
-            <strong>The problem:</strong> Calls come in while your front desk is checking someone in, handling insurance, or eating lunch. Missed calls mean missed patients. Studies show 35% of new patient calls go to voicemail, and most don&apos;t leave a message.
+            <strong>The problem:</strong> Calls come in while your front desk is checking someone in, handling insurance, or eating lunch. Missed calls mean missed patients, and many callers who reach voicemail hang up without leaving a message.
           </p>
           <p>
             <strong>The fix:</strong> Use an AI receptionist that answers overflow calls, books appointments, and answers common questions (hours, insurance accepted, directions). It doesn&apos;t replace your staff. It backs them up when they&apos;re busy.
@@ -95,7 +95,7 @@ export default function AIDentalArticle() {
             <strong>The fix:</strong> Automated verification tools pull insurance eligibility data the day before each appointment and flag any issues. Your team only handles the exceptions instead of every single patient.
           </p>
           <p>
-            <strong>Tools:</strong> Dentrix has Eligibility built in (but most offices don&apos;t use it). Vyne Dental, DentalXChange, and Trojan all automate verification. The ROI is massive. We&apos;ve seen offices save 8-10 hours per week on this alone.
+            <strong>Tools:</strong> Dentrix has eligibility checks built in. Vyne Dental, DentalXChange, and Trojan all automate verification. It takes a repetitive, error-prone job off the front desk.
           </p>
 
           <h2 className="text-2xl font-bold text-ink mt-10">The bottom line</h2>

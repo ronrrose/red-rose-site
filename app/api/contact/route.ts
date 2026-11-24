@@ -97,7 +97,30 @@ const contactSchema = z.object({
 type ContactBody = z.infer<typeof contactSchema>;
 
 const RECAPTCHA_SECRET = process.env.RECAPTCHA_SECRET_KEY || "";
+// NEXT_PUBLIC_ values are inlined at build time, on the server as well as in
+// the browser, so this is exactly the site key the visitor's page was built
+// with. Without it the page never loads reCAPTCHA and never sends a token.
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
+/**
+ * reCAPTCHA is enforced only when both halves are configured. With the secret
+ * alone, every real submission arrives without a token and was rejected as
+ * "Security verification failed": every lead lost, silently. Half a setup now
+ * falls back to the honeypot, name and gibberish checks and the rate limit,
+ * and says so once in the logs.
+ */
+const RECAPTCHA_ENFORCED = Boolean(RECAPTCHA_SECRET && RECAPTCHA_SITE_KEY);
 const RECAPTCHA_THRESHOLD = 0.5;
+let warnedHalfConfigured = false;
+
+function warnIfHalfConfigured() {
+  if (warnedHalfConfigured || RECAPTCHA_ENFORCED || (!RECAPTCHA_SECRET && !RECAPTCHA_SITE_KEY)) return;
+  warnedHalfConfigured = true;
+  console.warn(
+    RECAPTCHA_SECRET
+      ? "reCAPTCHA is half configured: RECAPTCHA_SECRET_KEY is set but NEXT_PUBLIC_RECAPTCHA_SITE_KEY was not in the build, so the form cannot send a token. Not enforcing reCAPTCHA until both are set (then redeploy)."
+      : "reCAPTCHA is half configured: NEXT_PUBLIC_RECAPTCHA_SITE_KEY is set but RECAPTCHA_SECRET_KEY is missing, so tokens cannot be verified. Not enforcing reCAPTCHA until both are set."
+  );
+}
 
 async function verifyRecaptcha(token: string): Promise<{ success: boolean; score: number }> {
   if (!RECAPTCHA_SECRET || !token) return { success: false, score: 0 };
@@ -115,6 +138,7 @@ async function verifyRecaptcha(token: string): Promise<{ success: boolean; score
 }
 
 export async function POST(req: NextRequest) {
+  warnIfHalfConfigured();
   try {
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
@@ -170,8 +194,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
-    // reCAPTCHA v3 verification
-    if (RECAPTCHA_SECRET) {
+    // reCAPTCHA v3 verification (only when both keys are configured)
+    if (RECAPTCHA_ENFORCED) {
       if (!body.recaptchaToken) {
         return NextResponse.json(
           { error: "Security verification failed. Please refresh and try again." },

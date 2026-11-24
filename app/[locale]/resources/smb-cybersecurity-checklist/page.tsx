@@ -65,7 +65,7 @@ export default function CybersecurityChecklistArticle() {
     },
     {
       title: "Get cyber insurance",
-      body: "Cyber insurance won't prevent an attack, but it covers the costs when one happens: forensics, legal fees, client notification, business interruption. Policies are relatively affordable for small businesses ($1,000-$3,000/year). Many insurers now require MFA and backups as conditions for coverage, which is another reason to check those boxes first.",
+      body: "Cyber insurance won't prevent an attack, but it covers the costs when one happens: forensics, legal fees, client notification, business interruption. Ask a broker who knows your industry for a quote. Many insurers now require MFA and backups as conditions for coverage, which is another reason to check those boxes first.",
     },
     {
       title: "Run a vulnerability scan",
@@ -88,7 +88,7 @@ export default function CybersecurityChecklistArticle() {
 
         <div className="prose-custom text-secondary leading-relaxed space-y-6">
           <p className="text-lg">
-            If you run a small or medium business, you might think cybercriminals are going after the big fish: banks, hospitals, Fortune 500 companies. They&apos;re not. 43% of cyberattacks target small businesses, and 60% of those businesses close within six months of an attack. The average cost of a data breach for an SMB is $108,000.
+            If you run a small or medium business, you might think cybercriminals are going after the big fish: banks, hospitals, Fortune 500 companies. They&apos;re not. Attackers go after small businesses too, often because small businesses have fewer defenses. The twelve steps below close the gaps that are easiest to fix.
           </p>
           <p>
             The good news is that most attacks exploit basic security gaps that are straightforward to fix. Here&apos;s your checklist. Work through it this week and you&apos;ll have closed the gaps attackers look for first.

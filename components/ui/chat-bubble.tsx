@@ -77,7 +77,8 @@ export function ChatBubbleAvatar({
 }: ChatBubbleAvatarProps) {
   return (
     <Avatar className={cn("h-8 w-8", className)}>
-      {src && <AvatarImage src={src} />}
+      {/* Decorative: the message beside it already says who is speaking. */}
+      {src && <AvatarImage src={src} alt="" />}
       <AvatarFallback>{fallback}</AvatarFallback>
     </Avatar>
   )

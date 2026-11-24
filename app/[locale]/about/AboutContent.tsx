@@ -33,9 +33,14 @@ const differentiators = [
   },
 ];
 
-const credentials = [
-  { label: "Google AI Essentials", detail: "Certified in practical AI tools for business automation and decision-making.", issuer: "Google", verifyUrl: "https://www.credly.com/org/google" },
-  { label: "CompTIA IT Fundamentals+", detail: "Industry-standard credential covering IT infrastructure, security, and networking.", issuer: "CompTIA", verifyUrl: "https://www.credly.com/org/comptia" },
+/*
+ * verifyUrl must point at Ron's own badge. The Credly organisation pages that
+ * were here verified nothing about him, and the Google one was a 404, so they
+ * are gone until his personal badge links are added.
+ */
+const credentials: { label: string; detail: string; issuer: string; verifyUrl?: string }[] = [
+  { label: "Google AI Essentials", detail: "Certified in practical AI tools for business automation and decision-making.", issuer: "Google" },
+  { label: "CompTIA IT Fundamentals+", detail: "Industry-standard credential covering IT infrastructure, security, and networking.", issuer: "CompTIA" },
   { label: "HIPAA Security Specialist", detail: "Deep experience with healthcare data protection, risk assessments, and audit documentation.", issuer: "HIPAA Training & Certification" },
   { label: "Microsoft 365 Administration", detail: "Deployment, security, and management of Microsoft cloud environments.", issuer: "Microsoft" },
 ];
