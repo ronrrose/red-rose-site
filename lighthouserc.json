@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "startServerCommand": "npm start",
-      "url": ["http://localhost:3000/", "http://localhost:3000/free-security-check", "http://localhost:3000/dental"],
+      "url": ["http://localhost:3000/", "http://localhost:3000/free-security-check", "http://localhost:3000/dental", "http://localhost:3000/security-reviews"],
       "numberOfRuns": 3
     },
     "assert": {

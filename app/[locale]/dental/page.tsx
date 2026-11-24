@@ -158,6 +158,12 @@ export default function DentalPage() {
             <ArrowRight className="h-5 w-5" aria-hidden="true" />
           </Link>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-faded">{RESULT_DISCLAIMER}</p>
+          <p className="mx-auto mt-6 max-w-2xl text-base text-secondary">
+            Need a deeper look at your website, code or Microsoft 365?{" "}
+            <Link href="/security-reviews" className="font-semibold text-accent underline-offset-4 hover:underline">
+              See AI-assisted security reviews
+            </Link>
+          </p>
         </div>
       </section>
 

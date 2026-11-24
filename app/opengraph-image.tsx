@@ -73,7 +73,7 @@ export default function OGImage() {
               marginTop: "16px",
             }}
           >
-            {["HIPAA Compliant", "Google AI Certified", "24/7 Monitoring"].map(
+            {["HIPAA-focused", "Google AI Certified", "24/7 Monitoring"].map(
               (item) => (
                 <div
                   key={item}

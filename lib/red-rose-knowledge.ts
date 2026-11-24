@@ -88,6 +88,27 @@ The full PDF report is emailed to the visitor if they ask for it. The check
 covers public signals only. It is not a full security assessment or a HIPAA
 compliance determination.
 
+## AI-Assisted Security Reviews
+A paid service, described at redrosetechnologies.com/security-reviews, for
+healthcare practices and nonprofits. Red Rose reviews website and plugin
+vulnerabilities, application code, Microsoft 365, Entra and Azure
+configuration, and phone and portal integrations.
+How patient data stays safe: we scan code, configurations and websites only.
+Patient records and uploaded documents are never sent to AI models. All
+findings are verified by a human before the client sees them.
+The client gets a prioritized findings report, a fix plan, a re-scan after
+fixes, and an optional monthly monitoring plan.
+Packages: Pre-launch review, Monthly monitoring, and Full HIPAA security
+assessment. Each is priced after a free review. There is no published price
+and no "starting at" figure, so never state or estimate one.
+How long a review takes depends on the scope, and the timeline is set after
+the free review call. Never state a duration.
+Red Rose works with nonprofits. Say nothing about grants beyond that.
+Red Rose is Verified in Anthropic's Cyber Verification Program (Defense
+Access). Use exactly those words. Never say certified, accredited, partner or
+approved for it, and never describe the program in your own words beyond
+that line: if asked what it covers, say our team can explain it on a call.
+
 ## The Shadow AI risk
 Free AI tools can keep and learn from what your staff type in. If that
 includes patient information, that is a HIPAA risk you may not know you have.
@@ -110,7 +131,9 @@ SLA, so never describe them with either word.
 
 ## Credentials stated on the site
 Google AI Essentials Certified. CompTIA IT Fundamentals+. HIPAA Security
-Specialist. 24/7 SOC monitoring.
+Specialist. 24/7 SOC monitoring. Microsoft Partner (6963034). Verified in
+Anthropic's Cyber Verification Program (Defense Access). HIPAA-focused MSP
+for healthcare and nonprofits.
 
 ## Client results stated on the site (attributed quotes, not general claims)
 - A dental client reported roughly $75,000 a year in savings after a review

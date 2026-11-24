@@ -108,6 +108,7 @@ export default function AiConsultantLakewoodRanchPage() {
       { "@type": "City", name: "Sarasota" },
       { "@type": "AdministrativeArea", name: "Manatee County" },
       { "@type": "AdministrativeArea", name: "Sarasota County" },
+      { "@type": "Country", name: "United States" },
     ],
     description:
       "AI and automation consulting for dental practices, healthcare and occupational medicine clinics, legal firms, nonprofits and local businesses in Lakewood Ranch, Florida.",

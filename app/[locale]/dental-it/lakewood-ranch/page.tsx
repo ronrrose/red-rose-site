@@ -84,6 +84,7 @@ export default function DentalItLakewoodRanchPage() {
       { "@type": "City", name: "Sarasota" },
       { "@type": "AdministrativeArea", name: "Manatee County" },
       { "@type": "AdministrativeArea", name: "Sarasota County" },
+      { "@type": "Country", name: "United States" },
     ],
     description:
       "Dental IT support in Lakewood Ranch, Florida for Dentrix, Eaglesoft, Open Dental and Curve Dental, with 24/7 monitoring, patching, backup, HIPAA aware security and HIPAA compliant Business Associate Agreements.",

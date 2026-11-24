@@ -57,6 +57,16 @@ as a promised result.
   software versions, and forms over plain HTTP. Plus a 10-question Shadow AI
   risk quiz. It covers public signals only. It is not a full security
   assessment or a HIPAA compliance determination.
+- **AI-Assisted Security Reviews**: reviews of website and plugin
+  vulnerabilities, application code, Microsoft 365, Entra and Azure
+  configuration, and phone and portal integrations, for healthcare and
+  nonprofits. Red Rose scans code, configurations and websites only. Patient
+  records and uploaded documents are never sent to AI models. All findings are
+  verified by a human before the client sees them. Deliverables: a prioritized
+  findings report, a fix plan, a re-scan after fixes, and an optional monthly
+  monitoring plan. Packages: pre-launch review, monthly monitoring, and full
+  HIPAA security assessment, each priced after a free review. Timelines depend
+  on scope and are set after the free review call.
 
 ## Support tiers
 
@@ -72,14 +82,17 @@ service level agreement.
 ## Credentials
 
 Google AI Essentials Certified. CompTIA IT Fundamentals+. HIPAA Security
-Specialist. 24/7 SOC monitoring. Red Rose provides HIPAA compliant Business
+Specialist. 24/7 SOC monitoring. Microsoft Partner (6963034). Verified in
+Anthropic's Cyber Verification Program (Defense Access). HIPAA-focused MSP for
+healthcare and nonprofits. Red Rose provides HIPAA compliant Business
 Associate Agreements (BAAs) for all managed service clients.
 
 ## Service area
 
 Lakewood Ranch, Bradenton, Sarasota, Palmetto, Parrish, North Port, Tampa,
 Clearwater and St. Petersburg, Florida; Manatee County, Sarasota County and the
-greater Tampa Bay area.
+greater Tampa Bay area. Based in Lakewood Ranch, FL, serving clients
+nationwide.
 
 ## Client-reported results
 
@@ -102,6 +115,7 @@ about what any client will get:
 - Dental IT in Lakewood Ranch: https://www.redrosetechnologies.com/dental-it/lakewood-ranch
 - Dental practices: https://www.redrosetechnologies.com/dental
 - Free Practice Security Check: https://www.redrosetechnologies.com/free-security-check
+- AI-Assisted Security Reviews: https://www.redrosetechnologies.com/security-reviews
 - Industries served: https://www.redrosetechnologies.com/industries
 - About: https://www.redrosetechnologies.com/about
 - Resources: https://www.redrosetechnologies.com/resources

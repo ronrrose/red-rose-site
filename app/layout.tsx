@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site-config";
+import { POSITIONING_DESCRIPTION } from "@/lib/positioning";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | Red Rose Technologies",
   },
   description:
-    "HIPAA-compliant managed IT services for dental practices in Bradenton, Tampa, and Sarasota. Microsoft 365, cybersecurity, and AI-driven workflow solutions. Microsoft Partner.",
+    POSITIONING_DESCRIPTION,
   keywords: [
     "managed IT Lakewood Ranch",
     "managed IT Bradenton",
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "Red Rose Technologies LLC",
     title: "Red Rose Technologies | Managed IT for Dental Practices in Bradenton, FL",
     description:
-      "HIPAA-compliant managed IT services for dental practices. Microsoft Partner specializing in cybersecurity and practice management software.",
+      POSITIONING_DESCRIPTION,
     images: [
       {
         url: `${SITE_URL}/opengraph-image`,

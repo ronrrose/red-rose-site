@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Hero from "@/components/Hero";
+import { POSITIONING } from "@/lib/positioning";
 import CTABanner from "@/components/CTABanner";
 import { ShieldCheck, Users, Lightbulb, HeartHandshake, Award } from "lucide-react";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
@@ -58,9 +59,10 @@ export default function AboutContent() {
             </span>
           </>
         }
-        subtitle="We're not another faceless IT company. Red Rose Technologies was built by someone who knows what it's like to run a business, and what it costs when the tech doesn't work."
+        subtitle={`${POSITIONING.tagline}, built by someone who knows what it's like to run a business and what it costs when the tech doesn't work.`}
         primaryCta={{ label: "Work with us", href: "/contact" }}
         secondaryCta={{ label: "See what we do", href: "/managed-it" }}
+        trustItems={[POSITIONING.industries, POSITIONING.location]}
       />
 
       {/* ── Our Story ── */}

@@ -12,6 +12,7 @@ const navLinks = [
   { href: "/", key: "home" },
   { href: "/ai-clinics", key: "aiClinics" },
   { href: "/managed-it", key: "managedIt" },
+  { href: "/security-reviews", key: "security" },
   { href: "/industries", key: "industries" },
   { href: "/about", key: "about" },
   { href: "/resources", key: "resources" },
@@ -62,13 +63,16 @@ export default function NavBar() {
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-7">
+        {/* Eight links: gap-4 (and the CTA's lg:px-4 below) keeps the whole
+            header inside 1024, where the wordmark is screen-reader only;
+            xl has room for the wider gap. */}
+        <div className="hidden lg:flex items-center gap-4 xl:gap-7">
           {navLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               aria-current={pathname === l.href ? "page" : undefined}
-              className={`text-sm font-medium transition-colors ${
+              className={`whitespace-nowrap text-sm font-medium transition-colors ${
                 pathname === l.href
                   ? "text-accent"
                   : "text-faded hover:text-ink"
@@ -90,7 +94,7 @@ export default function NavBar() {
           <ThemeToggle />
           <Link
             href="/contact"
-            className="px-5 py-2.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold whitespace-nowrap transition-all shadow-lg shadow-brand-700/20"
+            className="px-4 xl:px-5 py-2.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold whitespace-nowrap transition-all shadow-lg shadow-brand-700/20"
           >
             {t("getAssessment")}
           </Link>
