@@ -153,6 +153,23 @@ for (const width of [1024, 1280, 1440]) {
     const ctaLeft = await page.locator('nav[aria-label="Main navigation"] .lg\\:flex').nth(1).evaluate((d) => d.getBoundingClientRect().left);
     expect(lastRight).toBeLessThanOrEqual(ctaLeft);
     // Same sideways check as the axe tests: scrollWidth alone misreads the homepage marquee.
-    expect(await sideways(page)).toBe(0);
+    // On failure, name what sticks out: unclipped, non-fixed elements past the right edge.
+    const scrolled = await sideways(page);
+    const offenders = scrolled === 0 ? [] : await page.evaluate(() => {
+      const W = document.documentElement.clientWidth;
+      const clippedOrFixed = (e: Element) => {
+        for (let p: Element | null = e; p && p !== document.body; p = p.parentElement) {
+          const cs = getComputedStyle(p);
+          if (cs.position === "fixed") return true;
+          if (p !== e && ["hidden", "clip", "auto", "scroll"].includes(cs.overflowX)) return true;
+        }
+        return false;
+      };
+      return [...document.querySelectorAll("body *")]
+        .filter((e) => e.getBoundingClientRect().right > W + 0.5 && !clippedOrFixed(e))
+        .map((e) => `${e.tagName}.${String((e as HTMLElement).className).slice(0, 60)} right=${Math.round(e.getBoundingClientRect().right)} "${((e as HTMLElement).innerText || "").slice(0, 30)}"`)
+        .slice(0, 8);
+    });
+    expect({ scrolled, offenders }).toEqual({ scrolled: 0, offenders: [] });
   });
 }
