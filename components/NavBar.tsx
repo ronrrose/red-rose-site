@@ -63,9 +63,10 @@ export default function NavBar() {
         </Link>
 
         {/* Desktop Links */}
-        {/* Eight links: gap-5 keeps them on one line at 1024, where the
-            wordmark is screen-reader only; xl has room for the wider gap. */}
-        <div className="hidden lg:flex items-center gap-5 xl:gap-7">
+        {/* Eight links: gap-4 (and the CTA's lg:px-4 below) keeps the whole
+            header inside 1024, where the wordmark is screen-reader only;
+            xl has room for the wider gap. */}
+        <div className="hidden lg:flex items-center gap-4 xl:gap-7">
           {navLinks.map((l) => (
             <Link
               key={l.href}
@@ -93,7 +94,7 @@ export default function NavBar() {
           <ThemeToggle />
           <Link
             href="/contact"
-            className="px-5 py-2.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold whitespace-nowrap transition-all shadow-lg shadow-brand-700/20"
+            className="px-4 xl:px-5 py-2.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-sm font-semibold whitespace-nowrap transition-all shadow-lg shadow-brand-700/20"
           >
             {t("getAssessment")}
           </Link>
