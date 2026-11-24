@@ -31,7 +31,7 @@ const GREETING: Message = {
   id: 0,
   role: "assistant",
   content:
-    "Hi, I'm Ava, Red Rose's AI assistant. Ask me about managed IT, dental and medical practice support, HIPAA, or our AI and automation clinics. What's going on in your business?",
+    "Hi, I'm Ava, Red Rose's AI assistant. Running a practice is hard enough without technology working against you. What has been taking more of your week than it should?",
 };
 
 export default function ChatWidget() {
