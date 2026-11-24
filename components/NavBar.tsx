@@ -41,15 +41,22 @@ export default function NavBar() {
     >
       <div className="container-site flex items-center justify-between h-20">
         {/* Logo */}
-        <Link href="/" className="shrink-0">
+        {/* Cropped mark plus a real-text wordmark: the old 48px square was
+            mostly transparent padding, so the rose rendered about 30px tall
+            and the grey "RED ROSE" lettering was unreadable on white. */}
+        <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Red Rose Technologies, home">
           <Image
-            src="/logo.png"
-            alt="Red Rose Technologies LLC - Managed IT Services for Dental Practices"
-            width={48}
-            height={48}
-            className="w-12 h-12 object-contain"
+            src="/logo-mark.png"
+            alt=""
+            width={334}
+            height={384}
+            className="h-14 w-auto"
             priority
           />
+          <span className="flex flex-col leading-none lg:hidden xl:flex">
+            <span className="text-lg font-extrabold tracking-tight text-ink sm:text-xl">Red Rose</span>
+            <span className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">Technologies</span>
+          </span>
         </Link>
 
         {/* Desktop Links */}
