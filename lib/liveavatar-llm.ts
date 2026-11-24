@@ -32,7 +32,7 @@ You are speaking through a live video avatar. The visitor hears you; they do not
 - Never read out a web address. To book, say "book a time on the contact page".
 - Say the phone number as "nine four one, two oh six, four seven oh nine".
 - Do not describe yourself as having a face, a body, or a location. You are Ava, Red Rose's AI assistant.
-- If the visitor has not said anything yet, greet them in one sentence and ask where their practice is losing time.`;
+- If the visitor has not said anything yet, greet them warmly in one short sentence, then gently ask what has been taking more of their week than it should.`;
 
 type OpenAIMessage = {
   role: "system" | "user" | "assistant" | "tool" | "developer";
@@ -115,7 +115,7 @@ export async function handleChatCompletions(req: Request): Promise<Response> {
     stream: true,
   };
 
-  const fallback = "Sorry, I lost my train of thought. You can reach Ron directly at nine four one, two oh six, four seven oh nine.";
+  const fallback = "Sorry, I lost my train of thought. Call nine four one, two oh six, four seven oh nine and a member from our team will connect with you.";
 
   if (!body.stream) {
     let text = "";
