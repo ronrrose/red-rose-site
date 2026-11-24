@@ -6,6 +6,8 @@ import {
   PROFILE_URLS,
   SITE_URL,
 } from "@/lib/site-config";
+import { POSITIONING, POSITIONING_DESCRIPTION } from "@/lib/positioning";
+
 export default function JsonLd() {
   const schema = {
     "@context": "https://schema.org",
@@ -15,8 +17,8 @@ export default function JsonLd() {
         "@id": `${SITE_URL}/#organization`,
         name: "Red Rose Technologies LLC",
         image: `${SITE_URL}/logo.png`,
-        description:
-          "IT, automation, and cybersecurity for dental practices, healthcare, legal firms, financial services, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.",
+        description: POSITIONING_DESCRIPTION,
+        slogan: POSITIONING.tagline,
         url: SITE_URL,
         telephone: PHONE_SCHEMA,
         email: "info@redrosetechnologies.com",
@@ -40,6 +42,7 @@ export default function JsonLd() {
           { "@type": "AdministrativeArea", name: "Manatee County" },
           { "@type": "AdministrativeArea", name: "Sarasota County" },
           { "@type": "AdministrativeArea", name: "Tampa Bay" },
+          { "@type": "Country", name: "United States" },
         ],
         openingHoursSpecification: {
           "@type": "OpeningHoursSpecification",
@@ -123,6 +126,16 @@ export default function JsonLd() {
                 name: "Cybersecurity",
                 description:
                   "Vulnerability assessments, endpoint protection, SOC monitoring, and incident response.",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "AI-Assisted Security Reviews",
+                url: `${SITE_URL}/security-reviews`,
+                description:
+                  "Reviews of websites, application code, Microsoft 365, Entra and Azure configuration, and phone and portal integrations, with every finding verified by a human.",
               },
             },
           ],

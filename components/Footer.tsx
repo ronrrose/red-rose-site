@@ -2,14 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { ADDRESS_LOCALITY, ADDRESS_REGION, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site-config";
+import { POSITIONING } from "@/lib/positioning";
+import TrustStrip from "@/components/TrustStrip";
 
 const serviceLinks = [
   { label: "AI & Automation Clinics", href: "/ai-clinics" },
   { label: "Managed IT & security",   href: "/managed-it" },
   { label: "Dental IT support",       href: "/dental" },
   { label: "Free security check",     href: "/free-security-check" },
-  { label: "HIPAA compliance",        href: "/managed-it" },
-  { label: "Cybersecurity",           href: "/managed-it" },
+  { label: "HIPAA compliance",        href: "/security-reviews" },
+  { label: "Cybersecurity",           href: "/security-reviews" },
   { label: "Penetration testing",     href: "/penetration-testing" },
   { label: "Cloud setup & migration", href: "/managed-it" },
 ];
@@ -31,15 +33,16 @@ export default function Footer() {
               <Image src="/logo-mark.png" alt="Red Rose Technologies LLC - Managed IT Services for Dental Practices" width={334} height={384} className="h-12 w-auto" itemProp="image" />
               <span className="text-xl md:text-2xl font-bold text-ink" itemProp="name">Red Rose <span className="text-accent">Technologies</span> LLC</span>
             </Link>
-            <p className="text-faded text-sm leading-relaxed mb-6">
-              IT, automation, and security for dental practices, healthcare, law firms, financial services, nonprofits, and local businesses in Lakewood Ranch, Bradenton, Sarasota, and Tampa Bay.
+            <p className="text-ink text-sm font-semibold leading-relaxed mb-2" itemProp="slogan">
+              {POSITIONING.tagline}
             </p>
+            <p className="text-faded text-sm leading-relaxed mb-6">{POSITIONING.industries}</p>
             <div className="flex items-start gap-3 text-faded text-sm" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
               <MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
               <span>
                 <span itemProp="addressLocality">{ADDRESS_LOCALITY}</span>,{" "}
                 <span itemProp="addressRegion">{ADDRESS_REGION}</span>
-                {" | Serving Tampa Bay, Manatee & Sarasota"}
+                {" | Serving Clients Nationwide"}
               </span>
             </div>
           </div>
@@ -103,6 +106,8 @@ export default function Footer() {
             </Link>
           </div>
         </div>
+
+        <TrustStrip compact className="pt-8 pb-8 border-t border-line" />
 
         <div className="pt-8 border-t border-line flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-faded text-sm">

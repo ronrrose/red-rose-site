@@ -10,6 +10,7 @@ import { homeFaqs } from "@/lib/faq-data";
 import { ArrowRight, Bot, Shield, Building2, ShieldCheck, Award, Stethoscope, Scale, Heart, Briefcase, Landmark } from "lucide-react";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 import Marquee from "@/components/magicui/marquee";
+import TrustStrip from "@/components/TrustStrip";
 
 const industries = [
   { icon: Stethoscope, label: "Dental practices" },
@@ -90,6 +91,8 @@ export default function HomeContent() {
         </div>
       </section>
 
+      <TrustStrip />
+
       {/* ── Proof: real results from real clients, attributed ── */}
       <section className="border-y border-line bg-panel py-16 md:py-20" aria-labelledby="proof-heading">
         <div className="container-site">
@@ -167,6 +170,12 @@ export default function HomeContent() {
               cta="See the industries we serve"
             />
           </div>
+          <p className="mt-10 text-center text-base text-secondary [text-wrap:pretty]">
+            Need your website, code or Microsoft 365 checked?{" "}
+            <Link href="/security-reviews" className="font-semibold text-accent underline-offset-4 hover:underline">
+              See AI-assisted security reviews
+            </Link>
+          </p>
         </div>
       </section>
 

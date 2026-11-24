@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
   if (!city) return {};
 
   const title = `Managed IT Services for Dental Practices in ${city.name}, FL`;
-  const description = `HIPAA-compliant managed IT services for dental practices in ${city.name}, ${city.nearbyCities.join(", ")}, and throughout ${city.county} County. Microsoft 365, cybersecurity, and AI-driven workflow solutions. Microsoft Partner.`;
+  const description = `HIPAA-focused managed IT services for dental practices in ${city.name}, ${city.nearbyCities.join(", ")}, and throughout ${city.county} County. Microsoft 365, cybersecurity, and AI-driven workflow solutions. Microsoft Partner.`;
 
   return {
     title,

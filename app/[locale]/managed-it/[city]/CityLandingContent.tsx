@@ -127,7 +127,7 @@ export default function CityLandingContent({ city }: { city: CityData }) {
           <div
             className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-faded font-medium"
           >
-            {["HIPAA Compliant", "Microsoft Partner", "24/7 Monitoring", `Local to ${city.name}`].map(
+            {["HIPAA-focused", "Microsoft Partner", "24/7 Monitoring", `Local to ${city.name}`].map(
               (item) => (
                 <span key={item} className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent" />
@@ -288,6 +288,26 @@ export default function CityLandingContent({ city }: { city: CityData }) {
                 </p>
               </Reveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Security reviews ─────────────────────────────── */}
+      <section className="py-12 border-b border-line">
+        <div className="container-site">
+          <div className="glass-card mx-auto flex max-w-4xl flex-col items-start gap-4 rounded-2xl p-6 md:flex-row md:items-center md:justify-between md:p-8">
+            <div>
+              <h2 className="mb-1 text-xl font-bold text-ink">Need a security review for your practice?</h2>
+              <p className="text-sm text-secondary">
+                AI-assisted reviews of your website, code, Microsoft 365 and integrations, with every finding checked by a person.
+              </p>
+            </div>
+            <Link
+              href="/security-reviews"
+              className="inline-flex min-h-[44px] shrink-0 items-center justify-center rounded-xl border border-line px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-raised/50"
+            >
+              See security reviews
+            </Link>
           </div>
         </div>
       </section>

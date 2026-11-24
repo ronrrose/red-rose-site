@@ -12,6 +12,7 @@ const navLinks = [
   { href: "/", key: "home" },
   { href: "/ai-clinics", key: "aiClinics" },
   { href: "/managed-it", key: "managedIt" },
+  { href: "/security-reviews", key: "security" },
   { href: "/industries", key: "industries" },
   { href: "/about", key: "about" },
   { href: "/resources", key: "resources" },
@@ -62,13 +63,15 @@ export default function NavBar() {
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-7">
+        {/* Eight links: gap-5 keeps them on one line at 1024, where the
+            wordmark is screen-reader only; xl has room for the wider gap. */}
+        <div className="hidden lg:flex items-center gap-5 xl:gap-7">
           {navLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               aria-current={pathname === l.href ? "page" : undefined}
-              className={`text-sm font-medium transition-colors ${
+              className={`whitespace-nowrap text-sm font-medium transition-colors ${
                 pathname === l.href
                   ? "text-accent"
                   : "text-faded hover:text-ink"

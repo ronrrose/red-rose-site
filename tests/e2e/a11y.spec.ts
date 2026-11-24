@@ -11,7 +11,7 @@ import fixture from "./fixtures/scan-result.json";
  * results, lead form and quiz states are tested without touching the network.
  */
 
-const PAGES = ["/", "/about", "/contact", "/privacy", "/dental", "/free-security-check"];
+const PAGES = ["/", "/about", "/contact", "/privacy", "/dental", "/free-security-check", "/security-reviews"];
 
 /**
  * Below-the-fold sections fade in on scroll (components/Reveal.tsx) and sit
@@ -100,3 +100,54 @@ test("free security check: closed state is a calm call-us panel, not an error", 
   await expect(page.getByRole("link", { name: "Call (941) 206-4709" })).toHaveAttribute("href", "tel:+19412064709");
   expect(await axe(page)).toEqual([]);
 });
+
+test("security reviews: static hero, booking link, six FAQs and matching FAQPage schema", async ({ page }) => {
+  await page.goto("/security-reviews");
+  const h1 = page.getByRole("heading", { level: 1 });
+  await expect(h1).toHaveText("AI-assisted security reviews for healthcare and nonprofits");
+  // Nothing above the fold starts invisible.
+  expect(await h1.evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
+  const book = page.getByRole("link", { name: /Book a security review/ });
+  await expect(book).toHaveCount(2);
+  await expect(book.first()).toHaveAttribute("href", "https://ro.am/ronrose/meeting");
+  await expect(page.locator("main details")).toHaveCount(6);
+  expect(await page.locator("main").innerText()).not.toMatch(/\$\s?\d|starting at/i);
+
+  const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
+  const nodes = blocks.flatMap((b) => {
+    const j = JSON.parse(b);
+    return j["@graph"] ?? [j];
+  });
+  const types = nodes.map((n) => n["@type"]);
+  for (const t of ["ProfessionalService", "Service", "FAQPage", "BreadcrumbList"]) expect(types).toContain(t);
+  const faq = nodes.find((n) => n["@type"] === "FAQPage");
+  const visible = await page.locator("main details").evaluateAll((ds) =>
+    ds.map((d) => ({ q: d.querySelector("summary")!.textContent!.trim(), a: d.querySelector("p")!.textContent!.trim() }))
+  );
+  expect(faq.mainEntity.map((e: { name: string; acceptedAnswer: { text: string } }) => ({ q: e.name, a: e.acceptedAnswer.text }))).toEqual(visible);
+});
+
+test("trust strip: three text items, no images, in the footer and below the homepage hero", async ({ page }) => {
+  await page.goto("/");
+  const items = ["Microsoft Partner (6963034)", "Verified in Anthropic's Cyber Verification Program (Defense Access)", "HIPAA-focused MSP for healthcare and nonprofits"];
+  for (const strip of [page.locator("main section[aria-label=Credentials]").first(), page.locator("footer ul[aria-label=Credentials]")]) {
+    await expect(strip.locator("li")).toHaveText(items);
+    await expect(strip.locator("img, svg")).toHaveCount(0);
+  }
+  // Right below the hero: the strip is the second section in main.
+  await expect(page.locator("main > section").nth(1)).toHaveAttribute("aria-label", "Credentials");
+});
+
+for (const width of [1024, 1280, 1440]) {
+  test(`nav labels stay on one line at ${width}`, async ({ page }, info) => {
+    test.skip(info.project.name !== "desktop-1440", "sets its own viewport; once is enough");
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    // The first lg:flex group holds the page links; the second is the phone and CTA.
+    const links = page.locator('nav[aria-label="Main navigation"] .lg\\:flex').first().locator("a");
+    await expect(links).toHaveCount(8);
+    const heights = await links.evaluateAll((as) => as.map((a) => (a as HTMLElement).getBoundingClientRect().height));
+    for (const h of heights) expect(h).toBeLessThan(24);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+  });
+}

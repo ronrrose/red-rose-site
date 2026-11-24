@@ -102,9 +102,10 @@ describe("copy rules", () => {
       const text = readFileSync(f, "utf8");
       expect(/claude certified|ai certified|anthropic[^.\n]{0,40}(certif|accredit|partner)|(certif|accredit)[^.\n]{0,40}anthropic/i.test(text)).toBe(false);
     }
-    expect(TRUST_ITEMS.map((t) => t.label)).toEqual([
-      "Microsoft Partner",
+    expect([...TRUST_ITEMS]).toEqual([
+      "Microsoft Partner (6963034)",
       "Verified in Anthropic's Cyber Verification Program (Defense Access)",
+      "HIPAA-focused MSP for healthcare and nonprofits",
     ]);
   });
 

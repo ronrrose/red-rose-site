@@ -9,6 +9,7 @@ import {
   Zap, Users, HeartHandshake,
 } from "lucide-react";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
+import { Link } from "@/i18n/navigation";
 
 const services = [
   { icon: Shield,             title: "Compliance that's built in",      description: "HIPAA, SOC 2, whatever your industry requires. We build compliance into the foundation, not as an upsell after you sign." },
@@ -43,7 +44,7 @@ export default function ManagedITContent() {
         subtitle="We're not a generic break-fix shop. We start with security and compliance, then build everything else on top of that. Your patients' data, your clients' files, your business. It all stays protected."
         primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
         secondaryCta={{ label: "See our industries", href: "/industries" }}
-        trustItems={["HIPAA Compliant", "24/7 SOC", "Flat-Rate Pricing", "Local Techs"]}
+        trustItems={["HIPAA-focused", "24/7 SOC", "Flat-Rate Pricing", "Local Techs"]}
       />
 
       <FeatureGrid
@@ -61,6 +62,26 @@ export default function ManagedITContent() {
         columns={2}
       />
 
+      {/* ── One-off security review ── */}
+      <section className="py-12 border-t border-line">
+        <div className="container-site">
+          <div className="glass-card mx-auto flex max-w-4xl flex-col items-start gap-4 rounded-2xl p-6 md:flex-row md:items-center md:justify-between md:p-8">
+            <div>
+              <h2 className="mb-1 text-xl font-bold text-ink">Need a one-off security review?</h2>
+              <p className="text-sm text-secondary">
+                AI-assisted reviews of your website, code, Microsoft 365 and integrations, with every finding checked by a person.
+              </p>
+            </div>
+            <Link
+              href="/security-reviews"
+              className="inline-flex min-h-[44px] shrink-0 items-center justify-center rounded-xl border border-line px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-raised/50"
+            >
+              See security reviews
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── Industry Callouts ── */}
       <section className="section-padding bg-panel border-y border-line">
         <div className="container-site">
@@ -72,7 +93,7 @@ export default function ManagedITContent() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { name: "Dental practices", detail: "Dentrix, Eaglesoft, Open Dental. HIPAA-compliant imaging servers, backups, and network security. We've done this hundreds of times." },
+              { name: "Dental practices", detail: "Dentrix, Eaglesoft, Open Dental. HIPAA-focused imaging servers, backups, and network security. We've done this hundreds of times." },
               { name: "Healthcare providers", detail: "EHR/EMR support, regulatory compliance, secure patient records, and telehealth setups that actually work." },
               { name: "Legal firms", detail: "Clio, MyCase, document management. Client confidentiality, eDiscovery readiness, and secure file sharing for distributed teams." },
               { name: "Financial services", detail: "Tax preparers, CPAs, financial advisors, and insurance agencies. Written Information Security Plans, FTC Safeguards Rule controls, and Regulation S-P incident response." },
