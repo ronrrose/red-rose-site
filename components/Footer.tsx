@@ -85,8 +85,10 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:info@redrosetechnologies.com" className="flex items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
-                  <Mail className="w-4 h-4 shrink-0" /> <span itemProp="email">info@redrosetechnologies.com</span>
+                <a href="mailto:info@redrosetechnologies.com" className="flex min-w-0 items-center gap-3 text-faded text-sm hover:text-accent transition-colors">
+                  {/* The address is one unbreakable word; let it wrap rather than push
+                      the page sideways when its column is narrow (1024px on Linux fonts). */}
+                  <Mail className="w-4 h-4 shrink-0" /> <span itemProp="email" className="min-w-0 [overflow-wrap:anywhere]">info@redrosetechnologies.com</span>
                 </a>
               </li>
             </ul>
