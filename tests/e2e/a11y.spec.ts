@@ -54,26 +54,30 @@ test("free security check: results, lead form and quiz pass axe", async ({ page 
   // The checkbox is required.
   await page.getByLabel("Your practice's website").fill("weak-practice.com");
   await page.getByRole("button", { name: "Run the free check" }).click();
-  await expect(page.getByText("Tick the box to confirm")).toBeVisible();
+  await expect(page.getByText("Tick the box to confirm you own or manage this domain and authorize the check.", { exact: true })).toBeVisible();
 
   await page.getByLabel(/I own or manage this domain/).check();
   await page.getByRole("button", { name: "Run the free check" }).click();
-  await expect(page.getByText("What to fix first")).toBeVisible();
-  await expect(page.getByText("This free check covers public signals only. It is not a full security assessment or a HIPAA compliance determination.").first()).toBeVisible();
-  await expect(page.getByText("Reviewed by Red Rose Technologies, verified in Anthropic's Cyber Verification Program (Defense Access)")).toBeVisible();
-  await expect(page.getByText("Run the full check from an email address at this domain.")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "What to fix first" })).toBeVisible();
+  await expect(page.getByText("This free check covers public signals only. It is not a full security assessment or a HIPAA compliance determination.", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Reviewed by Red Rose Technologies, verified in Anthropic's Cyber Verification Program (Defense Access)", { exact: true })).toBeVisible();
+  await expect(page.getByText("Run the full check from an email address at this domain.", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: /Book a free 30-minute review of your results/ }).first()).toHaveAttribute("href", "https://ro.am/ronrose/meeting");
+
+  // One review offer inside the results, one standing block at the bottom with its own wording.
+  await expect(page.getByText("Go through the results with us. We will tell you what to fix first and what can wait.", { exact: true })).toHaveCount(1);
+  await expect(page.getByRole("region", { name: "Book a review" }).getByRole("heading", { name: "Want a second set of eyes?" })).toBeVisible();
 
   // Quiz: every question answered with its first option.
   const groups = page.locator("#shadow-ai fieldset");
   const n = await groups.count();
   for (let i = 0; i < n; i++) await groups.nth(i).locator("label").first().click();
   await page.getByRole("button", { name: "See my risk level" }).click();
-  await expect(page.getByText(/(Low|Medium|High) risk/)).toBeVisible();
+  await expect(page.getByText(/^(Low|Medium|High) risk$/)).toBeVisible();
 
   // Lead form validation is inline.
   await page.getByRole("button", { name: "Email me the full report" }).click();
-  await expect(page.getByText("Enter your name.")).toBeVisible();
+  await expect(page.getByText("Enter your name.", { exact: true })).toBeVisible();
 
   expect(await axe(page)).toEqual([]);
   expect(await sideways(page)).toBe(0);

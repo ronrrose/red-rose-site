@@ -159,7 +159,11 @@ export default function FreeSecurityCheckPage() {
 
       <section className="section-padding border-t border-line" aria-label="Book a review">
         <div className="container-site max-w-3xl">
-          <ReviewCta />
+          <ReviewCta
+            headingLevel="h2"
+            heading="Want a second set of eyes?"
+            body="Book a free 30-minute review. We will go through your results with you, or look at your website and email setup together if you have not run the check yet."
+          />
         </div>
       </section>
     </SecurityCheckProvider>

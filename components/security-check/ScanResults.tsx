@@ -38,11 +38,21 @@ export function Disclaimer({ className = "" }: { className?: string }) {
   return <p className={`text-sm text-faded [text-wrap:pretty] ${className}`}>{RESULT_DISCLAIMER}</p>;
 }
 
-export function ReviewCta() {
+/**
+ * The review offer. Shown after a result with the default wording; the
+ * page's standing bottom block passes its own, because there may be no
+ * result yet when a visitor reaches it.
+ */
+export function ReviewCta({
+  heading = "Want help with these?",
+  body = "Go through the results with us. We will tell you what to fix first and what can wait.",
+  headingLevel = "h3",
+}: { heading?: string; body?: string; headingLevel?: "h2" | "h3" } = {}) {
+  const Heading = headingLevel;
   return (
     <div className="glass-card rounded-2xl p-6 md:p-8">
-      <h3 className="mb-2 text-xl font-semibold text-ink">Want help with these?</h3>
-      <p className="mb-6 text-sm text-secondary">Go through the results with us. We will tell you what to fix first and what can wait.</p>
+      <Heading className="mb-2 text-xl font-semibold text-ink">{heading}</Heading>
+      <p className="mb-6 text-sm text-secondary">{body}</p>
       <a
         href={BOOKING_URL}
         target="_blank"
