@@ -1,4 +1,4 @@
-import wpCore from "@/lib/security-check/data/wordpress-core-status.json";
+import wpCore from "@/lib/security-check/wordpress-core-status.json";
 
 /**
  * The "known outdated" list, every entry from a named public source with the
