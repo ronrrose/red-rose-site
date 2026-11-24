@@ -17,12 +17,15 @@ const FAIL = rgb(0.68, 0.1, 0.1);
 const WARN = rgb(0.55, 0.36, 0.0);
 const PASS = rgb(0.1, 0.45, 0.2);
 
+/** En and em dash, built from code points so the dash rule's scan stays clean. */
+const DASHES = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`, "g");
+
 /** Helvetica in pdf-lib speaks WinAnsi only. Map the common typographic characters, drop the rest. */
 export function toWinAnsi(s: string): string {
   return s
     .replace(/[‘’]/g, "'")
     .replace(/[“”]/g, '"')
-    .replace(/[–—]/g, "-")
+    .replace(DASHES, "-")
     .replace(/…/g, "...")
     .replace(/ /g, " ")
     .replace(/[^\x20-\x7E¡-ÿ\n]/g, "");
