@@ -16,12 +16,11 @@ import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
 import { PHONE_DISPLAY, PHONE_HREF, PRIMARY_CTA_LABEL } from "@/lib/site-config";
 
-/* ── Pricing tiers ────────────────────────────────────────── */
+/* Tiers: what each includes. No published prices (Ava and the FAQ say the same).
+   Each practice gets a price after its free IT checkup. ────────────────────────────────────────── */
 const tiers = [
   {
     name: "Core Shield",
-    price: "149",
-    unit: "/user/mo",
     description:
       "Microsoft 365 Business Premium, 24/7 monitoring, helpdesk support, backup, HIPAA compliance",
     features: [
@@ -34,8 +33,6 @@ const tiers = [
   },
   {
     name: "Advanced Guard",
-    price: "199",
-    unit: "/user/mo",
     popular: true,
     description:
       "Everything in Core Shield + Microsoft Sentinel SIEM, advanced threat protection, quarterly security training",
@@ -49,8 +46,6 @@ const tiers = [
   },
   {
     name: "Total Command",
-    price: "299",
-    unit: "/user/mo",
     description:
       "Everything in Advanced Guard + AI workflow automation, strategic IT planning, priority support",
     features: [
@@ -231,12 +226,9 @@ export default function CityLandingContent({ city }: { city: CityData }) {
                 <h3 className="text-xl font-bold text-ink mb-2">
                   {tier.name}
                 </h3>
-                <div className="mb-4">
-                  <span className="text-3xl font-bold text-ink">
-                    ${tier.price}
-                  </span>
-                  <span className="text-faded text-sm">{tier.unit}</span>
-                </div>
+                <p className="mb-4 text-sm font-semibold text-accent">
+                  Priced for your practice after a free IT checkup
+                </p>
                 <p className="text-faded text-sm mb-6 leading-relaxed">
                   {tier.description}
                 </p>
@@ -259,13 +251,13 @@ export default function CityLandingContent({ city }: { city: CityData }) {
                       : "border border-line text-ink hover:bg-raised/50"
                   }`}
                 >
-                  Get started
+                  {PRIMARY_CTA_LABEL}
                 </Link>
               </Reveal>
             ))}
           </div>
           <p className="text-center text-faded text-sm mt-8">
-            Custom pricing available for practices with 10+ users.
+            Book a free IT checkup and we will put together a plan built around how your practice runs.
           </p>
         </div>
       </section>

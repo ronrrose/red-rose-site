@@ -1,12 +1,13 @@
 "use client";
 
-import Hero from "@/components/Hero";
+import { Link } from "@/i18n/navigation";
+import HeroAva from "@/components/HeroAva";
 import ServiceCard from "@/components/ServiceCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import CTABanner from "@/components/CTABanner";
 import FAQSection from "@/components/FAQSection";
 import { homeFaqs } from "@/lib/faq-data";
-import { Bot, Shield, Building2, ShieldCheck, Award, Stethoscope, Scale, Heart, Briefcase, Landmark } from "lucide-react";
+import { ArrowRight, Bot, Shield, Building2, ShieldCheck, Award, Stethoscope, Scale, Heart, Briefcase, Landmark } from "lucide-react";
 import { PRIMARY_CTA_LABEL } from "@/lib/site-config";
 import Marquee from "@/components/magicui/marquee";
 
@@ -46,27 +47,95 @@ const PLATFORMS = [
 export default function HomeContent() {
   return (
     <>
-      <Hero
-        badge="Managed IT + security + HIPAA"
-        title={
-          <>
-            Managed IT and cybersecurity <br className="hidden md:block" />
-            for{" "}
-            <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
-              medical and dental practices.
+      {/*
+        Homepage hero, static markup on purpose (see components/Hero.tsx for
+        why nothing above the fold animates). One action: book the checkup.
+        Ava is the visual and only plays on a click.
+      */}
+      <section className="relative overflow-hidden pt-28 pb-16 md:pt-40 md:pb-24">
+        <div className="absolute inset-0 pointer-events-none hero-glow" />
+        <div className="container-site relative z-10 grid items-center gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-16">
+          <div className="text-center lg:text-left">
+            <p className="mb-6 text-sm font-semibold text-accent">
+              Healthcare | Dental | Financial services | Professional services
+            </p>
+            <h1 className="mb-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-ink [text-wrap:balance] md:text-6xl">
+              Secure AI, automation and IT for{" "}
+              <span className="text-gradient bg-gradient-to-r from-brand-700 to-brand-500 dark:from-brand-400 dark:to-rose-300">
+                regulated industries.
+              </span>
+            </h1>
+            <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-secondary [text-wrap:pretty] md:text-xl lg:mx-0">
+              We start by finding where your practice is losing time and money, then secure and
+              automate what matters. Every plan is set up around how your practice runs.
+            </p>
+            {/* Auto width, centred on phones: a full-width button ran under the
+                floating Ava and accessibility buttons in the bottom corners. */}
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-brand-700/20 transition-all hover:bg-brand-800 active:scale-[.98]"
+            >
+              {PRIMARY_CTA_LABEL}
+              <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </Link>
+            {/* A quiet text link, not a second button: the hero keeps one action. */}
+            <p className="mt-5 text-sm text-secondary">
+              Not ready to talk?{" "}
+              <Link href="/free-security-check" className="font-semibold text-accent underline-offset-4 hover:underline">
+                Run the free 2-minute security check
+              </Link>
+            </p>
+          </div>
+          <HeroAva />
+        </div>
+      </section>
+
+      {/* ── Proof: real results from real clients, attributed ── */}
+      <section className="border-y border-line bg-panel py-16 md:py-20" aria-labelledby="proof-heading">
+        <div className="container-site">
+          <h2 id="proof-heading" className="mb-10 text-center text-2xl font-bold text-ink [text-wrap:balance] md:text-3xl">
+            What that looked like for two clients
+          </h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="glass-card rounded-2xl p-6 md:col-span-1">
+              <p className="mb-2 text-3xl font-bold text-ink">About $75,000 a year</p>
+              <p className="text-sm leading-relaxed text-secondary">
+                Found for one dental practice, Gangi Dental Care in Bradenton, when Ron reviewed what it was
+                spending. He moved it from Eaglesoft servers to Curve Dental in the cloud, switched its phones
+                from Adit to Mango Voice, and moved payroll from ADP to Gusto.
+              </p>
+              <p className="mt-4 text-xs text-secondary">
+                One client&apos;s reported result. What we find depends on how your practice runs.
+              </p>
+            </div>
+            <div className="glass-card rounded-2xl p-6">
+              <p className="mb-2 text-3xl font-bold text-ink">Since 2011</p>
+              <p className="text-sm leading-relaxed text-secondary">
+                How long a Hollywood nonprofit has worked with Ron. He is also its webmaster.
+              </p>
+            </div>
+            <div className="glass-card rounded-2xl p-6">
+              <p className="mb-2 text-3xl font-bold text-ink">115+ staff</p>
+              <p className="text-sm leading-relaxed text-secondary">
+                On the network Ron built for that same nonprofit. It is still running today.
+              </p>
+            </div>
+          </div>
+          {/* A person's credential, which Ron holds (issuer as listed on /about),
+              and the Microsoft Partner status already claimed sitewide. Not a
+              compliance badge: no such certification exists. */}
+          <p className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-sm text-secondary">
+            <ShieldCheck className="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+            <span>
+              Ron Rose holds the HIPAA Security Specialist credential from HIPAA Training &amp; Certification.
+              Red Rose is a Microsoft Partner.
             </span>
-          </>
-        }
-        subtitle="24/7 monitoring, HIPAA compliance, incident response and AI automation for Tampa Bay practices, from one accountable team."
-        primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
-        secondaryCta={{ label: "Run the free security check", href: "/free-security-check" }}
-        trustItems={[
-          "Google AI Certified",
-          "CompTIA Certified",
-          "HIPAA Compliant",
-          "24/7 Monitoring",
-        ]}
-      />
+            <Link href="/about" className="font-semibold text-accent hover:underline">
+              See Ron&apos;s credentials
+            </Link>
+          </p>
+        </div>
+      </section>
 
       {/* ── 3 Service Cards ── */}
       <section className="section-padding bg-panel border-t border-line">
