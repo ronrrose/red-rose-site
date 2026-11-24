@@ -17,7 +17,7 @@
         },
         {
           "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=()"
+          "value": "camera=(), microphone=(), geolocation=(), browsing-topics=()"
         },
         {
           "key": "Content-Security-Policy",
@@ -30,11 +30,20 @@
       ]
     },
     {
-      "source": "/((?!api|contact|resources).*)",
+      "source": "/((?!api|contact|resources|free-security-check/unsubscribe).*)",
       "headers": [
         {
           "key": "Cache-Control",
           "value": "public, max-age=3600, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/free-security-check/unsubscribe",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
         }
       ]
     }
@@ -43,6 +52,10 @@
     {
       "path": "/api/cron/quo-reconcile",
       "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/security-check-followups",
+      "schedule": "0 14 * * *"
     }
   ]
 }

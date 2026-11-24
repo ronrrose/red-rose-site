@@ -52,5 +52,11 @@ package-lock.json
 # TypeScript incremental build cache (regenerated on every compile)
 tsconfig.tsbuildinfo
 
+# Rose Standard gate output (Playwright, Lighthouse CI, scan reports)
+evidence/
+test-results/
+playwright-report/
+.lighthouseci/
+
 # macOS
 .DS_Store

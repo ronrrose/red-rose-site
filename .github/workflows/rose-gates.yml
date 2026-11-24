@@ -1,0 +1,63 @@
+# Rose Standard gates (from the Rose Standard starter kit), adapted to this repo:
+# typecheck, unit tests, lint, the Playwright axe suite at 1440 and 390, a
+# production build and Lighthouse CI on every pull request, plus a nightly
+# read-only gate scan of production.
+name: rose-standard-gates
+on:
+  pull_request:
+  schedule:
+    - cron: '0 9 * * *'   # nightly scan, about 5 a.m. ET
+  workflow_dispatch:
+
+# Read-only token: these jobs check code out and upload artifacts, nothing more.
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npx tsc --noEmit
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+      - run: npx @lhci/cli autorun
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence-${{ github.run_id }}
+          path: |
+            evidence/
+            playwright-report/
+
+  nightly-scan:
+    # Needs the repository variable ROSE_DOMAINS, e.g. "redrosetechnologies.com".
+    if: github.event_name != 'pull_request' && vars.ROSE_DOMAINS != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: mkdir -p evidence
+      - name: Gate scan
+        # Passed through env, never interpolated into the script: a variable
+        # value is data, not shell. Split on spaces into separate arguments.
+        env:
+          ROSE_DOMAINS: ${{ vars.ROSE_DOMAINS }}
+        run: |
+          read -r -a domains <<< "$ROSE_DOMAINS"
+          python3 -I scripts/rose_gate_scan.py "${domains[@]}" --md evidence/scan.md --json evidence/scan.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gate-scan-${{ github.run_id }}
+          path: evidence/

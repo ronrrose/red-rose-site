@@ -13,6 +13,9 @@ const nameMap: Record<string, string> = {
   "ai-clinics": "AI Clinics",
   "managed-it": "Managed IT",
   "penetration-testing": "Penetration testing",
+  "free-security-check": "Free practice security check",
+  unsubscribe: "Unsubscribe",
+  dental: "Dental practices",
   industries: "Industries",
   about: "About",
   resources: "Resources",
@@ -33,7 +36,7 @@ const nameMap: Record<string, string> = {
  */
 const parentPage: Record<string, { label: string; path: string }> = {
   "ai-consultant": { label: "AI Clinics", path: "ai-clinics" },
-  "dental-it": { label: "Industries", path: "industries" },
+  "dental-it": { label: "Dental practices", path: "dental" },
 };
 
 /*

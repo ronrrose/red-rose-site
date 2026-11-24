@@ -50,6 +50,13 @@ as a promised result.
   for healthcare and dental offices.
 - **Cloud setup and migration**: including Microsoft 365, and Windows 11
   migration planning with hardware compatibility assessment and phased rollouts.
+- **Free Practice Security Check**: a free, roughly two-minute check for dental
+  and medical practices. A passive, public-only scan of the practice's own
+  website: it loads only the homepage and its redirects and reads public DNS
+  records, to check HTTPS, security headers, SPF, DKIM and DMARC, website
+  software versions, and forms over plain HTTP. Plus a 10-question Shadow AI
+  risk quiz. It covers public signals only. It is not a full security
+  assessment or a HIPAA compliance determination.
 
 ## Support tiers
 
@@ -93,6 +100,8 @@ about what any client will get:
 - Managed IT & Security: https://www.redrosetechnologies.com/managed-it
 - AI consultant in Lakewood Ranch: https://www.redrosetechnologies.com/ai-consultant/lakewood-ranch
 - Dental IT in Lakewood Ranch: https://www.redrosetechnologies.com/dental-it/lakewood-ranch
+- Dental practices: https://www.redrosetechnologies.com/dental
+- Free Practice Security Check: https://www.redrosetechnologies.com/free-security-check
 - Industries served: https://www.redrosetechnologies.com/industries
 - About: https://www.redrosetechnologies.com/about
 - Resources: https://www.redrosetechnologies.com/resources

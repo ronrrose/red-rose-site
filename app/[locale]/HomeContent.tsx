@@ -78,6 +78,13 @@ export default function HomeContent() {
               {PRIMARY_CTA_LABEL}
               <ArrowRight className="h-5 w-5" aria-hidden="true" />
             </Link>
+            {/* A quiet text link, not a second button: the hero keeps one action. */}
+            <p className="mt-5 text-sm text-secondary">
+              Not ready to talk?{" "}
+              <Link href="/free-security-check" className="font-semibold text-accent underline-offset-4 hover:underline">
+                Run the free 2-minute security check
+              </Link>
+            </p>
           </div>
           <HeroAva />
         </div>
