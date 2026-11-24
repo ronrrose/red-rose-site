@@ -27,7 +27,7 @@ export default function Footer() {
           {/* Brand + Microdata */}
           <div className="lg:col-span-1" itemScope itemType="https://schema.org/LocalBusiness">
             <Link href="/" className="flex items-center gap-2 mb-5">
-              <Image src="/logo.png" alt="Red Rose Technologies LLC - Managed IT Services for Dental Practices" width={36} height={36} className="w-9 h-9 object-contain" itemProp="image" />
+              <Image src="/logo-mark.png" alt="Red Rose Technologies LLC - Managed IT Services for Dental Practices" width={334} height={384} className="h-12 w-auto" itemProp="image" />
               <span className="text-xl md:text-2xl font-bold text-ink" itemProp="name">Red Rose <span className="text-accent">Technologies</span> LLC</span>
             </Link>
             <p className="text-faded text-sm leading-relaxed mb-6">
