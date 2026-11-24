@@ -132,6 +132,7 @@ export const FAQS = [
 ] as const;
 
 const SERVICE_ID = `${PAGE_URL}#professional-service`;
+const SERVICE_TYPE = "AI-assisted security review";
 
 const AREA_SERVED = [
   { "@type": "City", name: "Lakewood Ranch" },
@@ -164,15 +165,23 @@ export function securityReviewsSchema() {
           addressCountry: ADDRESS_COUNTRY,
         },
         areaServed: AREA_SERVED,
-        serviceType: "AI-assisted security reviews",
         description: DESCRIPTION,
         parentOrganization: { "@id": `${SITE_URL}/#organization` },
+        // serviceType is not a ProfessionalService property in schema.org (the
+        // validator warns on it), so the service type lives on each Service
+        // and the catalog links them to the business.
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: SERVICE_TYPE,
+          itemListElement: PACKAGES.map((_, i) => ({ "@type": "Offer", itemOffered: { "@id": `${PAGE_URL}#package-${i + 1}` } })),
+        },
       },
-      ...PACKAGES.map((p) => ({
+      ...PACKAGES.map((p, i) => ({
         "@type": "Service",
+        "@id": `${PAGE_URL}#package-${i + 1}`,
         name: p.name,
         description: p.covers,
-        serviceType: "Security review",
+        serviceType: SERVICE_TYPE,
         provider: { "@id": SERVICE_ID },
         areaServed: AREA_SERVED,
         url: PAGE_URL,
