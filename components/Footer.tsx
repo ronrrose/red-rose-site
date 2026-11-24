@@ -6,7 +6,8 @@ import { ADDRESS_LOCALITY, ADDRESS_REGION, PHONE_DISPLAY, PHONE_HREF } from "@/l
 const serviceLinks = [
   { label: "AI & Automation Clinics", href: "/ai-clinics" },
   { label: "Managed IT & security",   href: "/managed-it" },
-  { label: "Dental IT support",       href: "/industries" },
+  { label: "Dental IT support",       href: "/dental" },
+  { label: "Free security check",     href: "/free-security-check" },
   { label: "HIPAA compliance",        href: "/managed-it" },
   { label: "Cybersecurity",           href: "/managed-it" },
   { label: "Penetration testing",     href: "/penetration-testing" },

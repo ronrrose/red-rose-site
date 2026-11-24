@@ -33,6 +33,7 @@ export const LEAD_SOURCES = [
   "chat",
   "quo_inbound",
   "quo_reconcile",
+  "security_check",
 ] as const;
 
 export const leadInputSchema = z.object({

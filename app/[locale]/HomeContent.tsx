@@ -59,7 +59,7 @@ export default function HomeContent() {
         }
         subtitle="24/7 monitoring, HIPAA compliance, incident response and AI automation for Tampa Bay practices, from one accountable team."
         primaryCta={{ label: PRIMARY_CTA_LABEL, href: "/contact" }}
-        secondaryCta={{ label: "See managed IT and security", href: "/managed-it" }}
+        secondaryCta={{ label: "Run the free security check", href: "/free-security-check" }}
         trustItems={[
           "Google AI Certified",
           "CompTIA Certified",
