@@ -109,7 +109,7 @@ export default function ResultsSection() {
   return (
     <section aria-labelledby="results-heading" className="section-padding border-t border-line">
       <div className="container-site max-w-4xl">
-        <h2 id="results-heading" tabIndex={-1} className="sr-only">
+        <h2 id="results-heading" tabIndex={-1} className="sr-only scroll-mt-28">
           Your security check result
         </h2>
         <ScanResults result={scan.result} note={scan.note} />
