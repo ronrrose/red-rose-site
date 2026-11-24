@@ -15,14 +15,11 @@ import {
 } from "@/lib/security-check/safe-fetch";
 import { baseDomain, parseTarget, TARGET_REFUSAL_MESSAGES } from "@/lib/security-check/target";
 import {
-  EXPOSED_FILE_PATHS,
-  checkCms,
+    checkCms,
   checkEmail,
-  checkFiles,
   checkForms,
   checkHeaders,
   checkHttps,
-  type FileProbe,
   type HttpsEvidence,
 } from "@/lib/security-check/checks";
 import { gatherEmailEvidence, type TxtLookup } from "@/lib/security-check/dns-checks";
@@ -39,14 +36,12 @@ import type { RequestRecord, ScanResult } from "@/lib/security-check/types";
  *   - one more GET of the https homepage, without certificate verification,
  *     only when the certificate is broken, so the other checks can still read
  *     the page
- *   - HEAD of /.git/HEAD, /.env and /wp-config.php.bak, only when
- *     includeExposedFiles is set (the visitor proved an email at the domain)
  *   - DNS TXT lookups for SPF, DMARC and common DKIM selectors
- * No port scans, no logins, no forms submitted, no crawling past the homepage.
+ * That is the whole list: no HEAD probes or requests for any other path, no
+ * port scans, no logins, no forms submitted, no crawling past the homepage.
  */
 
 export type ScanOptions = {
-  includeExposedFiles?: boolean;
   deps?: NetDeps;
   txtLookup?: TxtLookup;
   now?: Date;
@@ -124,17 +119,11 @@ export async function runScan(raw: string, opts: ScanOptions = {}): Promise<Scan
   const pageProtocol = pageUrl ? (pageUrl.protocol as "http:" | "https:") : null;
   const headers = page ? page.headers : null;
 
-  // Check 5, only when unlocked.
-  const files = opts.includeExposedFiles
-    ? await probeExposedFiles({ host, domain, pageUrl: pageUrl?.toString() ?? null, tlsVerified: httpsEv.ok }, { ...base })
-    : null;
-
   const checks = [
     checkHttps({ https: httpsEv, http: httpEv, now }),
     checkHeaders(headers, pageProtocol),
     checkEmail(emailEv),
     checkCms(html),
-    files ?? checkFiles(null),
     checkForms(html, pageProtocol),
   ];
 
@@ -153,63 +142,8 @@ export async function runScan(raw: string, opts: ScanOptions = {}): Promise<Scan
       findings,
       strengths: strengths(checks, findings.length),
       requests: log,
-      exposedFilesChecked: files !== null,
       pageUrl: pageUrl?.toString() ?? null,
-      tlsVerified: httpsEv.ok,
     },
-  };
-}
-
-/**
- * Check 5 on its own: HEAD of the three listed paths, no redirects followed.
- * Probed on the host the homepage settled on when it is the same site, never
- * on a third-party host the homepage redirected to.
- */
-export async function probeExposedFiles(
-  site: { host: string; domain: string; pageUrl: string | null; tlsVerified: boolean },
-  base: Pick<FetchOptions, "deps" | "deadlineAt"> & { log: RequestRecord[] }
-) {
-  const page = site.pageUrl ? new URL(site.pageUrl) : null;
-  const probeHost = page && baseDomain(page.hostname) === site.domain ? page.hostname : site.host;
-  const protocol = page?.protocol === "http:" ? "http:" : "https:";
-  const probes: FileProbe[] = [];
-  for (const path of EXPOSED_FILE_PATHS) {
-    const url = `${protocol}//${probeHost}${path}`;
-    try {
-      const r = await requestOnce(url, { deps: base.deps, deadlineAt: base.deadlineAt, method: "HEAD", verifyTls: site.tlsVerified });
-      base.log.push({ method: "HEAD", url: r.url, status: r.status });
-      probes.push({ path, status: r.status, contentType: String(r.headers["content-type"] ?? "") || null });
-    } catch (err) {
-      base.log.push({ method: "HEAD", url, status: null, error: errorCode(err) });
-      probes.push({ path, status: null, contentType: null });
-    }
-  }
-  return checkFiles(probes);
-}
-
-/** Put a fresh check 5 into an earlier result and recompute the score. */
-export async function addExposedFilesToResult(
-  result: ScanResult,
-  opts: { deps?: NetDeps; budgetMs?: number } = {}
-): Promise<ScanResult> {
-  const log: RequestRecord[] = [];
-  const files = await probeExposedFiles(result, {
-    deps: opts.deps ?? defaultDeps,
-    deadlineAt: Date.now() + (opts.budgetMs ?? 12_000),
-    log,
-  });
-  const checks = result.checks.map((c) => (c.id === "files" ? files : c));
-  const score = scoreChecks(checks);
-  const findings = topFindings(checks);
-  return {
-    ...result,
-    checks,
-    score,
-    grade: gradeFor(score),
-    findings,
-    strengths: strengths(checks, findings.length),
-    requests: [...result.requests, ...log],
-    exposedFilesChecked: true,
   };
 }
 

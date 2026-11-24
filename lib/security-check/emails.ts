@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { BOOKING_URL, CONTACT_EMAIL, PHONE_DISPLAY, SITE_URL } from "@/lib/site-config";
+import { BOOKING_URL, CONTACT_EMAIL, PHONE_DISPLAY, PRIMARY_CTA_LABEL, SITE_URL } from "@/lib/site-config";
 import { RESULT_DISCLAIMER, REVIEW_BADGE, type ScanResult } from "@/lib/security-check/types";
 import { QUIZ, scoreQuiz, type QuizAnswers } from "@/lib/security-check/quiz";
 import { OFFERS, REVIEW_CTA_LABEL } from "@/lib/security-check/offers";
@@ -63,7 +63,11 @@ function ctaHtml(): string {
   return `
     <p style="margin:24px 0 8px;"><a href="${esc(BOOKING_URL)}" style="display:inline-block;background:#8f1219;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">${esc(REVIEW_CTA_LABEL)}</a></p>
     <p style="margin:0 0 4px;font-size:14px;">Or call us at ${esc(PHONE_DISPLAY)}.</p>
-    <p style="margin:12px 0 0;font-size:14px;color:#555;">${OFFERS.map((o) => `${esc(o.price)}: ${esc(o.name)}`).join("<br>")}</p>`;
+    ${OFFERS.map(
+      (o) =>
+        `<p style="margin:12px 0 0;font-size:14px;"><strong>${esc(o.name)}</strong><br><span style="color:#555;">${esc(o.covers)} ${esc(o.pricing)}.</span></p>`
+    ).join("")}
+    <p style="margin:12px 0 0;font-size:14px;"><a href="${esc(SITE_URL)}/contact">${esc(PRIMARY_CTA_LABEL)}</a></p>`;
 }
 
 function footerHtml(): string {
@@ -80,8 +84,6 @@ export type ReportEmailInput = {
   practice: string;
   scan: ScanResult;
   pdf: Uint8Array;
-  /** Signed link that unlocks check 5, when the email is at the scanned domain. */
-  unlockUrl: string | null;
   followupsPlanned: boolean;
 };
 
@@ -89,18 +91,12 @@ export function reportEmail(input: ReportEmailInput) {
   const { scan } = input;
   const first = input.name.trim().split(/\s+/)[0] || "there";
   const subject = `Your security check for ${scan.host}: ${scan.score}/100`;
-  const unlock = input.unlockUrl
-    ? `<p style="margin:16px 0;padding:12px 16px;background:#f6f1f1;border-radius:8px;font-size:14px;">Your email is at ${esc(scan.domain)}, so you can also run the exposed-files check. <a href="${esc(input.unlockUrl)}">Run the full check</a>. The link works for 7 days.</p>`
-    : scan.exposedFilesChecked
-      ? ""
-      : `<p style="margin:16px 0;font-size:14px;color:#555;">The exposed-files check was not run. Run the full check from an email address at this domain.</p>`;
   const html = `${WRAP_OPEN}
     <p>Hi ${esc(first)},</p>
     <p>Here is the free security check for <strong>${esc(scan.host)}</strong>, the website for ${esc(input.practice)}. The full report is attached as a PDF.</p>
     <p style="font-size:20px;font-weight:700;margin:16px 0 4px;">${scan.score} out of 100, grade ${scan.grade}</p>
     <p style="margin:0 0 16px;font-size:13px;color:#555;">${esc(RESULT_DISCLAIMER)}</p>
     ${findingsHtml(scan)}
-    ${unlock}
     ${ctaHtml()}
     ${input.followupsPlanned ? `<p style="margin:16px 0 0;font-size:13px;color:#555;">We will send two short follow-up emails over the next week. Each one has an unsubscribe link.</p>` : ""}
     ${footerHtml()}
@@ -121,10 +117,10 @@ export function reportEmail(input: ReportEmailInput) {
       `Fix: ${f.fix}`,
       "",
     ]),
-    ...(input.unlockUrl ? [`Run the full check, including exposed files (link works for 7 days): ${input.unlockUrl}`, ""] : []),
     `${REVIEW_CTA_LABEL}: ${BOOKING_URL}`,
     `Or call us at ${PHONE_DISPLAY}.`,
-    ...OFFERS.map((o) => `${o.price}: ${o.name}`),
+    ...OFFERS.map((o) => `${o.name}: ${o.covers} ${o.pricing}.`),
+    `${PRIMARY_CTA_LABEL}: ${SITE_URL}/contact`,
     "",
     REVIEW_BADGE,
   ].join("\n");
@@ -240,9 +236,9 @@ export async function sendLeadAlert(input: LeadAlertInput): Promise<boolean> {
 }
 
 /** Sent only when there is no database, so the authorization record exists somewhere durable. */
-export async function sendScanRecord(a: AuthorizationRecord, scan: ScanResult, kind: "scan" | "files"): Promise<void> {
+export async function sendScanRecord(a: AuthorizationRecord, scan: ScanResult): Promise<void> {
   const resend = getResend();
-  const what = kind === "files" ? "exposed-files run" : "scan";
+  const what = "scan";
   if (!resend) {
     console.error(`security-check: no database and no RESEND_API_KEY; ${what} record only in logs`, JSON.stringify(a));
     return;

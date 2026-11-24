@@ -135,26 +135,6 @@ export const FINDING_LIBRARY: Record<FindingId, FindingCopy> = {
     fix: "Back up the site, update the plugins listed above, and remove any plugin the practice no longer uses.",
   },
 
-  /* ── Files ── */
-  exposed_git: {
-    check: "files",
-    title: "Your website's code history is reachable from the internet",
-    why: "A public .git folder can let anyone download your site's source code, and sometimes passwords or keys that were saved in it. We only checked that it answers; we did not download it.",
-    fix: "Block web access to the .git folder today, then have your developer change any passwords stored in the code.",
-  },
-  exposed_env: {
-    check: "files",
-    title: "A settings file that often holds passwords is reachable",
-    why: "A .env file usually stores database passwords and service keys. If it can be downloaded, someone could use those keys to reach your site's data. We only checked that it answers; we did not download it.",
-    fix: "Remove or block the .env file from public access today, then change every password and key it contained.",
-  },
-  exposed_wpconfig_backup: {
-    check: "files",
-    title: "A backup of your WordPress settings is reachable",
-    why: "This backup copy can contain your website's database password in plain text, and unlike the live file it is not protected by the server. We only checked that it answers; we did not download it.",
-    fix: "Delete the backup file from the web server today and change the WordPress database password.",
-  },
-
   /* ── Forms ── */
   form_on_http_page: {
     check: "forms",
@@ -182,6 +162,5 @@ export const STRENGTH_TITLES: Record<CheckId, string> = {
   headers: "Browser security settings are in place",
   email: "Your email name is protected against spoofing",
   cms: "No outdated website software is visible",
-  files: "No common sensitive files are exposed",
   forms: "Your forms and booking links are encrypted",
 };

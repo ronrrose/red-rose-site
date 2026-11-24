@@ -56,7 +56,7 @@ const FAQS = [
   },
   {
     question: "What does the free practice security check look at?",
-    answer: `Six public signals from your website and email records, plus a 10-question Shadow AI quiz. It is passive and takes about two minutes. ${RESULT_DISCLAIMER}`,
+    answer: `Five public signals from your website and email records, plus a 10-question Shadow AI quiz. It is passive and takes about two minutes. ${RESULT_DISCLAIMER}`,
   },
   { question: "How is managed IT priced?", answer: "Managed IT is quoted after a free IT checkup, because it depends on the size and setup of the practice. There are no contracts and no hidden fees." },
   { question: "Do you work with medical practices too?", answer: "Yes. We also support medical practices and occupational medicine clinics, as well as legal, financial and nonprofit offices." },
@@ -150,7 +150,7 @@ export default function DentalPage() {
             See what your website shows an attacker
           </h2>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-secondary [text-wrap:pretty]">
-            A passive check of six public signals, from HTTPS to email spoofing protection, with a score and plain-English
+            A passive check of five public signals, from HTTPS to email spoofing protection, with a score and plain-English
             fixes. It takes about two minutes.
           </p>
           <Link href="/free-security-check" className={btnPrimary}>

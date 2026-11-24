@@ -60,8 +60,8 @@ export interface SecurityCheckStore {
   /** Record an attempt in a bucket, then say whether it is within `max` per window. */
   takeSlot(bucket: string, key: string, max: number, windowMs: number, now?: Date): Promise<SlotResult>;
   /** Claim the once-per-window slot for a domain. False if already claimed inside the window. */
-  claimDomain(domain: string, kind: "scan" | "files", windowMs: number, now?: Date): Promise<boolean>;
-  releaseDomain(domain: string, kind: "scan" | "files"): Promise<void>;
+  claimDomain(domain: string, kind: "scan", windowMs: number, now?: Date): Promise<boolean>;
+  releaseDomain(domain: string, kind: "scan"): Promise<void>;
   saveScan(scan: NewScan): Promise<string>;
   updateScanResult(id: string, result: ScanResult): Promise<void>;
   getScan(id: string): Promise<StoredScan | null>;
@@ -98,7 +98,7 @@ export class MemoryStore implements SecurityCheckStore {
     return { allowed: false, retryAfterSeconds: Math.max(1, Math.ceil((oldestInWindow + windowMs - t) / 1000)) };
   }
 
-  async claimDomain(domain: string, kind: "scan" | "files", windowMs: number, now = new Date()): Promise<boolean> {
+  async claimDomain(domain: string, kind: "scan", windowMs: number, now = new Date()): Promise<boolean> {
     const k = `${kind}:${domain}`;
     const prev = this.slots.get(k);
     if (prev !== undefined && prev > now.getTime() - windowMs) return false;
@@ -106,7 +106,7 @@ export class MemoryStore implements SecurityCheckStore {
     return true;
   }
 
-  async releaseDomain(domain: string, kind: "scan" | "files"): Promise<void> {
+  async releaseDomain(domain: string, kind: "scan"): Promise<void> {
     this.slots.delete(`${kind}:${domain}`);
   }
 
@@ -266,7 +266,7 @@ export class PostgresStore implements SecurityCheckStore {
     return { allowed: false, retryAfterSeconds: Math.max(1, Math.ceil((oldest + windowMs - now.getTime()) / 1000)) };
   }
 
-  async claimDomain(domain: string, kind: "scan" | "files", windowMs: number, now = new Date()): Promise<boolean> {
+  async claimDomain(domain: string, kind: "scan", windowMs: number, now = new Date()): Promise<boolean> {
     const cutoff = new Date(now.getTime() - windowMs).toISOString();
     const won = await this.rows(
       `INSERT INTO security_check_domain_slots (domain, kind, claimed_at) VALUES ($1, $2, $3)
@@ -278,7 +278,7 @@ export class PostgresStore implements SecurityCheckStore {
     return won.length === 1;
   }
 
-  async releaseDomain(domain: string, kind: "scan" | "files"): Promise<void> {
+  async releaseDomain(domain: string, kind: "scan"): Promise<void> {
     await this.rows("DELETE FROM security_check_domain_slots WHERE domain = $1 AND kind = $2", [domain, kind]);
   }
 
@@ -286,12 +286,12 @@ export class PostgresStore implements SecurityCheckStore {
     const r = await this.rows<{ id: string }>(
       `INSERT INTO security_check_scans
          (host, domain, ip, user_agent, authorization_text, authorization_version, authorized_at,
-          exposed_files_checked, score, grade, result)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+          score, grade, result)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
        RETURNING id`,
       [
         s.host, s.domain, s.ip, s.userAgent, s.authorizationText, s.authorizationVersion,
-        s.authorizedAt.toISOString(), s.result.exposedFilesChecked, s.result.score, s.result.grade,
+        s.authorizedAt.toISOString(), s.result.score, s.result.grade,
         JSON.stringify(s.result),
       ]
     );
@@ -301,8 +301,8 @@ export class PostgresStore implements SecurityCheckStore {
   async updateScanResult(id: string, result: ScanResult): Promise<void> {
     if (!UUID.test(id)) return;
     await this.rows(
-      "UPDATE security_check_scans SET result = $2, score = $3, grade = $4, exposed_files_checked = $5 WHERE id = $1",
-      [id, JSON.stringify(result), result.score, result.grade, result.exposedFilesChecked]
+      "UPDATE security_check_scans SET result = $2, score = $3, grade = $4 WHERE id = $1",
+      [id, JSON.stringify(result), result.score, result.grade]
     );
   }
 

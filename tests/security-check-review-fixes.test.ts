@@ -21,7 +21,6 @@ vi.mock("@/lib/security-check/emails", async (orig) => ({
 const runScan = vi.fn();
 vi.mock("@/lib/security-check/scan", () => ({
   runScan: (...a: unknown[]) => runScan(...a),
-  addExposedFilesToResult: vi.fn(),
 }));
 
 import { POST as report } from "@/app/api/security-check/report/route";
@@ -37,7 +36,7 @@ import { readFileSync } from "node:fs";
 function result(host = "smiledental.com", scannedAt = new Date().toISOString()) {
   return {
     version: 1, host, domain: host.replace(/^www\./, ""), scannedAt, score: 50, grade: "F",
-    checks: [], findings: [], strengths: [], requests: [], exposedFilesChecked: false, pageUrl: null, tlsVerified: true,
+    checks: [], findings: [], strengths: [], requests: [], pageUrl: null,
   };
 }
 
@@ -140,7 +139,7 @@ describe("1. the report route is not an open email relay", () => {
 });
 
 describe("2. production fails closed without the database", () => {
-  it("scan, report and full return 503 with a friendly message", async () => {
+  it("scan and report return 503 with a friendly message", async () => {
     process.env.VERCEL_ENV = "production";
     const s = await scanRoute(post("/api/security-check/scan", { domain: "smiledental.com", authorized: true }));
     expect(s.status).toBe(503);
@@ -211,7 +210,7 @@ describe("4. unsubscribe is by email address", () => {
 describe("5. unsubscribe links and follow-ups need a dedicated secret", () => {
   it("never signs an unsubscribe token from a borrowed secret", () => {
     expect(signToken("unsub", { l: "x", e: "a@b.com" }, 60)).toBeNull();
-    expect(signToken("files", { h: "a.com" }, 60)).not.toBeNull();
+    expect(signResult("{}")).not.toBeNull(); // result signatures may use the derived key
     process.env.SECURITY_CHECK_SECRET = "dedicated-secret-for-tests-0123456789";
     const t = signToken("unsub", { l: "x", e: "a@b.com" }, 60);
     expect(verifyToken("unsub", t)).toMatchObject({ l: "x" });
@@ -260,10 +259,9 @@ describe("10 and cache: config files", () => {
     const v = JSON.parse(readFileSync("vercel.json", "utf8")) as { headers: Array<{ source: string; headers: Array<{ key: string; value: string }> }> };
     const pub = v.headers.find((h) => h.headers.some((x) => x.value.startsWith("public")))!;
     const rx = new RegExp(`^${pub.source}$`);
-    expect(rx.test("/free-security-check/full")).toBe(false);
     expect(rx.test("/free-security-check/unsubscribe")).toBe(false);
     expect(rx.test("/free-security-check")).toBe(true);
-    const priv = v.headers.find((h) => h.source === "/free-security-check/(full|unsubscribe)")!;
+    const priv = v.headers.find((h) => h.source === "/free-security-check/unsubscribe")!;
     expect(priv.headers).toEqual([{ key: "Cache-Control", value: "private, no-store" }]);
   });
 });

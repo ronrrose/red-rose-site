@@ -160,8 +160,8 @@ export function registrableDomain(host: string): string {
 
 /**
  * Free mailbox providers. An address there proves nothing about owning a
- * website, so it never unlocks the exposed-files check, even for a site
- * hosted on a subdomain of the same provider.
+ * website, so it never makes a lead eligible for follow-up email, even for a
+ * site hosted on a subdomain of the same provider.
  */
 const FREE_MAIL_DOMAINS = new Set([
   "gmail.com", "googlemail.com", "outlook.com", "hotmail.com", "live.com", "msn.com",
@@ -172,10 +172,11 @@ const FREE_MAIL_DOMAINS = new Set([
 ]);
 
 /**
- * Whether an email address is at the scanned website's domain.
+ * Whether an email address is at the scanned website's domain. Decides
+ * whether a lead may get the day 3 and day 7 follow-ups.
  *
  * Exact match only: the email's domain must equal the site's name with any
- * leading "www." removed. A mailbox at a parent domain does not unlock a
+ * leading "www." removed. A mailbox at a parent domain does not count for a
  * subdomain, because a shared parent (a university, a hosting company) is
  * not proof of running the site. Never for a free mailbox provider.
  */

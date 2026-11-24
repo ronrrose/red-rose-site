@@ -77,9 +77,9 @@ has two parts:
 1. Website Exposure Scan: passive, public-only checks of the practice's own
    website: HTTPS and the certificate, security headers, email spoofing
    protection (SPF, DKIM and DMARC), website software versions, and forms or
-   booking links that use plain HTTP. A sixth check, for exposed common
-   files, runs only when the request comes from an email address at that
-   website's domain. The visitor must confirm they own or manage the domain.
+   booking links that use plain HTTP. It loads only the homepage and its
+   redirects and reads public DNS records, nothing else. The visitor must
+   confirm they own or manage the domain.
    It gives a score out of 100, a letter grade and the top fixes in plain
    English.
 2. Shadow AI Risk Check: ten questions on whether staff use free AI tools

@@ -1,24 +1,24 @@
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 
 /**
- * Signed tokens for three things that must not be forgeable: the emailed link
- * that unlocks the exposed-files check, the unsubscribe link, and the scan
- * result the browser hands back when it asks for the report.
+ * Signed tokens for the two things that must not be forgeable: the
+ * unsubscribe link, and the scan result the browser hands back when it asks
+ * for the report.
  *
  * Keys:
  *   - Unsubscribe links (and so the day 3 and day 7 follow-ups) need a
  *     dedicated SECURITY_CHECK_SECRET. Without it they are never issued:
  *     fail closed, so an unsubscribe link can never depend on a secret that
  *     exists for something else and might be rotated without notice.
- *   - The exposed-files link and result signatures use SECURITY_CHECK_SECRET
- *     when set, otherwise a key derived from ADMIN_SESSION_SECRET or
- *     CRON_SECRET under a purpose label, so previews work before Ron adds it.
+ *   - Result signatures use SECURITY_CHECK_SECRET when set, otherwise a key
+ *     derived from ADMIN_SESSION_SECRET or CRON_SECRET under a purpose
+ *     label, so previews work before Ron adds it.
  */
 
 const LABEL = "red-rose/security-check/v1";
 const MIN_SECRET = 16;
 
-export type TokenPurpose = "files" | "unsub";
+export type TokenPurpose = "unsub";
 
 function dedicatedKey(): Buffer | null {
   const own = process.env.SECURITY_CHECK_SECRET;
@@ -26,7 +26,7 @@ function dedicatedKey(): Buffer | null {
 }
 
 /** The key for a purpose, or null when that purpose may not be signed here. */
-export function signingKey(purpose: TokenPurpose | "result" = "files"): Buffer | null {
+export function signingKey(purpose: TokenPurpose | "result"): Buffer | null {
   const own = dedicatedKey();
   if (own) return own;
   if (purpose === "unsub") return null;

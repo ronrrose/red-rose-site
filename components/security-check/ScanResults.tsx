@@ -2,14 +2,14 @@
 
 import { CheckCircle2, AlertTriangle, XCircle, MinusCircle, ArrowUpRight } from "lucide-react";
 import {
-  FILES_SKIPPED_MESSAGE,
   RESULT_DISCLAIMER,
   REVIEW_BADGE,
   type CheckStatus,
   type ScanResult,
 } from "@/lib/security-check/types";
 import { OFFERS, REVIEW_CTA_LABEL } from "@/lib/security-check/offers";
-import { BOOKING_URL } from "@/lib/site-config";
+import { BOOKING_URL, PRIMARY_CTA_LABEL } from "@/lib/site-config";
+import { Link } from "@/i18n/navigation";
 
 /**
  * The scan result. Every string shown here was produced by our own code from
@@ -66,11 +66,18 @@ export function ReviewCta({
       <ul className="mt-6 grid gap-3 sm:grid-cols-2">
         {OFFERS.map((o) => (
           <li key={o.name} className="rounded-xl border border-line p-4">
-            <p className="text-base font-semibold text-ink">{o.price}</p>
-            <p className="text-sm text-secondary">{o.name.charAt(0).toUpperCase() + o.name.slice(1)}</p>
+            <p className="text-base font-semibold text-ink">{o.name}</p>
+            <p className="mt-1 text-sm text-secondary">{o.covers}</p>
+            <p className="mt-2 text-sm font-semibold text-accent">{o.pricing}</p>
           </li>
         ))}
       </ul>
+      <Link
+        href="/contact"
+        className="mt-4 inline-flex min-h-[44px] items-center text-sm font-semibold text-accent underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        {PRIMARY_CTA_LABEL}
+      </Link>
     </div>
   );
 }
@@ -153,7 +160,7 @@ export default function ScanResults({ result, note }: { result: ScanResult; note
                 <StatusLabel status={c.status} />
               </div>
               <p className="mt-1 break-words text-sm text-secondary">
-                {c.id === "files" && c.status === "skipped" ? `${FILES_SKIPPED_MESSAGE}.` : c.summary}
+                {c.summary}
               </p>
               {c.details.length > 0 && (
                 <details className="mt-2">

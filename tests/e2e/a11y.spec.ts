@@ -61,7 +61,8 @@ test("free security check: results, lead form and quiz pass axe", async ({ page 
   await expect(page.getByRole("heading", { name: "What to fix first" })).toBeVisible();
   await expect(page.getByText("This free check covers public signals only. It is not a full security assessment or a HIPAA compliance determination.", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Reviewed by Red Rose Technologies, verified in Anthropic's Cyber Verification Program (Defense Access)", { exact: true })).toBeVisible();
-  await expect(page.getByText("Run the full check from an email address at this domain.", { exact: true })).toBeVisible();
+  // No price is published anywhere in the result.
+  expect(await page.locator("main").innerText()).not.toMatch(/\$\s?\d/);
   await expect(page.getByRole("link", { name: /Book a free 30-minute review of your results/ }).first()).toHaveAttribute("href", "https://ro.am/ronrose/meeting");
 
   // One review offer inside the results, one standing block at the bottom with its own wording.

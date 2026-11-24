@@ -11,7 +11,6 @@ import { NextRequest } from "next/server";
 const runScan = vi.fn();
 vi.mock("@/lib/security-check/scan", () => ({
   runScan: (...a: unknown[]) => runScan(...a),
-  addExposedFilesToResult: vi.fn(),
 }));
 const sendScanRecord = vi.fn(async () => undefined);
 vi.mock("@/lib/security-check/emails", async (orig) => ({
@@ -26,7 +25,7 @@ import { AUTHORIZATION_TEXT, AUTHORIZATION_VERSION } from "@/lib/security-check/
 function fakeResult(host: string) {
   return {
     version: 1, host, domain: host.replace(/^www\./, ""), scannedAt: new Date().toISOString(), score: 80, grade: "B",
-    checks: [], findings: [], strengths: [], requests: [], exposedFilesChecked: false, pageUrl: `https://${host}/`, tlsVerified: true,
+    checks: [], findings: [], strengths: [], requests: [], pageUrl: `https://${host}/`,
   };
 }
 

@@ -3,7 +3,7 @@
  * client components: no Node APIs here.
  */
 
-export type CheckId = "https" | "headers" | "email" | "cms" | "files" | "forms";
+export type CheckId = "https" | "headers" | "email" | "cms" | "forms";
 export type CheckStatus = "pass" | "warn" | "fail" | "skipped" | "error";
 export type Severity = "fail" | "warn";
 
@@ -25,9 +25,6 @@ export type FindingId =
   | "cms_eol"
   | "cms_version_exposed"
   | "plugin_outdated"
-  | "exposed_git"
-  | "exposed_env"
-  | "exposed_wpconfig_backup"
   | "form_on_http_page"
   | "form_http_action"
   | "booking_link_http";
@@ -82,11 +79,8 @@ export type ScanResult = {
   strengths: Strength[];
   /** Every request and lookup the scan made, for the visitor and for audit. */
   requests: RequestRecord[];
-  exposedFilesChecked: boolean;
   /** The homepage URL the content checks read, after redirects. */
   pageUrl: string | null;
-  /** Whether the certificate verified, so a later HEAD probe knows how to connect. */
-  tlsVerified: boolean;
 };
 
 export const CHECK_LABELS: Record<CheckId, string> = {
@@ -94,7 +88,6 @@ export const CHECK_LABELS: Record<CheckId, string> = {
   headers: "Security headers",
   email: "Email spoofing protection",
   cms: "Website software versions",
-  files: "Exposed common files",
   forms: "Forms and booking links",
 };
 
@@ -104,7 +97,6 @@ export const CHECK_WEIGHTS: Record<CheckId, number> = {
   headers: 15,
   cms: 15,
   forms: 10,
-  files: 10,
 };
 
 /** The disclaimer every result carries, word for word from the brief. */
@@ -114,9 +106,6 @@ export const RESULT_DISCLAIMER =
 /** Badge wording, exact. Never "certified", "accredited" or "partner", and no logo. */
 export const REVIEW_BADGE =
   "Reviewed by Red Rose Technologies, verified in Anthropic's Cyber Verification Program (Defense Access)";
-
-/** Shown in place of check 5 when the email does not match the domain. */
-export const FILES_SKIPPED_MESSAGE = "Run the full check from an email address at this domain";
 
 /** The checkbox text. Versioned so a stored authorization proves what was agreed. */
 export const AUTHORIZATION_TEXT =

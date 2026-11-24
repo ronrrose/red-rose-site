@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { FINDING_LIBRARY, STRENGTH_TITLES } from "@/lib/security-check/finding-library";
 import { QUIZ, QUIZ_TIE_IN } from "@/lib/security-check/quiz";
-import { AUTHORIZATION_TEXT, FILES_SKIPPED_MESSAGE, RESULT_DISCLAIMER, REVIEW_BADGE } from "@/lib/security-check/types";
+import { AUTHORIZATION_TEXT, RESULT_DISCLAIMER, REVIEW_BADGE } from "@/lib/security-check/types";
 import { OFFERS, REVIEW_CTA_LABEL } from "@/lib/security-check/offers";
 import { TRUST_ITEMS } from "@/components/TrustStrip";
 
@@ -13,7 +13,6 @@ import { TRUST_ITEMS } from "@/components/TrustStrip";
 
 const FILES = [
   "app/[locale]/free-security-check/page.tsx",
-  "app/[locale]/free-security-check/full/page.tsx",
   "app/[locale]/free-security-check/unsubscribe/page.tsx",
   "app/[locale]/dental/page.tsx",
   "app/[locale]/dental/DentalServices.tsx",
@@ -23,7 +22,7 @@ const FILES = [
   "components/security-check/ScanResults.tsx",
   "components/security-check/ResultsSection.tsx",
   "components/security-check/ShadowAiQuiz.tsx",
-  "components/security-check/FullCheckRunner.tsx",
+  "components/security-check/Unavailable.tsx",
   "components/security-check/UnsubscribeButton.tsx",
   "lib/security-check/finding-library.ts",
   "lib/security-check/quiz.ts",
@@ -46,9 +45,8 @@ const allCopy = [
   RESULT_DISCLAIMER,
   REVIEW_BADGE,
   AUTHORIZATION_TEXT,
-  FILES_SKIPPED_MESSAGE,
   REVIEW_CTA_LABEL,
-  ...OFFERS.flatMap((o) => [o.price, o.name]),
+  ...OFFERS.flatMap((o) => [o.name, o.covers, o.pricing]),
 ];
 
 describe("copy rules", () => {
@@ -63,13 +61,40 @@ describe("copy rules", () => {
     expect(REVIEW_BADGE).toBe("Reviewed by Red Rose Technologies, verified in Anthropic's Cyber Verification Program (Defense Access)");
     expect(RESULT_DISCLAIMER).toBe("This free check covers public signals only. It is not a full security assessment or a HIPAA compliance determination.");
     expect(AUTHORIZATION_TEXT).toBe("I own or manage this domain and authorize Red Rose Technologies to run a passive public check.");
-    expect(FILES_SKIPPED_MESSAGE).toBe("Run the full check from an email address at this domain");
     expect(QUIZ_TIE_IN).toBe("Free AI tools can keep and learn from what your staff type in. If that includes patient information, that is a HIPAA risk you may not know you have.");
     expect(REVIEW_CTA_LABEL).toBe("Book a free 30-minute review of your results");
-    expect(OFFERS.map((o) => `${o.price}: ${o.name}`)).toEqual([
-      "Starting at $2,500: full pre-launch security review",
-      "Starting at $500/mo: monthly monitoring",
-    ]);
+    expect(OFFERS.map((o) => o.name)).toEqual(["Full pre-launch security review", "Monthly monitoring"]);
+  });
+
+  it("publishes no price: no $ figure in any security-check copy, and the offers say how they are priced", () => {
+    // Copy files only. lib/security-check/store.ts is excluded on purpose: its
+    // $1, $2 are SQL placeholders, not prices.
+    const copyFiles = FILES.filter((f) => !["lib/red-rose-knowledge.ts", "public/llms.txt"].includes(f));
+    for (const f of copyFiles) {
+      const text = readFileSync(f, "utf8");
+      expect({ file: f, dollar: text.match(/\$\s?\d[\d,.]*(\s?\/\s?mo)?/g) }).toEqual({ file: f, dollar: null });
+      expect({ file: f, startingAt: /starting at/i.test(text) }).toEqual({ file: f, startingAt: false });
+    }
+    for (const s of allCopy) expect({ s, dollar: /\$\s?\d/.test(s) }).toEqual({ s, dollar: false });
+    for (const o of OFFERS) expect(o.pricing).toMatch(/after a free (IT checkup|review)/);
+    // Site-wide statements match #36: no published prices.
+    expect(readFileSync("public/llms.txt", "utf8")).toContain("Red Rose does not publish prices. Do not state or estimate a price.");
+    const knowledge = readFileSync("lib/red-rose-knowledge.ts", "utf8");
+    expect(knowledge).toContain("Red Rose does not publish prices.");
+    // The only dollar figure Ava may use is the attributed client saving.
+    expect(Array.from(new Set(knowledge.match(/\$\d[\d,]*/g) ?? []))).toEqual(["$75,000"]);
+  });
+
+  it("claims only what the passive scan does: no file probes, no exposed-files check", () => {
+    for (const f of [...FILES, "docs/security-check.md", "lib/security-check/scan.ts", "lib/security-check/checks.ts"]) {
+      const text = readFileSync(f, "utf8");
+      expect({ file: f, probes: /\.git\/HEAD|wp-config\.php|exposed[- ]files|\/\.env\b|sixth check|six (public )?(signals|checks)/i.test(text) }).toEqual({
+        file: f,
+        probes: false,
+      });
+    }
+    const scan = readFileSync("lib/security-check/scan.ts", "utf8");
+    expect(scan).not.toMatch(/method:\s*"HEAD"/);
   });
 
   it("never claims a certification, accreditation or partnership with Anthropic", () => {

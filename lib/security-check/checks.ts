@@ -1,7 +1,6 @@
 import {
   CHECK_LABELS,
   CHECK_WEIGHTS,
-  FILES_SKIPPED_MESSAGE,
   type CheckId,
   type CheckResult,
   type CheckStatus,
@@ -16,7 +15,7 @@ import {
 } from "@/lib/security-check/outdated-versions";
 
 /**
- * The six checks, as pure functions over evidence the scanner gathered.
+ * The five checks, as pure functions over evidence the scanner gathered.
  *
  * Nothing here touches the network, so every pass, warn and fail rule can be
  * tested with fixed inputs. Strings that reach the visitor come only from
@@ -427,49 +426,7 @@ export function checkCms(html: string | null): CheckResult {
   return result("cms", worst(findings), summary, details, findings);
 }
 
-/* ── 5. Exposed common files ────────────────────────────────────────────── */
-
-export const EXPOSED_FILE_PATHS = ["/.git/HEAD", "/.env", "/wp-config.php.bak"] as const;
-export type ExposedPath = (typeof EXPOSED_FILE_PATHS)[number];
-
-const FILE_FINDING: Record<ExposedPath, FindingRef["id"]> = {
-  "/.git/HEAD": "exposed_git",
-  "/.env": "exposed_env",
-  "/wp-config.php.bak": "exposed_wpconfig_backup",
-};
-
-export type FileProbe = { path: ExposedPath; status: number | null; contentType: string | null };
-
-/**
- * Found means the server answered 200 with something other than a web page.
- * Many sites answer every address with their normal page (a "soft 404"), and
- * calling that a leak would be a false alarm. We only ever send HEAD, so the
- * file itself is never downloaded.
- */
-export function isFileExposed(p: FileProbe): boolean {
-  return p.status === 200 && !/text\/html/i.test(p.contentType ?? "");
-}
-
-export function checkFiles(probes: FileProbe[] | null): CheckResult {
-  if (probes === null) {
-    return result("files", "skipped", `${FILES_SKIPPED_MESSAGE}.`, [], []);
-  }
-  const findings: FindingRef[] = [];
-  const details: string[] = [];
-  for (const p of probes) {
-    const found = isFileExposed(p);
-    details.push(`${p.path}: ${found ? "found" : "not found"}`);
-    if (found) findings.push({ id: FILE_FINDING[p.path], severity: "fail", detail: p.path });
-  }
-  const status = worst(findings);
-  const summary =
-    status === "pass"
-      ? "None of the common sensitive files we look for are reachable."
-      : `${findings.length} sensitive file${findings.length > 1 ? "s are" : " is"} reachable from the internet.`;
-  return result("files", status, summary, details, findings);
-}
-
-/* ── 6. Forms and booking links over HTTP ───────────────────────────────── */
+/* ── 5. Forms and booking links over HTTP ───────────────────────────────── */
 
 const BOOKING_WORDS = /book|appoint|schedul|contact|request|patient|portal|form|intake|pay/i;
 

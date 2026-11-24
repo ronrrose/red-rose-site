@@ -11,8 +11,8 @@ import { followupConfig, followupEmail, reportEmail } from "@/lib/security-check
 /**
  * End to end through the real scanner, against a local fake practice site,
  * to prove the "no active probing" acceptance test from the brief: the only
- * HTTP traffic is GET of the homepage (and its redirects) and, when
- * unlocked, HEAD of the three listed paths.
+ * HTTP traffic is GET of the homepage (and its redirects). No other path,
+ * and no HEAD request, is ever sent.
  */
 
 const seen: Array<{ method: string; url: string }> = [];
@@ -64,23 +64,19 @@ describe("scan of a known-weak site", () => {
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     const status = Object.fromEntries(r.result.checks.map((c) => [c.id, c.status]));
-    expect(status).toEqual({ https: "fail", headers: "fail", email: "fail", cms: "fail", files: "skipped", forms: "fail" });
+    expect(status).toEqual({ https: "fail", headers: "fail", email: "fail", cms: "fail", forms: "fail" });
     expect(r.result.grade).toBe("F");
     expect(r.result.findings.length).toBe(5);
     expect(seen).toEqual([{ method: "GET", url: "/" }]);
     expect(r.result.requests.filter((q) => q.method !== "DNS").every((q) => q.method === "GET")).toBe(true);
   });
 
-  it("with the check unlocked, adds exactly three HEAD requests to the listed paths", async () => {
+  it("never requests another path or sends HEAD, even for a site that serves sensitive files", async () => {
     seen.length = 0;
-    const r = await runScan("weak-practice.com", { deps: deps(), txtLookup: noDns, includeExposedFiles: true, budgetMs: 8000 });
-    expect(r.ok && r.result.checks.find((c) => c.id === "files")?.status).toBe("fail");
-    expect(seen).toEqual([
-      { method: "GET", url: "/" },
-      { method: "HEAD", url: "/.git/HEAD" },
-      { method: "HEAD", url: "/.env" },
-      { method: "HEAD", url: "/wp-config.php.bak" },
-    ]);
+    const r = await runScan("weak-practice.com", { deps: deps(), txtLookup: noDns, budgetMs: 8000 });
+    expect(r.ok).toBe(true);
+    expect(seen.every((s) => s.method === "GET" && s.url === "/")).toBe(true);
+    expect(r.ok && r.result.requests.some((q) => q.method === "HEAD")).toBe(false);
   });
 
   it("refuses a domain that resolves privately, with no request made", async () => {
@@ -96,12 +92,13 @@ describe("scan of a known-weak site", () => {
 
 describe("tokens", () => {
   process.env.ADMIN_SESSION_SECRET = "test-secret-at-least-sixteen-chars";
-  it("round-trips and rejects tampering, the wrong purpose and expiry", () => {
-    const t = signToken("files", { h: "smile.com", e: "dr@smile.com" }, 60)!;
-    expect(verifyToken("files", t)).toMatchObject({ h: "smile.com" });
-    expect(verifyToken("unsub", t)).toBeNull();
-    expect(verifyToken("files", t.replace(/.$/, (c) => (c === "A" ? "B" : "A")))).toBeNull();
-    expect(verifyToken("files", t, Date.now() + 61_000)).toBeNull();
+  it("round-trips and rejects tampering and expiry", () => {
+    process.env.SECURITY_CHECK_SECRET = "dedicated-secret-for-tests-0123456789";
+    const t = signToken("unsub", { l: "lead", e: "dr@smile.com" }, 60)!;
+    expect(verifyToken("unsub", t)).toMatchObject({ e: "dr@smile.com" });
+    expect(verifyToken("unsub", t.replace(/.$/, (c) => (c === "A" ? "B" : "A")))).toBeNull();
+    expect(verifyToken("unsub", t, Date.now() + 61_000)).toBeNull();
+    delete process.env.SECURITY_CHECK_SECRET;
     const body = JSON.stringify({ a: 1 });
     expect(verifyResult(body, signResult(body))).toBe(true);
     expect(verifyResult(JSON.stringify({ a: 2 }), signResult(body))).toBe(false);
@@ -121,7 +118,7 @@ describe("report PDF and emails", () => {
   it("escapes visitor text in emails and carries the disclaimer", async () => {
     const r = await runScan("weak-practice.com", { deps: deps(), txtLookup: noDns, budgetMs: 8000 });
     if (!r.ok) throw new Error("scan failed");
-    const e = reportEmail({ to: "a@b.com", name: "<img src=x>", practice: "<b>x</b>", scan: r.result, pdf: new Uint8Array(), unlockUrl: null, followupsPlanned: false });
+    const e = reportEmail({ to: "a@b.com", name: "<img src=x>", practice: "<b>x</b>", scan: r.result, pdf: new Uint8Array(), followupsPlanned: false });
     expect(e.html).not.toContain("<img");
     expect(e.html).not.toContain("<b>x</b>");
     expect(e.html).toContain("&lt;b&gt;x&lt;/b&gt;");

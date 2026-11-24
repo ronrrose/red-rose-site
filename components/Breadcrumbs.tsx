@@ -14,7 +14,6 @@ const nameMap: Record<string, string> = {
   "managed-it": "Managed IT",
   "penetration-testing": "Penetration testing",
   "free-security-check": "Free practice security check",
-  full: "Full check",
   unsubscribe: "Unsubscribe",
   dental: "Dental practices",
   industries: "Industries",

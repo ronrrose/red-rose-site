@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lock, FileCode2, Mail, Layers, FolderLock, FormInput, Ban } from "lucide-react";
+import { Lock, FileCode2, Mail, Layers, FormInput, Ban } from "lucide-react";
 import { localeAlternates, pageOpenGraph } from "@/lib/metadata";
 import type { Locale } from "@/i18n/config";
 import DotPattern from "@/components/magicui/dot-pattern";
@@ -32,7 +32,6 @@ const CHECKS = [
   { icon: FileCode2, title: "Security headers", text: "Five browser settings: HSTS, Content-Security-Policy, X-Frame-Options, X-Content-Type-Options and Referrer-Policy." },
   { icon: Mail, title: "Email spoofing protection", text: "Your SPF, DKIM and DMARC records, which decide whether someone can send email that claims to be your practice." },
   { icon: Layers, title: "Website software versions", text: "Whether your homepage shows a WordPress, Joomla or Drupal version, or plugin versions, that are out of date." },
-  { icon: FolderLock, title: "Exposed common files", text: "Whether three files that should never be public answer at all. Only when you ask from an email at your domain, and we never download them." },
   { icon: FormInput, title: "Forms and booking links", text: "Whether a form or booking link on your homepage sends information over plain HTTP." },
 ];
 
@@ -40,17 +39,12 @@ const FAQS = [
   {
     question: "Is this check safe to run on my website?",
     answer:
-      "Yes. It makes the same kind of requests a browser makes when someone visits your homepage, plus public DNS lookups. It does not log in, try passwords, scan ports or crawl past the homepage.",
+      "Yes. It loads your homepage the way any visitor's browser does, follows its redirects, and looks up your public DNS records for email. It does not request any other page or file, log in, try passwords, scan ports or crawl past the homepage.",
   },
   {
     question: "Why do I have to tick the authorization box?",
     answer:
       "Because we only check websites for the people who run them. We record that you ticked it, with the time, the website and your IP address.",
-  },
-  {
-    question: "Why is the exposed-files check not run straight away?",
-    answer:
-      "It asks your server whether three files that should never be public exist. That goes a step past what a normal visitor does, so we only run it when the request comes from an email address at the same domain, through a link we email to that address.",
   },
   {
     question: "Does a good score mean my practice is HIPAA compliant?",
@@ -96,7 +90,7 @@ export default function FreeSecurityCheckPage() {
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-accent">Part 1: Website exposure scan</p>
             <h2 id="what-heading" className="text-3xl font-bold text-ink md:text-5xl [text-wrap:balance]">
-              Six public signals, scored
+              Five public signals, scored
             </h2>
             <p className="mt-5 text-lg text-secondary [text-wrap:pretty]">
               Each one gets a pass, a warning or a fail. You get a score out of 100, a letter grade, and the top fixes in plain English.
@@ -119,8 +113,9 @@ export default function FreeSecurityCheckPage() {
             <Ban className="mt-1 h-6 w-6 shrink-0 text-accent" aria-hidden="true" />
             <p className="text-sm leading-relaxed text-secondary [text-wrap:pretty]">
               <span className="font-semibold text-ink">What we never do: </span>
-              no port scans, no login attempts, no vulnerability probing and no crawling past your homepage. We read only what
-              any browser can see in public, and our requests name themselves as the Red Rose Technologies security check.
+              no port scans, no login attempts, no vulnerability probing, no requests for hidden files and no crawling past
+              your homepage. We load your homepage the way any visitor does, follow its redirects, and read your public DNS
+              records for email. Our requests name themselves as the Red Rose Technologies security check.
             </p>
           </div>
         </div>

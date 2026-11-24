@@ -30,7 +30,7 @@
       ]
     },
     {
-      "source": "/((?!api|contact|resources|free-security-check/full|free-security-check/unsubscribe).*)",
+      "source": "/((?!api|contact|resources|free-security-check/unsubscribe).*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -39,7 +39,7 @@
       ]
     },
     {
-      "source": "/free-security-check/(full|unsubscribe)",
+      "source": "/free-security-check/unsubscribe",
       "headers": [
         {
           "key": "Cache-Control",

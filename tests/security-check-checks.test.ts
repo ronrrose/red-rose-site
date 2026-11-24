@@ -2,12 +2,10 @@ import { describe, expect, it } from "vitest";
 import {
   checkCms,
   checkEmail,
-  checkFiles,
   checkForms,
   checkHeaders,
   checkHttps,
   detectCms,
-  isFileExposed,
 } from "@/lib/security-check/checks";
 import { gradeFor, scoreChecks, strengths, topFindings } from "@/lib/security-check/scoring";
 import { emailMatchesDomain } from "@/lib/security-check/target";
@@ -131,30 +129,7 @@ describe("check 4: CMS and versions", () => {
   });
 });
 
-describe("check 5: exposed files", () => {
-  it("found means 200 and not an HTML page", () => {
-    expect(isFileExposed({ path: "/.env", status: 200, contentType: "text/plain" })).toBe(true);
-    expect(isFileExposed({ path: "/.env", status: 200, contentType: "text/html; charset=utf-8" })).toBe(false);
-    expect(isFileExposed({ path: "/.env", status: 403, contentType: "text/plain" })).toBe(false);
-    expect(isFileExposed({ path: "/.env", status: null, contentType: null })).toBe(false);
-  });
-  it("fails each exposed file separately", () => {
-    const r = checkFiles([
-      { path: "/.git/HEAD", status: 200, contentType: "application/octet-stream" },
-      { path: "/.env", status: 404, contentType: "text/html" },
-      { path: "/wp-config.php.bak", status: 200, contentType: "application/x-trash" },
-    ]);
-    expect(r.status).toBe("fail");
-    expect(r.findings.map((f) => f.id)).toEqual(["exposed_git", "exposed_wpconfig_backup"]);
-  });
-  it("is skipped with the exact message when not unlocked", () => {
-    const r = checkFiles(null);
-    expect(r.status).toBe("skipped");
-    expect(r.summary).toBe("Run the full check from an email address at this domain.");
-  });
-});
-
-describe("check 6: forms over HTTP", () => {
+describe("check 5: forms over HTTP", () => {
   it("passes HTTPS forms", () => expect(checkForms('<form action="https://x.com/book"></form>', "https:").status).toBe("pass"));
   it("fails a form action over http", () => {
     const r = checkForms('<form method="post" action="http://booking.example-vendor.com/submit">', "https:");
@@ -172,7 +147,7 @@ describe("scoring", () => {
   it("weights pass 1, warn half, fail 0, and skips skipped", () => {
     expect(scoreChecks([pass])).toBe(100);
     expect(scoreChecks([fail])).toBe(0);
-    expect(scoreChecks([pass, checkFiles(null)])).toBe(100);
+    expect(scoreChecks([pass, checkHeaders(null)])).toBe(100);
   });
   it("grades on 90/80/70/60", () => {
     expect([95, 85, 75, 65, 10].map(gradeFor)).toEqual(["A", "B", "C", "D", "F"]);
@@ -191,7 +166,7 @@ describe("scoring", () => {
   });
 });
 
-describe("check 5 unlock: email must be at the scanned domain", () => {
+describe("follow-up eligibility: email must be at the scanned domain", () => {
   it.each([
     ["dr@smiledental.com", "smiledental.com", true],
     ["dr@smiledental.com", "www.smiledental.com", true],

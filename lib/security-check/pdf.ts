@@ -1,7 +1,7 @@
 import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import { RESULT_DISCLAIMER, REVIEW_BADGE, type ScanResult } from "@/lib/security-check/types";
 import { QUIZ, QUIZ_TIE_IN, scoreQuiz, type QuizAnswers } from "@/lib/security-check/quiz";
-import { BOOKING_URL, PHONE_DISPLAY, SITE_URL } from "@/lib/site-config";
+import { BOOKING_URL, PHONE_DISPLAY, PRIMARY_CTA_LABEL, SITE_URL } from "@/lib/site-config";
 import { OFFERS } from "@/lib/security-check/offers";
 
 /**
@@ -163,17 +163,18 @@ export async function buildReportPdf(input: ReportInput): Promise<Uint8Array> {
   text(ctx, "Next step", { size: 14, bold: true, gap: 6 });
   text(ctx, `Book a free 30-minute review of your results: ${BOOKING_URL}`, { gap: 2 });
   text(ctx, `Or call us at ${PHONE_DISPLAY}.`, { gap: 6 });
-  for (const o of OFFERS) text(ctx, `${o.price}: ${o.name}`, { size: 10.5, gap: 2 });
+  for (const o of OFFERS) {
+    text(ctx, o.name, { size: 10.5, bold: true, gap: 0 });
+    text(ctx, `${o.covers} ${o.pricing}.`, { size: 10.5, gap: 4 });
+  }
+  text(ctx, `${PRIMARY_CTA_LABEL}: ${SITE_URL}/contact`, { size: 10.5, gap: 2 });
   ctx.y -= 8;
 
   rule(ctx);
   text(ctx, "What this check did", { size: 12, bold: true, gap: 4 });
   text(
     ctx,
-    "Passive checks only. We read what any browser can see: the homepage, its redirects, and public DNS records. " +
-      (scan.exposedFilesChecked
-        ? "Because the request came from an email address at this domain, we also asked whether three common sensitive files answer, using HEAD requests that never download them."
-        : "The exposed-files check was not run, because it is only available when the request comes from an email address at this domain."),
+    "Passive checks only. We read what any visitor or mail server can see in public: the homepage, its redirects, and public DNS records for email. Nothing else on the site was requested.",
     { size: 9.5, color: MUTED, gap: 4 }
   );
   const reqs = scan.requests.filter((r) => r.method !== "DNS");

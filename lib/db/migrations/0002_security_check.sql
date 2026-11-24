@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS security_check_scans (
   authorization_text     TEXT NOT NULL,
   authorization_version  TEXT NOT NULL,
   authorized_at          TIMESTAMPTZ NOT NULL,
-  exposed_files_checked  BOOLEAN NOT NULL DEFAULT FALSE,
   score                  INTEGER NOT NULL,
   grade                  TEXT NOT NULL,
   result                 JSONB NOT NULL,

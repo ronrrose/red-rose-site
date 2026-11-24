@@ -115,8 +115,7 @@ export async function POST(req: NextRequest) {
             authorizationText: record.authorizationText,
             authorizationVersion: record.authorizationVersion,
           },
-          outcome.result,
-          "scan"
+          outcome.result
         ).catch(() => undefined)
       );
     }

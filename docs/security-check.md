@@ -7,8 +7,7 @@ footer. Add a link from `/security-reviews` when that page exists.
 
 | Piece | Where | Notes |
 |---|---|---|
-| Website Exposure Scan | `lib/security-check/scan.ts`, `POST /api/security-check/scan` | Passive. GET of the homepage and its redirects, DNS TXT lookups. Nothing else |
-| Exposed-files check (check 5) | `POST /api/security-check/full` | HEAD of `/.git/HEAD`, `/.env`, `/wp-config.php.bak` only, and only from the signed link emailed to an address at the scanned domain |
+| Website Exposure Scan | `lib/security-check/scan.ts`, `POST /api/security-check/scan` | Passive and public only: GET of the homepage over HTTPS and HTTP and their redirects, and DNS TXT lookups for email records. No other path is ever requested. Five checks: HTTPS, headers, email, software versions, forms |
 | SSRF fences | `lib/security-check/target.ts`, `ip.ts`, `safe-fetch.ts` | Bare public hostname only; every resolved address vetted; socket pinned to the vetted address; at most 3 redirects, each re-vetted; timeouts and byte caps |
 | Shadow AI quiz | `lib/security-check/quiz.ts`, browser only | Answers leave the browser only if the visitor ticks the box to add them to the report |
 | Wording | `lib/security-check/finding-library.ts` | Static, reviewed copy. No model call per scan |
@@ -46,7 +45,7 @@ production without the database anyway, set `SECURITY_CHECK_ALLOW_MEMORY=1`.
 |---|---|---|
 | `SECURITY_CHECK_ALERT_TO` | Lead alerts | The inbox that should get leads. Until set, alerts go to the public contact inbox |
 | `RESEND_API_KEY` | All email | Already set on Production. Add to Preview to test emails on a preview |
-| `SECURITY_CHECK_SECRET` | Signed links | Random, 32+ characters (`openssl rand -hex 32`). **Required** for unsubscribe links, so follow-ups stay off without it. The exposed-files link and result signatures fall back to a key derived from `ADMIN_SESSION_SECRET` or `CRON_SECRET` |
+| `SECURITY_CHECK_SECRET` | Signed links | Random, 32+ characters (`openssl rand -hex 32`). **Required** for unsubscribe links, so follow-ups stay off without it. Result signatures fall back to a key derived from `ADMIN_SESSION_SECRET` or `CRON_SECRET` |
 | `SECURITY_CHECK_ALLOW_MEMORY` | Escape hatch | `1` opens production without the database. Leave unset |
 | `SECURITY_CHECK_POSTAL_ADDRESS` | Day 3 and day 7 emails | A real mailing address, a PO box is fine. Required by CAN-SPAM |
 | `SECURITY_CHECK_FOLLOWUPS_ENABLED` | Day 3 and day 7 emails | `true` to switch them on, only after the postal address is set |

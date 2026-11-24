@@ -41,7 +41,7 @@ export default function ResultsSection() {
   const [errors, setErrors] = useState<Errors>({});
   const [includeQuiz, setIncludeQuiz] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [done, setDone] = useState<{ to: string; files: string } | null>(null);
+  const [done, setDone] = useState<{ to: string } | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
   const [closed, setClosed] = useState(false);
   const honeypot = useRef<HTMLInputElement>(null);
@@ -90,7 +90,7 @@ export default function ResultsSection() {
         setFormError(data?.error ?? "We could not send the report just now. Please try again.");
         return;
       }
-      setDone({ to: data.emailedTo, files: data.filesCheck });
+      setDone({ to: data.emailedTo });
     } catch {
       setFormError("We could not send the report just now. Check your connection and try again.");
     } finally {
@@ -137,22 +137,11 @@ export default function ResultsSection() {
           {done ? (
             <div role="status">
               <p className="text-base text-ink">Report sent to {done.to}. It should arrive within a minute.</p>
-              {done.files === "link_sent" && (
-                <p className="mt-2 text-sm text-secondary">
-                  Your email is at {domain}, so the email also has a link to run the exposed-files check.
-                </p>
-              )}
-              {done.files === "email_mismatch" && (
-                <p className="mt-2 text-sm text-secondary">
-                  The exposed-files check was not run. Run the full check from an email address at this domain.
-                </p>
-              )}
             </div>
           ) : (
             <form onSubmit={onSubmit} noValidate>
               <p className="mb-6 text-sm text-secondary [text-wrap:pretty]">
-                We will email the report now. If your email address is at {domain}, the email also includes a link to run
-                the exposed-files check.
+                We will email the report now.
                 {scan.followups &&
                   ` If your email address is at ${domain}, we will also send two short follow-up emails over the next week, each with an unsubscribe link.`}
               </p>

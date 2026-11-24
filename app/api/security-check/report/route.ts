@@ -1,20 +1,19 @@
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 import { getStore } from "@/lib/security-check/store";
-import { RESULT_TTL_SECONDS, signToken, verifyResult } from "@/lib/security-check/tokens";
+import { RESULT_TTL_SECONDS, verifyResult } from "@/lib/security-check/tokens";
 import { checkName, checkPractice } from "@/lib/security-check/lead-fields";
 import { emailMatchesDomain } from "@/lib/security-check/target";
 import { sanitizeAnswers } from "@/lib/security-check/quiz";
 import { buildReportPdf } from "@/lib/security-check/pdf";
 import { followupConfig, sendLeadAlert, sendReportEmail } from "@/lib/security-check/emails";
-import { clientIp, ipRateKey, json, minutes, readJson, sameOrigin, siteBase, unavailableInProduction } from "@/lib/security-check/http";
+import { clientIp, ipRateKey, json, minutes, readJson, sameOrigin, unavailableInProduction } from "@/lib/security-check/http";
 import {
   DAY_MS,
   HOUR_MS,
   REPORTS_PER_IP_PER_HOUR,
   REPORTS_PER_RECIPIENT_PER_DAY,
   REPORTS_PER_SCAN,
-  UNLOCK_TTL_SECONDS,
 } from "@/lib/security-check/limits";
 import { AUTHORIZATION_TEXT, AUTHORIZATION_VERSION, type ScanResult } from "@/lib/security-check/types";
 import { createLead } from "@/lib/leads/create-lead";
@@ -133,11 +132,6 @@ export async function POST(req: NextRequest) {
 
     const pdf = await buildReportPdf({ scan, practice: practice.value, preparedFor: name.value, quiz: hasQuiz ? quiz : null });
 
-    const unlockToken =
-      matches && !scan.exposedFilesChecked
-        ? signToken("files", { s: body.scanId, h: scan.host, e: email }, UNLOCK_TTL_SECONDS)
-        : null;
-    const unlockUrl = unlockToken ? `${siteBase(req)}/free-security-check/full?t=${encodeURIComponent(unlockToken)}` : null;
     // Day 3 and day 7 only reach an address at the scanned domain, never one
     // that is suppressed. Anyone else gets the report they asked for, once.
     const followupsPlanned =
@@ -149,7 +143,6 @@ export async function POST(req: NextRequest) {
       practice: practice.value,
       scan,
       pdf,
-      unlockUrl,
       followupsPlanned,
     });
     if (sent.ok) await store.markReportSent(leadId);
@@ -190,7 +183,6 @@ export async function POST(req: NextRequest) {
     return json({
       ok: true,
       emailedTo: email,
-      filesCheck: scan.exposedFilesChecked ? "done" : matches ? (unlockUrl ? "link_sent" : "unavailable") : "email_mismatch",
     });
   } catch (err) {
     console.error("security-check report failed:", err instanceof Error ? err.message : "unknown");

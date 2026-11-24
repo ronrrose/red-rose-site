@@ -99,15 +99,6 @@
    ]
   },
   {
-   "id": "files",
-   "label": "Exposed common files",
-   "status": "skipped",
-   "weight": 10,
-   "summary": "Run the full check from an email address at this domain.",
-   "details": [],
-   "findings": []
-  },
-  {
    "id": "forms",
    "label": "Forms and booking links",
    "status": "fail",
@@ -291,7 +282,5 @@
    "status": 200
   }
  ],
- "exposedFilesChecked": false,
- "pageUrl": "http://weak-practice.com/",
- "tlsVerified": false
+ "pageUrl": "http://weak-practice.com/"
 }
