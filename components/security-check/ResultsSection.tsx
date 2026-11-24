@@ -4,16 +4,23 @@ import { useRef, useState, type FormEvent } from "react";
 import { Loader2, Mail } from "lucide-react";
 import ScanResults from "@/components/security-check/ScanResults";
 import { useSecurityCheck } from "@/components/security-check/SecurityCheckState";
+import Unavailable from "@/components/security-check/Unavailable";
 
 const ROLES = ["Owner or dentist", "Office manager", "Front desk", "IT contact", "Other"] as const;
 
 type Fields = { name: string; practice: string; email: string; phone: string; role: string };
 type Errors = Partial<Record<keyof Fields, string>>;
 
+/** Mirrors lib/security-check/lead-fields.ts closely enough to catch mistakes before sending. */
+const LINK_LIKE = /(:\/\/|www\.|@|[a-z0-9-]\.[a-z]{2,24}(\b|$))/i;
+
 function validate(f: Fields): Errors {
   const e: Errors = {};
   if (f.name.trim().length < 2) e.name = "Enter your name.";
+  else if (/\d/.test(f.name) || LINK_LIKE.test(f.name)) e.name = "Please enter your name using letters only.";
   if (f.practice.trim().length < 2) e.practice = "Enter your practice's name.";
+  else if (LINK_LIKE.test(f.practice) || /(\d\D{0,2}){7,}/.test(f.practice))
+    e.practice = "Please enter your practice's name without a web address or phone number.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.trim())) e.email = "Enter a valid email address.";
   if (f.phone.trim() && f.phone.replace(/\D/g, "").length < 10) e.phone = "Enter a 10 digit phone number, or leave it blank.";
   if (!f.role) e.role = "Choose your role.";
@@ -36,6 +43,7 @@ export default function ResultsSection() {
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState<{ to: string; files: string } | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
+  const [closed, setClosed] = useState(false);
   const honeypot = useRef<HTMLInputElement>(null);
   const refs = useRef<Partial<Record<keyof Fields, HTMLInputElement | HTMLSelectElement | null>>>({});
 
@@ -68,6 +76,16 @@ export default function ResultsSection() {
         }),
       });
       const data = await res.json().catch(() => null);
+      if (data?.unavailable) {
+        setClosed(true);
+        return;
+      }
+      if (data?.field === "name" || data?.field === "practice") {
+        const key = data.field as "name" | "practice";
+        setErrors({ [key]: data.error });
+        refs.current[key]?.focus();
+        return;
+      }
       if (!res.ok || !data?.ok) {
         setFormError(data?.error ?? "We could not send the report just now. Please try again.");
         return;
@@ -135,7 +153,8 @@ export default function ResultsSection() {
               <p className="mb-6 text-sm text-secondary [text-wrap:pretty]">
                 We will email the report now. If your email address is at {domain}, the email also includes a link to run
                 the exposed-files check.
-                {scan.followups && " We will also send two short follow-up emails over the next week, each with an unsubscribe link."}
+                {scan.followups &&
+                  ` If your email address is at ${domain}, we will also send two short follow-up emails over the next week, each with an unsubscribe link.`}
               </p>
               <div className="grid gap-4 md:grid-cols-2">
                 {input("name", "text", "name")}
@@ -198,6 +217,7 @@ export default function ResultsSection() {
                 {busy ? <Loader2 className="h-5 w-5 animate-spin motion-reduce:animate-none" aria-hidden="true" /> : <Mail className="h-5 w-5" aria-hidden="true" />}
                 {busy ? "Sending your report" : "Email me the full report"}
               </button>
+              {closed && <Unavailable />}
               {formError && (
                 <p role="alert" className="mt-4 rounded-xl bg-raised p-4 text-sm font-medium text-ink">
                   {formError}

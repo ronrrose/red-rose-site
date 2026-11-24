@@ -5,7 +5,7 @@ import { addExposedFilesToResult, runScan } from "@/lib/security-check/scan";
 import { emailMatchesDomain, registrableDomain } from "@/lib/security-check/target";
 import { buildReportPdf } from "@/lib/security-check/pdf";
 import { sendReportEmail, sendScanRecord } from "@/lib/security-check/emails";
-import { clientIp, json, minutes, readJson, sameOrigin, userAgent } from "@/lib/security-check/http";
+import { clientIp, ipRateKey, json, minutes, readJson, sameOrigin, unavailableInProduction, userAgent } from "@/lib/security-check/http";
 import { DOMAIN_WINDOW_MS, FILES_RUNS_PER_IP_PER_HOUR, HOUR_MS } from "@/lib/security-check/limits";
 import { AUTHORIZATION_TEXT, AUTHORIZATION_VERSION } from "@/lib/security-check/types";
 
@@ -32,8 +32,10 @@ export async function POST(req: NextRequest) {
 
   const ip = clientIp(req);
   const store = await getStore();
+  const closed = unavailableInProduction(store);
+  if (closed) return closed;
   try {
-    const slot = await store.takeSlot("files-ip", ip, FILES_RUNS_PER_IP_PER_HOUR, HOUR_MS);
+    const slot = await store.takeSlot("files-ip", ipRateKey(ip), FILES_RUNS_PER_IP_PER_HOUR, HOUR_MS);
     if (!slot.allowed) return json({ error: `Too many requests. Try again in ${minutes(slot.retryAfterSeconds)}.` }, 429);
 
     const stored = typeof claims.s === "string" ? await store.getScan(claims.s) : null;

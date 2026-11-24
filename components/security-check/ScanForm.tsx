@@ -4,13 +4,14 @@ import { useRef, useState, type FormEvent } from "react";
 import { Loader2, ArrowRight } from "lucide-react";
 import { AUTHORIZATION_TEXT } from "@/lib/security-check/types";
 import { useSecurityCheck } from "@/components/security-check/SecurityCheckState";
+import Unavailable from "@/components/security-check/Unavailable";
 
 export default function ScanForm() {
   const { setScan } = useSecurityCheck();
   const [domain, setDomain] = useState("");
   const [authorized, setAuthorized] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<{ field: "domain" | "authorized" | "form"; message: string } | null>(null);
+  const [error, setError] = useState<{ field: "domain" | "authorized" | "form" | "unavailable"; message: string } | null>(null);
   const honeypot = useRef<HTMLInputElement>(null);
   const domainRef = useRef<HTMLInputElement>(null);
   const boxRef = useRef<HTMLInputElement>(null);
@@ -37,6 +38,10 @@ export default function ScanForm() {
         body: JSON.stringify({ domain: domain.trim(), authorized: true, website: honeypot.current?.value ?? "" }),
       });
       const data = await res.json().catch(() => null);
+      if (data?.unavailable) {
+        setError({ field: "unavailable", message: "" });
+        return;
+      }
       if (!res.ok || !data?.result) {
         setError({ field: res.status === 400 ? "domain" : "form", message: data?.error ?? "The check could not run just now. Please try again." });
         return;
@@ -137,6 +142,7 @@ export default function ScanForm() {
       <div role="status" aria-live="polite" className="sr-only">
         {busy ? "Checking your website. This can take up to 30 seconds." : ""}
       </div>
+      {error?.field === "unavailable" && <Unavailable />}
       {error?.field === "form" && (
         <p role="alert" className="mt-4 rounded-xl bg-raised p-4 text-sm font-medium text-ink">
           {error.message}

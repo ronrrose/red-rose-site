@@ -34,9 +34,11 @@ so the check uses that instead of adding Upstash. No new account or service.
    Expect `applied 0002_security_check.sql` (and `0001_init.sql` if the CRM
    was never migrated).
 
-Until both are done, the check still works: rate limits are held in memory per
-server instance (best effort), and every scan's authorization record and every
-lead is emailed in full so nothing is lost.
+Until both are done, **production is closed**: the page shows "The free check is
+temporarily unavailable" with the phone number, because rate limits held in
+one server's memory do not protect anything. Previews stay open in memory mode
+(every scan's authorization record and every lead is emailed in full). To open
+production without the database anyway, set `SECURITY_CHECK_ALLOW_MEMORY=1`.
 
 ## 2. Environment variables (Ron, Vercel > Settings > Environment Variables)
 
@@ -44,14 +46,18 @@ lead is emailed in full so nothing is lost.
 |---|---|---|
 | `SECURITY_CHECK_ALERT_TO` | Lead alerts | The inbox that should get leads. Until set, alerts go to the public contact inbox |
 | `RESEND_API_KEY` | All email | Already set on Production. Add to Preview to test emails on a preview |
-| `SECURITY_CHECK_SECRET` | Signed links | Optional. Any random 32+ characters. Without it, a key is derived from `ADMIN_SESSION_SECRET` or `CRON_SECRET` |
+| `SECURITY_CHECK_SECRET` | Signed links | Random, 32+ characters (`openssl rand -hex 32`). **Required** for unsubscribe links, so follow-ups stay off without it. The exposed-files link and result signatures fall back to a key derived from `ADMIN_SESSION_SECRET` or `CRON_SECRET` |
+| `SECURITY_CHECK_ALLOW_MEMORY` | Escape hatch | `1` opens production without the database. Leave unset |
 | `SECURITY_CHECK_POSTAL_ADDRESS` | Day 3 and day 7 emails | A real mailing address, a PO box is fine. Required by CAN-SPAM |
 | `SECURITY_CHECK_FOLLOWUPS_ENABLED` | Day 3 and day 7 emails | `true` to switch them on, only after the postal address is set |
 | `CRON_SECRET` | Cron auth | Already used by the Quo reconcile cron |
 
 ## 3. Follow-up emails
 
-Day 0 is the report the visitor asked for. Days 3 and 7 are marketing email:
+Day 0 is the report the visitor asked for. It is capped at 2 per scan and 2 per
+address per day, because the address is not verified. Days 3 and 7 go only to
+an address at the scanned domain, never to one on the suppression list (an
+unsubscribe suppresses the address, not just one lead). They are marketing email:
 each carries the postal address, a "this is a marketing email" line, a working
 unsubscribe link and RFC 8058 one-click unsubscribe headers.
 

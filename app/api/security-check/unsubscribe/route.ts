@@ -30,7 +30,18 @@ export async function POST(req: NextRequest) {
     return json({ error: "This unsubscribe link is not valid. Reply to any of our emails and we will remove you by hand." }, 400);
   }
   const store = await getStore();
-  const done = await store.markUnsubscribed(claims.l).catch(() => false);
-  if (!done) await sendUnsubscribeNotice(String(claims.e ?? ""), claims.l).catch(() => undefined);
+  const email = typeof claims.e === "string" ? claims.e : "";
+  // Suppress the address itself, so every lead for it stops, including later ones.
+  let done = false;
+  try {
+    if (email) await store.suppress(email, "unsubscribe_link");
+    await store.markUnsubscribed(claims.l);
+    done = store.kind === "postgres" && Boolean(email);
+  } catch (err) {
+    console.error("security-check: unsubscribe store failed:", err instanceof Error ? err.message : "unknown");
+  }
+  // Without the database the suppression only lives in memory, so it also
+  // goes to the inbox to be recorded by hand.
+  if (!done) await sendUnsubscribeNotice(email, claims.l).catch(() => undefined);
   return json({ ok: true });
 }

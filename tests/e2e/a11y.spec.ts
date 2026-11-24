@@ -82,3 +82,20 @@ test("free security check: results, lead form and quiz pass axe", async ({ page 
   expect(await axe(page)).toEqual([]);
   expect(await sideways(page)).toBe(0);
 });
+
+test("free security check: closed state is a calm call-us panel, not an error", async ({ page }) => {
+  await page.route("**/api/security-check/scan", (r) =>
+    r.fulfill({
+      status: 503,
+      contentType: "application/json",
+      body: JSON.stringify({ unavailable: true, error: "The free check is temporarily unavailable. Call us at (941) 206-4709 and we will run it with you." }),
+    })
+  );
+  await page.goto("/free-security-check");
+  await page.getByLabel("Your practice's website").fill("smiledental.com");
+  await page.getByLabel(/I own or manage this domain/).check();
+  await page.getByRole("button", { name: "Run the free check" }).click();
+  await expect(page.getByText("The free check is temporarily unavailable.", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Call (941) 206-4709" })).toHaveAttribute("href", "tel:+19412064709");
+  expect(await axe(page)).toEqual([]);
+});

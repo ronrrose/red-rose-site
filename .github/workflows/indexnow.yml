@@ -12,6 +12,10 @@ name: IndexNow on deploy
 on:
   deployment_status:
 
+# Read-only token: the job reads the repo and posts to IndexNow, nothing more.
+permissions:
+  contents: read
+
 jobs:
   submit:
     # Stands down when the Rose Standard Fast Index workflow is switched on.

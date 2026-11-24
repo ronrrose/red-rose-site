@@ -5,7 +5,7 @@ import { runScan } from "@/lib/security-check/scan";
 import { getStore } from "@/lib/security-check/store";
 import { signResult } from "@/lib/security-check/tokens";
 import { followupConfig, sendScanRecord } from "@/lib/security-check/emails";
-import { clientIp, json, minutes, readJson, sameOrigin, userAgent } from "@/lib/security-check/http";
+import { clientIp, ipRateKey, json, minutes, readJson, sameOrigin, unavailableInProduction, userAgent } from "@/lib/security-check/http";
 import { AUTHORIZATION_TEXT, AUTHORIZATION_VERSION } from "@/lib/security-check/types";
 import { waitUntil } from "@vercel/functions";
 import { DOMAIN_WINDOW_MS, HOUR_MS, SCANS_PER_IP_PER_HOUR } from "@/lib/security-check/limits";
@@ -41,10 +41,12 @@ export async function POST(req: NextRequest) {
 
   const ip = clientIp(req);
   const store = await getStore();
+  const closed = unavailableInProduction(store);
+  if (closed) return closed;
   const followups = followupConfig().enabled && store.kind === "postgres";
 
   try {
-    const slot = await store.takeSlot("scan-ip", ip, SCANS_PER_IP_PER_HOUR, HOUR_MS);
+    const slot = await store.takeSlot("scan-ip", ipRateKey(ip), SCANS_PER_IP_PER_HOUR, HOUR_MS);
     if (!slot.allowed) {
       return json(
         { error: `You can run ${SCANS_PER_IP_PER_HOUR} checks an hour. Try again in ${minutes(slot.retryAfterSeconds)}.` },
@@ -60,7 +62,7 @@ export async function POST(req: NextRequest) {
       const recent = await store.latestScan(target.limitKey, DOMAIN_WINDOW_MS);
       // Only the connection that ran the check sees it again. Anyone else
       // is told to wait, so results never pass between strangers.
-      if (recent && recent.ip === ip) {
+      if (recent && recent.ip && ipRateKey(recent.ip) === ipRateKey(ip)) {
         const resultJson = JSON.stringify(recent.result);
         return json({
           scanId: recent.id,

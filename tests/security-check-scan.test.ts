@@ -128,16 +128,19 @@ describe("report PDF and emails", () => {
     expect(e.html).toContain("This free check covers public signals only.");
   });
 
-  it("keeps follow-ups off until both the switch and a postal address are set", () => {
+  it("keeps follow-ups off until the switch, a postal address and the dedicated secret are all set", () => {
     delete process.env.SECURITY_CHECK_FOLLOWUPS_ENABLED;
     delete process.env.SECURITY_CHECK_POSTAL_ADDRESS;
     expect(followupConfig().enabled).toBe(false);
     process.env.SECURITY_CHECK_FOLLOWUPS_ENABLED = "true";
     expect(followupConfig().enabled).toBe(false);
     process.env.SECURITY_CHECK_POSTAL_ADDRESS = "PO Box 0000, Test, FL 00000";
+    expect(followupConfig().enabled).toBe(false); // still needs the dedicated secret
+    process.env.SECURITY_CHECK_SECRET = "dedicated-secret-for-tests-0123456789";
     expect(followupConfig().enabled).toBe(true);
     delete process.env.SECURITY_CHECK_FOLLOWUPS_ENABLED;
     delete process.env.SECURITY_CHECK_POSTAL_ADDRESS;
+    delete process.env.SECURITY_CHECK_SECRET;
   });
 
   it("puts the postal address, unsubscribe link and ad identification in every marketing email", () => {

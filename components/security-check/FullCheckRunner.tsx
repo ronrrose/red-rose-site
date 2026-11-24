@@ -4,13 +4,14 @@ import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import ScanResults from "@/components/security-check/ScanResults";
 import type { ScanResult } from "@/lib/security-check/types";
+import Unavailable from "@/components/security-check/Unavailable";
 
 /**
  * A button, not an automatic run: email security gateways open links to
  * inspect them, and that must never trigger requests to the practice's site.
  */
 export default function FullCheckRunner({ token }: { token: string }) {
-  const [state, setState] = useState<"idle" | "busy" | "done" | "error">("idle");
+  const [state, setState] = useState<"idle" | "busy" | "done" | "error" | "closed">("idle");
   const [result, setResult] = useState<ScanResult | null>(null);
   const [emailed, setEmailed] = useState(false);
   const [message, setMessage] = useState("");
@@ -24,6 +25,10 @@ export default function FullCheckRunner({ token }: { token: string }) {
         body: JSON.stringify({ token }),
       });
       const data = await res.json().catch(() => null);
+      if (data?.unavailable) {
+        setState("closed");
+        return;
+      }
       if (!res.ok || !data?.result) {
         setMessage(data?.error ?? "The check could not run just now. Please try again.");
         setState("error");
@@ -60,6 +65,7 @@ export default function FullCheckRunner({ token }: { token: string }) {
         {state === "busy" ? "Running the full check" : "Run the exposed-files check"}
       </button>
       {!token && <p className="mt-4 text-sm text-secondary">This link is missing its code. Use the link in your report email.</p>}
+      {state === "closed" && <Unavailable />}
       {state === "error" && (
         <p role="alert" className="mt-4 rounded-xl bg-raised p-4 text-sm font-medium text-ink">
           {message}

@@ -1,5 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { SITE_URL } from "@/lib/site-config";
+import { isIP } from "node:net";
+import { PHONE_DISPLAY, SITE_URL } from "@/lib/site-config";
+import { expandIPv6 } from "@/lib/security-check/ip";
+import type { SecurityCheckStore } from "@/lib/security-check/store";
 
 /** Same source order as the contact form. On Vercel, x-forwarded-for is set by the platform. */
 export function clientIp(req: NextRequest): string {
@@ -8,6 +11,44 @@ export function clientIp(req: NextRequest): string {
     req.ip ||
     req.headers.get("x-real-ip") ||
     "unknown"
+  );
+}
+
+/**
+ * The key per-IP limits count against. One home or office connection usually
+ * gets a whole IPv6 /64, so counting full addresses would let one visitor
+ * rotate through billions of them. IPv6 is keyed by its /64; an IPv4-mapped
+ * IPv6 address is keyed as the IPv4 address it carries.
+ */
+export function ipRateKey(ip: string): string {
+  const v = isIP(ip);
+  if (v === 4) return ip;
+  if (v !== 6) return ip.slice(0, 64) || "unknown";
+  const g = expandIPv6(ip.split("%")[0]);
+  if (!g) return ip;
+  if (g.slice(0, 5).every((x) => x === 0) && g[5] === 0xffff) {
+    return `${g[6] >> 8}.${g[6] & 0xff}.${g[7] >> 8}.${g[7] & 0xff}`;
+  }
+  return `${g.slice(0, 4).map((x) => x.toString(16)).join(":")}::/64`;
+}
+
+/**
+ * Without the database, rate limits live in one server instance's memory and
+ * do not hold across instances. In production that is not good enough, so
+ * the check closes and asks people to call, unless Ron explicitly allows
+ * memory mode with SECURITY_CHECK_ALLOW_MEMORY=1. Previews stay open.
+ */
+export function unavailableInProduction(store: SecurityCheckStore) {
+  if (store.kind !== "memory") return null;
+  if (process.env.VERCEL_ENV !== "production") return null;
+  if (process.env.SECURITY_CHECK_ALLOW_MEMORY === "1") return null;
+  console.error("security-check: closed in production because the database is not configured or not migrated");
+  return json(
+    {
+      unavailable: true,
+      error: `The free check is temporarily unavailable. Call us at ${PHONE_DISPLAY} and we will run it with you.`,
+    },
+    503
   );
 }
 

@@ -41,6 +41,8 @@ export type NewLead = {
   role: string | null;
   quiz: QuizAnswers | null;
   ip: string | null;
+  /** True only when the email is at the scanned domain. */
+  followupsOk: boolean;
 };
 
 export type StoredLead = NewLead & {
@@ -68,6 +70,9 @@ export interface SecurityCheckStore {
   markReportSent(leadId: string): Promise<void>;
   getLead(id: string): Promise<StoredLead | null>;
   markUnsubscribed(leadId: string): Promise<boolean>;
+  /** Add an address to the suppression list. Idempotent. */
+  suppress(email: string, source: string): Promise<void>;
+  isSuppressed(email: string): Promise<boolean>;
   dueFollowups(now?: Date): Promise<Array<{ lead: StoredLead; day: 3 | 7 }>>;
   markFollowupSent(leadId: string, day: 3 | 7): Promise<void>;
 }
@@ -80,6 +85,7 @@ export class MemoryStore implements SecurityCheckStore {
   private slots = new Map<string, number>();
   private scans = new Map<string, StoredScan>();
   private leads = new Map<string, StoredLead>();
+  private suppressed = new Set<string>();
 
   async takeSlot(bucket: string, key: string, max: number, windowMs: number, now = new Date()): Promise<SlotResult> {
     const k = `${bucket}:${key}`;
@@ -147,6 +153,14 @@ export class MemoryStore implements SecurityCheckStore {
     return true;
   }
 
+  async suppress(email: string): Promise<void> {
+    this.suppressed.add(email.trim().toLowerCase());
+  }
+
+  async isSuppressed(email: string): Promise<boolean> {
+    return this.suppressed.has(email.trim().toLowerCase());
+  }
+
   /** Follow-ups need a database; memory never schedules any. */
   async dueFollowups(): Promise<Array<{ lead: StoredLead; day: 3 | 7 }>> {
     return [];
@@ -183,6 +197,7 @@ type LeadRow = {
   role: string | null;
   quiz: QuizAnswers | null;
   ip: string | null;
+  followups_ok: boolean;
   created_at: string;
   day3_sent_at: string | null;
   day7_sent_at: string | null;
@@ -218,6 +233,7 @@ function toLead(r: LeadRow): StoredLead {
     role: r.role,
     quiz: r.quiz,
     ip: r.ip,
+    followupsOk: r.followups_ok === true,
     createdAt: new Date(r.created_at),
     day3SentAt: d(r.day3_sent_at),
     day7SentAt: d(r.day7_sent_at),
@@ -306,12 +322,12 @@ export class PostgresStore implements SecurityCheckStore {
 
   async saveLead(l: NewLead): Promise<string> {
     const r = await this.rows<{ id: string }>(
-      `INSERT INTO security_check_leads (scan_id, contact_id, name, practice, email, phone, role, quiz, ip)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id`,
+      `INSERT INTO security_check_leads (scan_id, contact_id, name, practice, email, phone, role, quiz, ip, followups_ok)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`,
       [
         l.scanId && UUID.test(l.scanId) ? l.scanId : null,
         l.contactId, l.name, l.practice, l.email, l.phone, l.role,
-        l.quiz ? JSON.stringify(l.quiz) : null, l.ip,
+        l.quiz ? JSON.stringify(l.quiz) : null, l.ip, l.followupsOk,
       ]
     );
     return r[0].id;
@@ -337,14 +353,28 @@ export class PostgresStore implements SecurityCheckStore {
     return r.length === 1;
   }
 
+  async suppress(email: string, source: string): Promise<void> {
+    await this.rows(
+      `INSERT INTO security_check_suppressions (email, source) VALUES (lower($1), $2)
+       ON CONFLICT (email) DO NOTHING`,
+      [email.trim(), source]
+    );
+  }
+
+  async isSuppressed(email: string): Promise<boolean> {
+    const r = await this.rows("SELECT 1 FROM security_check_suppressions WHERE email = lower($1)", [email.trim()]);
+    return r.length > 0;
+  }
+
   async dueFollowups(now = new Date()): Promise<Array<{ lead: StoredLead; day: 3 | 7 }>> {
     const day = 86_400_000;
     const rows = await this.rows<LeadRow>(
-      `SELECT * FROM security_check_leads
-        WHERE unsubscribed_at IS NULL AND report_sent_at IS NOT NULL
-          AND ((day3_sent_at IS NULL AND created_at <= $1) OR (day7_sent_at IS NULL AND created_at <= $2))
-          AND created_at > $3
-        ORDER BY created_at LIMIT 200`,
+      `SELECT l.* FROM security_check_leads l
+        WHERE l.unsubscribed_at IS NULL AND l.report_sent_at IS NOT NULL AND l.followups_ok
+          AND NOT EXISTS (SELECT 1 FROM security_check_suppressions s WHERE s.email = lower(l.email))
+          AND ((l.day3_sent_at IS NULL AND l.created_at <= $1) OR (l.day7_sent_at IS NULL AND l.created_at <= $2))
+          AND l.created_at > $3
+        ORDER BY l.created_at LIMIT 200`,
       [
         new Date(now.getTime() - 3 * day).toISOString(),
         new Date(now.getTime() - 7 * day).toISOString(),

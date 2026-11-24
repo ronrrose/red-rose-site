@@ -1,5 +1,5 @@
 import { getStore } from "@/lib/security-check/store";
-import { signToken } from "@/lib/security-check/tokens";
+import { safeEqual, signToken } from "@/lib/security-check/tokens";
 import { followupConfig, sendFollowup } from "@/lib/security-check/emails";
 import { UNSUB_TTL_SECONDS } from "@/lib/security-check/limits";
 import { SITE_URL } from "@/lib/site-config";
@@ -21,7 +21,7 @@ export const maxDuration = 60;
  */
 export async function GET(req: Request): Promise<Response> {
   const secret = process.env.CRON_SECRET;
-  if (!secret || req.headers.get("authorization") !== `Bearer ${secret}`) {
+  if (!secret || !safeEqual(req.headers.get("authorization") ?? "", `Bearer ${secret}`)) {
     return Response.json({ error: "unauthorized" }, { status: 401 });
   }
 
@@ -34,7 +34,13 @@ export async function GET(req: Request): Promise<Response> {
   const due = await store.dueFollowups();
   let sent = 0;
   let failed = 0;
+  let skipped = 0;
   for (const { lead, day } of due) {
+    // Checked again right before sending: an unsubscribe can land mid-run.
+    if (!lead.followupsOk || (await store.isSuppressed(lead.email))) {
+      skipped += 1;
+      continue;
+    }
     const token = signToken("unsub", { l: lead.id, e: lead.email }, UNSUB_TTL_SECONDS);
     if (!token) return Response.json({ ok: false, skipped: "no signing secret, cannot build unsubscribe links" });
     const scan = lead.scanId ? await store.getScan(lead.scanId) : null;
@@ -54,5 +60,5 @@ export async function GET(req: Request): Promise<Response> {
       sent += 1;
     } else failed += 1;
   }
-  return Response.json({ ok: true, due: due.length, sent, failed });
+  return Response.json({ ok: true, due: due.length, sent, failed, skipped });
 }

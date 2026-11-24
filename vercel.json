@@ -30,11 +30,20 @@
       ]
     },
     {
-      "source": "/((?!api|contact|resources).*)",
+      "source": "/((?!api|contact|resources|free-security-check/full|free-security-check/unsubscribe).*)",
       "headers": [
         {
           "key": "Cache-Control",
           "value": "public, max-age=3600, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/free-security-check/(full|unsubscribe)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
         }
       ]
     }

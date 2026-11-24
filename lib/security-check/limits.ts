@@ -8,6 +8,10 @@ export const SCANS_PER_IP_PER_HOUR = 3;
 export const DOMAIN_WINDOW_MS = DAY_MS;
 /** Report requests (each sends two emails). */
 export const REPORTS_PER_IP_PER_HOUR = 5;
+/** One scan's result can be emailed at most this many times. */
+export const REPORTS_PER_SCAN = 2;
+/** Reports to any one address per day, from any scan. */
+export const REPORTS_PER_RECIPIENT_PER_DAY = 2;
 /** Exposed-files runs from emailed links. */
 export const FILES_RUNS_PER_IP_PER_HOUR = 3;
 /** How long an emailed unlock link works. */

@@ -3,6 +3,7 @@ import { BOOKING_URL, CONTACT_EMAIL, PHONE_DISPLAY, SITE_URL } from "@/lib/site-
 import { RESULT_DISCLAIMER, REVIEW_BADGE, type ScanResult } from "@/lib/security-check/types";
 import { QUIZ, scoreQuiz, type QuizAnswers } from "@/lib/security-check/quiz";
 import { OFFERS, REVIEW_CTA_LABEL } from "@/lib/security-check/offers";
+import { hasDedicatedSecret } from "@/lib/security-check/tokens";
 
 /**
  * Every email the Security Check sends, built here so the wording sits in
@@ -277,6 +278,8 @@ export function followupConfig(): FollowupConfig {
   }
   const postal = (process.env.SECURITY_CHECK_POSTAL_ADDRESS ?? "").trim();
   if (postal.length < 10) return { enabled: false, reason: "SECURITY_CHECK_POSTAL_ADDRESS is not set" };
+  // Unsubscribe links are signed only with the dedicated secret; no links, no marketing mail.
+  if (!hasDedicatedSecret()) return { enabled: false, reason: "SECURITY_CHECK_SECRET is not set" };
   return { enabled: true, postalAddress: postal };
 }
 

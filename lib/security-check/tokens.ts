@@ -1,28 +1,42 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 
 /**
  * Signed tokens for three things that must not be forgeable: the emailed link
  * that unlocks the exposed-files check, the unsubscribe link, and the scan
  * result the browser hands back when it asks for the report.
  *
- * Key: SECURITY_CHECK_SECRET when set. Otherwise one is derived from a secret
- * the deployment already has (ADMIN_SESSION_SECRET, then CRON_SECRET), with a
- * purpose label so it can never be used for anything else. With none of
- * them, signing is off and every feature that needs it says so.
+ * Keys:
+ *   - Unsubscribe links (and so the day 3 and day 7 follow-ups) need a
+ *     dedicated SECURITY_CHECK_SECRET. Without it they are never issued:
+ *     fail closed, so an unsubscribe link can never depend on a secret that
+ *     exists for something else and might be rotated without notice.
+ *   - The exposed-files link and result signatures use SECURITY_CHECK_SECRET
+ *     when set, otherwise a key derived from ADMIN_SESSION_SECRET or
+ *     CRON_SECRET under a purpose label, so previews work before Ron adds it.
  */
 
 const LABEL = "red-rose/security-check/v1";
+const MIN_SECRET = 16;
 
-export function signingKey(): Buffer | null {
+export type TokenPurpose = "files" | "unsub";
+
+function dedicatedKey(): Buffer | null {
   const own = process.env.SECURITY_CHECK_SECRET;
-  if (own && own.length >= 16) return Buffer.from(own, "utf8");
+  return own && own.length >= MIN_SECRET ? Buffer.from(own, "utf8") : null;
+}
+
+/** The key for a purpose, or null when that purpose may not be signed here. */
+export function signingKey(purpose: TokenPurpose | "result" = "files"): Buffer | null {
+  const own = dedicatedKey();
+  if (own) return own;
+  if (purpose === "unsub") return null;
   const parent = process.env.ADMIN_SESSION_SECRET || process.env.CRON_SECRET;
-  if (parent && parent.length >= 16) return createHmac("sha256", parent).update(LABEL).digest();
+  if (parent && parent.length >= MIN_SECRET) return createHmac("sha256", parent).update(LABEL).digest();
   return null;
 }
 
-export function isSigningConfigured(): boolean {
-  return signingKey() !== null;
+export function hasDedicatedSecret(): boolean {
+  return dedicatedKey() !== null;
 }
 
 function b64url(buf: Buffer): string {
@@ -37,24 +51,23 @@ export function hmac(data: string, key: Buffer): string {
   return b64url(createHmac("sha256", key).update(data).digest());
 }
 
+/** Constant-time string compare. Hashing first makes the lengths equal. */
 export function safeEqual(a: string, b: string): boolean {
-  const x = Buffer.from(a);
-  const y = Buffer.from(b);
-  return x.length === y.length && timingSafeEqual(x, y);
+  const x = createHash("sha256").update(a).digest();
+  const y = createHash("sha256").update(b).digest();
+  return timingSafeEqual(x, y) && a.length === b.length;
 }
-
-export type TokenPurpose = "files" | "unsub";
 
 /** A compact signed token: base64url(json).signature, with purpose and expiry inside. */
 export function signToken(purpose: TokenPurpose, payload: Record<string, unknown>, ttlSeconds: number, now = Date.now()): string | null {
-  const key = signingKey();
+  const key = signingKey(purpose);
   if (!key) return null;
   const body = b64url(Buffer.from(JSON.stringify({ ...payload, p: purpose, exp: Math.floor(now / 1000) + ttlSeconds })));
   return `${body}.${hmac(body, key)}`;
 }
 
 export function verifyToken<T extends Record<string, unknown>>(purpose: TokenPurpose, token: unknown, now = Date.now()): T | null {
-  const key = signingKey();
+  const key = signingKey(purpose);
   if (!key || typeof token !== "string" || token.length > 2000) return null;
   const dot = token.lastIndexOf(".");
   if (dot < 1) return null;
@@ -69,14 +82,25 @@ export function verifyToken<T extends Record<string, unknown>>(purpose: TokenPur
   }
 }
 
-/** Signature over a scan result, so the report route can trust what the browser returns. */
-export function signResult(json: string): string | null {
-  const key = signingKey();
-  return key ? hmac(`result:${json}`, key) : null;
+/** How long the browser's copy of a result can be turned into a report. */
+export const RESULT_TTL_SECONDS = 24 * 60 * 60;
+
+/**
+ * Signature over a scan result, with an expiry, so the report route can trust
+ * what the browser returns for a day and no longer. Format: "<exp>.<mac>".
+ */
+export function signResult(json: string, now = Date.now()): string | null {
+  const key = signingKey("result");
+  if (!key) return null;
+  const exp = Math.floor(now / 1000) + RESULT_TTL_SECONDS;
+  return `${exp}.${hmac(`result:${exp}:${json}`, key)}`;
 }
 
-export function verifyResult(json: string, sig: unknown): boolean {
-  const key = signingKey();
-  if (!key || typeof sig !== "string") return false;
-  return safeEqual(sig, hmac(`result:${json}`, key));
+export function verifyResult(json: string, sig: unknown, now = Date.now()): boolean {
+  const key = signingKey("result");
+  if (!key || typeof sig !== "string" || sig.length > 200) return false;
+  const dot = sig.indexOf(".");
+  const exp = Number(sig.slice(0, dot));
+  if (dot < 1 || !Number.isInteger(exp) || exp * 1000 < now) return false;
+  return safeEqual(sig.slice(dot + 1), hmac(`result:${exp}:${json}`, key));
 }

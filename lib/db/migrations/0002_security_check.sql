@@ -53,6 +53,10 @@ CREATE TABLE IF NOT EXISTS security_check_leads (
   role             TEXT,
   quiz             JSONB,
   ip               TEXT,
+  -- Only a lead whose email is at the scanned domain may get day 3 and day 7
+  -- mail. Anyone can type any address, so an unproven one gets the report
+  -- they asked for and nothing else.
+  followups_ok     BOOLEAN NOT NULL DEFAULT FALSE,
   report_sent_at   TIMESTAMPTZ,
   day3_sent_at     TIMESTAMPTZ,
   day7_sent_at     TIMESTAMPTZ,
@@ -60,4 +64,13 @@ CREATE TABLE IF NOT EXISTS security_check_leads (
   created_at       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS security_check_leads_due_idx ON security_check_leads (created_at)
-  WHERE unsubscribed_at IS NULL AND (day3_sent_at IS NULL OR day7_sent_at IS NULL);
+  WHERE unsubscribed_at IS NULL AND followups_ok AND (day3_sent_at IS NULL OR day7_sent_at IS NULL);
+CREATE INDEX IF NOT EXISTS security_check_leads_email_idx ON security_check_leads (lower(email));
+
+-- CAN-SPAM opt-outs, keyed by address, not by lead: one unsubscribe stops
+-- every follow-up to that address, including leads created later.
+CREATE TABLE IF NOT EXISTS security_check_suppressions (
+  email       TEXT PRIMARY KEY,  -- always stored lower-case
+  source      TEXT NOT NULL,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);

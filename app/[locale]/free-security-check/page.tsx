@@ -59,7 +59,7 @@ const FAQS = [
   {
     question: "How often can I run it?",
     answer:
-      "Up to three checks an hour from one connection, and each website once every 24 hours. Inside that window you see the earlier result again, so your site is not checked twice.",
+      "Up to three checks an hour from one connection, and each website, counting its subdomains, once every 24 hours. Inside that window your site is not checked again: from the same connection you see the earlier result, and from anywhere else you are asked to try again the next day.",
   },
 ];
 

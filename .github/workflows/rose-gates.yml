@@ -9,6 +9,10 @@ on:
     - cron: '0 9 * * *'   # nightly scan, about 5 a.m. ET
   workflow_dispatch:
 
+# Read-only token: these jobs check code out and upload artifacts, nothing more.
+permissions:
+  contents: read
+
 jobs:
   build-and-test:
     if: github.event_name == 'pull_request'
@@ -44,7 +48,14 @@ jobs:
         with:
           python-version: '3.12'
       - run: mkdir -p evidence
-      - run: python3 -I scripts/rose_gate_scan.py ${{ vars.ROSE_DOMAINS }} --md evidence/scan.md --json evidence/scan.json
+      - name: Gate scan
+        # Passed through env, never interpolated into the script: a variable
+        # value is data, not shell. Split on spaces into separate arguments.
+        env:
+          ROSE_DOMAINS: ${{ vars.ROSE_DOMAINS }}
+        run: |
+          read -r -a domains <<< "$ROSE_DOMAINS"
+          python3 -I scripts/rose_gate_scan.py "${domains[@]}" --md evidence/scan.md --json evidence/scan.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
