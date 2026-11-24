@@ -61,7 +61,11 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        // next/font self-hosts Inter under a hashed family name exposed as
+        // --font-inter (set in app/[locale]/layout.tsx). Naming "Inter" alone
+        // only worked where Inter is installed locally; everyone else got the
+        // system font, which is also why CI's Linux runner measured a wider nav.
+        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
       },
       animation: {
         blob: "blob 7s infinite",
