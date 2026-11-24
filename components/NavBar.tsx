@@ -44,7 +44,7 @@ export default function NavBar() {
         {/* Cropped mark plus a real-text wordmark: the old 48px square was
             mostly transparent padding, so the rose rendered about 30px tall
             and the grey "RED ROSE" lettering was unreadable on white. */}
-        <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Red Rose Technologies, home">
+        <Link href="/" className="flex shrink-0 items-center gap-3">
           <Image
             src="/logo-mark.png"
             alt=""
@@ -53,8 +53,10 @@ export default function NavBar() {
             className="h-14 w-auto"
             priority
           />
-          <span className="flex flex-col leading-none lg:hidden xl:flex">
-            <span className="text-lg font-extrabold tracking-tight text-ink sm:text-xl">Red Rose</span>
+          {/* Screen-reader only between lg and xl (the menu needs the room), so
+              the link keeps "Red Rose Technologies" as its name at every width. */}
+          <span className="flex flex-col leading-none lg:sr-only xl:not-sr-only">
+            <span className="text-lg font-extrabold tracking-tight text-ink sm:text-xl">Red Rose</span>{" "}
             <span className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">Technologies</span>
           </span>
         </Link>
