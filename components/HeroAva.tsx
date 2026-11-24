@@ -65,7 +65,7 @@ export default function HeroAva() {
               </span>
               <span>
                 <span className="block text-sm font-semibold">Play Ava&apos;s introduction</span>
-                <span className="block text-xs text-white/90">22 seconds, with captions</span>
+                <span className="block text-xs text-white/90">24 seconds, with captions</span>
               </span>
             </span>
           </button>
