@@ -148,6 +148,11 @@ for (const width of [1024, 1280, 1440]) {
     await expect(links).toHaveCount(8);
     const heights = await links.evaluateAll((as) => as.map((a) => (a as HTMLElement).getBoundingClientRect().height));
     for (const h of heights) expect(h).toBeLessThan(24);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    // The links end before the phone/CTA group starts, so nothing overlaps.
+    const lastRight = await links.last().evaluate((a) => a.getBoundingClientRect().right);
+    const ctaLeft = await page.locator('nav[aria-label="Main navigation"] .lg\\:flex').nth(1).evaluate((d) => d.getBoundingClientRect().left);
+    expect(lastRight).toBeLessThan(ctaLeft);
+    // Same sideways check as the axe tests: scrollWidth alone misreads the homepage marquee.
+    expect(await sideways(page)).toBe(0);
   });
 }
