@@ -55,9 +55,9 @@ export async function POST(req: NextRequest) {
 
     // One fresh scan per domain per 24 hours. Inside the window the stored
     // result is shown again, so nothing is sent to the site twice.
-    const won = await store.claimDomain(target.domain, "scan", DOMAIN_WINDOW_MS);
+    const won = await store.claimDomain(target.limitKey, "scan", DOMAIN_WINDOW_MS);
     if (!won) {
-      const recent = await store.latestScan(target.domain, DOMAIN_WINDOW_MS);
+      const recent = await store.latestScan(target.limitKey, DOMAIN_WINDOW_MS);
       // Only the connection that ran the check sees it again. Anyone else
       // is told to wait, so results never pass between strangers.
       if (recent && recent.ip === ip) {
@@ -82,13 +82,14 @@ export async function POST(req: NextRequest) {
     if (!outcome.ok) {
       // A name that does not resolve or is refused was never scanned, so it
       // does not use up the domain's daily check.
-      await store.releaseDomain(target.domain, "scan");
+      await store.releaseDomain(target.limitKey, "scan");
       return json({ error: outcome.message }, outcome.reason === "refused" ? 422 : 400);
     }
 
     const record = {
       host: target.host,
-      domain: target.domain,
+      // Stored under the registrable domain: it is the rate-limit key.
+      domain: target.limitKey,
       ip,
       userAgent: userAgent(req),
       authorizationText: AUTHORIZATION_TEXT,

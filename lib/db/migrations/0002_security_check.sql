@@ -8,7 +8,7 @@
 CREATE TABLE IF NOT EXISTS security_check_scans (
   id                     UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   host                   TEXT NOT NULL,
-  domain                 TEXT NOT NULL,
+  domain                 TEXT NOT NULL,  -- registrable domain: the per-day limit key
   ip                     TEXT,
   user_agent             TEXT,
   authorization_text     TEXT NOT NULL,

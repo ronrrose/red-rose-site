@@ -1,4 +1,5 @@
 import { domainToASCII } from "node:url";
+import { getDomain } from "tldts";
 
 /**
  * Turn what a visitor typed into a hostname we are willing to look up.
@@ -14,7 +15,7 @@ import { domainToASCII } from "node:url";
  */
 
 export type TargetResult =
-  | { ok: true; host: string; domain: string }
+  | { ok: true; host: string; domain: string; limitKey: string }
   | { ok: false; reason: TargetRefusal };
 
 export type TargetRefusal =
@@ -136,7 +137,7 @@ export function parseTarget(raw: unknown): TargetResult {
     }
   }
 
-  return { ok: true, host: ascii, domain: baseDomain(ascii) };
+  return { ok: true, host: ascii, domain: baseDomain(ascii), limitKey: registrableDomain(ascii) };
 }
 
 /**
@@ -146,6 +147,15 @@ export function parseTarget(raw: unknown): TargetResult {
  */
 export function baseDomain(host: string): string {
   return host.startsWith("www.") && host.split(".").length > 2 ? host.slice(4) : host;
+}
+
+/**
+ * The registrable domain (smile.com for portal.smile.com, smile.co.uk for
+ * www.smile.co.uk), from the Public Suffix List. The once-per-day limit is
+ * keyed on this, so rotating subdomains does not buy extra scans.
+ */
+export function registrableDomain(host: string): string {
+  return getDomain(host, { allowPrivateDomains: true }) ?? baseDomain(host);
 }
 
 /**
@@ -164,15 +174,15 @@ const FREE_MAIL_DOMAINS = new Set([
 /**
  * Whether an email address is at the scanned website's domain.
  *
- * True when the email domain equals the site's base domain, or the site is a
- * subdomain of the email domain (portal.smile.com with dr@smile.com). Never
- * for a free mailbox provider.
+ * Exact match only: the email's domain must equal the site's name with any
+ * leading "www." removed. A mailbox at a parent domain does not unlock a
+ * subdomain, because a shared parent (a university, a hosting company) is
+ * not proof of running the site. Never for a free mailbox provider.
  */
 export function emailMatchesDomain(email: string, siteHost: string): boolean {
   const at = email.lastIndexOf("@");
   if (at < 1) return false;
   const emailDomain = email.slice(at + 1).trim().toLowerCase().replace(/\.$/, "");
   if (!emailDomain || FREE_MAIL_DOMAINS.has(emailDomain)) return false;
-  const site = baseDomain(siteHost.toLowerCase());
-  return site === emailDomain || site.endsWith("." + emailDomain);
+  return baseDomain(siteHost.toLowerCase()) === emailDomain;
 }

@@ -135,13 +135,28 @@ export function vetUrl(raw: string, base?: string): URL {
   return url;
 }
 
+export const DNS_TIMEOUT_MS = 3000;
+
 /** Resolve and vet. Refuses if any answer is not public. Returns the address to pin. */
-export async function resolvePublic(host: string, deps: NetDeps = defaultDeps): Promise<ResolvedAddress> {
+export async function resolvePublic(
+  host: string,
+  deps: NetDeps = defaultDeps,
+  timeoutMs: number = DNS_TIMEOUT_MS
+): Promise<ResolvedAddress> {
   let answers: ResolvedAddress[];
+  let timer: ReturnType<typeof setTimeout> | undefined;
   try {
-    answers = await deps.resolve(host);
+    // A slow nameserver must not stretch the scan past its budget.
+    answers = await Promise.race([
+      deps.resolve(host),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(new Error("dns timeout")), Math.max(100, timeoutMs));
+      }),
+    ]);
   } catch {
     throw new RefusedError("dns_failed", "The name did not resolve");
+  } finally {
+    clearTimeout(timer);
   }
   if (!answers.length) throw new RefusedError("no_address", "The name has no address");
   const bad = answers.find((a) => deps.isBlocked(a.address));
@@ -155,22 +170,27 @@ export async function resolvePublic(host: string, deps: NetDeps = defaultDeps): 
 export async function requestOnce(rawUrl: string, opts: FetchOptions = {}): Promise<HopResponse> {
   const deps = opts.deps ?? defaultDeps;
   const method = opts.method ?? "GET";
-  const remaining = opts.deadlineAt ? opts.deadlineAt - Date.now() : Infinity;
-  if (remaining < 300) throw new Error("timeout");
-  const timeoutMs = Math.min(opts.timeoutMs ?? DEFAULT_TIMEOUT_MS, remaining);
   const maxBytes = opts.maxBytes ?? DEFAULT_MAX_BYTES;
   const url = vetUrl(rawUrl);
-  const pinned = await resolvePublic(url.hostname, deps);
+  const left = () => (opts.deadlineAt ? opts.deadlineAt - Date.now() : Infinity);
+  if (left() < 300) throw new Error("timeout");
+  const pinned = await resolvePublic(url.hostname, deps, Math.min(DNS_TIMEOUT_MS, left()));
+  // Worked out after DNS, so lookup time comes out of the same budget.
+  const remaining = left();
+  if (remaining < 300) throw new Error("timeout");
+  const timeoutMs = Math.min(opts.timeoutMs ?? DEFAULT_TIMEOUT_MS, remaining);
   const isHttps = url.protocol === "https:";
   const mod = isHttps ? https : http;
 
   return new Promise<HopResponse>((resolve, reject) => {
     let settled = false;
+    let teardown: () => void = () => undefined;
     const finish = (fn: () => void) => {
       if (settled) return;
       settled = true;
       clearTimeout(deadline);
       fn();
+      teardown();
     };
 
     const req = mod.request(
@@ -246,6 +266,25 @@ export async function requestOnce(rawUrl: string, opts: FetchOptions = {}): Prom
         let truncated = false;
         const done = () =>
           finish(() => resolve({ ...base, body: Buffer.concat(chunks), truncated }));
+
+        // Tear down the response and any decompressor once we are done, so a
+        // stream cannot keep working after the cap or the timeout.
+        teardown = () => {
+          if (stream !== res) (stream as unknown as { destroy?: () => void }).destroy?.();
+          res.destroy();
+          req.destroy();
+        };
+
+        // Cap what comes over the wire too, not only what decompresses, so a
+        // stream of empty compressed blocks cannot run until the timeout.
+        let rawSize = 0;
+        if (stream !== res) res.on("data", (chunk: Buffer) => {
+          rawSize += chunk.length;
+          if (rawSize > maxBytes) {
+            truncated = true;
+            done();
+          }
+        });
 
         stream.on("data", (chunk: Buffer) => {
           if (truncated) return;

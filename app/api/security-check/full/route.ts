@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { getStore } from "@/lib/security-check/store";
 import { verifyToken } from "@/lib/security-check/tokens";
 import { addExposedFilesToResult, runScan } from "@/lib/security-check/scan";
-import { emailMatchesDomain } from "@/lib/security-check/target";
+import { emailMatchesDomain, registrableDomain } from "@/lib/security-check/target";
 import { buildReportPdf } from "@/lib/security-check/pdf";
 import { sendReportEmail, sendScanRecord } from "@/lib/security-check/emails";
 import { clientIp, json, minutes, readJson, sameOrigin, userAgent } from "@/lib/security-check/http";
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     if (!slot.allowed) return json({ error: `Too many requests. Try again in ${minutes(slot.retryAfterSeconds)}.` }, 429);
 
     const stored = typeof claims.s === "string" ? await store.getScan(claims.s) : null;
-    const domain = stored?.domain ?? claims.h.replace(/^www\./, "");
+    const domain = stored?.domain ?? registrableDomain(claims.h);
     if (!(await store.claimDomain(domain, "files", DOMAIN_WINDOW_MS))) {
       return json({ error: "The full check already ran for this domain in the last 24 hours. Check your email for that report." }, 429);
     }

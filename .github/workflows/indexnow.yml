@@ -14,7 +14,9 @@ on:
 
 jobs:
   submit:
+    # Stands down when the Rose Standard Fast Index workflow is switched on.
     if: >-
+      vars.FAST_INDEX_ENABLED != 'true' &&
       github.event.deployment_status.state == 'success' &&
       github.event.deployment_status.environment == 'Production'
     runs-on: ubuntu-latest

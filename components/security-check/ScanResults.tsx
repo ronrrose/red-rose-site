@@ -78,7 +78,10 @@ export default function ScanResults({ result, note }: { result: ScanResult; note
               Checked {scanned.toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}
             </p>
           </div>
-          <div className="flex items-center gap-4" aria-label={`Score ${result.score} out of 100, grade ${result.grade}`}>
+          <div className="flex items-center gap-4">
+            <p className="sr-only">
+              Score {result.score} out of 100, grade {result.grade}
+            </p>
             <div className="flex h-24 w-24 flex-col items-center justify-center rounded-full border-4 border-accent">
               <span className="text-3xl font-bold text-ink" aria-hidden="true">{result.score}</span>
               <span className="text-xs text-faded" aria-hidden="true">of 100</span>

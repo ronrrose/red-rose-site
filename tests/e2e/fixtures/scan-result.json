@@ -1,0 +1,297 @@
+{
+ "version": 1,
+ "host": "weak-practice.com",
+ "domain": "weak-practice.com",
+ "scannedAt": "2026-11-24T15:00:00.000Z",
+ "score": 22,
+ "grade": "F",
+ "checks": [
+  {
+   "id": "https",
+   "label": "HTTPS and certificate",
+   "status": "fail",
+   "weight": 25,
+   "summary": "The site did not answer over HTTPS.",
+   "details": [
+    "Plain HTTP visits are served without moving to HTTPS"
+   ],
+   "findings": [
+    {
+     "id": "https_unreachable",
+     "severity": "fail"
+    },
+    {
+     "id": "http_no_redirect",
+     "severity": "fail"
+    }
+   ]
+  },
+  {
+   "id": "headers",
+   "label": "Security headers",
+   "status": "fail",
+   "weight": 15,
+   "summary": "1 of 5 security headers set. Missing or weak: HSTS, Content-Security-Policy, X-Frame-Options, Referrer-Policy.",
+   "details": [
+    "X-Content-Type-Options: set",
+    "HSTS: missing",
+    "Content-Security-Policy: missing",
+    "X-Frame-Options: missing",
+    "Referrer-Policy: missing"
+   ],
+   "findings": [
+    {
+     "id": "headers_missing",
+     "severity": "fail",
+     "detail": "HSTS, Content-Security-Policy, X-Frame-Options, Referrer-Policy"
+    }
+   ]
+  },
+  {
+   "id": "email",
+   "label": "Email spoofing protection",
+   "status": "warn",
+   "weight": 25,
+   "summary": "Email protection has gaps. SPF: neutral (?all). DMARC: policy none (monitoring only). DKIM: none found at common selectors.",
+   "details": [
+    "SPF: neutral (?all)",
+    "DMARC: policy none (monitoring only)",
+    "DKIM: none found at common selectors"
+   ],
+   "findings": [
+    {
+     "id": "spf_permissive",
+     "severity": "warn",
+     "detail": "ends in ?all, which makes no decision"
+    },
+    {
+     "id": "dmarc_none",
+     "severity": "warn"
+    },
+    {
+     "id": "dkim_not_found",
+     "severity": "warn"
+    }
+   ]
+  },
+  {
+   "id": "cms",
+   "label": "Website software versions",
+   "status": "warn",
+   "weight": 15,
+   "summary": "WordPress 6.9.12 is supported but not the newest release (7.1.5).",
+   "details": [
+    "WordPress 6.9.12, read from the page's generator tag",
+    "Plugins older than the current release: elementor 3.1.0 (current 4.4.1)",
+    "Plugin versions visible: 1"
+   ],
+   "findings": [
+    {
+     "id": "cms_core_outdated",
+     "severity": "warn",
+     "detail": "WordPress 6.9.12"
+    },
+    {
+     "id": "plugin_outdated",
+     "severity": "warn",
+     "detail": "elementor 3.1.0"
+    }
+   ]
+  },
+  {
+   "id": "files",
+   "label": "Exposed common files",
+   "status": "skipped",
+   "weight": 10,
+   "summary": "Run the full check from an email address at this domain.",
+   "details": [],
+   "findings": []
+  },
+  {
+   "id": "forms",
+   "label": "Forms and booking links",
+   "status": "fail",
+   "weight": 10,
+   "summary": "A form or booking link on the homepage uses plain HTTP.",
+   "details": [
+    "The homepage itself is served over plain HTTP and contains a form",
+    "Form or embedded booking frame sends over plain HTTP to: forms.vendor-example.com",
+    "Forms on the homepage: 1"
+   ],
+   "findings": [
+    {
+     "id": "form_on_http_page",
+     "severity": "fail",
+     "detail": "1 form"
+    },
+    {
+     "id": "form_http_action",
+     "severity": "fail",
+     "detail": "forms.vendor-example.com"
+    }
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "id": "https_unreachable",
+   "severity": "fail",
+   "check": "https",
+   "title": "Your website does not load securely",
+   "why": "Browsers mark a site without HTTPS as not secure, and anything a patient types into it, like a name or phone number, travels without encryption. That is the first thing a cautious patient notices.",
+   "fix": "Ask your web host to turn on a free HTTPS certificate and send every visit to the https:// address."
+  },
+  {
+   "id": "http_no_redirect",
+   "severity": "fail",
+   "check": "https",
+   "title": "Plain HTTP visits are not moved to HTTPS",
+   "why": "Anyone who types your address without https, or follows an old link, gets an unencrypted page. On public Wi-Fi in a waiting room, that page can be read or changed in transit.",
+   "fix": "Set your site or host to permanently redirect every http:// request to https://."
+  },
+  {
+   "id": "headers_missing",
+   "severity": "fail",
+   "detail": "HSTS, Content-Security-Policy, X-Frame-Options, Referrer-Policy",
+   "check": "headers",
+   "title": "Some browser security settings are missing",
+   "why": "Security headers tell a visitor's browser how to protect your pages, for example to refuse being framed inside a fake site or to always use HTTPS. Without them, your site leans on the browser's weakest defaults.",
+   "fix": "Ask your web developer or host to add the missing headers listed above; most hosts can set them in one place."
+  },
+  {
+   "id": "form_on_http_page",
+   "severity": "fail",
+   "detail": "1 form",
+   "check": "forms",
+   "title": "A form on your homepage is not encrypted",
+   "why": "Your homepage loads over plain HTTP, so whatever a patient types into its form, such as a name, phone number or reason for visit, travels unencrypted. The HIPAA Security Rule asks practices to protect patient information in transit.",
+   "fix": "Turn on HTTPS for the whole site and redirect every http:// visit to https://."
+  },
+  {
+   "id": "form_http_action",
+   "severity": "fail",
+   "detail": "forms.vendor-example.com",
+   "check": "forms",
+   "title": "A form or booking frame sends information without encryption",
+   "why": "The page is secure, but the form or embedded booking tool sends what patients type to a plain http:// address. Browsers may block it outright or warn the patient, and the information is not protected on the way.",
+   "fix": "Change the form or booking embed to its https:// address; your booking vendor can confirm the right link."
+  }
+ ],
+ "strengths": [],
+ "requests": [
+  {
+   "method": "DNS",
+   "url": "TXT weak-practice.com",
+   "status": 1
+  },
+  {
+   "method": "DNS",
+   "url": "TXT _dmarc.weak-practice.com",
+   "status": 1
+  },
+  {
+   "method": "DNS",
+   "url": "TXT google._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT selector1._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT selector2._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT k1._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT k2._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT s1._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT s2._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT default._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT dkim._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT mail._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT smtp._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT resend._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT zoho._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT protonmail._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "DNS",
+   "url": "TXT mxvault._domainkey.weak-practice.com",
+   "status": 0,
+   "error": "ENOTFOUND"
+  },
+  {
+   "method": "GET",
+   "url": "https://weak-practice.com/",
+   "status": null,
+   "error": "ECONNREFUSED"
+  },
+  {
+   "method": "GET",
+   "url": "http://weak-practice.com/",
+   "status": 200
+  }
+ ],
+ "exposedFilesChecked": false,
+ "pageUrl": "http://weak-practice.com/",
+ "tlsVerified": false
+}

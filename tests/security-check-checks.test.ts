@@ -195,7 +195,9 @@ describe("check 5 unlock: email must be at the scanned domain", () => {
   it.each([
     ["dr@smiledental.com", "smiledental.com", true],
     ["dr@smiledental.com", "www.smiledental.com", true],
-    ["dr@smiledental.com", "portal.smiledental.com", true],
+    ["dr@smiledental.com", "portal.smiledental.com", false],
+    ["student@bigstate.edu", "clinic.bigstate.edu", false],
+    ["Dr@SmileDental.com", "smiledental.com", true],
     ["dr@mail.smiledental.com", "smiledental.com", false],
     ["dr@gmail.com", "gmail.com", false],
     ["dr@gmail.com", "sites.gmail.com", false],

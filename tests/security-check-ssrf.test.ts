@@ -1,7 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import http from "node:http";
 import type { AddressInfo } from "node:net";
-import { parseTarget } from "@/lib/security-check/target";
+import zlib from "node:zlib";
+import { parseTarget, registrableDomain } from "@/lib/security-check/target";
 import { isBlockedAddress } from "@/lib/security-check/ip";
 import {
   RefusedError,
@@ -80,6 +81,16 @@ describe("fence 1: only a bare public hostname is accepted", () => {
       expect(r.ok && r.host).toBe(host);
     });
   }
+});
+
+describe("the daily limit is keyed on the registrable domain", () => {
+  it.each([
+    ["www.smile.com", "smile.com"],
+    ["a.b.smile.com", "smile.com"],
+    ["www.smile.co.uk", "smile.co.uk"],
+    ["clinic.bigstate.edu", "bigstate.edu"],
+    ["practice.github.io", "practice.github.io"],
+  ])("%s -> %s", (host, key) => expect(registrableDomain(host)).toBe(key));
 });
 
 describe("fence 2: private and reserved addresses are refused", () => {
@@ -183,6 +194,11 @@ beforeAll(async () => {
       return res.end();
     }
     if (u === "/hang") return; // never answers
+    if (u === "/gzip-bomb") {
+      // Compresses about 1000:1, so a small cap on decoded bytes alone would let the wire run.
+      res.writeHead(200, { "Content-Type": "text/html", "Content-Encoding": "gzip" });
+      return res.end(zlib.gzipSync(Buffer.alloc(8 * 1024 * 1024, 0)));
+    }
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end("<html><body>ok</body></html>");
   });
@@ -286,6 +302,19 @@ describe("fence 5: timeouts and byte caps", () => {
     const t = Date.now();
     await expect(requestOnce("http://site.com/hang", { deps: localDeps(), timeoutMs: 400 })).rejects.toBeTruthy();
     expect(Date.now() - t).toBeLessThan(3000);
+  });
+
+  it("caps a decompression bomb", async () => {
+    const r = await requestOnce("http://site.com/gzip-bomb", { deps: localDeps(), maxBytes: 200_000 });
+    expect(r.body.length).toBeLessThanOrEqual(200_000);
+    expect(r.truncated).toBe(true);
+  });
+
+  it("gives up on a DNS answer that never comes", async () => {
+    const slow: NetDeps = { ...localDeps(), resolve: () => new Promise(() => undefined) };
+    const t = Date.now();
+    await expect(requestOnce("http://site.com/", { deps: slow, deadlineAt: Date.now() + 600 })).rejects.toMatchObject({ code: "dns_failed" });
+    expect(Date.now() - t).toBeLessThan(1500);
   });
 
   it("respects the overall scan deadline", async () => {

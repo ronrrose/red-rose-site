@@ -1,0 +1,43 @@
+# Rose Standard Fast Index (from the starter kit): after a successful
+# production deploy, submit only the sitemap URLs that are new or changed to
+# IndexNow.
+#
+# Off until Ron sets all of these in GitHub > Settings > Secrets and variables > Actions:
+#   secret   INDEXNOW_KEY        the key already published at /<key>.txt (see site-config.ts)
+#   variable SITE_URL            https://www.redrosetechnologies.com
+#   variable FAST_INDEX_ENABLED  true
+# While FAST_INDEX_ENABLED is true, the older indexnow.yml stands down so
+# URLs are not submitted twice.
+name: rose-fast-index
+on:
+  deployment_status:
+  workflow_dispatch:
+jobs:
+  index:
+    if: >-
+      vars.FAST_INDEX_ENABLED == 'true' && vars.SITE_URL != '' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Production'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: index
+          key: fast-index-${{ github.run_id }}
+          restore-keys: fast-index-
+      - name: Submit new and changed URLs
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: |
+          if [ -z "$INDEXNOW_KEY" ]; then echo "INDEXNOW_KEY secret not set; skipping"; exit 0; fi
+          python3 -I scripts/rose_fast_index.py "${{ vars.SITE_URL }}" --submit --state index/state.json --report index/last-run.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fast-index-${{ github.run_id }}
+          path: index/last-run.md
+          if-no-files-found: ignore
